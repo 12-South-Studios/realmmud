@@ -1,0 +1,66 @@
+Items To Consider how to implement:
+- Corpse
+- Rune
+- Key
+
+SpawnType
+- None
+- Space
+- Access
+
+SpawnStyle
+- Random
+- RoundRobin
+
+What can Guilds do?
+- Guild Quests?  
+
+
+Live.Mobiles
+InstanceID
+MobileID (Template)
+Location
+
+Live.MobileMemoryMap
+- MobileMemoryMapID
+- MobileID
+- EventMasterListID
+- CurrentMagnitude
+- Timestamp
+- GameTimestamp
+
+ref.EventVerbType
+- EventVerbTypeID
+- Name
+
+TODO: How does a NPC know that certain activites are legal vs illegal?
+Events?
+Kill
+Assault
+Steal
+Bribe
+UseMagic
+Trespass
+Possess - Holding an illegal item
+
+dbo.EventTemplate
+- EventTemplateID
+- EventVerbTypeID
+- Magnitude
+- DecayRate
+
+dbo.EventTemplateFactionMap
+- EventTemplateFactionMapID
+- EventTemplateID
+- FactionID
+- Delta
+
+live.EventMasterList
+- EventMasterListID
+- SpaceID
+- Timestamp
+- GameTimestamp
+- InitialMagnitude
+- EventTemplateID
+
+

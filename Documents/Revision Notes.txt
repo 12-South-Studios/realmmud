@@ -1,0 +1,13 @@
+Revision Notes
+
+2013-05-15
+* IEntityContext now inherits from IContext
+* ICharacter now inherits from IGameEntity
+* Updated Channel and ChannelMemberRepository to use ICharacter
+* FactoryHelper removed as obsolete
+* IFactoryHelper moved to Realm.Library.Common and renamed IHelper
+* Moved Commands back to Realm.Server out of Realm.Command
+* Added A* to Realm.Pathing and moved Dijkstra's code into Dijkstra folder
+* Updated all objects and functions in Realm.Server/Attributes
+* Created an AttributeContext that will be utilized by Biotas
+

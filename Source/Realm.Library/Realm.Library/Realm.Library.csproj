@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F9F27290-3395-4E60-A05F-85E890CEDCBA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Realm.Library</RootNamespace>
+    <AssemblyName>Realm.Library</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\Realm.Server\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Realm.Library.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\..\Packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Patterns\Realm.Library.Patterns.Command\Realm.Library.Patterns.Command.csproj">
+      <Project>{dd42338b-fe18-406e-8084-f606825771f6}</Project>
+      <Name>Realm.Library.Patterns.Command</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Patterns\Realm.Library.Patterns.Decorator\Realm.Library.Patterns.Decorator.csproj">
+      <Project>{2bb2460c-a3c5-410b-b139-0e16e5077aac}</Project>
+      <Name>Realm.Library.Patterns.Decorator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Patterns\Realm.Library.Patterns.Factory\Realm.Library.Patterns.Factory.csproj">
+      <Project>{74a0765e-25ad-486e-8284-33fcecf636d1}</Project>
+      <Name>Realm.Library.Patterns.Factory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Patterns\Realm.Library.Patterns.Repository\Realm.Library.Patterns.Repository.csproj">
+      <Project>{222cce38-b286-44f0-b7f1-6af8ba525fb6}</Project>
+      <Name>Realm.Library.Patterns.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Patterns\Realm.Library.Patterns.Singleton\Realm.Library.Patterns.Singleton.csproj">
+      <Project>{b459e90b-793a-48b1-b672-50d162edc662}</Project>
+      <Name>Realm.Library.Patterns.Singleton</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Realm.Library.Ai\Realm.Library.Ai.csproj">
+      <Project>{94235864-ba78-435a-a353-a8fc83fa1a06}</Project>
+      <Name>Realm.Library.Ai</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Realm.Library.Common\Realm.Library.Common.csproj">
+      <Project>{1fdee5bd-a724-4478-bca3-4c49daea291d}</Project>
+      <Name>Realm.Library.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Realm.Library.Controls\Realm.Library.Controls.csproj">
+      <Project>{355f0fb2-9bcf-4e68-bc2b-f2ede3f90750}</Project>
+      <Name>Realm.Library.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Realm.Library.Database\Realm.Library.Database.csproj">
+      <Project>{72089e12-217d-4c77-8041-8d919bbf30db}</Project>
+      <Name>Realm.Library.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Realm.Library.Lua\Realm.Library.Lua.csproj">
+      <Project>{02b1394b-866d-42ad-b187-ef9d9d459eb0}</Project>
+      <Name>Realm.Library.Lua</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Realm.Library.NCalcExt\Realm.Library.NCalcExt.csproj">
+      <Project>{d2eba739-4153-48ff-93f0-aaeb43d1ab7e}</Project>
+      <Name>Realm.Library.NCalcExt</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Realm.Library.Network\Realm.Library.Network.csproj">
+      <Project>{551f2b16-cec5-4e16-8f30-290005c04e16}</Project>
+      <Name>Realm.Library.Network</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Realm.Library.SmallDb\Realm.Library.SmallDb.csproj">
+      <Project>{7d9c9772-4747-4e29-9806-1007528bbeee}</Project>
+      <Name>Realm.Library.SmallDb</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>c:\windows\system32\xcopy "$(TargetDir)*.dll" "$(TargetDir)..\..\..\..\Libraries\" /Y
+c:\windows\system32\xcopy "$(TargetDir)*.pdb" "$(TargetDir)..\..\..\..\Libraries\" /Y</PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

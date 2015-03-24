@@ -1,0 +1,348 @@
+CURRENT ISSUES/QUESTIONS:
+
+Consider Common.Logging:  http://netcommon.sourceforge.net/
+
+Considier NHibernate: http://nhforge.org/
+
+A*Star Pathfinding Library: http://www.csharpcity.com/reusable-code/a-path-finding-library/
+
+== TCP CONNECTION PROCESS FLOW ==
+Premise: Tcp/Ip Connection is established
+
+TcpServer
+  - Throws OnTcpUserStatusChange
+NetworkManager
+  - Catches event
+  - If Disconnect
+	- Removes User from GameUserRepository
+	- Throws OnGameUserDisconnect event
+  - If Connect
+	- Creates new GameUser object
+	- Adds User to PendingGameUserQueue
+GameUser
+	- Creates a MainMenuHandler (with a reference to the LuaLoadBalancer)
+NetworkManager
+	- Calls SendMenu("MainMenu") on GameUser
+GameUser
+	- Calls SendMenu to MainMenuHandler
+MainMenuHandler
+	- Sends the OnClientEnter.lua script to the LuaLoadBalancer for the GameUser (this displays the login menu)
+
+== TCP LOGIN PROCESS FLOW ==
+Premise: Message is received on the Tcp/Ip Socket
+
+TcpServer
+	- Throws OnNetworkMessageReceived
+GameUser
+	- Catches event
+	- Loops the MenuHandlers until one says it has handled the message
+MainMenuHandler
+	- Handles the login/connect message
+	- Creates a GameUserLoginProcessor
+	- Passes the message to GameUserLoginProcessor
+GameUserLoginProcessor
+	- Creates a GameUserLoader
+	- Passes the message to the loader
+GameUserLoader
+	- Loads the GameUser
+		- If not found, throws error
+		- If Found, returns data
+MainMenuHandler
+	- Handles returned data and passes it to GameUserLoginProcessor
+GameUserLoginProcessor
+	- Validates the user's login credentials
+	- Returns a value "GameUserLoginResult" enum (Success, UsernameShort, UsernameLong, InvalidPassword, InvalidLogin
+MainMenuHandler
+	- Handles return result from LoginProcessor
+		- If !Success, displays appropriate Message
+		- If Success
+			- Throws OnUserLogin event
+			- Submits loginUser procedure
+GameUser
+	- Handles OnUserLogin event, updates UserStatus to CharacterMenu
+NetworkManager
+	- Handles OnUserLogin event, transfers GameUser from PendingUserRepository to UserRepository
+
+
+
+
+
+command Manager: 
+- GameCommandHelper - Maps Command Name to Static Class
+- GameCommandRepository - Maps Command Names to Tuple<Static Class, Definition Object>
+- GameCommandInitializer - Sets up the Repository
+
+
+--- SPECIAL LOADERS: Tags, TagSets, GameConstants
+
+--- How to load Live data?
+
+- TODO: SubDefinitions for Defs (except Ability)
+
+JMX port to .NET  http://netmx.codeplex.com/
+- Singleton object to which objects send event notifications
+
+Parameter Query:  SELECT PARAMETER_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, PARAMETER_MODE FROM INFORMATION_SCHEMA.PARAMETERS WHERE SPECIFIC_NAME = '{0}' ORDER BY ORDINAL_POSITION
+Shouldn't this also use catalog and schema?
+
+
+http://docs.nuget.org/docs/workflows/using-nuget-without-committing-packages
+
+
+=========================== REALM.DATABASE ======================
+Look into GuildUpgrade / GuildPower
+
+SendMail but alter to accomodate individual items instead of a user-defined data type
+Convert Guid to string in sproc and table for Users
+
+ALL PRIMITIVES
+TODO: Add PluralName field
+
+
+
+=========================== REALM.EDITOR ======================
+Consider ways of handling Transactions in Realm.Edit.Data
+- Each function in Realm.Edit should wrap itself in a using(TransactionScope) statement.  Within each they reference the various Dals
+- Dals for each concrete data type - Restricted Names, Abilities, Reference Data, Effects, Zones, etc
+- Dals expose methods for Saving and AcceptAll
+
+ * RealmEditDal: Consider how to delete objects
+   Options:
+   - Delete the objects entirely (how to ensure integrity with links in other mapping tables?)
+   - Flag them as deleted (would require retrieval in all tables to check the IDs table and create a way to re-constitute them)
+
+Unit Tests with both MSTest and NUnit
+http://www.codeproject.com/Articles/292902/How-to-run-NUnit-tests-in-Visual-Studio-2010-MSTes
+
+
+=========================== REALM.BUILD.TOOL ======================
+- Create the Xml Constants code
+- Figure out why the Log4Net code isn't working
+- Finish the reference tables that require special handling code
+
+
+=========================== REALM.SERVER ======================
+
+
+Missing Defs/Factories
+- Archetype
+- Faction
+- ItemSet
+- Month
+- Quest
+- Ritual
+- Tag
+- Terrain
+- Treasure
+- Barrier
+- Behavior
+- Channel
+- Conversation
+- Help
+- Liquid
+- MudProg
+- Skill
+- SkillCategory
+- Social
+
+
+Build Events (Pre): ..\Realm.Build.Tool\Realm.Build.Tool.exe -db -output ..\..\Realm.Server\Globals.cs -output ..\..\Tools\Realm.Editor\Realm.Edit\ -namespace Realm.Globals
+
+http://www.4guysfromrolla.com/articles/032807-1.aspx#postadlink
+
+or
+
+http://www.codeproject.com/Articles/16466/Unraveling-the-Mysteries-of-NET-2-0-Configuration
+http://www.codeproject.com/Articles/16724/Decoding-the-Mysteries-of-NET-2-0-Configuration
+http://www.codeproject.com/Articles/19675/Cracking-the-Mysteries-of-NET-2-0-Configuration
+
+
+
+Function evaluation: http://community.pennmush.org/book/enough-be-dangerous-conceptual-models-mushcode-3
+
+
+http://entityframeworktutorial.net/Querying-with-EDM.aspx
+
+How are MudProgs used?
+- First, they exist as individual files.  The entire file is read so no need to place it into a function within the file.  
+  External resources such as modules can be referenced.
+- Second, should be a way to attack them to a Trigger that exists on an Entity (zone, room, mob, item, spawn, etc)
+  - Objects maintain a list of Events and an associated MudProg
+  - MudProgHandler (Event, MudProg Name)
+- Third, they are directly referenced by ServiceObjects that are sold by Vendors
+
+TODO: Need a way to trigger Events on a GameEntity reliably.  Is object_x wanting to know about event_y.
+
+Admin Command - Summon
+Admin Command - SaveExamine - Saves results of Examine to file
+Admin Command - How to view "hidden" objects such as Spawns or Zones?
+Admin Command - Examine AiBrain, AiMessages, Spawn Details
+Admin Command - Generate Path (from/to)
+Admin Command - CreateChannel, UpdateChannel, DeleteChannel
+
+Mocking Events: http://www.blackwasp.co.uk/MoqEvents_2.aspx
+
+
+
+Lua String class: http://subversion.assembla.com/svn/bDWn7O4s8r34Q2eJe5cbLr/trunk/Framework/Data/String.lua
+
+http://sqlite.phxsoftware.com/forums/t/682.aspx?PageIndex=3
+
+How to Mock a NetworkStream:  http://stackoverflow.com/questions/2176975/how-to-moq-a-networkstream-in-a-unit-test
+
+TcpServer
+	Starts Listener Thread
+	Catches Client Thread
+	Creates TcpUser class
+	Calls Connect on TcpUser
+	Throws TcpUserStatusChange event
+-> 
+Game
+	Catches TcpUserStatusChange event
+	Creates GameUser class as wrapper for TcpUser
+	Adds GameUser to UserRepository
+	Sets UserState to MainMenu
+	Calls OnClientEnter.lua
+->
+MainMenuHandler
+	Connect Command is caught
+->
+LoginPlayerCommand
+	Parse submitted text into verb/username/password
+	Verify min/max length of username
+	Call sp_GetUser
+->
+PasswordUtils
+	Concatenate the PreHashId and PostHashId to the Password
+->
+LoginPlayerCommand
+	Call sp_ValidateUser
+	If successful
+		Call sp_LoginUser
+		Call Load on GameUser
+->
+GameUser
+	Call sp_GetUserProperties
+	Set UserState to CharacterMenu
+	Call sp_GetCharacters
+	Call OnPlayerLogin.lua
+->
+CharacterMenu
+	@selectchar command is caught
+->
+SelectCharacterCommand
+	Parse submitted text into character name
+	Call sp_GetCharacter
+	Create Character object
+	Call sp_GetCharacterProperties
+	Set UserState to LoggedIn
+	Throw OnGameEnter event
+->
+GameUser
+	Catches OnGameEnter event
+	Adds Character to Location
+	Calls OnZoneEnter event
+	Calls OnRoomEnter event
+	Calls OnGameEnter.lua
+
+
+
+				oUser.LoadCharacters();
+
+				/*StringBuilder sb = new StringBuilder();
+				sb.Append(Game.Instance.dateStamp());
+				sb.Append(" ");
+				sb.Append(Game.Instance.timeStamp());
+				oUser.SetProperty("lastlogin", sb.ToString());*/
+
+				oUser.Properties.SetProperty("username", uname);
+				oUser.UserState = GameUserState.CharacterMenu;
+				LuaManager.Instance.Execute("\\events\\onPlayerLogin.lua");
+
+				/*if (!oUser.loadCharacter(uname))
+				{
+					// TODO: Error, failed to load character
+					return;
+				}
+
+				oUser.setUserState(UserState.LOGGED_IN);
+				Game.Instance.SetProperty("last entered game", oUser);
+				Server.Server.Instance.luaThrowGameEnter(oUser);*/
+
+
+
+Admin Commands: Heal, SetAttribute, and SetProperty
+
+Food - Increases per-tick Stamina regen (separate for in-combat versus out-of-combat)
+Drink - Increases per-tick Mana regen (separate for in-combat versus out-of-combat)
+
+Stances - Buffs that enhance your core stats
+
+XP System:
+- Cap on the amount of XP you can earn per kill (something like XPCap x Level)
+
+Grouping:
+GroupManager maintains global groups
+Groups are objects that contain a list of players
+
+Aggro:
+- Anyone involved in combat with a mob generates aggro
+- Damage, Healing, Buffs/Debuffs, these all generate aggro
+- XP award is multiplied by the ratio of your aggro to total aggro generated on the mob
+- First hit to the mob "locks" it.  So if you kill-steal you get 0 XP.
+
+Looting:
+- You cannot loot a mob that is locked (to prevent kill-stealing)
+
+
+yes and no. of the core systems abilities, barriers (doors), and then Combat, Level Gain, 
+Training, Loot/Treasure, Death and Character Creation. Not a huge list, but significant.
+
+After that, I'd say the remaining stuff is all fringe... From the GDD, I've got Guilds, 
+Banking, Quests, Rituals, Factions, Auctions, Mail, Blacksmith (Item Repair), more detailed AI, 
+Light/Fire, Hunger/Thirst, and then a whole host of specialized item types like Locks, Traps,
+ Furniture, Portals, Runes and Vehicles. And then of course fleshing out combat with stuff like taunts, stances, etc.
+
+
+
+TURN SCORE INTO lua script
+
+Social commands need to escape regex characters (except ##)
+Property command can set string properties on player
+
+
+
+
+1. Combat Magical Dodge/Block/Parry (Fade/Ward/Turn)
+2. Classes
+3. Effects/Effects (they load/save, flesh them out)
+4. Eat command
+5. Abilities/Spells
+6. Item Triggers (on use) 
+7. Skill Checks (Need a method for checking to see if your skill use succeeds)
+8. Combat
+9. Doors/Barriers
+10. Pathfinding
+11. Patrol Routes
+12. Lamplighting
+13. Trainers
+14. Coroners
+15. Mail
+16. Auctions
+
+
+(Attack Score + 1D100) - (Defense Score) = Result.
+
+If Result > 0 then process as a potential hit (process dodge, block and parry).  Otherwise its a miss.
+If Result >= 100 then it is considered a Devastating Hit (25 - 50% additional damage).
+
+* Attack Score is a combined score of Weapon Skill, Stat Bonuses, Weapon Bonuses, and Spell Bonuses.
+* Defense Score is a combined score of Armor Bonuses, Defense Skill, Stat Bonuses, and Spell Bonuses.
+* Each component that contributes to the score has a maximum value of 50.
+
+Specific armor locations can be hit and each piece of armor you are wearing has a Resist value that helps 
+you reduce the incoming damage. Armor will also take damage over time.
+
+Starting out you cannot target specific locations, they are determined randomly, but later on you learn more specific 
+maneuvers (skills) that allow you to target specific locations.
+
