@@ -1,0 +1,38 @@
+﻿<Window x:Class="Realm.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" 
+        FontWeight="Normal" 
+        Closing="WindowClosing" 
+        mc:Ignorable="d" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        d:DesignHeight="406" 
+        d:DesignWidth="743" 
+        SizeToContent="WidthAndHeight" 
+        Visibility="Visible">
+    <Grid Height="373" Width="725">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="180*" />
+            <RowDefinition Height="193" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="317*" />
+            <ColumnDefinition Width="128" />
+            <ColumnDefinition Width="280*" />
+        </Grid.ColumnDefinitions>
+        <Button Content="Stop" Height="23" HorizontalAlignment="Center" Margin="26,124,27,0" Name="StopButton" VerticalAlignment="Top" Width="75" Grid.Column="1" Click="StopButtonClick" />
+        <Button Content="Start" Height="23" HorizontalAlignment="Center" Margin="26,124,27,0" Name="StartButton" VerticalAlignment="Top" Width="75" Grid.Column="1" Click="StartButtonClick" />
+        <Image Height="95" Margin="6,0,9,0" Name="ServerDownImage" Stretch="Fill" VerticalAlignment="Top" Grid.Column="1" Source="/Realm;component/Images/red_circle.png" HorizontalAlignment="Center" Width="113" />
+        <Image Height="95" HorizontalAlignment="Center" Margin="6,0,9,0" Name="ServerUpImage" Stretch="Fill" VerticalAlignment="Top" Width="113" Grid.Column="1" Source="/Realm;component/Images/green_circle.png" />
+        <Label Content="Game Title" Height="32" HorizontalAlignment="Left" Margin="12,12,0,0" Name="TitleLabel" VerticalAlignment="Top" Width="305" FontSize="16" FontWeight="Bold" />
+        <Label Content="Host:Port" Height="33" HorizontalAlignment="Left" Margin="12,49,0,0" Name="PortHostLabel" VerticalAlignment="Top" Width="167" BorderThickness="1" />
+        <Label Content="Up-Time" Height="28" HorizontalAlignment="Left" Margin="12,88,0,0" Name="ServerUpTime" VerticalAlignment="Top" Width="305" BorderThickness="1" />
+        <Label Content="Users Connected" Height="25" HorizontalAlignment="Left" Margin="12,122,0,0" Name="UsersConnectedLabel" VerticalAlignment="Top" Width="183" />
+        <!--<RichTextBox Grid.Row="1" Height="193" HorizontalAlignment="Left" Name="txtLogs" VerticalAlignment="Top" Width="724" Grid.ColumnSpan="3"
+                     IsReadOnly="True" VerticalScrollBarVisibility="Auto" />-->
+        <TextBox Grid.Row="1" Height="193" HorizontalAlignment="Left" Name="txtLogs" VerticalAlignment="Top" Width="724" Grid.ColumnSpan="3"
+                     IsReadOnly="True" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" />
+        <Label Content="0 Callstacks" Height="25" HorizontalAlignment="Left" Margin="12,155,0,0" Name="lblCallstackCount" VerticalAlignment="Top" Width="183" />
+        <Label Content="Service Status" Height="32" HorizontalAlignment="Left" Margin="12,12,0,0" Name="ServerServiceStatus" VerticalAlignment="Top" Width="305" FontSize="16" FontWeight="Bold" />
+    </Grid>
+</Window>

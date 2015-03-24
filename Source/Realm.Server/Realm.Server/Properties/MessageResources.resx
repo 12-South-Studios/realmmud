@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MSG_ADMIN_CREATE_INV" xml:space="preserve">
+    <value>#admin_create_inv#</value>
+  </data>
+  <data name="MSG_ADMIN_CREATE_OTHER" xml:space="preserve">
+    <value>#admin_create_other#</value>
+  </data>
+  <data name="MSG_ADMIN_CREATE_SELF" xml:space="preserve">
+    <value>#admin_create_self#</value>
+  </data>
+  <data name="MSG_ADMIN_DETAIL_OFF" xml:space="preserve">
+    <value>#admin_detail_off#</value>
+  </data>
+  <data name="MSG_ADMIN_DETAIL_ON" xml:space="preserve">
+    <value>#admin_detail_on#</value>
+  </data>
+  <data name="MSG_ADMIN_MONITOR_SPAWN" xml:space="preserve">
+    <value>[{0} #{1}] {2}</value>
+  </data>
+  <data name="MSG_ADMIN_NOT_ENTITY" xml:space="preserve">
+    <value>#admin_not_entity#</value>
+  </data>
+  <data name="MSG_ADMIN_NOT_MOB" xml:space="preserve">
+    <value>#admin_not_mob#</value>
+  </data>
+  <data name="MSG_ADMIN_SAVE" xml:space="preserve">
+    <value>#admin_save#</value>
+  </data>
+  <data name="MSG_ADMIN_SAVE_NOT_FOUND" xml:space="preserve">
+    <value>#admin_save_not_found#</value>
+  </data>
+  <data name="MSG_ADMIN_SAVE_OTHER" xml:space="preserve">
+    <value>#admin_save_other#</value>
+  </data>
+  <data name="MSG_ADMIN_SAVE_SELF" xml:space="preserve">
+    <value>#admin_save_self#</value>
+  </data>
+  <data name="MSG_ADMIN_SAVE_TARGET" xml:space="preserve">
+    <value>#admin_save_target#</value>
+  </data>
+  <data name="MSG_ADMIN_SPAWN_SELF" xml:space="preserve">
+    <value>#admin_spawn_self#</value>
+  </data>
+  <data name="MSG_ADMIN_WHERE" xml:space="preserve">
+    <value>#admin_where#</value>
+  </data>
+  <data name="MSG_AI_ALREADY_AT_DESTINATION" xml:space="preserve">
+    <value>Already at destination</value>
+  </data>
+  <data name="MSG_AI_CHOSE_NOT_TO_MOVE" xml:space="preserve">
+    <value>Not moving this tick</value>
+  </data>
+  <data name="MSG_AI_COMBAT_CANNOT_WANDER" xml:space="preserve">
+    <value>I'm in combat, can't wander!  How did WanderState get to the top?</value>
+  </data>
+  <data name="MSG_AI_INVALID_DESTINATION" xml:space="preserve">
+    <value>Invalid move location</value>
+  </data>
+  <data name="MSG_AI_MOVING_TO" xml:space="preserve">
+    <value>I'm moving to destination {0}</value>
+  </data>
+  <data name="MSG_AI_NEEDSTATE_ISDEAD" xml:space="preserve">
+    <value>Mob[{0}, {1}] =&gt; NeedState =&gt; IsDead.</value>
+  </data>
+  <data name="MSG_AI_NEEDSTATE_NOTHING" xml:space="preserve">
+    <value>Mob[{0}, {1}] =&gt; NeedState =&gt; DoNothing.</value>
+  </data>
+  <data name="MSG_AI_NEEDSTATE_STATE" xml:space="preserve">
+    <value>Mob[{0}, {1}] =&gt; NeedState =&gt; State[{2}, {3}].</value>
+  </data>
+  <data name="MSG_AI_NO_PORTAL_TO_DESTINATION" xml:space="preserve">
+    <value>No portal from my current location to my destination</value>
+  </data>
+  <data name="MSG_AI_STATIONARY_CANNOT_WANDER" xml:space="preserve">
+    <value>I'm a stationary mob!  Why do I have a Wander state?</value>
+  </data>
+  <data name="MSG_CANNOT_MOVE_DEAD" xml:space="preserve">
+    <value>#cannot_move_dead#</value>
+  </data>
+  <data name="MSG_CANNOT_MOVE_DIR" xml:space="preserve">
+    <value>#cannot_move_dir#</value>
+  </data>
+  <data name="MSG_CANNOT_MOVE_FIGHTING" xml:space="preserve">
+    <value>#cannot_move_fighting#</value>
+  </data>
+  <data name="MSG_CANNOT_MOVE_NODIR" xml:space="preserve">
+    <value>#cannot_move_nodir#</value>
+  </data>
+  <data name="MSG_CANNOT_MOVE_NOEXITS" xml:space="preserve">
+    <value>#cannot_move_noexits#</value>
+  </data>
+  <data name="MSG_CANNOT_MOVE_NOTALLOW" xml:space="preserve">
+    <value>#cannot_move_notallow#</value>
+  </data>
+  <data name="MSG_CANNOT_MOVE_POSITION" xml:space="preserve">
+    <value>#cannot_move_position#</value>
+  </data>
+  <data name="MSG_CANNOT_MOVE_STAMINA" xml:space="preserve">
+    <value>#cannot_move_insufstamina#</value>
+  </data>
+  <data name="MSG_CANNOT_MOVE_TERRAIN" xml:space="preserve">
+    <value>#cannot_move_terrain#</value>
+  </data>
+  <data name="MSG_CHANNEL_ADD_RESTRICTION" xml:space="preserve">
+    <value>Restriction[{0}] added to Channel[{1}, {2}]</value>
+  </data>
+  <data name="MSG_CHANNEL_CHANGE_OWNER" xml:space="preserve">
+    <value>{0} has passed ownership of the channel to {1}.</value>
+  </data>
+  <data name="MSG_COPPER_LONG" xml:space="preserve">
+    <value>{0} copper</value>
+  </data>
+  <data name="MSG_COPPER_SHORT" xml:space="preserve">
+    <value>{0}c</value>
+  </data>
+  <data name="MSG_DATE_NOT_SHROUDING" xml:space="preserve">
+    <value>It is the {0} day of {1} in the year {2}.</value>
+  </data>
+  <data name="MSG_DATE_SHROUDING" xml:space="preserve">
+    <value>It is the {0} in the year {1}.</value>
+  </data>
+  <data name="MSG_EFFECT_ADDED_TO_ABILITY" xml:space="preserve">
+    <value>Effect[{0}] added to Ability[{1}, {2}]</value>
+  </data>
+  <data name="MSG_ERR" xml:space="preserve">
+    <value>#error#</value>
+  </data>
+  <data name="MSG_GAME_START" xml:space="preserve">
+    <value>Game Startup :: Segment Length is {0} milliseconds.</value>
+  </data>
+  <data name="MSG_GAME_STOP" xml:space="preserve">
+    <value>Stopping Game Loop at {0}</value>
+  </data>
+  <data name="MSG_GOLD_LONG" xml:space="preserve">
+    <value>{0} gold</value>
+  </data>
+  <data name="MSG_GOLD_SHORT" xml:space="preserve">
+    <value>{0}g</value>
+  </data>
+  <data name="MSG_HELP_ENTRY" xml:space="preserve">
+    <value>#help_entry#</value>
+  </data>
+  <data name="MSG_HELP_NO_DEFAULT" xml:space="preserve">
+    <value>#help_no_default#</value>
+  </data>
+  <data name="MSG_HELP_NO_ENTRY" xml:space="preserve">
+    <value>#help_no_entry#</value>
+  </data>
+  <data name="MSG_INITIALIZE_MANAGER" xml:space="preserve">
+    <value>Manager {0} initialized.</value>
+  </data>
+  <data name="MSG_INVALID_MENU" xml:space="preserve">
+    <value>#invalid_menu#</value>
+  </data>
+  <data name="MSG_MOBILE_ADDED_TO_BUCKET" xml:space="preserve">
+    <value>Mobile Instance[{0}] added to AIBucket[{1}]</value>
+  </data>
+  <data name="MSG_MOBILE_REMOVED_FROM_BUCKET" xml:space="preserve">
+    <value>Mobile Instance[{0}] removed from AIBucket[{1}]</value>
+  </data>
+  <data name="MSG_NOTHING_HERE" xml:space="preserve">
+    <value>#nothing_here#</value>
+  </data>
+  <data name="MSG_NOT_AUTHORIZED" xml:space="preserve">
+    <value>#not_authorized#</value>
+  </data>
+  <data name="MSG_NOT_FUNCTIONAL" xml:space="preserve">
+    <value>#not_functional#</value>
+  </data>
+  <data name="MSG_NOT_IN_SPACE" xml:space="preserve">
+    <value>#not_in_space#</value>
+  </data>
+  <data name="MSG_NOT_UNDERSTAND" xml:space="preserve">
+    <value>#not_understand#</value>
+  </data>
+  <data name="MSG_NO_ITEM" xml:space="preserve">
+    <value>#no_item#</value>
+  </data>
+  <data name="MSG_NO_MOB" xml:space="preserve">
+    <value>#no_mob#</value>
+  </data>
+  <data name="MSG_NO_OBJECT" xml:space="preserve">
+    <value>#no_object#</value>
+  </data>
+  <data name="MSG_PLATINUM_LONG" xml:space="preserve">
+    <value>{0} platinum</value>
+  </data>
+  <data name="MSG_PLATINUM_SHORT" xml:space="preserve">
+    <value>{0}p</value>
+  </data>
+  <data name="MSG_QUIT" xml:space="preserve">
+    <value>Thank you for playing!  Good-bye.</value>
+  </data>
+  <data name="MSG_REAGANT_ADDED_TO_ABILITY" xml:space="preserve">
+    <value>Reagant[{0}] added to Ability[{1}, {2}]</value>
+  </data>
+  <data name="MSG_SAVE_SUCCESSFUL" xml:space="preserve">
+    <value>Character data saved successfully.</value>
+  </data>
+  <data name="MSG_SILVER_LONG" xml:space="preserve">
+    <value>{0} silver</value>
+  </data>
+  <data name="MSG_SILVER_SHORT" xml:space="preserve">
+    <value>{0}s</value>
+  </data>
+  <data name="MSG_SINGLETON_INITIALIZED" xml:space="preserve">
+    <value>{0} initialized.</value>
+  </data>
+  <data name="MSG_TEL_CANNOT_ENTER" xml:space="preserve">
+    <value>#tel_cannot_enter#</value>
+  </data>
+  <data name="MSG_TEL_INVALID_DEST" xml:space="preserve">
+    <value>#tel_invalid_dest</value>
+  </data>
+  <data name="MSG_TIME" xml:space="preserve">
+    <value>The time is about {0} o'clock {1}.</value>
+  </data>
+  <data name="MSG_USERNAME_LONG" xml:space="preserve">
+    <value>#username_long#</value>
+  </data>
+  <data name="MSG_USERNAME_SHORT" xml:space="preserve">
+    <value>#username_short#</value>
+  </data>
+  <data name="MSG_USER_ADDED" xml:space="preserve">
+    <value>User[{0}] added to UserRepository.</value>
+  </data>
+  <data name="MSG_WHERE_NOT_PLAYER" xml:space="preserve">
+    <value>#where_not_player#</value>
+  </data>
+  <data name="MSG_WHERE_NO_CHAR" xml:space="preserve">
+    <value>#where_no_char#</value>
+  </data>
+  <data name="MSG_ZONE_AI_PROCESSING" xml:space="preserve">
+    <value>Zone[{0}, {1}] processing {2} Mobs.</value>
+  </data>
+  <data name="MSG_ZONE_STARTUP" xml:space="preserve">
+    <value>{0} zones instantiated at startup.</value>
+  </data>
+</root>

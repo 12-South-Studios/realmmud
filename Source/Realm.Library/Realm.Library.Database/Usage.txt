@@ -1,0 +1,44 @@
+﻿Realm.Library.Database
+This library project is designed to provide two layers of database functionality that can be incorporated into a project.
+
+Layer 1 - Basic
+This layer is the default and abstracts parameters and procedures so that different types of database back-ends can be used.
+
+IDbParameter - Defines a contract for a database parameter.  Inherits from System.Data.IDataParameter.
+IProcedure - Defines the basic contract for a database procedure, including parameter management.
+StoredProcedure - An object used to define a command procedure (sql stored procedure)
+TextProcedure - An object used to define a text procedure (straight sql command such as select * from x)
+DbParameter - Implements the IDbParameter interface
+IDatabaseWrapper - Provides an interface that lets someone define a basic database management interface
+
+TypeConverter - Provides a series of utility functions for compatibility between CLR and SQL data types.
+DatabaseUtils - Provides a set of utility functions for parameter management.
+DatabaseExtensions - Some basic usage extensions for DataTables and various database objects (Transaction, Command, etc).
+
+Layer 2 - Framework
+This layer provides a more advanced framework for database management that implements such concepts as load-balanced and 
+threaded database server objects, transaction sets (units of work) and more.
+
+DatabaseClient - An object that implements basic database functionality that can be inherited from or injected quite easily.
+DatabaseServer - This object does the heavy lifting by maintaining a connection, performing transaction and command execution 
+and doing any requisite callbacks.
+
+DatabaseServerContext - an object to use if you want to provide multiple DatabaseServer objects for load balancing and thread safety.
+IDatabaseLoadBalancer - A simple interface that defines an easy entry point that can be used by an object such as a Singleton to 
+provide execution to some element (such as a DatabaseServer or the Context)
+
+IProcedureLoader - Interface that defines the contract for a procedure loader which sets up and creates the IProcedure objects.
+IProcedureRepository - Interface that defines the contract for a repository of IProcedures
+PendingCommand - Core object that defines a database command to execute including parameter data.
+PendingTransaction - Core object that defines a transaction (unit of work) that can include multiple pending command objects.
+ProcedureRepository - Implementation of the IProcedureRepository interface.  Inherits from Repository so does not implement any actual functionality beyond object typing.
+
+How is Realm.Library.Database used?
+
+Command Results
+// CommandResult is a ListAtom of DictionaryAtoms
+// Each Result within the CommandResult contains two keys:
+//   Results = ListAtom of DictionaryAtoms
+//      Each DictionaryAtom in the Results list represents a Row and contains the Column entries
+//      indexed by ColumnName with column value
+//   CommandName = Database command executed

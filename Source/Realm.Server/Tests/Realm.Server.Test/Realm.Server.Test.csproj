@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6A3E84D1-94E8-479E-AC17-CA2A5150E849}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Realm.Server.Test</RootNamespace>
+    <AssemblyName>Realm.Server.Test</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Home|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Home\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Home|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Home\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Work|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Work\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Work|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Work\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Moq">
+      <HintPath>..\..\..\Libraries\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\..\Libraries\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Realm.Library.Ai, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\Realm.Library.Ai.dll</HintPath>
+    </Reference>
+    <Reference Include="Realm.Library.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Libraries\Realm.Library.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="VikingErik.LuaInterface">
+      <HintPath>..\..\packages\VikingErik.LuaInterface.1.0.4213.34901\lib\net35\VikingErik.LuaInterface.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
+      <Visible>False</Visible>
+    </CodeAnalysisDependentAssemblyPaths>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Helpers\FakeAiState.cs" />
+    <Compile Include="Helpers\FakeEffectTemplate.cs" />
+    <Compile Include="Helpers\FakeEntity.cs" />
+    <Compile Include="Helpers\FakeItemInstance.cs" />
+    <Compile Include="Helpers\FakeItemTemplate.cs" />
+    <Compile Include="Helpers\FakeMobInstance.cs" />
+    <Compile Include="Helpers\FakeWeaponInstance.cs" />
+    <Compile Include="Helpers\TestHelper.cs" />
+    <Compile Include="Helpers\FakeGameEntity.cs" />
+    <Compile Include="Helpers\FakeGameInstance.cs" />
+    <Compile Include="Helpers\FakeGameTemplate.cs" />
+    <Compile Include="Helpers\FakeGameUser.cs" />
+    <Compile Include="Realm.Server.Ai\BehaviorTest.cs" />
+    <Compile Include="Realm.Server.Ai\MobBrainTest.cs" />
+    <Compile Include="Realm.Server.Attributes\AttributeUtilsTest.cs" />
+    <Compile Include="Realm.Server.Attributes\SkillAttributeTest.cs" />
+    <Compile Include="Realm.Server.Attributes\StatAttributeTest.cs" />
+    <Compile Include="Realm.Server.Channels\ChannelRepositoryTest.cs" />
+    <Compile Include="Realm.Server.Channels\PlayerChannelTest.cs" />
+    <Compile Include="Realm.Server.Channels\SocialTest.cs" />
+    <Compile Include="Realm.Server.Extensions\CommandExtensionsTest.cs" />
+    <Compile Include="Realm.Server.Effects\EffectsHandlerTest.cs" />
+    <Compile Include="Realm.Server.Entities\EntityHandlerTest.cs" />
+    <Compile Include="Realm.Server.Handlers\BitHandlerTest.cs" />
+    <Compile Include="Realm.Server.Handlers\ContentsHandlerTest.cs" />
+    <Compile Include="Realm.Server.Handlers\StatisticHandlerTest.cs" />
+    <Compile Include="Realm.Server.Items.Fuel\LiquidFuelTest.cs" />
+    <Compile Include="Realm.Server.Items.Fuel\SolidFuelTest.cs" />
+    <Compile Include="Realm.Server.Items\LiquidTest.cs" />
+    <Compile Include="Realm.Server.NPC.Combat\AttackTest.cs" />
+    <Compile Include="Realm.Server.NPC.Combat\DamageTest.cs" />
+    <Compile Include="Realm.server.Players.Network\HashHandlerTest.cs" />
+    <Compile Include="Realm.server.Players.Network\HashRepositoryTest.cs" />
+    <Compile Include="Realm.server.Players.Network\HashTest.cs" />
+    <Compile Include="Realm.Server.Players\AbilityRepositoryTest.cs" />
+    <Compile Include="Realm.Server.Players\ArchetypeTest.cs" />
+    <Compile Include="Realm.Server.Zones.Spawn\SpawnLocationTest.cs" />
+    <Compile Include="Realm.Server.Zones.Spawn\SpawnProfileTest.cs" />
+    <Compile Include="Realm.Server.Zones\AccessLevelTest.cs" />
+    <Compile Include="Realm.Server.Zones\DeityTest.cs" />
+    <Compile Include="Realm.Server.Zones\BarrierTest.cs" />
+    <Compile Include="Realm.Server.Zones\PortalHandlerTest.cs" />
+    <Compile Include="Realm.Server.Zones\PortalTest.cs" />
+    <Compile Include="Realm.Server.Zones\TerrainTest.cs" />
+    <Compile Include="Realm.Server\CurrencyTest.cs" />
+    <Compile Include="Realm.Server.Time\CurrentTimeStateTest.cs" />
+    <Compile Include="Realm.Server.Extensions\GlobalsExtensionTest.cs" />
+    <Compile Include="Realm.Server.Handlers\FlagHandlerTest.cs" />
+    <Compile Include="Realm.Server.Time\MonthTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Realm.Server.Handlers\PropertyHandlerTest.cs" />
+    <Compile Include="Realm.Server.Handlers\TagHandlerTest.cs" />
+    <Compile Include="Realm.Server\HelpEntryTest.cs" />
+    <Compile Include="Realm.Server\LuaHelperTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Realm.Help\Realm.Help.csproj">
+      <Project>{125d2f7f-c246-4401-a72c-93ceeadd9335}</Project>
+      <Name>Realm.Help</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Realm.Server\Realm.Server.csproj">
+      <Project>{1FDDA9AD-0242-4D48-A824-ACF24B3B2B0B}</Project>
+      <Name>Realm.Server</Name>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Realm.Server.Abilities\" />
+    <Folder Include="Realm.Server.Commands\" />
+    <Folder Include="Realm.Server.Definitions\" />
+    <Folder Include="Realm.Server.Events\" />
+    <Folder Include="Realm.Server.Factories\" />
+    <Folder Include="Realm.Server.Loaders\" />
+    <Folder Include="Realm.Server.NPC\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
