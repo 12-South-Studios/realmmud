@@ -1,6 +1,22 @@
 # realmmud
 Automatically exported from code.google.com/p/realmmud
 
+RealmMUD - A multi-user dungeon application
+Copyright (C) 2015 Jason Murdick
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 RealmMUD is an original MUD (Multi-User Dimension or Dungeon) project that has evolved since 2001.  It began as a simple MUD written in C called TMUD (originally written by Zanth), ported to c++ in 2004 and then rewritten from the ground up in C# from 2008 onwards.
 
 RealmMUD is split into two major components (at this time):
@@ -13,9 +29,6 @@ However, the repository contains five distinct Visual Studio solutions:
  * Realm.Library - A large set of common libraries containing common data structures and functions.
  * Realm.Database - A SQL Server project that defines the MUD's database schema.
  * Realm.Build.Tool - A tool that exports constant data from the database to a Globals file.
- 
-Licensing:
-RealmMUD is licensed under the GNU General Public License v3.0 (http://opensource.org/licenses/GPL-3.0) and as such no warranties exist from use of this software and all changes and moficiations down-stream must use this licensing agreement.
 
 RealmMUD utilizes numerous third-party libraries including:
 Ninject - https://github.com/ninject/ninject/blob/master/LICENSE.txt
