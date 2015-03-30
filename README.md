@@ -18,7 +18,7 @@ However, the repository contains five distinct Visual Studio solutions:
  * RealmMUD - The main server component of the MUD.
  * Realm.Edit - The primary tool for editing/creating content for the MUD.
  * Realm.Library - A large set of common libraries containing common data structures and functions.
- * Realm.Database - A SQL Server project that defines the MUD's database schema.
+ * Realm.Database - A solution that defines the database entities (using Code-First Entity Framework) and also functions to deploy schema migrations to the three databases used by the MUD (Realm, RealmAdmin, and RealmLive).
  * Realm.Build.Tool - A tool that exports constant data from the database to a Globals file.
 
 RealmMUD utilizes numerous third-party libraries including:
