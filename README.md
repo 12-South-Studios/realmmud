@@ -31,3 +31,7 @@ RealmMUD utilizes numerous third-party libraries including:
  * LuaInterface - https://code.google.com/p/luainterface/ 
 
 Relevant License files are also included in the main repository folder.
+
+Obsolete Folders/Files - Because of the long-term nature of this project and the fact that its grown and evolved so much over the years (C, C++, C#, flat-files, Lua, database, etc) there are numerous legacy files remaining in the structure.  For example, nearly every file in the /Data/ folder is obsolete but has been left in place for reference.  
+
+Documentation Files - Some files within the /Documentation/ folder are also obsolete, from a day before the project was under source control.  Other files, such as the Startup Process, Code Concepts, and Combat Calculations are there for reference and may not be relevant to any future projects.
