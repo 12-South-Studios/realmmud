@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 
 namespace Realm.Library.Network
 {
@@ -22,9 +23,10 @@ namespace Realm.Library.Network
         /// </summary>
         event EventHandler<NetworkEventArgs> OnNetworkMessageReceived;
 
-        /// <summary>
-        ///
-        /// </summary>
         TcpServerStatus Status { get; }
+
+        void Startup(int port, IPAddress host);
+        void Shutdown(string message);
+        bool DisconnectUser(string id);
     }
 }
