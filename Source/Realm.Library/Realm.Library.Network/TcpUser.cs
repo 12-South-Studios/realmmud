@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Sockets;
 using Realm.Library.Common.Logging;
-using Realm.Library.Network.Mxp;
 using Realm.Library.Network.Properties;
 
 namespace Realm.Library.Network
@@ -18,10 +18,10 @@ namespace Realm.Library.Network
         /// </summary>
         /// <param name="log"></param>
         /// <param name="tcpClient"></param>
-        /// <param name="formatter"></param>
+        /// <param name="formatters"></param>
         [ExcludeFromCodeCoverage]
-        public TcpUser(ILogWrapper log, TcpClient tcpClient, IFormatter formatter)
-            : base(log, tcpClient, formatter)
+        public TcpUser(ILogWrapper log, TcpClient tcpClient, IEnumerable<IFormatter> formatters)
+            : base(log, tcpClient, formatters)
         {
             var guid = Guid.NewGuid();
             Id = guid.ToString();
@@ -37,8 +37,8 @@ namespace Realm.Library.Network
         /// </summary>
         public void OnConnect()
         {
-            if (Formatter is MxpFormatter)
-                this.EnableMxp(ClientStream);
+            foreach(var formatter in Formatters)
+                formatter.Enable(this, ClientStream);
             Log.InfoFormat(Resources.MSG_TCPUSER_CONNECT, Id, IpAddress);
         }
 

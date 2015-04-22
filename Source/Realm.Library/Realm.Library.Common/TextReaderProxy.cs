@@ -99,7 +99,7 @@ namespace Realm.Library.Common
 
         public List<string> ReadIntoList(char[] splitChars = null)
         {
-            char[] charsToSplit = new[] { '\n' };
+            char[] charsToSplit = { '\n' };
 
             return
                 new List<string>(

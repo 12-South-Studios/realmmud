@@ -3,10 +3,8 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Threading.Tasks;
-using Realm.Library.Common.Logging;
-using log4net;
 using Realm.Library.Common;
+using Realm.Library.Common.Logging;
 
 namespace Realm.Library.Database.Framework
 {
@@ -27,13 +25,13 @@ namespace Realm.Library.Database.Framework
         /// <param name="procedureLoaders"></param>
         [SuppressMessage("Microsoft.Reliability", "CA2000:DisposeObjectsBeforeLosingScope",
                  Justification = "DatabaseServers are disposed in Context finalizer")]
-        public DatabaseServerContext(LogWrapper log, string connectionString, int numberServers,
+        public DatabaseServerContext(ILogWrapper log, string connectionString, int numberServers,
             IEnumerable<IProcedureLoader> procedureLoaders)
             : base(1, "DatabaseServerContext")
         {
             Validation.IsNotNull(log, "log");
             Validation.IsNotNullOrEmpty(connectionString, "connectionString");
-            Validation.Validate<ArgumentOutOfRangeException>(numberServers > 0 && numberServers <= Int32.MaxValue);
+            Validation.Validate<ArgumentOutOfRangeException>(numberServers > 0);
             Validation.IsNotNull(procedureLoaders, "procedureLoaders");
 
             Validation.Validate(procedureLoaders.Any());

@@ -1,4 +1,5 @@
-﻿using Realm.Library.Common;
+﻿using System.Net.Sockets;
+using Realm.Library.Common;
 
 namespace Realm.Library.Network
 {
@@ -17,6 +18,11 @@ namespace Realm.Library.Network
             Validation.IsNotNullOrEmpty(value, "value");
 
             return value;
+        }
+
+        public void Enable(ITcpUser tcpUser, NetworkStream clientStream)
+        {
+            // do nothing
         }
     }
 }

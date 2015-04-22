@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -19,17 +21,17 @@ namespace Realm.Library.Network
         /// </summary>
         /// <param name="log"></param>
         /// <param name="tcpClient"></param>
-        /// <param name="formatter"></param>
+        /// <param name="formatters"></param>
         [ExcludeFromCodeCoverage]
-        protected TcpClientWrapper(ILogWrapper log, TcpClient tcpClient, IFormatter formatter)
+        protected TcpClientWrapper(ILogWrapper log, TcpClient tcpClient, IEnumerable<IFormatter> formatters)
         {
             Validation.IsNotNull(log, "log");
             Validation.IsNotNull(tcpClient, "tcpClient");
-            Validation.IsNotNull(formatter, "formatter");
+            Validation.IsNotNull(formatters, "formatters");
 
             Log = log;
             TcpClient = tcpClient;
-            Formatter = formatter;
+            Formatters = formatters;
 
             var ip = tcpClient.Client.RemoteEndPoint as IPEndPoint;
             if (ip.IsNotNull())
@@ -52,7 +54,7 @@ namespace Realm.Library.Network
         /// <summary>
         ///
         /// </summary>
-        protected IFormatter Formatter { get; private set; }
+        protected IEnumerable<IFormatter> Formatters { get; private set; }
 
         /// <summary>
         /// Gets the IpAddress of the connected user
@@ -83,9 +85,11 @@ namespace Realm.Library.Network
 
             try
             {
-                var formattedString = Formatter.Format(msg);
+                foreach (var formattedString in Formatters.Select(formatter => formatter.Format(msg)))
+                {
+                    clientStream.Write(encoder.GetBytes(formattedString), 0, formattedString.Length);
+                }
 
-                clientStream.Write(encoder.GetBytes(formattedString), 0, formattedString.Length);
                 clientStream.Flush();
             }
             catch (ArgumentNullException ex)

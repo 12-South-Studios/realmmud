@@ -105,19 +105,17 @@ namespace Realm.Library.Common.Collections
             }
 
             IEnumerable<TFirst> firstList;
-            if (Backward.TryGetValue(second, out firstList))
+            if (!Backward.TryGetValue(second, out firstList)) return;
+            if (firstList.Contains(first))
             {
-                if (firstList.Contains(first))
-                {
-                    firstList.ToList().Remove(first);
-                    if (firstList.Any())
-                        Backward[second] = firstList;
-                    else
-                        Backward.Remove(second);
-                }
+                firstList.ToList().Remove(first);
+                if (firstList.Any())
+                    Backward[second] = firstList;
                 else
                     Backward.Remove(second);
             }
+            else
+                Backward.Remove(second);
         }
     }
 }

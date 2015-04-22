@@ -91,7 +91,7 @@ namespace Realm
             Monitors = new List<IMonitor>();
             Monitors = NinjectKernel.GetAll<IMonitor>();
 
-            //NinjectKernel.Load("Realm.*.dll");
+            NinjectKernel.Load("Realm.*.dll");
         }
 
         private void Initialize()

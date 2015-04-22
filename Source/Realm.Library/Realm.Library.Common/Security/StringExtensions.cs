@@ -21,9 +21,9 @@ namespace Realm.Library.Common.Security
         {
             Validation.IsNotNullOrEmpty(text, "text");
 
-            using (var cryptoTransformSHA1 = new SHA1CryptoServiceProvider())
+            using (var cryptoTransformSha1 = new SHA1CryptoServiceProvider())
             {
-                return BitConverter.ToString(cryptoTransformSHA1.ComputeHash(enc.GetBytes(text))).Replace("-", "");
+                return BitConverter.ToString(cryptoTransformSha1.ComputeHash(enc.GetBytes(text))).Replace("-", "");
             }
         }
 
@@ -41,8 +41,8 @@ namespace Realm.Library.Common.Security
                 var hash = md5.ComputeHash(Encoding.ASCII.GetBytes(input));
 
                 var sb = new StringBuilder();
-                for (int i = 0; i < hash.Length; i++)
-                    sb.Append(hash[i].ToString("X2"));
+                foreach (byte t in hash)
+                    sb.Append(t.ToString("X2"));
                 return sb.ToString();
             }
         }
@@ -50,36 +50,36 @@ namespace Realm.Library.Common.Security
         /// <summary>
         ///
         /// </summary>
-        /// <param name="Message"></param>
+        /// <param name="message"></param>
         /// <param name="passphrase"></param>
         /// <returns></returns>
         [SuppressMessage("Microsoft.Reliability", "CA2000")]
-        public static string Encrypt(this string Message, string passphrase = "")
+        public static string Encrypt(this string message, string passphrase = "")
         {
-            Validation.IsNotNullOrEmpty(Message, "Message");
+            Validation.IsNotNullOrEmpty(message, "Message");
 
-            var UTF8 = new UTF8Encoding();
+            var utf8 = new UTF8Encoding();
 
-            using (var HashProvider = new MD5CryptoServiceProvider())
+            using (var hashProvider = new MD5CryptoServiceProvider())
             {
-                var TDESKey = HashProvider.ComputeHash(UTF8.GetBytes(passphrase));
+                var tdesKey = hashProvider.ComputeHash(utf8.GetBytes(passphrase));
 
-                using (var TDESAlgorithm = new TripleDESCryptoServiceProvider
+                using (var tdesAlgorithm = new TripleDESCryptoServiceProvider
                     {
-                        Key = TDESKey,
+                        Key = tdesKey,
                         Mode = CipherMode.ECB,
                         Padding = PaddingMode.PKCS7
                     })
                 {
-                    var DataToEncrypt = UTF8.GetBytes(Message);
+                    var dataToEncrypt = utf8.GetBytes(message);
 
-                    byte[] Results;
-                    using (var Encryptor = TDESAlgorithm.CreateEncryptor())
+                    byte[] results;
+                    using (var encryptor = tdesAlgorithm.CreateEncryptor())
                     {
-                        Results = Encryptor.TransformFinalBlock(DataToEncrypt, 0, DataToEncrypt.Length);
+                        results = encryptor.TransformFinalBlock(dataToEncrypt, 0, dataToEncrypt.Length);
                     }
 
-                    return Convert.ToBase64String(Results);
+                    return Convert.ToBase64String(results);
                 }
             }
         }
@@ -87,40 +87,40 @@ namespace Realm.Library.Common.Security
         /// <summary>
         ///
         /// </summary>
-        /// <param name="Message"></param>
+        /// <param name="message"></param>
         /// <param name="passphrase"></param>
         /// <returns></returns>
         [SuppressMessage("Microsoft.Design", "CA1031")]
         [SuppressMessage("Microsoft.Reliability", "CA2000")]
-        public static string Decrypt(this string Message, string passphrase = "")
+        public static string Decrypt(this string message, string passphrase = "")
         {
-            Validation.IsNotNullOrEmpty(Message, "Message");
+            Validation.IsNotNullOrEmpty(message, "Message");
 
-            var UTF8 = new UTF8Encoding();
+            var utf8 = new UTF8Encoding();
 
-            using (var HashProvider = new MD5CryptoServiceProvider())
+            using (var hashProvider = new MD5CryptoServiceProvider())
             {
-                var TDESKey = HashProvider.ComputeHash(UTF8.GetBytes(passphrase));
+                var tdesKey = hashProvider.ComputeHash(utf8.GetBytes(passphrase));
 
-                using (var TDESAlgorithm = new TripleDESCryptoServiceProvider
+                using (var tdesAlgorithm = new TripleDESCryptoServiceProvider
                     {
-                        Key = TDESKey,
+                        Key = tdesKey,
                         Mode = CipherMode.ECB,
                         Padding = PaddingMode.PKCS7
                     })
                 {
-                    var DataToDecrypt = Convert.FromBase64String(Message);
+                    var dataToDecrypt = Convert.FromBase64String(message);
 
-                    byte[] Results;
-                    using (var Decryptor = TDESAlgorithm.CreateDecryptor())
+                    byte[] results;
+                    using (var decryptor = tdesAlgorithm.CreateDecryptor())
                     {
-                        Results = Decryptor.TransformFinalBlock(DataToDecrypt, 0, DataToDecrypt.Length);
+                        results = decryptor.TransformFinalBlock(dataToDecrypt, 0, dataToDecrypt.Length);
                     }
 
-                    TDESAlgorithm.Clear();
-                    HashProvider.Clear();
+                    tdesAlgorithm.Clear();
+                    hashProvider.Clear();
 
-                    return UTF8.GetString(Results);
+                    return utf8.GetString(results);
                 }
             }
         }

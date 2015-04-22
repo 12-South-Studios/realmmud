@@ -54,19 +54,13 @@ namespace Realm.Library.Database.Framework
         /// <returns></returns>
         public virtual bool CancelTransaction(int transactionId)
         {
-            Validation.Validate<ArgumentOutOfRangeException>(transactionId > 0 && transactionId <= Int32.MaxValue);
+            Validation.Validate<ArgumentOutOfRangeException>(transactionId > 0);
 
-            var returnVal = false;
-
-            if (_pendingTransactions.ContainsKey(transactionId))
-            {
-                var transaction = _pendingTransactions[transactionId];
-                if (transaction.State != TransactionState.Executing)
-                {
-                    transaction.State = TransactionState.Cancelling;
-                    returnVal = _pendingTransactions.Remove(transactionId);
-                }
-            }
+            if (!_pendingTransactions.ContainsKey(transactionId)) return false;
+            var transaction = _pendingTransactions[transactionId];
+            if (transaction.State == TransactionState.Executing) return false;
+            transaction.State = TransactionState.Cancelling;
+            var returnVal = _pendingTransactions.Remove(transactionId);
 
             return returnVal;
         }

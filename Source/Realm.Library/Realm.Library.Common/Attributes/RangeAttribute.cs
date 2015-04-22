@@ -7,7 +7,7 @@ namespace Realm.Library.Common
     /// <summary>
     /// 
     /// </summary>
-    [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Field)]
     public sealed class RangeAttribute : Attribute
     {
         /// <summary>

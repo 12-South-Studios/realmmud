@@ -1,3 +1,13 @@
+TODO:
+- Database has been converted to use EntityFramework (there are no stored procs).  Need to find a way to convert existing database system in RealmMUD core solution to use that.  Currently uses Realm.Library.Database as well so may need to alter it too.
+
+Consider: http://blogs.msdn.com/b/mrtechnocal/archive/2014/03/16/asynchronous-repositories.aspx
+
+
+
+
+
+
 CURRENT ISSUES/QUESTIONS:
 
 Consider Common.Logging:  http://netcommon.sourceforge.net/

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data.Entity.Core;
+﻿using System.Data.Entity.Core;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -8,6 +7,7 @@ using Realm.DAL.Enumerations;
 using Realm.DAL.Interfaces;
 using Realm.Edit.Editor;
 using Realm.Edit.EditorControls;
+using Realm.Edit.Properties;
 
 namespace Realm.Edit.Builders
 {
@@ -16,7 +16,7 @@ namespace Realm.Edit.Builders
         public AbilityBuilder(IRealmDbContext realmContext, IRealmAdminDbContext realmAdminContext)
             : base(SystemTypes.Ability, "Ability", "Abilities", realmContext, realmAdminContext)
         {
-            Icon = Icon.FromHandle(Properties.Resources.icons_ability_16.GetHicon());
+            Icon = Icon.FromHandle(Resources.icons_ability_16.GetHicon());
         }
 
         public override BaseEditorControl Create(int aClassId)

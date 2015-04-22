@@ -64,6 +64,7 @@ namespace Realm.Server
         #endregion
 
         [Inject]
+        // ReSharper disable once MemberCanBePrivate.Global
         public ILogWrapper Logger { get; set; }
 
         public bool IsRunning

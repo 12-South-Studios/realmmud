@@ -73,11 +73,9 @@ namespace Realm.Library.Common
         public static T? ToNullable<T>(this object value) where T : struct
         {
             T? result = null;
-            if (value.IsNotNull())
-            {
-                TypeConverter converter = TypeDescriptor.GetConverter(typeof(T?));
-                result = (T?)converter.ConvertFrom(value);
-            }
+            if (!value.IsNotNull()) return result;
+            TypeConverter converter = TypeDescriptor.GetConverter(typeof(T?));
+            result = (T?)converter.ConvertFrom(value);
             return result;
         }
 

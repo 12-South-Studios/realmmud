@@ -86,13 +86,9 @@ namespace Realm.Library.Common
         /// <returns></returns>
         public bool IsPersistable(string name)
         {
-            var returnVal = false;
-
-            if (_properties.ContainsKey(name))
-            {
-                var property = _properties[name];
-                returnVal = property.IsNotNull() && property.Persistable;
-            }
+            if (!_properties.ContainsKey(name)) return false;
+            var property = _properties[name];
+            var returnVal = property.IsNotNull() && property.Persistable;
 
             return returnVal;
         }
@@ -104,13 +100,9 @@ namespace Realm.Library.Common
         /// <returns></returns>
         public bool IsVolatile(string name)
         {
-            var returnVal = false;
-
-            if (_properties.ContainsKey(name))
-            {
-                var property = _properties[name];
-                returnVal = property.IsNotNull() && property.Volatile;
-            }
+            if (!_properties.ContainsKey(name)) return false;
+            var property = _properties[name];
+            var returnVal = property.IsNotNull() && property.Volatile;
 
             return returnVal;
         }
@@ -122,13 +114,9 @@ namespace Realm.Library.Common
         /// <returns></returns>
         public bool IsVisible(string name)
         {
-            var returnVal = false;
-
-            if (_properties.ContainsKey(name))
-            {
-                var property = _properties[name];
-                returnVal = property.IsNotNull() && property.Visible;
-            }
+            if (!_properties.ContainsKey(name)) return false;
+            var property = _properties[name];
+            var returnVal = property.IsNotNull() && property.Visible;
 
             return returnVal;
         }
@@ -162,17 +150,15 @@ namespace Realm.Library.Common
         {
             var returnVal = string.Empty;
 
-            if (_properties.ContainsKey(name))
-            {
-                var property = _properties[name];
+            if (!_properties.ContainsKey(name)) return returnVal;
+            var property = _properties[name];
 
-                var bits = string.Empty;
-                if (property.Persistable) bits += "p";
-                if (property.Volatile) bits += "v";
-                if (property.Visible) bits += "i";
+            var bits = string.Empty;
+            if (property.Persistable) bits += "p";
+            if (property.Volatile) bits += "v";
+            if (property.Visible) bits += "i";
 
-                returnVal = bits;
-            }
+            returnVal = bits;
 
             return returnVal;
         }

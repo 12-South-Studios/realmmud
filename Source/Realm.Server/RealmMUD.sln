@@ -191,6 +191,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{909441
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Realm.Database", "Realm.Database\Realm.Database.csproj", "{B467B521-C695-43EE-8341-26B857E5124D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -681,6 +683,26 @@ Global
 		{125D2F7F-C246-4401-A72C-93CEEADD9335}.Work|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{125D2F7F-C246-4401-A72C-93CEEADD9335}.Work|Mixed Platforms.Build.0 = Release|Any CPU
 		{125D2F7F-C246-4401-A72C-93CEEADD9335}.Work|x86.ActiveCfg = Release|Any CPU
+		{B467B521-C695-43EE-8341-26B857E5124D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B467B521-C695-43EE-8341-26B857E5124D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B467B521-C695-43EE-8341-26B857E5124D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B467B521-C695-43EE-8341-26B857E5124D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B467B521-C695-43EE-8341-26B857E5124D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B467B521-C695-43EE-8341-26B857E5124D}.Home|Any CPU.ActiveCfg = Release|Any CPU
+		{B467B521-C695-43EE-8341-26B857E5124D}.Home|Any CPU.Build.0 = Release|Any CPU
+		{B467B521-C695-43EE-8341-26B857E5124D}.Home|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B467B521-C695-43EE-8341-26B857E5124D}.Home|Mixed Platforms.Build.0 = Release|Any CPU
+		{B467B521-C695-43EE-8341-26B857E5124D}.Home|x86.ActiveCfg = Release|Any CPU
+		{B467B521-C695-43EE-8341-26B857E5124D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B467B521-C695-43EE-8341-26B857E5124D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B467B521-C695-43EE-8341-26B857E5124D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B467B521-C695-43EE-8341-26B857E5124D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B467B521-C695-43EE-8341-26B857E5124D}.Release|x86.ActiveCfg = Release|Any CPU
+		{B467B521-C695-43EE-8341-26B857E5124D}.Work|Any CPU.ActiveCfg = Release|Any CPU
+		{B467B521-C695-43EE-8341-26B857E5124D}.Work|Any CPU.Build.0 = Release|Any CPU
+		{B467B521-C695-43EE-8341-26B857E5124D}.Work|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B467B521-C695-43EE-8341-26B857E5124D}.Work|Mixed Platforms.Build.0 = Release|Any CPU
+		{B467B521-C695-43EE-8341-26B857E5124D}.Work|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

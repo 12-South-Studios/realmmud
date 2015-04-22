@@ -7,7 +7,7 @@ namespace Realm.Library.Common
     /// Custom timer class implements ITimer and wraps an existing System.Timer so that it can be more easily injected.
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public sealed class CommonTimer : ITimer
+    public class CommonTimer : ITimer
     {
         private readonly Timer _timer = new Timer();
 

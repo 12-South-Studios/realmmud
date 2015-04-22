@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Net.Sockets;
+using System.Text;
 using Realm.Library.Common;
 
 namespace Realm.Library.Network.Mxp
@@ -55,34 +57,46 @@ namespace Realm.Library.Network.Mxp
                             break;
 
                         default:
-                            switch (c)
-                            {
-                                case '<':
-                                    sb.Append("&lt;");
-                                    break;
-
-                                case '>':
-                                    sb.Append("&gt;");
-                                    break;
-
-                                case '&':
-                                    sb.Append("&amp;");
-                                    break;
-
-                                case '"':
-                                    sb.Append("&quot;");
-                                    break;
-
-                                default:
-                                    sb.Append(c);
-                                    break;
-                            }
+                            sb.Append(MxpCharToStringFormatTable.ContainsKey(c)
+                                ? MxpCharToStringFormatTable[c]
+                                : c.ToString());
                             break;
                     }
                 }
             }
 
             return sb.ToString();
+        }
+
+        private static readonly Dictionary<char, string> MxpCharToStringFormatTable = new Dictionary<char, string>
+        {
+            {'<', "&lt;"},
+            {'>', "&gt;"},
+            {'&', "&amp;"},
+            {'"', "&quot;"}
+        };
+
+        public void Enable(ITcpUser tcpUser, NetworkStream clientStream)
+        {
+            Validation.IsNotNull(tcpUser, "tcpUser");
+            Validation.IsNotNull(clientStream, "clientStream");
+            Validation.Validate(clientStream.CanWrite);
+
+            ////IAC, SB, TELOPT_MXP, IAC, SE
+            var buffer = new byte[6];
+            buffer[0] = (byte)MxpExtensions.IAC;           //// Command
+            buffer[1] = (byte)MxpExtensions.SB;            //// Subnegotiation Start
+            buffer[2] = (byte)MxpExtensions.TELOPT_MXP;    //// Passed in telnet option
+            buffer[3] = (byte)MxpExtensions.IAC;
+            buffer[4] = (byte)MxpExtensions.SE;
+            buffer[5] = (byte)'\0';
+            clientStream.Write(buffer, 0, buffer.Length);
+
+            //// MXPMODE \x1B[6z
+            var encoder = new ASCIIEncoding();
+            var byteBuffer = encoder.GetBytes(MxpExtensions.ESC + "[6z\0");
+            clientStream.Write(byteBuffer, 0, byteBuffer.Length);
+            clientStream.Flush();
         }
     }
 }

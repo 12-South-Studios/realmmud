@@ -19,10 +19,9 @@ namespace Realm.Library.Database.Framework
     public sealed class DatabaseServer : Entity
     {
         private readonly Dictionary<Task, CancellationTokenSource> _tasks;
-        private readonly string _connectionString;
         private readonly IDbConnection _connection;
         private readonly IList<IProcedureRepository> _procedureRepositories;
-        private readonly LogWrapper _log;
+        private readonly ILogWrapper _log;
 
         /// <summary>
         ///
@@ -31,18 +30,17 @@ namespace Realm.Library.Database.Framework
         /// <param name="connectionString"></param>
         /// <param name="log"></param>
         /// <param name="procedureLoaders"></param>
-        public DatabaseServer(long id, string connectionString, LogWrapper log, IEnumerable<IProcedureLoader> procedureLoaders)
+        public DatabaseServer(long id, string connectionString, ILogWrapper log, IEnumerable<IProcedureLoader> procedureLoaders)
             : base(id, "DatabaseServer" + id)
         {
-            Validation.Validate<ArgumentOutOfRangeException>(id >= 1 && id <= Int64.MaxValue);
+            Validation.Validate<ArgumentOutOfRangeException>(id >= 1);
             Validation.IsNotNullOrEmpty(connectionString, "connectionString");
             Validation.IsNotNull(log, "log");
             Validation.IsNotNull(procedureLoaders, "procedureLoaders");
             Validation.Validate(procedureLoaders.Any());
 
-            _connectionString = connectionString;
             _log = log;
-            _connection = new SqlConnection(_connectionString);
+            _connection = new SqlConnection(connectionString);
             _connection.Open();
             _connection.Close();
 
@@ -98,7 +96,7 @@ namespace Realm.Library.Database.Framework
                     throw new ObjectDisposedException("task");
 
                 _tasks.Add(task, tokenSource);
-                task.Wait();
+                task.Wait(tokenSource.Token);
 
                 IssueCallback(transaction, task.Result);
 
@@ -146,14 +144,12 @@ namespace Realm.Library.Database.Framework
                 while (it.MoveNext())
                 {
                     var dbCommand = it.Current.CastAs<DictionaryAtom>();
-                    if (success)
-                    {
-                        var resultSet = ExecuteProcedure(dbCommand);
-                        if (resultSet.IsNull() || (resultSet.ContainsKey("success") && !resultSet.GetBool("success")))
-                            success = false;
+                    if (!success) continue;
+                    var resultSet = ExecuteProcedure(dbCommand);
+                    if (resultSet.IsNull() || (resultSet.ContainsKey("success") && !resultSet.GetBool("success")))
+                        success = false;
 
-                        commandResults.Add(resultSet ?? new DictionaryAtom());
-                    }
+                    commandResults.Add(resultSet ?? new DictionaryAtom());
                 }
             }
             catch (SqlException ex)

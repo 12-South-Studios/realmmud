@@ -16,7 +16,7 @@ namespace Realm.Library.Database.Framework
         /// <param name="log"></param>
         protected ProcedureLoader(string connectionString, LogWrapper log)
         {
-            Connection = (T)Activator.CreateInstance(typeof(T), new object[] { connectionString });
+            Connection = (T)Activator.CreateInstance(typeof(T), connectionString);
             Log = log;
         }
 

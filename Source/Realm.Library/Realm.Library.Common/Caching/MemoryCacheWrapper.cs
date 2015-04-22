@@ -103,17 +103,13 @@ namespace Realm.Library.Common
         /// <returns></returns>
         public bool TryGetValue(string key, out T value)
         {
-            bool result = false;
             value = default(T);
 
             object item = _memoryCache.Get(key);
-            if (item.IsNotNull())
-            {
-                value = (T)item;
-                result = true;
-            }
+            if (!item.IsNotNull()) return false;
+            value = (T)item;
 
-            return result;
+            return true;
         }
 
         /// <summary>
@@ -124,17 +120,13 @@ namespace Realm.Library.Common
         /// <returns></returns>
         public bool TryRemove(string key, out T value)
         {
-            bool result = false;
             value = default(T);
 
             object item = _memoryCache.Remove(key);
-            if (item.IsNotNull())
-            {
-                result = true;
-                value = (T)item;
-            }
+            if (!item.IsNotNull()) return false;
+            value = (T)item;
 
-            return result;
+            return true;
         }
 
         /// <summary>

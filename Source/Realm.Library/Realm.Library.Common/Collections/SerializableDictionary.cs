@@ -127,15 +127,11 @@ namespace Realm.Library.Common.Collections
         void IXmlSerializable.ReadXml(XmlReader reader)
         {
             if (reader.IsEmptyElement)
-            {
                 return;
-            }
 
             // Move past container
             if (!reader.Read())
-            {
                 throw new XmlException("Error in Deserialization of Dictionary");
-            }
 
             while (reader.NodeType != XmlNodeType.EndElement)
             {
@@ -167,19 +163,19 @@ namespace Realm.Library.Common.Collections
         /// </summary>
         private XmlSerializer ValueSerializer
         {
-            get { return valueSerializer ?? (valueSerializer = new XmlSerializer(typeof (TVal))); }
+            get { return _valueSerializer ?? (_valueSerializer = new XmlSerializer(typeof (TVal))); }
         }
 
         private XmlSerializer KeySerializer
         {
-            get { return keySerializer ?? (keySerializer = new XmlSerializer(typeof (TKey))); }
+            get { return _keySerializer ?? (_keySerializer = new XmlSerializer(typeof (TKey))); }
         }
 
         #endregion
 
         #region Private Members
-        private XmlSerializer keySerializer;
-        private XmlSerializer valueSerializer;
+        private XmlSerializer _keySerializer;
+        private XmlSerializer _valueSerializer;
         #endregion
     }
 }

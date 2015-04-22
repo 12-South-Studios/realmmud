@@ -30,7 +30,7 @@ namespace Realm.Library.Lua
         public LuaVirtualMachine(long id, ILogWrapper log, LuaFunctionRepository repository, LuaInterfaceProxy luaProxy)
             : base(id, "LuaVirtualMachine" + id)
         {
-            Validation.Validate<ArgumentOutOfRangeException>(id >= 1 && id <= Int64.MaxValue);
+            Validation.Validate<ArgumentOutOfRangeException>(id >= 1);
             Validation.IsNotNull(log, "log");
             Validation.IsNotNull(repository, "repository");
 
@@ -59,7 +59,7 @@ namespace Realm.Library.Lua
                     throw new ObjectDisposedException("task");
 
                 _tasks.Add(task, tokenSource);
-                task.Wait();
+                task.Wait(tokenSource.Token);
 
                 // Do something with result
             }

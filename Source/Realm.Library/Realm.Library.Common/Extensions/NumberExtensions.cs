@@ -10,8 +10,7 @@ namespace Realm.Library.Common
     /// </summary>
     public static class NumberExtensions
     {
-        private static readonly string[] unitsMap = new[]
-            {
+        private static readonly string[] UnitsMap = {
                 Resources.MSG_ZERO, Resources.MSG_ONE, Resources.MSG_TWO, Resources.MSG_THREE,
                 Resources.MSG_FOUR, Resources.MSG_FIVE, Resources.MSG_SIX, Resources.MSG_SEVEN, Resources.MSG_EIGHT,
                 Resources.MSG_NINE, Resources.MSG_TEN, Resources.MSG_ELEVEN, Resources.MSG_TWELVE,
@@ -20,15 +19,13 @@ namespace Realm.Library.Common
                 Resources.MSG_EIGHTEEN, Resources.MSG_NINETEEN
             };
 
-        private static readonly string[] tensMap = new[]
-            {
+        private static readonly string[] TensMap = {
                 Resources.MSG_ZERO, Resources.MSG_TEN, Resources.MSG_TWENTY, Resources.MSG_THIRTY,
                 Resources.MSG_FORTY, Resources.MSG_FIFTY, Resources.MSG_SIXTY, Resources.MSG_SEVENTY,
                 Resources.MSG_EIGHTY, Resources.MSG_NINETY
             };
 
-        private static readonly string[] hourMap = new[]
-            {
+        private static readonly string[] HourMap = {
                 Resources.MSG_ZERO, Resources.MSG_ONE, Resources.MSG_TWO, Resources.MSG_THREE,
                 Resources.MSG_FOUR, Resources.MSG_FIVE, Resources.MSG_SIX, Resources.MSG_SEVEN,
                 Resources.MSG_EIGHT, Resources.MSG_NINE, Resources.MSG_TEN, Resources.MSG_ELEVEN,
@@ -53,35 +50,29 @@ namespace Realm.Library.Common
         /// <returns>Returns a string value representing the number in words</returns>
         public static string ToWords(this int value)
         {
-            Validation.Validate<ArgumentOutOfRangeException>(value >= Int32.MinValue && value <= Int32.MaxValue);
-
             string returnVal;
             if (value == 0)
-            {
                 returnVal = Resources.MSG_ZERO;
-            }
             else if (value < 0)
-            {
                 returnVal = string.Format("{0} {1}", Resources.MSG_MINUS, ToWords(Math.Abs(value)));
-            }
             else
             {
                 var words = string.Empty;
-                if ((value / 1000000) > 0)
+                if ((value/1000000) > 0)
                 {
-                    words += String.Format("{0} {1} ", ToWords(value / 1000000), Resources.MSG_MILLION);
+                    words += String.Format("{0} {1} ", ToWords(value/1000000), Resources.MSG_MILLION);
                     value %= 1000000;
                 }
 
-                if ((value / 1000) > 0)
+                if ((value/1000) > 0)
                 {
-                    words += String.Format("{0} {1} ", ToWords(value / 1000), Resources.MSG_THOUSAND);
+                    words += String.Format("{0} {1} ", ToWords(value/1000), Resources.MSG_THOUSAND);
                     value %= 1000;
                 }
 
-                if ((value / 100) > 0)
+                if ((value/100) > 0)
                 {
-                    words += String.Format("{0} {1} ", ToWords(value / 100), Resources.MSG_HUNDRED);
+                    words += String.Format("{0} {1} ", ToWords(value/100), Resources.MSG_HUNDRED);
                     value %= 100;
                 }
 
@@ -91,12 +82,12 @@ namespace Realm.Library.Common
                         words += Resources.MSG_AND + " ";
 
                     if (value < 20)
-                        words += unitsMap[value];
+                        words += UnitsMap[value];
                     else
                     {
-                        words += tensMap[value / 10];
-                        if ((value % 10) > 0)
-                            words += "-" + unitsMap[value % 10];
+                        words += TensMap[value/10];
+                        if ((value%10) > 0)
+                            words += "-" + UnitsMap[value%10];
                     }
                 }
 
@@ -115,7 +106,7 @@ namespace Realm.Library.Common
         {
             Validation.Validate(hour > 0 && hour <= 24, Resources.ERR_INVALID_HOUR);
 
-            return (hour > 12) ? hourMap[hour - 12] : hourMap[hour];
+            return (hour > 12) ? HourMap[hour - 12] : HourMap[hour];
         }
 
         /// <summary>
@@ -125,8 +116,6 @@ namespace Realm.Library.Common
         /// <returns></returns>
         public static string ToPeriodOfDay(this int hour)
         {
-            Validation.Validate<ArgumentOutOfRangeException>(hour >= Int32.MinValue && hour <= Int32.MaxValue);
-
             if (hour > 21 || hour < 5)
                 return Resources.MSG_NIGHT;
             if (hour < 12)
@@ -141,25 +130,21 @@ namespace Realm.Library.Common
         /// <returns></returns>
         public static string GetOrdinal(this int number)
         {
-            Validation.Validate<ArgumentOutOfRangeException>(number >= Int32.MinValue && number <= Int32.MaxValue);
-
             var suf = "th";
-            if (((number % 100) / 10) != 1)
+            if (((number%100)/10) == 1) return number + suf;
+            switch (number % 10)
             {
-                switch (number % 10)
-                {
-                    case 1:
-                        suf = "st";
-                        break;
+                case 1:
+                    suf = "st";
+                    break;
 
-                    case 2:
-                        suf = "nd";
-                        break;
+                case 2:
+                    suf = "nd";
+                    break;
 
-                    case 3:
-                        suf = "rd";
-                        break;
-                }
+                case 3:
+                    suf = "rd";
+                    break;
             }
             return number + suf;
         }

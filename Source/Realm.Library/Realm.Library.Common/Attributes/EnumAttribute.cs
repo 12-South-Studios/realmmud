@@ -7,7 +7,7 @@ namespace Realm.Library.Common
     /// <summary>
     /// Class definining an attribute
     /// </summary>
-    [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Field)]
     public sealed class EnumAttribute : Attribute
     {
         /// <summary>

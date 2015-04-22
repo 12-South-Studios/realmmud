@@ -41,7 +41,7 @@ namespace Realm.Data
             Validation.IsNotNullOrEmpty(_connectionString, "_connectionString");
 
             _numberServers = args.GetInt("NumberDBServers");
-            Validation.Validate<ArgumentOutOfRangeException>(_numberServers >= 1 && _numberServers <= Int32.MaxValue);
+            Validation.Validate<ArgumentOutOfRangeException>(_numberServers >= 1);
             _log.DebugFormat("{0} asked to spin up {1} database servers.", GetType(), _numberServers);
 
             InitDatabaseLoaders(args);

@@ -27,7 +27,7 @@ namespace Realm.Library.Lua
             : base(1, "LuaVirtualMachineContext")
         {
             Validation.IsNotNull(log, "log");
-            Validation.Validate<ArgumentOutOfRangeException>(numberVirtualMachines > 0 && numberVirtualMachines <= Int32.MaxValue);
+            Validation.Validate<ArgumentOutOfRangeException>(numberVirtualMachines > 0);
             Validation.IsNotNull(repository, "repository");
 
             _repository = repository;

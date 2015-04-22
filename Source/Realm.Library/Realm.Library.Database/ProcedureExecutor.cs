@@ -16,7 +16,7 @@ namespace Realm.Library.Database
     {
         private readonly IProcedure _procedure;
         private readonly IDbConnection _connection;
-        private readonly LogWrapper _log;
+        private readonly ILogWrapper _log;
 
         /// <summary>
         ///
@@ -24,7 +24,7 @@ namespace Realm.Library.Database
         /// <param name="connection"></param>
         /// <param name="log"></param>
         /// <param name="procedure"></param>
-        public ProcedureExecutor(IDbConnection connection, LogWrapper log, IProcedure procedure)
+        public ProcedureExecutor(IDbConnection connection, ILogWrapper log, IProcedure procedure)
         {
             Validation.IsNotNull(connection, "connection");
             Validation.IsNotNull(log, "log");

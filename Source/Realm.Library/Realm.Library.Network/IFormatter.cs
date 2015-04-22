@@ -1,4 +1,6 @@
-﻿namespace Realm.Library.Network
+﻿using System.Net.Sockets;
+
+namespace Realm.Library.Network
 {
     /// <summary>
     /// Defines the contract for a formatter object
@@ -11,5 +13,10 @@
         /// <param name="source"></param>
         /// <returns></returns>
         string Format(string source);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        void Enable(ITcpUser tcpUser, NetworkStream clientStream);
     }
 }

@@ -50,15 +50,9 @@ namespace Realm.Library.Common
         /// <returns></returns>
         public virtual bool AddEntity(T entity)
         {
-            var returnVal = false;
-
-            if (!Contains(entity))
-            {
-                _contents.Add(entity);
-                returnVal = true;
-            }
-
-            return returnVal;
+            if (Contains(entity)) return false;
+            _contents.Add(entity);
+            return true;
         }
 
         /// <summary>

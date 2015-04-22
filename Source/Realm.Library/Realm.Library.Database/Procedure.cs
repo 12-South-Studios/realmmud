@@ -68,13 +68,11 @@ namespace Realm.Library.Database
         /// <param name="paramType"></param>
         public void AddParameter(string parameterName, DbType paramType)
         {
-            if (!_parameters.ContainsKey(parameterName))
-            {
-                var param = DatabaseUtils.CreateParameter<T>();
-                param.DbType = paramType;
-                param.ParameterName = parameterName;
-                _parameters[parameterName] = param;
-            }
+            if (_parameters.ContainsKey(parameterName)) return;
+            var param = DatabaseUtils.CreateParameter<T>();
+            param.DbType = paramType;
+            param.ParameterName = parameterName;
+            _parameters[parameterName] = param;
         }
 
         /// <summary>

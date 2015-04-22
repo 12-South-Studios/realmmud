@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Management.Instrumentation;
@@ -21,22 +23,26 @@ namespace Realm.Library.Network
     {
         private TcpListener _tcpListener;
         private Thread _listenerThread;
-        
+
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="log"></param>
         /// <param name="repository"></param>
-        public TcpServer(ILogWrapper log, ITcpUserRepository repository)
+        /// <param name="formatters"></param>
+        public TcpServer(ILogWrapper log, ITcpUserRepository repository, IEnumerable<IFormatter> formatters)
         {
             Validation.IsNotNull(log, "log");
             Validation.IsNotNull(repository, "repository");
 
             Log = log;
             Repository = repository;
+            Formatters = formatters;
 
             Log.Debug("TcpServer initialized.");
         }
+
+        private IEnumerable<IFormatter> Formatters { get; set; }
 
         private ILogWrapper Log { get; set; }
 
@@ -182,7 +188,7 @@ namespace Realm.Library.Network
                         break;
                     }
 
-                    var user = new TcpUser(Log, _tcpListener.AcceptTcpClient(), new Mxp.MxpFormatter());
+                    var user = new TcpUser(Log, _tcpListener.AcceptTcpClient(), Formatters);
                     user.OnConnect();
                     Repository.Add(user.Id, user);
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
-using log4net;
+using Realm.Library.Common.Logging;
 
 namespace Realm.Library.Database
 {
@@ -12,19 +12,14 @@ namespace Realm.Library.Database
     /// </summary>
     public sealed class DatabaseHelper
     {
-        private readonly ILog Log;
+        private readonly ILogWrapper _log;
 
         /// <summary>
         /// 
         /// </summary>
-        public DatabaseHelper()
+        public DatabaseHelper(ILogWrapper log)
         {
-            Log = LogManager.GetLogger(typeof(DatabaseHelper));
-        }
-
-        internal DatabaseHelper(ILog log)
-        {
-            Log = log;
+            _log = log;
         }
 
         /// <summary>
@@ -38,7 +33,7 @@ namespace Realm.Library.Database
             object result = null;
             try
             {
-                using (IDbCommand cmd = connection.CreateCommand())
+                using (var cmd = connection.CreateCommand())
                 {
                     SetupDbCommand(connection, cmd, storedProcedureName, parameters);
 
@@ -48,7 +43,7 @@ namespace Realm.Library.Database
             }
             catch (DbException ex)
             {
-                Log.Error(string.IsNullOrEmpty(errorMessage)
+                _log.Error(string.IsNullOrEmpty(errorMessage)
                               ? string.Format("{0} threw an Exception: {1}", storedProcedureName, ex.Message)
                               : errorMessage, ex);
             }
@@ -71,7 +66,7 @@ namespace Realm.Library.Database
 
             try
             {
-                using (IDbCommand cmd = connection.CreateCommand())
+                using (var cmd = connection.CreateCommand())
                 {
                     SetupDbCommand(connection, cmd, storedProcedureName, parameters);
 
@@ -81,7 +76,7 @@ namespace Realm.Library.Database
             }
             catch (DbException ex)
             {
-                Log.Error(string.IsNullOrEmpty(errorMessage)
+                _log.Error(string.IsNullOrEmpty(errorMessage)
                               ? string.Format("{0} threw an Exception: {1}", storedProcedureName, ex.Message)
                               : errorMessage, ex);
             }
@@ -100,25 +95,24 @@ namespace Realm.Library.Database
         {
             ValidateArguments(connection, storedProcedureName);
 
-            DataTable table = new DataTable();
+            var table = new DataTable();
 
             try
             {
-                using (IDbCommand cmd = connection.CreateCommand())
+                using (var cmd = connection.CreateCommand())
                 {
                     SetupDbCommand(connection, cmd, storedProcedureName, parameters);
 
                     cmd.Connection.Open();
-                    using (IDataReader reader = cmd.ExecuteReader())
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        if (reader != null)
-                            table.Load(reader);
+                        table.Load(reader);
                     }
                 }
             }
             catch (DbException ex)
             {
-                Log.Error(string.IsNullOrEmpty(errorMessage)
+                _log.Error(string.IsNullOrEmpty(errorMessage)
                               ? string.Format("{0} threw an Exception: {1}", storedProcedureName, ex.Message)
                               : errorMessage, ex);
             }
@@ -143,23 +137,21 @@ namespace Realm.Library.Database
 
             try
             {
-                using (IDbCommand cmd = connection.CreateCommand())
+                using (var cmd = connection.CreateCommand())
                 {
                     SetupDbCommand(connection, cmd, storedProcedureName, parameters);
 
                     cmd.Connection.Open();
-                    using (IDataReader reader = cmd.ExecuteReader())
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        var newObject = new T();
-                        if (reader != null)
-                            newObject = translateFunction.Invoke(reader);
+                        var newObject = translateFunction.Invoke(reader);
                         return newObject;
                     }
                 }
             }
             catch (DbException ex)
             {
-                Log.Error(string.IsNullOrEmpty(errorMessage)
+                _log.Error(string.IsNullOrEmpty(errorMessage)
                               ? string.Format("{0} threw an Exception: {1}", storedProcedureName, ex.Message)
                               : errorMessage, ex);
             }

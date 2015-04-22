@@ -5,7 +5,6 @@ using System.Data.SqlClient;
 using Moq;
 using NUnit.Framework;
 using Realm.Library.Database.Test.Fakes;
-using log4net;
 
 namespace Realm.Library.Database.Test
 {
@@ -91,7 +90,7 @@ namespace Realm.Library.Database.Test
 
             mockCommand.SetupGet(x => x.Connection).Returns(mockConnection.Object);
 
-            var helper = new DatabaseHelper();
+            var helper = new DatabaseHelper(new Mock<Common.Logging.ILogWrapper>().Object);
 
             Assert.That(helper.ExecuteScalar(mockConnection.Object, "TestProcedure", null), Is.EqualTo(expected));
         }
@@ -101,7 +100,7 @@ namespace Realm.Library.Database.Test
         {
             bool callback = false;
 
-            var mockLogger = new Mock<ILog>();
+            var mockLogger = new Mock<Common.Logging.ILogWrapper>();
             mockLogger.Setup(x => x.Error(It.IsAny<string>(), It.IsAny<Exception>())).Callback(() => callback = true);
 
             var mockCommand = new Mock<IDbCommand>();
@@ -130,7 +129,7 @@ namespace Realm.Library.Database.Test
 
             mockCommand.SetupGet(x => x.Connection).Returns(mockConnection.Object);
 
-            var helper = new DatabaseHelper();
+            var helper = new DatabaseHelper(new Mock<Common.Logging.ILogWrapper>().Object);
             helper.ExecuteNonQuery(mockConnection.Object, "TestProcedure", null);
         }
 
@@ -139,7 +138,7 @@ namespace Realm.Library.Database.Test
         {
             bool callback = false;
 
-            var mockLogger = new Mock<ILog>();
+            var mockLogger = new Mock<Common.Logging.ILogWrapper>();
             mockLogger.Setup(x => x.Error(It.IsAny<string>(), It.IsAny<Exception>())).Callback(() => callback = true);
 
             var mockCommand = new Mock<IDbCommand>();
@@ -171,7 +170,7 @@ namespace Realm.Library.Database.Test
 
             mockCommand.SetupGet(x => x.Connection).Returns(mockConnection.Object);
 
-            var helper = new DatabaseHelper();
+            var helper = new DatabaseHelper(new Mock<Common.Logging.ILogWrapper>().Object);
 
             Assert.That(helper.ExecuteQuery(mockConnection.Object, "TestProcedure", null), Is.Not.Null);
         }
@@ -181,7 +180,7 @@ namespace Realm.Library.Database.Test
         {
             bool callback = false;
 
-            var mockLogger = new Mock<ILog>();
+            var mockLogger = new Mock<Common.Logging.ILogWrapper>();
             mockLogger.Setup(x => x.Error(It.IsAny<string>(), It.IsAny<Exception>())).Callback(() => callback = true);
 
             var mockCommand = new Mock<IDbCommand>();
@@ -213,7 +212,7 @@ namespace Realm.Library.Database.Test
 
             mockCommand.SetupGet(x => x.Connection).Returns(mockConnection.Object);
 
-            var helper = new DatabaseHelper();
+            var helper = new DatabaseHelper(new Mock<Common.Logging.ILogWrapper>().Object);
 
             var result = helper.ExecuteQuery(mockConnection.Object, "TestProcedure", null, CreateFakeObject);
 
@@ -226,7 +225,7 @@ namespace Realm.Library.Database.Test
         {
             bool callback = false;
 
-            var mockLogger = new Mock<ILog>();
+            var mockLogger = new Mock<Common.Logging.ILogWrapper>();
             mockLogger.Setup(x => x.Error(It.IsAny<string>(), It.IsAny<Exception>())).Callback(() => callback = true);
 
             var mockCommand = new Mock<IDbCommand>();

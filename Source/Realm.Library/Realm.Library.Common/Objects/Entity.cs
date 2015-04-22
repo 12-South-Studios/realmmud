@@ -50,6 +50,30 @@ namespace Realm.Library.Common
             return result;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static bool operator ==(Entity a, Entity b)
+        {
+            if (ReferenceEquals(a, b)) return true;
+            if (((object)a == null) || ((object)b == null)) return false;
+            return a.ID == b.ID && a.Name.Equals(b.Name);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static bool operator !=(Entity a, Entity b)
+        {
+            return !(a == b);
+        }
+
         #region IDisposable
 
         /// <summary>

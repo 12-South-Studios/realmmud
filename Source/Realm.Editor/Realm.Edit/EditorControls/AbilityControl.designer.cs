@@ -1,5 +1,4 @@
 using Realm.Edit.CustomControls;
-using Realm.Edit.Data.DataTypes;
 
 namespace Realm.Edit.EditorControls
 {
@@ -299,7 +298,7 @@ namespace Realm.Edit.EditorControls
             this.linkTerrain.Name = "linkTerrain";
             this.linkTerrain.Padding = new System.Windows.Forms.Padding(20, 1, 0, 0);
             this.linkTerrain.Size = new System.Drawing.Size(124, 21);
-            this.linkTerrain.SystemType = Realm.Edit.Data.DataTypes.DataSystemType.Terrain;
+            this.linkTerrain.SystemType = Realm.DAL.Enumerations.SystemTypes.Terrain;
             this.linkTerrain.TabIndex = 241;
             // 
             // lblTerrain
@@ -419,7 +418,7 @@ namespace Realm.Edit.EditorControls
             this.linkInterruptResist.Name = "linkInterruptResist";
             this.linkInterruptResist.Padding = new System.Windows.Forms.Padding(20, 1, 0, 0);
             this.linkInterruptResist.Size = new System.Drawing.Size(124, 21);
-            this.linkInterruptResist.SystemType = Realm.Edit.Data.DataTypes.DataSystemType.None;
+            this.linkInterruptResist.SystemType = Realm.DAL.Enumerations.SystemTypes.None;
             this.linkInterruptResist.TabIndex = 245;
             // 
             // lblInterruptResist
@@ -440,7 +439,7 @@ namespace Realm.Edit.EditorControls
             this.linkInterruptEffect.Name = "linkInterruptEffect";
             this.linkInterruptEffect.Padding = new System.Windows.Forms.Padding(20, 1, 0, 0);
             this.linkInterruptEffect.Size = new System.Drawing.Size(124, 21);
-            this.linkInterruptEffect.SystemType = Realm.Edit.Data.DataTypes.DataSystemType.Effect;
+            this.linkInterruptEffect.SystemType = Realm.DAL.Enumerations.SystemTypes.Effect;
             this.linkInterruptEffect.TabIndex = 247;
             // 
             // chkNotInterruptible
@@ -494,7 +493,7 @@ namespace Realm.Edit.EditorControls
             this.chkTerrainRequired.Text = "Terrain Required";
             this.chkTerrainRequired.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkTerrainRequired.UseVisualStyleBackColor = true;
-            this.chkTerrainRequired.CheckedChanged += new System.EventHandler(this.chkTerrainRequired_CheckedChanged);
+            this.chkTerrainRequired.CheckedChanged += new System.EventHandler(this.ChkTerrainRequiredCheckedChanged);
             // 
             // chkWeaponRequired
             // 

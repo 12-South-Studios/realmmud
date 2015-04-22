@@ -18,7 +18,7 @@ namespace Realm.Library.Common.Data
         /// <returns></returns>
         public static T ToAtom<T>(this Int32 value) where T : Atom
         {
-            return (T)Activator.CreateInstance(typeof(T), new object[] { value });
+            return (T)Activator.CreateInstance(typeof(T), value);
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Realm.Library.Common.Data
         /// <returns></returns>
         public static T ToAtom<T>(this Int64 value) where T : Atom
         {
-            return (T)Activator.CreateInstance(typeof(T), new object[] { value });
+            return (T)Activator.CreateInstance(typeof(T), value);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace Realm.Library.Common.Data
         /// <returns></returns>
         public static T ToAtom<T>(this Single value) where T : Atom
         {
-            return (T)Activator.CreateInstance(typeof(T), new object[] { value });
+            return (T)Activator.CreateInstance(typeof(T), value);
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace Realm.Library.Common.Data
         /// <returns></returns>
         public static T ToAtom<T>(this Double value) where T : Atom
         {
-            return (T)Activator.CreateInstance(typeof(T), new object[] { value });
+            return (T)Activator.CreateInstance(typeof(T), value);
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace Realm.Library.Common.Data
 
                 case "stringatom":
                 case "objectatom":
-                    return (T)Activator.CreateInstance(typeof(T), new object[] { value });
+                    return (T)Activator.CreateInstance(typeof(T), value);
             }
 
             return null;

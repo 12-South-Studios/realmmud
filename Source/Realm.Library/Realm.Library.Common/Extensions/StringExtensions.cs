@@ -136,7 +136,7 @@ namespace Realm.Library.Common
                    || argument.EqualsIgnoreCase("t");
         }
 
-        private static readonly char[] WordListDelimiters = new[] { ' ', '-' };
+        private static readonly char[] WordListDelimiters = { ' ', '-' };
 
         /// <summary>
         /// Determines if the given string is equal to any values in the passed string list
@@ -217,9 +217,7 @@ namespace Realm.Library.Common
         {
             var builder = new StringBuilder(repeat * stringToRepeat.Length);
             for (int i = 0; i < repeat; i++)
-            {
                 builder.Append(stringToRepeat);
-            }
             return builder.ToString();
         }
 
@@ -262,7 +260,7 @@ namespace Realm.Library.Common
         /// <summary>
         /// Convert a string to a byte array.
         /// </summary>
-        public static byte[] ToByteArray(this string value)
+        public static IEnumerable<byte> ToByteArray(this string value)
         {
             Validation.IsNotNullOrEmpty(value, "value");
 
@@ -327,12 +325,10 @@ namespace Realm.Library.Common
             Validation.IsNotNullOrEmpty(replace, "replace");
 
             var loc = value.IndexOf(search, StringComparison.Ordinal);
-            if (loc != -1)
-            {
-                var firstHalf = value.Substring(0, loc);
-                var secondHalf = value.Substring(loc + search.Length, value.Length - (loc + search.Length));
-                value = firstHalf + replace + secondHalf;
-            }
+            if (loc == -1) return value;
+            var firstHalf = value.Substring(0, loc);
+            var secondHalf = value.Substring(loc + search.Length, value.Length - (loc + search.Length));
+            value = firstHalf + replace + secondHalf;
             return value;
         }
 
@@ -390,7 +386,7 @@ namespace Realm.Library.Common
         {
             Validation.IsNotNullOrEmpty(value, "value");
             Validation.IsNotNullOrEmpty(padChar, "padChar");
-            Validation.Validate<ArgumentOutOfRangeException>(totalLength > 0 && totalLength <= int.MaxValue);
+            Validation.Validate<ArgumentOutOfRangeException>(totalLength > 0);
 
             var newstring = string.Empty;
             string returnString;
@@ -532,23 +528,14 @@ namespace Realm.Library.Common
                 sb.Insert(0, "the ");
             else
             {
-                /*for (int i = 0; i < vowels.Length; i++ )
-                {
-                    if (value[0] == i)
-                        sb.Insert(0, "an ");
-                }*/
                 if (value[0].IsVowel())
-                {
                     sb.Insert(0, "an ");
-                }
                 else if (value.StartsWith("the"))
                 {
                     // do nothing
                 }
                 else
-                {
                     sb.Insert(0, "a ");
-                }
             }
 
             if (appendOptions.HasFlag(ArticleAppendOptions.CapitalizeFirstLetter))

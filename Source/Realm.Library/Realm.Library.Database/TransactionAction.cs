@@ -1,13 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Realm.Library.Database
+﻿namespace Realm.Library.Database
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public enum TransactionAction
     {
+        /// <summary>
+        /// 
+        /// </summary>
         Rollback,
+
+        /// <summary>
+        /// 
+        /// </summary>
         Commit
     }
 }

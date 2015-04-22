@@ -64,12 +64,9 @@ namespace Realm.Library.Common
 
             var field = value.GetType().GetField(value.ToString());
             var enumAttrib = Attribute.GetCustomAttribute(field, typeof(EnumAttribute)) as EnumAttribute;
-            if (enumAttrib == null)
-            {
-                var valueAttrib = Attribute.GetCustomAttribute(field, typeof (ValueAttribute)) as ValueAttribute;
-                return valueAttrib == null ? 0 : valueAttrib.Value;
-            }
-            return enumAttrib.Value;
+            if (enumAttrib != null) return enumAttrib.Value;
+            var valueAttrib = Attribute.GetCustomAttribute(field, typeof (ValueAttribute)) as ValueAttribute;
+            return valueAttrib == null ? 0 : valueAttrib.Value;
         }
 
         /// <summary>

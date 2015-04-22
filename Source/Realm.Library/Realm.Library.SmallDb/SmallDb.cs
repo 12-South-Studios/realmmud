@@ -114,8 +114,7 @@ namespace Realm.Library.SmallDb
 
                     using (IDataReader dbReader = dbCommand.ExecuteReader())
                     {
-                        if (dbReader != null)
-                            table.Load(dbReader);
+                        table.Load(dbReader);
                     }
 
                     dbCommand.Connection.CleanupConnection();
@@ -155,9 +154,7 @@ namespace Realm.Library.SmallDb
                     dbConnection.Open();
                     using (IDataReader dbReader = dbCommand.ExecuteReader())
                     {
-                        var result = new T();
-                        if (dbReader != null)
-                            result = translateFunction.Invoke(dbReader);
+                        var result = translateFunction.Invoke(dbReader);
 
                         dbCommand.Connection.CleanupConnection();
 

@@ -23,10 +23,29 @@ namespace Realm.Library.Network
         /// </summary>
         event EventHandler<NetworkEventArgs> OnNetworkMessageReceived;
 
+        /// <summary>
+        /// 
+        /// </summary>
         TcpServerStatus Status { get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="port"></param>
+        /// <param name="host"></param>
         void Startup(int port, IPAddress host);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
         void Shutdown(string message);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         bool DisconnectUser(string id);
     }
 }

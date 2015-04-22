@@ -54,12 +54,10 @@ namespace Realm.Library.Common
             set
             {
                 Validation.Validate<ArgumentOutOfRangeException>(value >= 50, Resources.ERR_INVALID_FREQUENCY, value);
-                if (_frequency == null)
-                {
-                    _frequency = value;
-                    Timer.Interval = value;
-                    Log.DebugFormat("Event Timer setup with Interval frequency of {0}", Timer.Interval);
-                }
+                if (_frequency != null) return;
+                _frequency = value;
+                Timer.Interval = value;
+                Log.DebugFormat("Event Timer setup with Interval frequency of {0}", Timer.Interval);
             } 
         }
         private int? _frequency;
@@ -178,11 +176,9 @@ namespace Realm.Library.Common
             thrownEvent.Sender = sender;
             _eventQueue.Enqueue(thrownEvent);
 
-            if (Timer.IsNotNull() && !Timer.Enabled)
-            {
-                Log.DebugFormat("Starting the Event Timer with interval frequency of {0}", Timer.Interval);
-                Timer.Start();
-            }
+            if (!Timer.IsNotNull() || Timer.Enabled) return;
+            Log.DebugFormat("Starting the Event Timer with interval frequency of {0}", Timer.Interval);
+            Timer.Start();
         }
 
         /// <summary>
