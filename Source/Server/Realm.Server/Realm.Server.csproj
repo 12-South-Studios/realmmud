@@ -1,0 +1,472 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1FDDA9AD-0242-4D48-A824-ACF24B3B2B0B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Realm.Server</RootNamespace>
+    <AssemblyName>Realm.Server</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\Realm Ruleset.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>
+    </DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>CODE_ANALYSIS;TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>..\Realm Ruleset.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\x86\Debug\Realm.Server.XML</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Home|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Home\</OutputPath>
+    <DefineConstants>CODE_ANALYSIS;TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>..\Realm Ruleset.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Home|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Home\</OutputPath>
+    <DefineConstants>CODE_ANALYSIS;CODE_ANALYSIS;TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>..\Realm Ruleset.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Work|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Work\</OutputPath>
+    <DefineConstants>CODE_ANALYSIS;TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>..\Realm Ruleset.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Work|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\Build\Realm\</OutputPath>
+    <DefineConstants>CODE_ANALYSIS;CODE_ANALYSIS;TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>..\Realm Ruleset.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>..\Build\Realm\Realm.Server.XML</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\..\Libraries\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="lua51, Version=0.0.0.0, Culture=neutral, PublicKeyToken=1e1fb15b02227b8a, processorArchitecture=x86">
+      <HintPath>..\..\packages\VikingErik.LuaInterface.1.0.4213.34901\lib\net35\lua51.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LuaInterface, Version=2.0.0.16708, Culture=neutral, processorArchitecture=x86">
+      <HintPath>..\..\packages\VikingErik.LuaInterface.1.0.4213.34901\lib\net35\LuaInterface.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="VikingErik.LuaInterface, Version=1.0.4213.34901, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\VikingErik.LuaInterface.1.0.4213.34901\lib\net35\VikingErik.LuaInterface.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attributes\AttributeContext.cs" />
+    <Compile Include="Attributes\IAttributeContext.cs" />
+    <Compile Include="Commands\Admin\AdminCreateCommand.cs" />
+    <Compile Include="Commands\Admin\AdminDetailCommand.cs" />
+    <Compile Include="Commands\Admin\AdminExamineCommand.cs" />
+    <Compile Include="Commands\Admin\AdminHealCommand.cs" />
+    <Compile Include="Commands\Admin\AdminSaveCommand.cs" />
+    <Compile Include="Commands\Admin\AdminSetAttributeCommand.cs" />
+    <Compile Include="Commands\Admin\AdminSetPropertyCommand.cs" />
+    <Compile Include="Commands\Admin\AdminShutdownCommand.cs" />
+    <Compile Include="Commands\Admin\AdminSpawnCommand.cs" />
+    <Compile Include="Commands\Admin\AdminTeleportCommand.cs" />
+    <Compile Include="Commands\Admin\AdminWhereCommand.cs" />
+    <Compile Include="Commands\CommandHelper.cs" />
+    <Compile Include="Commands\VariableHelper.cs" />
+    <Compile Include="ILoopProcessor.cs" />
+    <Compile Include="Players\Character.cs" />
+    <Compile Include="GameLoopProcessor.cs" />
+    <Compile Include="Factories\GameAbilityFactory.cs" />
+    <Compile Include="Factories\GameAiStateFactory.cs" />
+    <Compile Include="Factories\GameCommandFactory.cs" />
+    <Compile Include="Factories\GameConcreteFactory.cs" />
+    <Compile Include="Factories\GameEffectFactory.cs" />
+    <Compile Include="Factories\GameItemFactory.cs" />
+    <Compile Include="Factories\GameMobileFactory.cs" />
+    <Compile Include="Factories\GameObjectFactory.cs" />
+    <Compile Include="Factories\GameQuestFactory.cs" />
+    <Compile Include="Factories\GameResetFactory.cs" />
+    <Compile Include="Factories\GameShopFactory.cs" />
+    <Compile Include="Factories\GameSpaceFactory.cs" />
+    <Compile Include="Factories\IGameObjectFactory.cs" />
+    <Compile Include="Factories\ObjectType.cs" />
+    <Compile Include="Interfaces\ICloneable.cs" />
+    <Compile Include="Interfaces\IExplorable.cs" />
+    <Compile Include="Interfaces\ISaveable.cs" />
+    <Compile Include="Players\CharacterData.cs" />
+    <Compile Include="Players\CharacterHandler.cs" />
+    <Compile Include="Commands\Player\Combat\PlayerKillCommand.cs" />
+    <Compile Include="Commands\Player\Crafting\PlayerCreateCommand.cs" />
+    <Compile Include="Commands\Player\Crafting\PlayerGatherCommand.cs" />
+    <Compile Include="Commands\Player\Crafting\PlayerLearnCommand.cs" />
+    <Compile Include="Commands\Player\Crafting\PlayerRecipesCommand.cs" />
+    <Compile Include="Commands\Player\Crafting\PlayerUnlearnCommand.cs" />
+    <Compile Include="Commands\Player\Item\PlayerCloseCommand.cs" />
+    <Compile Include="Commands\Player\Item\PlayerDrinkCommand.cs" />
+    <Compile Include="Commands\Player\Item\PlayerDropCommand.cs" />
+    <Compile Include="Commands\Player\Item\PlayerEquipCommand.cs" />
+    <Compile Include="Commands\Player\Item\PlayerEquipmentCommand.cs" />
+    <Compile Include="Commands\Player\Item\PlayerFillCommand.cs" />
+    <Compile Include="Commands\Player\Item\PlayerInventoryCommand.cs" />
+    <Compile Include="Commands\Player\Item\PlayerOpenCommand.cs" />
+    <Compile Include="Commands\Player\Item\PlayerPutCommand.cs" />
+    <Compile Include="Commands\Player\Item\PlayerTakeCommand.cs" />
+    <Compile Include="Commands\Player\Item\PlayerUnequipCommand.cs" />
+    <Compile Include="Commands\Player\PlayerBindCommand.cs" />
+    <Compile Include="Commands\Player\PlayerChangePasswordCommand.cs" />
+    <Compile Include="Commands\Player\PlayerHelpCommand.cs" />
+    <Compile Include="Commands\Player\PlayerLookCommand.cs" />
+    <Compile Include="Commands\Player\PlayerMoveCommand.cs" />
+    <Compile Include="Commands\Player\PlayerQuitCommand.cs" />
+    <Compile Include="Commands\Player\PlayerSaveCommand.cs" />
+    <Compile Include="Commands\Player\PlayerScoreCommand.cs" />
+    <Compile Include="Commands\Player\PlayerSitCommand.cs" />
+    <Compile Include="Commands\Player\PlayerSleepCommand.cs" />
+    <Compile Include="Commands\Player\PlayerStandCommand.cs" />
+    <Compile Include="Commands\Player\PlayerTimeCommand.cs" />
+    <Compile Include="Commands\Player\PlayerWakeCommand.cs" />
+    <Compile Include="Commands\Player\Shop\PlayerAppraiseCommand.cs" />
+    <Compile Include="Commands\Player\Shop\PlayerBuyCommand.cs" />
+    <Compile Include="Commands\Player\Shop\PlayerGreetCommand.cs" />
+    <Compile Include="Commands\Player\Shop\PlayerSellCommand.cs" />
+    <Compile Include="Commands\Player\Social\PlayerEmoteCommand.cs" />
+    <Compile Include="Commands\Player\Social\PlayerSayCommand.cs" />
+    <Compile Include="Commands\Player\Social\PlayerShoutCommand.cs" />
+    <Compile Include="Commands\Player\Social\PlayerWhisperCommand.cs" />
+    <Compile Include="Commands\Player\Social\PlayerWhoCommand.cs" />
+    <Compile Include="PrerequisiteMap.cs" />
+    <Compile Include="Extensions\GameExtensions.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Contexts\IMudProgHandler.cs" />
+    <Compile Include="Contexts\MudProgHandler.cs" />
+    <Compile Include="IGame.cs" />
+    <Compile Include="Item\Interfaces\IItem.cs" />
+    <Compile Include="Item\Interfaces\IWeapon.cs" />
+    <Compile Include="Managers\ICombatManager.cs" />
+    <Compile Include="Managers\IDataManager.cs" />
+    <Compile Include="Managers\ILuaManager.cs" />
+    <Compile Include="Extensions\ManagerExtensions.cs" />
+    <Compile Include="Extensions\BiotaExtensions.cs" />
+    <Compile Include="NPC\Instances\StaticNpcInstance.cs" />
+    <Compile Include="NPC\Instances\RegularMobInstance.cs" />
+    <Compile Include="Contexts\IStatisticHandler.cs" />
+    <Compile Include="Extensions\MobileExtensions.cs" />
+    <Compile Include="NPC\MemoryRecord.cs" />
+    <Compile Include="NPC\Shop\IShop.cs" />
+    <Compile Include="NPC\Templates\RegularMobTemplate.cs" />
+    <Compile Include="NPC\Templates\StaticNpcTemplate.cs" />
+    <Compile Include="Extensions\CharacterExtensions.cs" />
+    <Compile Include="Extensions\GameUserExtensions.cs" />
+    <Compile Include="Groups\Group.cs" />
+    <Compile Include="Groups\GroupManager.cs" />
+    <Compile Include="Properties\MxpResources.Designer.cs">
+      <DependentUpon>MxpResources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Properties\MessageResources.Designer.cs">
+      <DependentUpon>MessageResources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Properties\ErrorResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ErrorResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="LuaHelper.cs" />
+    <Compile Include="Effects\EffectsHandler.cs" />
+    <Compile Include="NPC\PerceptionHandler.cs" />
+    <Compile Include="NPC\Combat\Attack.cs" />
+    <Compile Include="NPC\Combat\Damage.cs" />
+    <Compile Include="Currency.cs" />
+    <Compile Include="NPC\Inventory.cs" />
+    <Compile Include="NPC\EquipmentRepository.cs" />
+    <Compile Include="NPC\SkillRepository.cs" />
+    <Compile Include="Contexts\StatisticHandler.cs" />
+    <Compile Include="NPC\StatRepository.cs" />
+    <Compile Include="Players\AbilityRepository.cs" />
+    <Compile Include="Players\RecipeRepository.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="Managers\CombatManager.cs" />
+    <Compile Include="Managers\LuaManager.cs" />
+    <Compile Include="Managers\DataManager.cs" />
+    <Compile Include="Menus\CharMenuHandler.cs" />
+    <Compile Include="Menus\CreateMenuHandler.cs" />
+    <Compile Include="Attributes\AttributeUtils.cs" />
+    <Compile Include="Attributes\GameAttribute.cs" />
+    <Compile Include="Attributes\SkillAttribute.cs" />
+    <Compile Include="Attributes\SkillResult.cs" />
+    <Compile Include="Attributes\StatAttribute.cs" />
+    <Compile Include="Commands\User\UserCreateCharacterCommand.cs" />
+    <Compile Include="Commands\User\UserCreatePlayerCommand.cs" />
+    <Compile Include="Commands\User\UserDeleteCharacterCommand.cs" />
+    <Compile Include="Commands\User\UserSelectCharacterCommand.cs" />
+    <Compile Include="Extensions\SpaceExtension.cs" />
+    <Compile Include="NPC\Conversation\ConversationNode.cs" />
+    <Compile Include="NPC\Conversation\ConversationTree.cs" />
+    <Compile Include="Effects\EffectInstance.cs" />
+    <Compile Include="Effects\EffectTemplate.cs" />
+    <Compile Include="Effects\Instances\AblativeEffectInstance.cs" />
+    <Compile Include="Effects\Instances\ChangePositionEffectInstance.cs" />
+    <Compile Include="Effects\Instances\DamageShieldEffectInstance.cs" />
+    <Compile Include="Effects\Instances\DrainStatEffectInstance.cs" />
+    <Compile Include="Effects\Instances\GiveAbilityEffectInstance.cs" />
+    <Compile Include="Effects\Instances\GiveEntityEffectInstance.cs" />
+    <Compile Include="Effects\Instances\GiveSkillEffectInstance.cs" />
+    <Compile Include="Effects\Instances\HealthChangeEffectInstance.cs" />
+    <Compile Include="Effects\Instances\HealthChangeOverTimeEffectInstance.cs" />
+    <Compile Include="Effects\Instances\RoomEffectEffectInstance.cs" />
+    <Compile Include="Effects\Instances\StatModChangeOverTimeEffectInstance.cs" />
+    <Compile Include="Effects\Instances\StatModEffectInstance.cs" />
+    <Compile Include="Effects\Instances\StatusEffectEffectInstance.cs" />
+    <Compile Include="Effects\Instances\TeleportEffectInstance.cs" />
+    <Compile Include="Effects\Instances\TemporaryEntityEffectInstance.cs" />
+    <Compile Include="Effects\Instances\TimedEffectEffectInstance.cs" />
+    <Compile Include="Effects\Templates\AblativeEffectTemplate.cs" />
+    <Compile Include="Effects\Templates\ChangePositionEffectTemplate.cs" />
+    <Compile Include="Effects\Templates\DamageShieldEffectTemplate.cs" />
+    <Compile Include="Effects\Templates\DrainStatEffectTemplate.cs" />
+    <Compile Include="Effects\Templates\GiveAbilityEffectTemplate.cs" />
+    <Compile Include="Effects\Templates\GiveEntityEffectTemplate.cs" />
+    <Compile Include="Effects\Templates\GiveSkillEffectTemplate.cs" />
+    <Compile Include="Effects\Templates\HealthChangeEffectTemplate.cs" />
+    <Compile Include="Effects\Templates\HealthChangeOverTimeEffectTemplate.cs" />
+    <Compile Include="Effects\Templates\RoomEffectEffectTemplate.cs" />
+    <Compile Include="Effects\Templates\StatModEffectTemplate.cs" />
+    <Compile Include="Effects\Templates\StatModOverTimeEffectTemplate.cs" />
+    <Compile Include="Effects\Templates\StatusEffectEffectTemplate.cs" />
+    <Compile Include="Effects\Templates\TeleportEffectTemplate.cs" />
+    <Compile Include="Effects\Templates\TemporaryEntityEffectTemplate.cs" />
+    <Compile Include="Effects\Templates\TimedEffectEffectTemplate.cs" />
+    <Compile Include="Item\Instances\ArmorItemInstance.cs" />
+    <Compile Include="Item\Instances\ContainerItemInstance.cs" />
+    <Compile Include="Item\Instances\CorpseItemInstance.cs" />
+    <Compile Include="Item\Instances\DrinkContainerItemInstance.cs" />
+    <Compile Include="Item\Instances\FormulaItemInstance.cs" />
+    <Compile Include="Item\Instances\KeyItemInstance.cs" />
+    <Compile Include="Item\Instances\LightItemInstance.cs" />
+    <Compile Include="Item\Instances\MachineItemInstance.cs" />
+    <Compile Include="Item\Instances\PotionItemInstance.cs" />
+    <Compile Include="Item\Instances\ResourceItemInstance.cs" />
+    <Compile Include="Item\Instances\ResourceNodeItemInstance.cs" />
+    <Compile Include="Item\Instances\ToolItemInstance.cs" />
+    <Compile Include="Item\Instances\WeaponItemInstance.cs" />
+    <Compile Include="Item\ItemInstance.cs" />
+    <Compile Include="Item\ItemTemplate.cs" />
+    <Compile Include="Item\ResourceToolType.cs" />
+    <Compile Include="Item\Templates\ArmorItemTemplate.cs" />
+    <Compile Include="Item\Templates\ContainerItemTemplate.cs" />
+    <Compile Include="Item\Templates\CorpseItemTemplate.cs" />
+    <Compile Include="Item\Templates\DrinkContainerItemTemplate.cs" />
+    <Compile Include="Item\Templates\FormulaItemTemplate.cs" />
+    <Compile Include="Item\Templates\KeyItemTemplate.cs" />
+    <Compile Include="Item\Templates\LightItemTemplate.cs" />
+    <Compile Include="Item\Templates\MachineItemTemplate.cs" />
+    <Compile Include="Item\Templates\PotionItemTemplate.cs" />
+    <Compile Include="Item\Templates\ResourceItemTemplate.cs" />
+    <Compile Include="Item\Templates\ResourceNodeItemTemplate.cs" />
+    <Compile Include="Item\Templates\ToolItemTemplate.cs" />
+    <Compile Include="Item\Templates\WeaponItemTemplate.cs" />
+    <Compile Include="NPC\Instances\ResourceMobInstance.cs" />
+    <Compile Include="NPC\Shop\ShopInstance.cs" />
+    <Compile Include="NPC\Instances\VendorNpcInstance.cs" />
+    <Compile Include="NPC\MobTemplate.cs" />
+    <Compile Include="NPC\SaleItem.cs" />
+    <Compile Include="NPC\Templates\ResourceMobTemplate.cs" />
+    <Compile Include="NPC\Templates\VendorNpcTemplate.cs" />
+    <Compile Include="NPC\Shop\ShopTemplate.cs" />
+    <Compile Include="ServerModule.cs" />
+    <Compile Include="Zones\Spawn\EntitySpawn.cs" />
+    <Compile Include="Zones\Spawn\SpawnLocation.cs" />
+    <Compile Include="Zones\Spawn\SpawnProfile.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\Patterns\Realm.Library.Patterns.Repository\Realm.Library.Patterns.Repository.csproj">
+      <Project>{222cce38-b286-44f0-b7f1-6af8ba525fb6}</Project>
+      <Name>Realm.Library.Patterns.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\Patterns\Realm.Library.Patterns.Singleton\Realm.Library.Patterns.Singleton.csproj">
+      <Project>{b459e90b-793a-48b1-b672-50d162edc662}</Project>
+      <Name>Realm.Library.Patterns.Singleton</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\Realm.Library.Ai\Realm.Library.Ai.csproj">
+      <Project>{94235864-ba78-435a-a353-a8fc83fa1a06}</Project>
+      <Name>Realm.Library.Ai</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\Realm.Library.Common\Realm.Library.Common.csproj">
+      <Project>{1fdee5bd-a724-4478-bca3-4c49daea291d}</Project>
+      <Name>Realm.Library.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\Realm.Library.Database\Realm.Library.Database.csproj">
+      <Project>{72089e12-217d-4c77-8041-8d919bbf30db}</Project>
+      <Name>Realm.Library.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\Realm.Library.Lua\Realm.Library.Lua.csproj">
+      <Project>{02b1394b-866d-42ad-b187-ef9d9d459eb0}</Project>
+      <Name>Realm.Library.Lua</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\Realm.Library.Network\Realm.Library.Network.csproj">
+      <Project>{551f2b16-cec5-4e16-8f30-290005c04e16}</Project>
+      <Name>Realm.Library.Network</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Realm.Command\Realm.Command.csproj">
+      <Project>{0E87E1D1-02D3-4E57-8E65-DB4E49AE0FD1}</Project>
+      <Name>Realm.Command</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Realm.Communication\Realm.Communication.csproj">
+      <Project>{9481A7BE-0E60-4E88-8E0A-549648B92506}</Project>
+      <Name>Realm.Communication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Realm.Data\Realm.Data.csproj">
+      <Project>{0DFAB029-BE14-434A-B328-A98178C43CB0}</Project>
+      <Name>Realm.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Realm.Entity\Realm.Entity.csproj">
+      <Project>{139F42EC-7788-4E83-B47B-43FDD8D1A7E9}</Project>
+      <Name>Realm.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Realm.Event\Realm.Event.csproj">
+      <Project>{9EA864D2-2338-4BCB-ABC6-6D825EBA0564}</Project>
+      <Name>Realm.Event</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Realm.Help\Realm.Help.csproj">
+      <Project>{125d2f7f-c246-4401-a72c-93ceeadd9335}</Project>
+      <Name>Realm.Help</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Realm.Network\Realm.Network.csproj">
+      <Project>{DB9EB86B-49B1-4B80-8A81-3701C859864F}</Project>
+      <Name>Realm.Network</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Realm.Pathing\Realm.Pathing.csproj">
+      <Project>{1FF7F263-F3E1-4719-B2E4-A951FDD18AB2}</Project>
+      <Name>Realm.Pathing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Realm.Time\Realm.Time.csproj">
+      <Project>{718875d4-9236-4aa0-b507-8fa467de510d}</Project>
+      <Name>Realm.Time</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\MxpResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MxpResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\MessageResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MessageResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\ErrorResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ErrorResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Commands\Player\Group\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,6 +1,0 @@
-Realm.Build.Tool
-
-- Add functions to RealmStaticDal for each Reference table in the database
-- Create the Xml Constants code
-- Figure out why the Log4Net code isn't working
-
