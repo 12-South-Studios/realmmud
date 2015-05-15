@@ -125,7 +125,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{E7E6F31E-7AA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Realm.Web", "Web\Realm.Web\Realm.Web.csproj", "{252CA1CC-A9FF-47D9-B4CC-8C99247C4AF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Realm.Web.Tests", "Realm.Web.Tests\Realm.Web.Tests.csproj", "{7F890620-964E-4E10-B5A6-6E7B4381B2FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Realm.Web.Tests", "Web\Realm.Web.Tests\Realm.Web.Tests.csproj", "{7F890620-964E-4E10-B5A6-6E7B4381B2FA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{ED07F171-3910-4477-BCB2-22A4095E7A1F}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

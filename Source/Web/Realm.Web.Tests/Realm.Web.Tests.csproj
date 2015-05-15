@@ -94,7 +94,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Web\Realm.Web\Realm.Web.csproj">
+    <ProjectReference Include="..\Realm.Web\Realm.Web.csproj">
       <Project>{252CA1CC-A9FF-47D9-B4CC-8C99247C4AF8}</Project>
       <Name>Realm.Web</Name>
     </ProjectReference>
