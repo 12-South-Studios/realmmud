@@ -15,7 +15,7 @@ using Realm.Live.DAL.Models;
 
 namespace Realm.Live.DAL
 {
-    internal class RealmLiveDbContext : DbContext, IRealmLiveDbContext
+    public class RealmLiveDbContext : DbContext, IRealmLiveDbContext
     {
         private ILogWrapper Logger { get; set; }
 

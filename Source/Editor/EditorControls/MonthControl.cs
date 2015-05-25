@@ -7,6 +7,7 @@ using Realm.DAL;
 using Realm.DAL.Enumerations;
 using Realm.DAL.Interfaces;
 using Realm.DAL.Models;
+using Realm.Edit.Editor;
 using Realm.Edit.Extensions;
 using Realm.Library.Controls;
 
@@ -84,9 +85,12 @@ namespace Realm.Edit.EditorControls
         {
             foreach (var effect in month.Effects)
             {
-                var row = new DataGridViewRow();
-                row
-                gridEffects.Rows.Add()
+                var row = new DataGridViewRow {Tag = effect};
+
+                var cellEffect = row.Cells["Effect"] as DataGridViewLinkCell;
+                cellEffect.Value = EditorFactory.GetBrowseInfo(SystemTypes.Effect, effect.Effect.Id);
+
+                gridEffects.Rows.Add(row);
             }
         }
 

@@ -19,17 +19,17 @@ namespace Realm.Library.Controls
     /// </summary>
     public class DataGridViewTypedLinkCell : DataGridViewLinkCell
     {
-        private Icon mIcon;
-        private short mSystemType;
-        private readonly ValidateDragDelegate DragValidateDelegate = defaultDragValidate;
+        private Icon _icon;
+        private short _systemType;
+        private readonly ValidateDragDelegate _dragValidateDelegate = defaultDragValidate;
 
         /// <summary>
         ///
         /// </summary>
         public DataGridViewTypedLinkCell()
         {
-            mSystemType = 0;
-            mIcon = null;
+            _systemType = 0;
+            _icon = null;
 
             Style.Padding = new Padding(20, 0, 0, 0);   // <-- This kicks the text over so that the icon can be left aligned
         }
@@ -37,17 +37,17 @@ namespace Realm.Library.Controls
         /// <summary>
         ///
         /// </summary>
-        public Icon Icon { get { return mIcon; } }
+        public Icon Icon { get { return _icon; } }
 
         /// <summary>
         ///
         /// </summary>
         public short SystemType
         {
-            get { return mSystemType; }
+            get { return _systemType; }
             set
             {
-                mSystemType = value;
+                _systemType = value;
 
                 if (DataGridView.IsNotNull())
                     DataGridView.Refresh();
@@ -80,7 +80,7 @@ namespace Realm.Library.Controls
             if (treeNode.IsNotNull())
             {
                 var browseInfo = treeNode.Tag as IBrowseInfo;
-                if (DragValidateDelegate(browseInfo, this))
+                if (_dragValidateDelegate(browseInfo, this))
                 {
                     e.Effect = DragDropEffects.Link;
 
@@ -112,9 +112,9 @@ namespace Realm.Library.Controls
             if (clone.IsNotNull())
             {
                 // ReSharper disable PossibleNullReferenceException
-                clone.mIcon = Icon;
+                clone._icon = Icon;
                 // ReSharper restore PossibleNullReferenceException
-                clone.mSystemType = SystemType;
+                clone._systemType = SystemType;
             }
             return clone;
         }

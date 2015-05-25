@@ -14,7 +14,7 @@ using Realm.Library.Common.Logging;
 
 namespace Realm.Admin.DAL
 {
-    internal class RealmAdminDbContext : DbContext, IRealmAdminDbContext
+    public class RealmAdminDbContext : DbContext, IRealmAdminDbContext
     {
         private ILogWrapper Logger { get; set; }
         public ObjectContext ObjectContext { get; private set; }

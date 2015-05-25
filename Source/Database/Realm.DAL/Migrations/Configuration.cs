@@ -7,7 +7,7 @@ using Realm.DAL.Models;
 
 namespace Realm.DAL.Migrations
 {
-    internal sealed class Configuration : DbMigrationsConfiguration<RealmDbContext>
+    public sealed class Configuration : DbMigrationsConfiguration<RealmDbContext>
     {
         public Configuration()
         {

@@ -3,7 +3,7 @@ using System.Data.Entity.Migrations;
 
 namespace Realm.Admin.DAL.Migrations
 {
-    internal sealed class Configuration : DbMigrationsConfiguration<RealmAdminDbContext>
+    public sealed class Configuration : DbMigrationsConfiguration<RealmAdminDbContext>
     {
         public Configuration()
         {
