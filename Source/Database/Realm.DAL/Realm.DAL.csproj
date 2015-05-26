@@ -105,6 +105,10 @@
     <Compile Include="Enumerations\TagCategoryTypes.cs" />
     <Compile Include="Enumerations\TargetClassTypes.cs" />
     <Compile Include="Enumerations\SystemTypes.cs" />
+    <Compile Include="Migrations\201505261205510_InitialSetup.cs" />
+    <Compile Include="Migrations\201505261205510_InitialSetup.Designer.cs">
+      <DependentUpon>201505261205510_InitialSetup.cs</DependentUpon>
+    </Compile>
     <Compile Include="RealmDbContextModule.cs" />
     <Compile Include="ContextExtensions.cs" />
     <Compile Include="IPrimitive.cs" />
@@ -252,6 +256,11 @@
       <Project>{383e6b8f-8eba-4dc3-8c16-6a8940b46002}</Project>
       <Name>Realm.DAL.Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201505261205510_InitialSetup.resx">
+      <DependentUpon>201505261205510_InitialSetup.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
