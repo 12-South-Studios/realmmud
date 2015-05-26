@@ -9,8 +9,9 @@ namespace Realm.DAL.Models
     public class Liquid : Primitive
     {
         [Required]
-        public virtual SystemString DisplayDescription { get; set; }
+        public string DisplayDescription { get; set; }
 
+        public int? ColorId { get; set; }
         public virtual Color Color { get; set; }
 
         public int ThirstPoints { get; set; }
@@ -21,20 +22,11 @@ namespace Realm.DAL.Models
 
         public FlammabilityTypes FlammabilityType { get; set; }
 
+        public int? TagSetId { get; set; }
         public virtual TagSet TagSet { get; set; }
 
         public static void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Liquid>()
-                .HasRequired(x => x.DisplayName)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Liquid>()
-                .HasRequired(x => x.DisplayDescription)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
             modelBuilder.Entity<Liquid>()
                 .HasOptional(x => x.TagSet)
                 .WithMany()

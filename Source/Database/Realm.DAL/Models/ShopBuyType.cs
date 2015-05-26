@@ -12,8 +12,6 @@ namespace Realm.DAL.Models
 
         [Required]
         public int ShopId { get; set; }
-
-        [ForeignKey("ShopId")]
-        public Shop Shop { get; set; }
+        public virtual Shop Shop { get; set; }
     }
 }

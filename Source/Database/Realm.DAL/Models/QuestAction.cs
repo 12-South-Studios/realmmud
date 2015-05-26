@@ -10,6 +10,7 @@ namespace Realm.DAL.Models
     {
         public bool IsStart { get; set; }
 
+        public int? MobileId { get; set; }
         public virtual Mobile Mobile { get; set; }
 
         public int Coin { get; set; }
@@ -17,33 +18,20 @@ namespace Realm.DAL.Models
         public int Experience { get; set; }
 
         public int? GivePrimitiveId { get; set; }
-
-        [ForeignKey("GivePrimitiveId")]
         public virtual Primitive GivePrimitive { get; set; }
 
         public int? DeletePrimitiveId { get; set; }
-
-        [ForeignKey("DeletePrimitiveId")]
         public virtual Primitive DeletePrimitive { get; set; }
 
         public int Quantity { get; set; }
 
+        public int? MudProgId { get; set; }
         public virtual MudProg MudProg { get; set; }
 
-        public virtual SystemString JournalEntry { get; set; }
+        public string JournalEntry { get; set; }
 
         [Required]
         public int QuestId { get; set; }
-
-        [ForeignKey("QuestId")]
-        public Quest Quest { get; set; }
-
-        public static void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<QuestAction>()
-                .HasOptional(x => x.JournalEntry)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-        }
+        public virtual Quest Quest { get; set; }
     }
 }

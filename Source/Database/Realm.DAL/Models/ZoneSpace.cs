@@ -7,12 +7,11 @@ namespace Realm.DAL.Models
     [Table("ZoneSpaces")]
     public class ZoneSpace : Entity
     {
+        public int? SpaceId { get; set; }
         public virtual Space Space { get; set; }
 
         [Required]
         public int ZoneId { get; set; }
-
-        [ForeignKey("ZoneId")]
-        public Zone Zone { get; set; }
+        public virtual Zone Zone { get; set; }
     }
 }

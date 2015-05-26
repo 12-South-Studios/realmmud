@@ -23,11 +23,6 @@ namespace Realm.DAL.Models
         public static void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Shop>()
-                .HasRequired(x => x.DisplayName)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Shop>()
                 .HasOptional(x => x.BuyTypes)
                 .WithMany()
                 .WillCascadeOnDelete(true);

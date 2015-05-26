@@ -10,12 +10,11 @@ namespace Realm.DAL.Models
     {
         public MonsterClassTypes MonsterClass { get; set; }
 
+        public int? BehaviorId { get; set; }
         public virtual Behavior Behavior { get; set; }
 
         [Required]
         public int MobileId { get; set; }
-
-        [ForeignKey("MobileId")]
-        public Mobile Mobile { get; set; }
+        public virtual Mobile Mobile { get; set; }
     }
 }

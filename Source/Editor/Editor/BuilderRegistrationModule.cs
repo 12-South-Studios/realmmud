@@ -1,6 +1,6 @@
 ﻿using Ninject;
-using Realm.Admin.DAL.Interfaces;
-using Realm.DAL.Interfaces;
+using Realm.Admin.DAL;
+using Realm.DAL;
 using Realm.Edit.Builders;
 
 namespace Realm.Edit.Editor

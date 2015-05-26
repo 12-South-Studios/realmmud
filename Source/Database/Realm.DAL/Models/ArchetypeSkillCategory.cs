@@ -7,6 +7,7 @@ namespace Realm.DAL.Models
     [Table("ArchetypeSkillCategories")]
     public class ArchetypeSkillCategory : Entity
     {
+        public int? SkillCategoryId { get; set; }
         public virtual SkillCategory SkillCategory { get; set; }
 
         public bool IsPreferred { get; set; }
@@ -15,8 +16,6 @@ namespace Realm.DAL.Models
 
         [Required]
         public int ArchetypeId { get; set; }
-
-        [ForeignKey("ArchetypeId")]
-        public Archetype Archetype { get; set; }
+        public virtual Archetype Archetype { get; set; }
     }
 }

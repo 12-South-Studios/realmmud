@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using Ninject;
 using Realm.DAL;
 using Realm.DAL.Enumerations;
-using Realm.DAL.Interfaces;
 using Realm.DAL.Models;
 using Realm.Edit.Extensions;
 using Realm.Library.Common;
@@ -91,8 +90,8 @@ namespace Realm.Edit.EditorControls
             var obj = (Race)dbContext.GetPrimitive(SystemTypes.Race, aId);
 
             txtSystemName.Text = obj.SystemName;
-            txtDisplayName.Text = obj.DisplayName.Value;
-            txtDisplayDescription.Text = obj.DisplayDescription.Value;
+            txtDisplayName.Text = obj.DisplayName;
+            txtDisplayDescription.Text = obj.DisplayDescription;
             txtAbbreviation.Text = obj.Abbreviation;
             cboSize.Fill<SizeTypes>((int)obj.SizeType);
             chkPlayerRace.Checked = dbContext.DoesPrimitiveHaveBit(BitTypes.RaceBits, obj.Bits,
@@ -119,9 +118,8 @@ namespace Realm.Edit.EditorControls
                 }
 
                 race.SystemName = txtSystemName.Text;
-                race.DisplayName = SaveSystemString(dbContext, race.DisplayName, txtDisplayName.Text);
-                race.DisplayDescription = SaveSystemString(dbContext, race.DisplayDescription,
-                    txtDisplayDescription.Text);
+                race.DisplayName = txtDisplayName.Text;
+                race.DisplayDescription = txtDisplayDescription.Text;
                 race.Abbreviation = txtAbbreviation.Text;
                 race.SizeType = (SizeTypes)EnumerationFunctions.GetEnumByName<SizeTypes>(cboSize.Text);
                 

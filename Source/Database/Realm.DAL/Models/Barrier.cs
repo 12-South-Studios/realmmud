@@ -12,29 +12,19 @@ namespace Realm.DAL.Models
         public int Bits { get; set; }
 
         public int? KeyItemId { get; set; }
-
-        [ForeignKey("KeyItemId")]
         public virtual Item KeyItem { get; set; }
 
         public int? LockItemId { get; set; }
-
-        [ForeignKey("LockItemId")]
         public virtual Item LockItem { get; set; }
 
         public int? TrapItemId { get; set; }
-
-        [ForeignKey("TrapItemId")]
         public virtual Item TrapItem { get; set; }
 
+        public int? TagSetId { get; set; }
         public virtual TagSet TagSet { get; set; }
 
         public static void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Barrier>()
-                .HasRequired(x => x.DisplayName)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
             modelBuilder.Entity<Barrier>()
                 .HasOptional(x => x.TagSet)
                 .WithMany()

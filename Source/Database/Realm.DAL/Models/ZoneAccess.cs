@@ -9,22 +9,12 @@ namespace Realm.DAL.Models
     public class ZoneAccess : Entity
     {
         [Required]
-        public virtual SystemString AccessName { get; set; }
+        public string AccessName { get; set; }
 
         public int AccessValue { get; set; }
 
         [Required]
         public int ZoneId { get; set; }
-
-        [ForeignKey("ZoneId")]
-        public Zone Zone { get; set; }
-
-        public static void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<ZoneAccess>()
-                .HasRequired(x => x.AccessName)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-        }
+        public virtual Zone Zone { get; set; }
     }
 }

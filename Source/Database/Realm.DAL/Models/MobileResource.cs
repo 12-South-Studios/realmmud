@@ -8,14 +8,13 @@ namespace Realm.DAL.Models
     [Table("MobileResources")]
     public class MobileResource : Entity
     {
+        public int? NodeItemId { get; set; }
         public virtual Item NodeItem { get; set; }
 
         public MobileNodeTypes NodeType { get; set; }
 
         [Required]
         public int MobileId { get; set; }
-
-        [ForeignKey("MobileId")]
-        public Mobile Mobile { get; set; }
+        public virtual Mobile Mobile { get; set; }
     }
 }

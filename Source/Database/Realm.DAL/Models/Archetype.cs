@@ -9,8 +9,9 @@ namespace Realm.DAL.Models
     public class Archetype : Primitive
     {
         [Required]
-        public virtual SystemString DisplayDescription { get; set; }
+        public string DisplayDescription { get; set; }
 
+        public int? TagSetId { get; set; }
         public virtual TagSet TagSet { get; set; }
 
         public virtual ICollection<ArchetypeAbility> Abilities { get; set; }
@@ -21,16 +22,6 @@ namespace Realm.DAL.Models
 
         public static void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Archetype>()
-                .HasRequired(x => x.DisplayName)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Archetype>()
-                .HasRequired(x => x.DisplayDescription)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
             modelBuilder.Entity<Archetype>()
                 .HasOptional(x => x.TagSet)
                 .WithMany()

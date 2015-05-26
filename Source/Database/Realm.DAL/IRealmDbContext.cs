@@ -3,7 +3,7 @@ using System.Data.Entity;
 using Realm.DAL.Common;
 using Realm.DAL.Models;
 
-namespace Realm.DAL.Interfaces
+namespace Realm.DAL
 {
     public interface IRealmDbContext : IDisposable, IRealmContext
     {
@@ -41,7 +41,6 @@ namespace Realm.DAL.Interfaces
         IDbSet<Space> Spaces { get; set; }
         IDbSet<Spawn> Spawns { get; set; }
         IDbSet<SystemClass> SystemClasses { get; set; }
-        IDbSet<SystemString> SystemStrings { get; set; }
         IDbSet<Tag> Tags { get; set; }
         IDbSet<TagSet> TagSets { get; set; }
         IDbSet<Terrain> Terrains { get; set; }

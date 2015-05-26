@@ -1,6 +1,6 @@
 ﻿using Realm.DAL.Models;
 
-namespace Realm.DAL.Interfaces
+namespace Realm.DAL
 {
     public interface IPrimitive
     {

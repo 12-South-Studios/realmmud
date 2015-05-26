@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
-using Realm.Admin.DAL.Interfaces;
+using Realm.Admin.DAL;
 using Realm.Admin.DAL.Models;
 using Realm.Edit.Extensions;
 using Realm.Edit.Properties;

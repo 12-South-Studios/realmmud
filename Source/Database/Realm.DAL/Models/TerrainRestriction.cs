@@ -11,8 +11,6 @@ namespace Realm.DAL.Models
 
         [Required]
         public int TerrainId { get; set; }
-
-        [ForeignKey("TerrainId")]
-        public Terrain Terrain { get; set; }
+        public virtual Terrain Terrain { get; set; }
     }
 }

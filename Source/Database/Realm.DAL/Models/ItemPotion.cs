@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using Realm.DAL.Common;
 
 namespace Realm.DAL.Models
@@ -7,10 +6,15 @@ namespace Realm.DAL.Models
     [Table("ItemPotions")]
     public class ItemPotion : Entity
     {
-         public Ability Ability { get; set; }
+        public int ItemId { get; set; }
+        public virtual Item Item { get; set; }
+
+        public int? AbilityId { get; set; }
+        public virtual Ability Ability { get; set; }
 
         public int Charges { get; set; }
 
-        public Color Color { get; set; }
+        public int? ColorId { get; set; }
+        public virtual Color Color { get; set; }
     }
 }

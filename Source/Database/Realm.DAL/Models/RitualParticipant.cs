@@ -7,14 +7,14 @@ namespace Realm.DAL.Models
     [Table("RitualParticipants")]
     public class RitualParticipant : Entity
     {
+        public int? FocusItemId { get; set; }
         public virtual Item FocusItem { get; set; }
 
+        public int? WearLocationId { get; set; }
         public virtual WearLocation WearLocation { get; set; }
 
         [Required]
         public int RitualId { get; set; }
-
-        [ForeignKey("RitualId")]
-        public Ritual Ritual { get; set; }
+        public virtual Ritual Ritual { get; set; }
     }
 }

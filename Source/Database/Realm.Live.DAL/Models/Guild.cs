@@ -24,14 +24,10 @@ namespace Realm.Live.DAL.Models
         public int MemberLimit { get; set; }
 
         public int? MemberChannelId { get; set; }
-
-        [ForeignKey("MemberChannelId")]
-        public Channel MemberChannel { get; set; }
+        public virtual Channel MemberChannel { get; set; }
 
         public int? OfficerChannelId { get; set; }
-
-        [ForeignKey("OfficerChannelId")]
-        public Channel OfficerChannel { get; set; }
+        public virtual Channel OfficerChannel { get; set; }
 
         public int Level { get; set; }
 
@@ -41,6 +37,7 @@ namespace Realm.Live.DAL.Models
 
         public virtual ICollection<GuildMember> Members { get; set; }
 
-        public Bank Bank { get; set; } 
+        public int? BankId { get; set; }
+        public virtual Bank Bank { get; set; } 
     }
 }

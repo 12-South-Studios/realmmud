@@ -8,15 +8,11 @@ namespace Realm.DAL.Models
     {
         public int Bits { get; set; }
 
+        public int? TagSetId { get; set; }
         public virtual TagSet TagSet { get; set; }
 
         public static void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Behavior>()
-                .HasRequired(x => x.DisplayName)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
             modelBuilder.Entity<Behavior>()
                 .HasOptional(x => x.TagSet)
                 .WithMany()

@@ -9,12 +9,13 @@ namespace Realm.DAL.Models
     public class Quest : Primitive
     {
         [Required]
-        public virtual SystemString DisplayDescription { get; set; }
+        public string DisplayDescription { get; set; }
 
         public int Bits { get; set; }
 
         public int Timer { get; set; }
 
+        public int? TagSetId { get; set; }
         public virtual TagSet TagSet { get; set; }
 
         public virtual ICollection<QuestAction> Actions { get; set; }
@@ -25,16 +26,6 @@ namespace Realm.DAL.Models
 
         public static void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Quest>()
-                .HasRequired(x => x.DisplayName)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Quest>()
-                .HasRequired(x => x.DisplayDescription)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
             modelBuilder.Entity<Quest>()
                 .HasOptional(x => x.TagSet)
                 .WithMany()
@@ -54,9 +45,6 @@ namespace Realm.DAL.Models
                 .HasOptional(x => x.Requirements)
                 .WithMany()
                 .WillCascadeOnDelete(true);
-
-            QuestAction.OnModelCreating(modelBuilder);
-            QuestProgress.OnModelCreating(modelBuilder);
         }
     }
 }

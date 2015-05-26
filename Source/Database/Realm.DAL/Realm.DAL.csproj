@@ -105,14 +105,10 @@
     <Compile Include="Enumerations\TagCategoryTypes.cs" />
     <Compile Include="Enumerations\TargetClassTypes.cs" />
     <Compile Include="Enumerations\SystemTypes.cs" />
-    <Compile Include="DependencyModules\RealmDbContextModule.cs" />
+    <Compile Include="RealmDbContextModule.cs" />
     <Compile Include="ContextExtensions.cs" />
-    <Compile Include="Interfaces\IPrimitive.cs" />
-    <Compile Include="Interfaces\IRealmDbContext.cs" />
-    <Compile Include="Migrations\201502021406429_InitialSetup.cs" />
-    <Compile Include="Migrations\201502021406429_InitialSetup.Designer.cs">
-      <DependentUpon>201502021406429_InitialSetup.cs</DependentUpon>
-    </Compile>
+    <Compile Include="IPrimitive.cs" />
+    <Compile Include="IRealmDbContext.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ItemWearLocation.cs" />
     <Compile Include="Models\ItemWeapon.cs" />
@@ -224,7 +220,6 @@
     <Compile Include="Models\Shop.cs" />
     <Compile Include="Models\Skill.cs" />
     <Compile Include="Enumerations\GameConstantCategory.cs" />
-    <Compile Include="Models\SystemString.cs" />
     <Compile Include="Models\SkillCategory.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\TagSet.cs" />
@@ -249,9 +244,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Migrations\DatabaseScripts\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\Libraries\Realm.Library.Common\Realm.Library.Common.csproj">
       <Project>{1fdee5bd-a724-4478-bca3-4c49daea291d}</Project>
       <Name>Realm.Library.Common</Name>
@@ -260,11 +252,6 @@
       <Project>{383e6b8f-8eba-4dc3-8c16-6a8940b46002}</Project>
       <Name>Realm.DAL.Common</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201502021406429_InitialSetup.resx">
-      <DependentUpon>201502021406429_InitialSetup.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

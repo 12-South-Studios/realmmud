@@ -6,6 +6,9 @@ namespace Realm.DAL.Models
     [Table("ItemFoods")]
     public class ItemFood : Entity
     {
+        public int ItemId { get; set; }
+        public virtual Item Item { get; set; }
+
         public int HungerPoints { get; set; }
 
         public int Charges { get; set; }
@@ -14,6 +17,6 @@ namespace Realm.DAL.Models
 
         public int TimeFoodIsDecayingInSeconds { get; set; }
 
-        public SystemString DecayDescription { get; set; }
+        public string DecayDescription { get; set; }
     }
 }

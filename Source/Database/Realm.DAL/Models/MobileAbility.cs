@@ -7,14 +7,13 @@ namespace Realm.DAL.Models
     [Table("MobileAbilities")]
     public class MobileAbility : Entity
     {
+        public int? AbilityId { get; set; }
         public virtual Ability Ability { get; set; }
 
         public bool IsDefault { get; set; }
 
         [Required]
         public int MobileId { get; set; }
-
-        [ForeignKey("MobileId")]
-        public Mobile Mobile { get; set; }
+        public virtual Mobile Mobile { get; set; }
     }
 }

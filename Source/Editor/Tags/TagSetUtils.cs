@@ -2,7 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using Ninject;
-using Realm.DAL.Interfaces;
+using Realm.DAL;
 using Realm.DAL.Models;
 
 namespace Realm.Edit.Tags

@@ -29,7 +29,8 @@ namespace Realm.Live.DAL.Models
 
         public DateTime? DeletedOn { get; set; }
 
-        public Bank Bank { get; set; }
+        public int? BankId { get; set; }
+        public virtual Bank Bank { get; set; }
 
         public virtual ICollection<UserAction> ActionHistory { get; set; }
     }

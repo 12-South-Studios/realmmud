@@ -3,7 +3,7 @@ using System.Data.Entity;
 using Realm.DAL.Common;
 using Realm.Live.DAL.Models;
 
-namespace Realm.Live.DAL.Interfaces
+namespace Realm.Live.DAL
 {
     public interface IRealmLiveDbContext : IDisposable, IRealmContext
     {

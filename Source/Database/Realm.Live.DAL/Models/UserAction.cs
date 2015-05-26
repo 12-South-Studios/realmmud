@@ -9,6 +9,9 @@ namespace Realm.Live.DAL.Models
     [Table("UserActions")]
     public class UserAction : Entity
     {
+        public int UserId { get; set; }
+        public virtual User User { get; set; }
+
         public DateTime ActionOccurredAt { get; set; }
 
         [MaxLength(50)]

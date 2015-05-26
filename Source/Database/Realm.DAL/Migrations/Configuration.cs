@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using Realm.DAL.Enumerations;
-using Realm.DAL.Interfaces;
 using Realm.DAL.Models;
 
 namespace Realm.DAL.Migrations

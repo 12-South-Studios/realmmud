@@ -75,36 +75,36 @@ namespace Realm.Admin.DAL.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        SessionId = c.Guid(nullable: false),
                         ActionType = c.Int(nullable: false),
                         ObjectId = c.String(),
                         ObjectName = c.String(),
-                        Session_Id = c.Guid(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Sessions", t => t.Session_Id)
-                .Index(t => t.Session_Id);
+                .ForeignKey("dbo.Sessions", t => t.SessionId)
+                .Index(t => t.SessionId);
             
             CreateTable(
                 "dbo.SessionValues",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        SessionId = c.Guid(nullable: false),
                         RecordType = c.Int(nullable: false),
                         Value = c.Int(nullable: false),
-                        Session_Id = c.Guid(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Sessions", t => t.Session_Id)
-                .Index(t => t.Session_Id);
+                .ForeignKey("dbo.Sessions", t => t.SessionId)
+                .Index(t => t.SessionId);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.SessionValues", "Session_Id", "dbo.Sessions");
-            DropForeignKey("dbo.SessionActions", "Session_Id", "dbo.Sessions");
-            DropIndex("dbo.SessionValues", new[] { "Session_Id" });
-            DropIndex("dbo.SessionActions", new[] { "Session_Id" });
+            DropForeignKey("dbo.SessionValues", "SessionId", "dbo.Sessions");
+            DropForeignKey("dbo.SessionActions", "SessionId", "dbo.Sessions");
+            DropIndex("dbo.SessionValues", new[] { "SessionId" });
+            DropIndex("dbo.SessionActions", new[] { "SessionId" });
             DropTable("dbo.SessionValues");
             DropTable("dbo.SessionActions");
             DropTable("dbo.Sessions");

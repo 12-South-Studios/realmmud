@@ -9,12 +9,13 @@ namespace Realm.DAL.Models
     public class Zone : Primitive
     {
         [Required]
-        public virtual SystemString DisplayDescription { get; set; }
+        public string DisplayDescription { get; set; }
 
         public int Bits { get; set; }
 
         public int RecycleTime { get; set; }
 
+        public int? TagSetId { get; set; }
         public virtual TagSet TagSet { get; set; }
 
         public int MaxDynamicZones { get; set; }
@@ -33,16 +34,6 @@ namespace Realm.DAL.Models
 
         public static void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Zone>()
-                .HasRequired(x => x.DisplayName)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Zone>()
-                .HasRequired(x => x.DisplayDescription)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
             modelBuilder.Entity<Zone>()
                 .HasOptional(x => x.TagSet)
                 .WithMany()
@@ -72,8 +63,6 @@ namespace Realm.DAL.Models
                 .HasOptional(x => x.Spawns)
                 .WithMany()
                 .WillCascadeOnDelete(true);
-
-            ZoneAccess.OnModelCreating(modelBuilder);
         }
     }
 }

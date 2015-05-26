@@ -606,3 +606,83 @@ log4net: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=n
 log4net: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] using repository [log4net-default-repository] and repository type [log4net.Repository.Hierarchy.Hierarchy]
 log4net: Creating repository [log4net-default-repository] using type [log4net.Repository.Hierarchy.Hierarchy]
 log4net: Shutdown called on Hierarchy [log4net-default-repository]
+log4net: log4net assembly [log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=692fbea5521e1304]. Loaded from [Global Assembly Cache]. (.NET Runtime [4.0.30319.0] on Microsoft Windows NT 6.1.7601 Service Pack 1)
+log4net: DefaultRepositorySelector: defaultRepositoryType [log4net.Repository.Hierarchy.Hierarchy]
+log4net: DefaultRepositorySelector: Creating repository for assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] Loaded From [C:\Users\jmurdick\AppData\Local\assembly\dl3\0923AB2R.LOQ\NKDVE4X5.WDC\3f92de3c\317ba969_1d97d001\Realm.DAL.dll]
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] does not have a RepositoryAttribute specified.
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] using repository [log4net-default-repository] and repository type [log4net.Repository.Hierarchy.Hierarchy]
+log4net: DefaultRepositorySelector: Creating repository [log4net-default-repository] using type [log4net.Repository.Hierarchy.Hierarchy]
+log4net: Hierarchy: Shutdown called on Hierarchy [log4net-default-repository]
+log4net: log4net assembly [log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=692fbea5521e1304]. Loaded from [Global Assembly Cache]. (.NET Runtime [4.0.30319.0] on Microsoft Windows NT 6.1.7601 Service Pack 1)
+log4net: DefaultRepositorySelector: defaultRepositoryType [log4net.Repository.Hierarchy.Hierarchy]
+log4net: DefaultRepositorySelector: Creating repository for assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] Loaded From [C:\Users\jmurdick\AppData\Local\assembly\dl3\0923AB2R.LOQ\NKDVE4X5.WDC\3f92de3c\3ddacc95_1e97d001\Realm.DAL.dll]
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] does not have a RepositoryAttribute specified.
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] using repository [log4net-default-repository] and repository type [log4net.Repository.Hierarchy.Hierarchy]
+log4net: DefaultRepositorySelector: Creating repository [log4net-default-repository] using type [log4net.Repository.Hierarchy.Hierarchy]
+log4net: Hierarchy: Shutdown called on Hierarchy [log4net-default-repository]
+log4net: log4net assembly [log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=692fbea5521e1304]. Loaded from [Global Assembly Cache]. (.NET Runtime [4.0.30319.0] on Microsoft Windows NT 6.1.7601 Service Pack 1)
+log4net: DefaultRepositorySelector: defaultRepositoryType [log4net.Repository.Hierarchy.Hierarchy]
+log4net: DefaultRepositorySelector: Creating repository for assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] Loaded From [C:\Users\jmurdick\AppData\Local\assembly\dl3\0923AB2R.LOQ\NKDVE4X5.WDC\3f92de3c\062a7d74_2097d001\Realm.DAL.dll]
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] does not have a RepositoryAttribute specified.
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] using repository [log4net-default-repository] and repository type [log4net.Repository.Hierarchy.Hierarchy]
+log4net: DefaultRepositorySelector: Creating repository [log4net-default-repository] using type [log4net.Repository.Hierarchy.Hierarchy]
+log4net: Hierarchy: Shutdown called on Hierarchy [log4net-default-repository]
+log4net: log4net assembly [log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=692fbea5521e1304]. Loaded from [Global Assembly Cache]. (.NET Runtime [4.0.30319.0] on Microsoft Windows NT 6.1.7601 Service Pack 1)
+log4net: DefaultRepositorySelector: defaultRepositoryType [log4net.Repository.Hierarchy.Hierarchy]
+log4net: DefaultRepositorySelector: Creating repository for assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] Loaded From [C:\Users\jmurdick\AppData\Local\assembly\dl3\0923AB2R.LOQ\NKDVE4X5.WDC\3f92de3c\dddb3d26_2297d001\Realm.DAL.dll]
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] does not have a RepositoryAttribute specified.
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] using repository [log4net-default-repository] and repository type [log4net.Repository.Hierarchy.Hierarchy]
+log4net: DefaultRepositorySelector: Creating repository [log4net-default-repository] using type [log4net.Repository.Hierarchy.Hierarchy]
+log4net: Hierarchy: Shutdown called on Hierarchy [log4net-default-repository]
+log4net: log4net assembly [log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=692fbea5521e1304]. Loaded from [Global Assembly Cache]. (.NET Runtime [4.0.30319.0] on Microsoft Windows NT 6.1.7601 Service Pack 1)
+log4net: DefaultRepositorySelector: defaultRepositoryType [log4net.Repository.Hierarchy.Hierarchy]
+log4net: DefaultRepositorySelector: Creating repository for assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] Loaded From [C:\Users\jmurdick\AppData\Local\assembly\dl3\0923AB2R.LOQ\NKDVE4X5.WDC\3f92de3c\2ea83f54_8b97d001\Realm.DAL.dll]
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] does not have a RepositoryAttribute specified.
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] using repository [log4net-default-repository] and repository type [log4net.Repository.Hierarchy.Hierarchy]
+log4net: DefaultRepositorySelector: Creating repository [log4net-default-repository] using type [log4net.Repository.Hierarchy.Hierarchy]
+log4net: Hierarchy: Shutdown called on Hierarchy [log4net-default-repository]
+log4net: log4net assembly [log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=692fbea5521e1304]. Loaded from [Global Assembly Cache]. (.NET Runtime [4.0.30319.0] on Microsoft Windows NT 6.1.7601 Service Pack 1)
+log4net: DefaultRepositorySelector: defaultRepositoryType [log4net.Repository.Hierarchy.Hierarchy]
+log4net: DefaultRepositorySelector: Creating repository for assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] Loaded From [C:\Users\jmurdick\AppData\Local\assembly\dl3\0923AB2R.LOQ\NKDVE4X5.WDC\3f92de3c\41baf6db_8b97d001\Realm.DAL.dll]
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] does not have a RepositoryAttribute specified.
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] using repository [log4net-default-repository] and repository type [log4net.Repository.Hierarchy.Hierarchy]
+log4net: DefaultRepositorySelector: Creating repository [log4net-default-repository] using type [log4net.Repository.Hierarchy.Hierarchy]
+log4net: Hierarchy: Shutdown called on Hierarchy [log4net-default-repository]
+log4net: log4net assembly [log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=692fbea5521e1304]. Loaded from [Global Assembly Cache]. (.NET Runtime [4.0.30319.0] on Microsoft Windows NT 6.1.7601 Service Pack 1)
+log4net: DefaultRepositorySelector: defaultRepositoryType [log4net.Repository.Hierarchy.Hierarchy]
+log4net: DefaultRepositorySelector: Creating repository for assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] Loaded From [C:\Users\jmurdick\AppData\Local\assembly\dl3\0923AB2R.LOQ\NKDVE4X5.WDC\3f92de3c\d4039fb7_aa97d001\Realm.DAL.dll]
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] does not have a RepositoryAttribute specified.
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] using repository [log4net-default-repository] and repository type [log4net.Repository.Hierarchy.Hierarchy]
+log4net: DefaultRepositorySelector: Creating repository [log4net-default-repository] using type [log4net.Repository.Hierarchy.Hierarchy]
+log4net: Hierarchy: Shutdown called on Hierarchy [log4net-default-repository]
+log4net: log4net assembly [log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=692fbea5521e1304]. Loaded from [Global Assembly Cache]. (.NET Runtime [4.0.30319.0] on Microsoft Windows NT 6.1.7601 Service Pack 1)
+log4net: DefaultRepositorySelector: defaultRepositoryType [log4net.Repository.Hierarchy.Hierarchy]
+log4net: DefaultRepositorySelector: Creating repository for assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] Loaded From [C:\Users\jmurdick\AppData\Local\assembly\dl3\0923AB2R.LOQ\NKDVE4X5.WDC\3f92de3c\36db2d7b_ab97d001\Realm.DAL.dll]
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] does not have a RepositoryAttribute specified.
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] using repository [log4net-default-repository] and repository type [log4net.Repository.Hierarchy.Hierarchy]
+log4net: DefaultRepositorySelector: Creating repository [log4net-default-repository] using type [log4net.Repository.Hierarchy.Hierarchy]
+log4net: Hierarchy: Shutdown called on Hierarchy [log4net-default-repository]
+log4net: log4net assembly [log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=692fbea5521e1304]. Loaded from [Global Assembly Cache]. (.NET Runtime [4.0.30319.0] on Microsoft Windows NT 6.1.7601 Service Pack 1)
+log4net: DefaultRepositorySelector: defaultRepositoryType [log4net.Repository.Hierarchy.Hierarchy]
+log4net: DefaultRepositorySelector: Creating repository for assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] Loaded From [C:\Users\jmurdick\AppData\Local\assembly\dl3\0923AB2R.LOQ\NKDVE4X5.WDC\3f92de3c\ea7a72de_ab97d001\Realm.DAL.dll]
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] does not have a RepositoryAttribute specified.
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] using repository [log4net-default-repository] and repository type [log4net.Repository.Hierarchy.Hierarchy]
+log4net: DefaultRepositorySelector: Creating repository [log4net-default-repository] using type [log4net.Repository.Hierarchy.Hierarchy]
+log4net: Hierarchy: Shutdown called on Hierarchy [log4net-default-repository]
+log4net: log4net assembly [log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=692fbea5521e1304]. Loaded from [Global Assembly Cache]. (.NET Runtime [4.0.30319.0] on Microsoft Windows NT 6.1.7601 Service Pack 1)
+log4net: DefaultRepositorySelector: defaultRepositoryType [log4net.Repository.Hierarchy.Hierarchy]
+log4net: DefaultRepositorySelector: Creating repository for assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] Loaded From [C:\Users\jmurdick\AppData\Local\assembly\dl3\0923AB2R.LOQ\NKDVE4X5.WDC\3f92de3c\b7729f18_ac97d001\Realm.DAL.dll]
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] does not have a RepositoryAttribute specified.
+log4net: DefaultRepositorySelector: Assembly [Realm.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null] using repository [log4net-default-repository] and repository type [log4net.Repository.Hierarchy.Hierarchy]
+log4net: DefaultRepositorySelector: Creating repository [log4net-default-repository] using type [log4net.Repository.Hierarchy.Hierarchy]
+log4net: Hierarchy: Shutdown called on Hierarchy [log4net-default-repository]

@@ -7,14 +7,13 @@ namespace Realm.DAL.Models
     [Table("AbilityReagants")]
     public class AbilityReagant : Entity
     {
+        public int? ItemId { get; set; }
         public virtual Item Item { get; set; }
 
         public int Quantity { get; set; }
 
         [Required]
         public int AbilityId { get; set; }
-
-        [ForeignKey("AbilityId")]
         public virtual Ability Ability { get; set; }
     }
 }

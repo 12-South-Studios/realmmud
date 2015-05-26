@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Ninject;
+using Realm.DAL;
 using Realm.DAL.Enumerations;
-using Realm.DAL.Interfaces;
 using Realm.Library.Common;
 
 namespace Realm.Edit.Tags

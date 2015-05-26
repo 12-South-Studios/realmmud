@@ -9,6 +9,9 @@ namespace Realm.Live.DAL.Models
     [Table("CharacterMailbox")]
     public class CharacterMail : Entity
     {
+        public int CharacterId { get; set; }
+        public virtual Character Character { get; set; }
+
         [MaxLength(50)]
         public string FromCharacterName { get; set; }
 

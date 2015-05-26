@@ -10,14 +10,16 @@ namespace Realm.Live.DAL.Models
     [Table("Characters")]
     public class Character : Entity
     {
-        public User User { get; set; }
+        public int? UserId { get; set; }
+        public virtual User User { get; set; }
 
         [MaxLength(50)]
         public string Name { get; set; }
 
         public DateTime? DeletedOn { get; set; }
 
-        public Guild Guild { get; set; }
+        public int? GuildId { get; set; }
+        public virtual Guild Guild { get; set; }
 
         public int? LocationId { get; set; }
 
@@ -35,7 +37,8 @@ namespace Realm.Live.DAL.Models
 
         public int TrainingPoints { get; set; }
 
-        public Bank Bank { get; set; }
+        public int? BankId { get; set; }
+        public virtual Bank Bank { get; set; }
 
         public virtual ICollection<CharacterAbility> Abilities { get; set; }
 

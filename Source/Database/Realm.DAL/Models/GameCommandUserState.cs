@@ -12,8 +12,6 @@ namespace Realm.DAL.Models
 
         [Required]
         public int GameCommandId { get; set; }
-
-        [ForeignKey("GameCommandId")]
-        public GameCommand GameCommand { get; set; }
+        public virtual GameCommand GameCommand { get; set; }
     }
 }

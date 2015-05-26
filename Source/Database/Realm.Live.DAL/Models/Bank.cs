@@ -17,9 +17,9 @@ namespace Realm.Live.DAL.Models
 
         public BankTypes BankType { get; set; }
 
-        public ICollection<BankItem> Items { get; set; }
+        public virtual ICollection<BankItem> Items { get; set; }
 
-        public ICollection<BankLog> Logs { get; set; }
+        public virtual ICollection<BankLog> Logs { get; set; }
  
         public Bank()
         {

@@ -3,7 +3,7 @@ using System.Data.Entity;
 using Realm.Admin.DAL.Models;
 using Realm.DAL.Common;
 
-namespace Realm.Admin.DAL.Interfaces
+namespace Realm.Admin.DAL
 {
     public interface IRealmAdminDbContext : IDisposable, IRealmContext
     {

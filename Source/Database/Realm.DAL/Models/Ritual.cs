@@ -9,12 +9,14 @@ namespace Realm.DAL.Models
     public class Ritual : Primitive
     {
         [Required]
-        public virtual SystemString DisplayDescription { get; set; }
+        public string DisplayDescription { get; set; }
 
+        public int? MagicalNodeItemId { get; set; }
         public virtual Item MagicalNodeItem { get; set; }
 
         public int CastTime { get; set; }
 
+        public int? TagSetId { get; set; }
         public virtual TagSet TagSet { get; set; }
 
         public virtual ICollection<RitualEffect> Effects { get; set; }
@@ -27,16 +29,6 @@ namespace Realm.DAL.Models
 
         public static void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Ritual>()
-                .HasRequired(x => x.DisplayName)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Ritual>()
-                .HasRequired(x => x.DisplayDescription)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
             modelBuilder.Entity<Ritual>()
                 .HasOptional(x => x.TagSet)
                 .WithMany()

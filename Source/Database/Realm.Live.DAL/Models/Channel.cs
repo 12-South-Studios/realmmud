@@ -15,6 +15,7 @@ namespace Realm.Live.DAL.Models
 
         public int Bits { get; set; }
 
-        public Character Owner { get; set; }
+        public int? OwnerId { get; set; }
+        public virtual Character Owner { get; set; }
     }
 }

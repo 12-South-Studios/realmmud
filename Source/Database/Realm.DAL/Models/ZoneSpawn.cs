@@ -7,12 +7,11 @@ namespace Realm.DAL.Models
     [Table("ZoneSpawns")]
     public class ZoneSpawn : Entity
     {
+        public int? SpawnId { get; set; }
         public virtual Spawn Spawn { get; set; }
 
         [Required]
         public int ZoneId { get; set; }
-
-        [ForeignKey("ZoneId")]
-        public Zone Zone { get; set; }
+        public virtual Zone Zone { get; set; }
     }
 }

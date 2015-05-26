@@ -9,30 +9,22 @@ namespace Realm.DAL.Models
     public class Space : Primitive
     {
         [Required]
-        public virtual SystemString DisplayDescription { get; set; }
+        public string DisplayDescription { get; set; }
 
         public int Bits { get; set; }
 
+        public int? TerrainId { get; set; }
         public virtual Terrain Terrain { get; set; }
 
         public int AccessLevel { get; set; }
 
+        public int? TagSetId { get; set; }
         public virtual TagSet TagSet { get; set; }
 
         public virtual ICollection<SpacePortal> Portals { get; set; }
 
         public static void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Space>()
-                .HasRequired(x => x.DisplayName)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Space>()
-                .HasRequired(x => x.DisplayDescription)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
             modelBuilder.Entity<Space>()
                 .HasOptional(x => x.TagSet)
                 .WithMany()
@@ -42,8 +34,6 @@ namespace Realm.DAL.Models
                 .HasOptional(x => x.Portals)
                 .WithMany()
                 .WillCascadeOnDelete(true);
-
-            SpacePortal.OnModelCreating(modelBuilder);
         }
     }
 }

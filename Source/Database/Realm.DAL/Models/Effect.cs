@@ -10,7 +10,7 @@ namespace Realm.DAL.Models
     public class Effect : Primitive
     {
         [Required]
-        public virtual SystemString DisplayDescription { get; set; }
+        public string DisplayDescription { get; set; }
 
         [Required]
         public EffectTypes EffectType { get; set; }
@@ -22,26 +22,23 @@ namespace Realm.DAL.Models
         public Statistic ResistStatistic { get; set; }
 
         public int? OnFailEffectId { get; set; }
-
-        [ForeignKey("OnFailEffectId")]
         public virtual Effect OnFailEffect { get; set; }
 
         public int? OnResistEffectId { get; set; }
-
-        [ForeignKey("OnResistEffectId")]
         public virtual Effect OnResistEffect { get; set; }
 
+        public int? TagSetId { get; set; }
         public virtual TagSet TagSet { get; set; }
 
         public int MovementModeBitField { get; set; }
 
-        public virtual SystemString ApplicationTextSelf { get; set; }
+        public string ApplicationTextSelf { get; set; }
 
-        public virtual SystemString ApplicationTextOther { get; set; }
+        public string ApplicationTextOther { get; set; }
 
-        public virtual SystemString FadeTextSelf { get; set; }
+        public string FadeTextSelf { get; set; }
 
-        public virtual SystemString FadeTextOther { get; set; }
+        public string FadeTextOther { get; set; }
 
         public virtual ICollection<EffectDynamicZone> DynamicZones { get; set; }
 
@@ -55,38 +52,8 @@ namespace Realm.DAL.Models
 
         public static void OnModelCreating(DbModelBuilder modelBuilder)
         {
-           modelBuilder.Entity<Effect>()
-               .HasRequired(x => x.DisplayName)
-               .WithMany()
-               .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Effect>()
-                .HasRequired(x => x.DisplayDescription)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
             modelBuilder.Entity<Effect>()
                 .HasOptional(x => x.TagSet)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Effect>()
-                .HasOptional(x => x.ApplicationTextSelf)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Effect>()
-                .HasOptional(x => x.ApplicationTextOther)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Effect>()
-                 .HasOptional(x => x.FadeTextSelf)
-                 .WithMany()
-                 .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Effect>()
-                .HasOptional(x => x.FadeTextOther)
                 .WithMany()
                 .WillCascadeOnDelete(true);
 
@@ -114,6 +81,16 @@ namespace Realm.DAL.Models
                 .HasOptional(x => x.StatMods)
                 .WithMany()
                 .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Effect>()
+                .HasOptional(x => x.OnResistEffect)
+                .WithMany()
+                .HasForeignKey(x => x.OnResistEffectId);
+
+            modelBuilder.Entity<Effect>()
+                .HasOptional(x => x.OnFailEffect)
+                .WithMany()
+                .HasForeignKey(x => x.OnFailEffectId);
         }
     }
 }

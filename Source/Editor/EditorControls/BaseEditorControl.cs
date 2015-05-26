@@ -5,7 +5,6 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using Realm.DAL.Enumerations;
-using Realm.DAL.Interfaces;
 using Realm.DAL.Models;
 using Realm.Edit.Builders;
 using Realm.Edit.CustomControls;
@@ -399,24 +398,6 @@ namespace Realm.Edit.EditorControls
             }
             aRow[aCol] = DBNull.Value;
             return 0;
-        }
-
-        public SystemString SaveSystemString(IRealmDbContext dbContext, SystemString systemString, string value)
-        {
-            if (systemString == null)
-            {
-                var newString = new SystemString
-                {
-                    StringType = StringTypes.DisplayName,
-                    Value = value
-                };
-                dbContext.SystemStrings.Add(newString);
-                return newString;
-            }
-
-            var foundString = dbContext.SystemStrings.First(x => x == systemString);
-            foundString.Value = value;
-            return foundString;
         }
     }
 }

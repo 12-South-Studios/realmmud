@@ -8,6 +8,9 @@ namespace Realm.Live.DAL.Models
     [Table("BankLogs")]
     public class BankLog : Entity
     {
+        public int BankId { get; set; }
+        public virtual Bank Bank { get; set; }
+
         public DateTime ModifiedOn { get; set; }
 
         [MaxLength(50)]

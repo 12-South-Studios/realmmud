@@ -2,21 +2,20 @@
 using log4net;
 using Ninject.Modules;
 using Realm.Library.Common.Logging;
-using Realm.Live.DAL.Interfaces;
 
-namespace Realm.Live.DAL.DependencyModules
+namespace Realm.DAL
 {
-    public class RealmLiveDbContextModule : NinjectModule
+    public class RealmDbContextModule : NinjectModule
     {
         public override void Load()
         {
             if (!Kernel.GetBindings(typeof(ILogWrapper)).Any())
                 Bind<ILogWrapper>()
                     .To<LogWrapper>()
-                    .WithConstructorArgument("log", LogManager.GetLogger(typeof(RealmLiveDbContext)))
+                    .WithConstructorArgument("log", LogManager.GetLogger(typeof(RealmDbContext)))
                     .WithConstructorArgument("level", LogLevel.Error);
-            if (!Kernel.GetBindings(typeof(IRealmLiveDbContext)).Any())
-                Bind<IRealmLiveDbContext>().To<RealmLiveDbContext>();
+            if (!Kernel.GetBindings(typeof(IRealmDbContext)).Any())
+                Bind<IRealmDbContext>().To<RealmDbContext>();
         }
     }
 }

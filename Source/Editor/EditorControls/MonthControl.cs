@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using Ninject;
 using Realm.DAL;
 using Realm.DAL.Enumerations;
-using Realm.DAL.Interfaces;
 using Realm.DAL.Models;
 using Realm.Edit.Editor;
 using Realm.Edit.Extensions;
@@ -72,7 +71,7 @@ namespace Realm.Edit.EditorControls
             var obj = (Month)dbContext.GetPrimitive(SystemTypes.Month, aId);
 
             txtSystemName.Text = obj.SystemName;
-            txtDisplayName.Text = obj.DisplayName.Value;
+            txtDisplayName.Text = obj.DisplayName;
             numNumberDays.Value = obj.NumberDays;
             chkIsShrouding.Checked = obj.IsShrouding;
 
@@ -108,7 +107,7 @@ namespace Realm.Edit.EditorControls
                 }
 
                 month.SystemName = txtSystemName.Text;
-                month.DisplayName = SaveSystemString(dbContext, month.DisplayName, txtDisplayName.Text);
+                month.DisplayName = txtDisplayName.Text;
                 month.NumberDays = Convert.ToInt32(numNumberDays.Value);
                 month.IsShrouding = chkIsShrouding.Checked;
 

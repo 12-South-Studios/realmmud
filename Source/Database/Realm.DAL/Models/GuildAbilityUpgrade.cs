@@ -6,6 +6,7 @@ namespace Realm.DAL.Models
     [Table("GuildAbilities")]
     public class GuildAbilityUpgrade : Entity
     {
+        public int? AbilityId { get; set; }
         public virtual Ability Ability { get; set; }
 
         public int Cost { get; set; }

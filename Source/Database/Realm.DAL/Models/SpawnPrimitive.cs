@@ -7,12 +7,11 @@ namespace Realm.DAL.Models
     [Table("SpawnPrimitives")]
     public class SpawnPrimitive : Entity
     {
+        public int? PrimitiveId { get; set; }
         public virtual Primitive Primitive { get; set; }
 
         [Required]
         public int SpawnId { get; set; }
-
-        [ForeignKey("SpawnId")]
-        public Spawn Spawn { get; set; }
+        public virtual Spawn Spawn { get; set; }
     }
 }

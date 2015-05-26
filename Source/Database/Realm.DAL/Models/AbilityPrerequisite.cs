@@ -10,8 +10,10 @@ namespace Realm.DAL.Models
     {
         public int MinLevel { get; set; }
 
+        public int? RaceId { get; set; }
         public virtual Race Race { get; set; }
 
+        public int? FactionId { get; set; }
         public virtual Faction Faction { get; set; }
 
         public int FactionLevel { get; set; }
@@ -20,14 +22,13 @@ namespace Realm.DAL.Models
 
         public int StatisticValue { get; set; }
 
+        public int? SkillId { get; set; }
         public virtual Skill Skill { get; set; }
 
         public int SkillValue { get; set; }
 
         [Required]
         public int AbilityId { get; set; }
-
-        [ForeignKey("AbilityId")]
         public virtual Ability Ability { get; set; }
     }
 }

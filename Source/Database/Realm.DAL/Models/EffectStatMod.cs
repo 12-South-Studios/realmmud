@@ -10,8 +10,10 @@ namespace Realm.DAL.Models
     {
         public Statistic AffectedStatistic { get; set; }
 
+        public int? AffectedSkillId { get; set; }
         public virtual Skill AffectedSkill { get; set; }
 
+        public int? ElementId { get; set; }
         public virtual Element Element { get; set; }
 
         public int MinValue { get; set; }
@@ -20,8 +22,6 @@ namespace Realm.DAL.Models
 
         [Required]
         public int EffectId { get; set; }
-
-        [ForeignKey("EffectId")]
-        public Effect Effect { get; set; }
+        public virtual Effect Effect { get; set; }
     }
 }

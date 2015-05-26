@@ -4,7 +4,7 @@ using Realm.Event;
 using Realm.Library.Common;
 using Realm.Library.Common.Data;
 using Realm.Library.Common.Logging;
-using Realm.Live.DAL.Interfaces;
+using Realm.Live.DAL;
 using Realm.Time.Interfaces;
 
 namespace Realm.Time

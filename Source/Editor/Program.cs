@@ -6,8 +6,8 @@ using System.Threading;
 using log4net;
 using Ninject;
 using Ninject.Modules;
-using Realm.Admin.DAL.DependencyModules;
-using Realm.DAL.DependencyModules;
+using Realm.Admin.DAL;
+using Realm.DAL;
 using Realm.Edit.Editor;
 using Realm.Library.Common.Logging;
 

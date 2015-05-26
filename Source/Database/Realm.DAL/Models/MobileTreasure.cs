@@ -13,8 +13,6 @@ namespace Realm.DAL.Models
 
         [Required]
         public int MobileId { get; set; }
-
-        [ForeignKey("MobileId")]
-        public Mobile Mobile { get; set; }
+        public virtual Mobile Mobile { get; set; }
     }
 }

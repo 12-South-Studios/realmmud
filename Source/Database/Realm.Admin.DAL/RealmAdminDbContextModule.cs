@@ -1,10 +1,9 @@
 ﻿using System.Linq;
 using log4net;
 using Ninject.Modules;
-using Realm.Admin.DAL.Interfaces;
 using Realm.Library.Common.Logging;
 
-namespace Realm.Admin.DAL.DependencyModules
+namespace Realm.Admin.DAL
 {
     public class RealmAdminDbContextModule : NinjectModule
     {

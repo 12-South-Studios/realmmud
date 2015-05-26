@@ -21,11 +21,6 @@ namespace Realm.DAL.Models
         public static void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Month>()
-                .HasRequired(x => x.DisplayName)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Month>()
                 .HasOptional(x => x.Effects)
                 .WithMany()
                 .WillCascadeOnDelete(true);

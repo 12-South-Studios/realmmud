@@ -12,23 +12,14 @@ namespace Realm.DAL.Models
         public DirectionTypes Direction { get; set; }
 
         public int? TargetSpaceId { get; set; }
-
-        [ForeignKey("TargetSpaceId")]
         public virtual Space TargetSpace { get; set; }
 
+        public int? BarrierId { get; set; }
         public virtual Barrier Barrier { get; set; }
 
         public int Bits { get; set; }
 
         [Required]
-        public virtual SystemString Keywords { get; set; }
-
-        public static void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<SpacePortal>()
-                .HasRequired(x => x.Keywords)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-        }
+        public string Keywords { get; set; }
     }
 }

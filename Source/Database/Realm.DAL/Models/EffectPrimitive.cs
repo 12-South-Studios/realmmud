@@ -7,12 +7,11 @@ namespace Realm.DAL.Models
     [Table("EffectPrimitives")]
     public class EffectPrimitive : Entity
     {
+        public int? PrimitiveId { get; set; }
         public virtual Primitive Primitive { get; set; }
 
         [Required]
         public int EffectId { get; set; }
-
-        [ForeignKey("EffectId")]
-        public Effect Effect { get; set; }
+        public virtual Effect Effect { get; set; }
     }
 }

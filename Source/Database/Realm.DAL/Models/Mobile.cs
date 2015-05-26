@@ -10,7 +10,7 @@ namespace Realm.DAL.Models
     public class Mobile : Primitive
     {
         [Required]
-        public virtual SystemString DisplayDescription { get; set; }
+        public string DisplayDescription { get; set; }
 
         public SizeTypes SizeType { get; set; }
 
@@ -18,8 +18,10 @@ namespace Realm.DAL.Models
 
         public int Bits { get; set; }
 
+        public int? RaceId { get; set; }
         public virtual Race Race { get; set; }
 
+        public int? ConversationId { get; set; }
         public virtual Conversation Conversation { get; set; }
 
         public int AccessLevel { get; set; }
@@ -28,8 +30,10 @@ namespace Realm.DAL.Models
 
         public int Level { get; set; }
 
+        public int? FactionId { get; set; }
         public virtual Faction Faction { get; set; }
 
+        public int? TagSetId { get; set; }
         public virtual TagSet TagSet { get; set; }
 
         public virtual ICollection<MobileAbility> Abilities { get; set; }
@@ -52,16 +56,6 @@ namespace Realm.DAL.Models
 
         public static void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Mobile>()
-                .HasRequired(x => x.DisplayName)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Mobile>()
-                .HasRequired(x => x.DisplayDescription)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
             modelBuilder.Entity<Mobile>()
                 .HasOptional(x => x.TagSet)
                 .WithMany()

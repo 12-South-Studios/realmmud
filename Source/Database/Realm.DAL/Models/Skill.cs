@@ -9,8 +9,9 @@ namespace Realm.DAL.Models
     public class Skill : Primitive
     {
         [Required]
-        public virtual SystemString DisplayDescription { get; set; }
+        public string DisplayDescription { get; set; }
 
+        public int? SkillCategoryId { get; set; }
         public virtual SkillCategory SkillCategory { get; set; }
 
         public Statistic Statistic { get; set; }
@@ -19,19 +20,7 @@ namespace Realm.DAL.Models
 
         public bool IsMasterable { get; set; }
 
+        public int? ParentSkillId { get; set; }
         public virtual Skill ParentSkill { get; set; }
-
-        public static void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Skill>()
-                .HasRequired(x => x.DisplayName)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Skill>()
-                .HasRequired(x => x.DisplayDescription)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-        }
     }
 }

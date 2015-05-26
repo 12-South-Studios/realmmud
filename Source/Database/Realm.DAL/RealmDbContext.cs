@@ -7,8 +7,6 @@ using System.Data.Entity.Validation;
 using System.Linq;
 using Ninject;
 using Realm.DAL.Common;
-using Realm.DAL.DependencyModules;
-using Realm.DAL.Interfaces;
 using Realm.DAL.Models;
 using Realm.Library.Common.Logging;
 
@@ -67,7 +65,6 @@ namespace Realm.DAL
         public IDbSet<Space> Spaces { get; set; }
         public IDbSet<Spawn> Spawns { get; set; }
         public IDbSet<SystemClass> SystemClasses { get; set; }
-        public IDbSet<SystemString> SystemStrings { get; set; }
         public IDbSet<Tag> Tags { get; set; }
         public IDbSet<TagSet> TagSets { get; set; }
         public IDbSet<Terrain> Terrains { get; set; }
@@ -105,21 +102,17 @@ namespace Realm.DAL
             Effect.OnModelCreating(modelBuilder);
             Faction.OnModelCreating(modelBuilder);
             GameCommand.OnModelCreating(modelBuilder);
-            Help.OnModelCreating(modelBuilder);
 
             ItemFormula.OnModelCreating(modelBuilder);
+            ItemSetItem.OnModelCreating(modelBuilder);
 
             Liquid.OnModelCreating(modelBuilder);
             Mobile.OnModelCreating(modelBuilder);
             Month.OnModelCreating(modelBuilder);
-            MudProg.OnModelCreating(modelBuilder);
             Quest.OnModelCreating(modelBuilder);
             Race.OnModelCreating(modelBuilder);
             Ritual.OnModelCreating(modelBuilder);
             Shop.OnModelCreating(modelBuilder);
-            Skill.OnModelCreating(modelBuilder);
-            SkillCategory.OnModelCreating(modelBuilder);
-            Social.OnModelCreating(modelBuilder);
             Space.OnModelCreating(modelBuilder);
             Spawn.OnModelCreating(modelBuilder);
             Terrain.OnModelCreating(modelBuilder);

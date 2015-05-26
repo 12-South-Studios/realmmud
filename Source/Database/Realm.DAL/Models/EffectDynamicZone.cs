@@ -7,12 +7,11 @@ namespace Realm.DAL.Models
     [Table("EffectDynamicZones")]
     public class EffectDynamicZone : Entity
     {
+        public int? ZoneId { get; set; }
         public virtual Zone Zone { get; set; }
 
         [Required]
         public int EffectId { get; set; }
-
-        [ForeignKey("EffectId")]
-        public Effect Effect { get; set; }
+        public virtual Effect Effect { get; set; }
     }
 }

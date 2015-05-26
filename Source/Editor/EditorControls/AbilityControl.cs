@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using Ninject;
 using Realm.DAL;
 using Realm.DAL.Enumerations;
-using Realm.DAL.Interfaces;
 using Realm.DAL.Models;
 using Realm.Edit.Extensions;
 using Realm.Library.Common;
@@ -143,8 +142,8 @@ namespace Realm.Edit.EditorControls
             var obj = (Ability)dbContext.GetPrimitive(SystemTypes.Ability, aId);
 
             txtSystemName.Text = obj.SystemName;
-            txtDisplayName.Text = obj.DisplayName.Value;
-            txtDisplayDescription.Text = obj.DisplayDescription.Value;
+            txtDisplayName.Text = obj.DisplayName;
+            txtDisplayDescription.Text = obj.DisplayDescription;
             numRechargeRate.Value = (decimal) obj.RechargeRate;
             numericUpDownPreDelay.Value = (decimal) obj.PreDelay;
             numericUpDownPostDelay.Value = (decimal) obj.PostDelay;
@@ -208,9 +207,8 @@ namespace Realm.Edit.EditorControls
                 }
 
                 ability.SystemName = txtSystemName.Text;
-                ability.DisplayName = SaveSystemString(dbContext, ability.DisplayName, txtDisplayName.Text);
-                ability.DisplayDescription = SaveSystemString(dbContext, ability.DisplayDescription,
-                    txtDisplayDescription.Text);
+                ability.DisplayName = txtDisplayName.Text;
+                ability.DisplayDescription = txtDisplayDescription.Text;
 
                 ability.RechargeRate = (float)numRechargeRate.Value;
                 ability.StaminaCost = (int)numStaminaCost.Value;

@@ -13,14 +13,14 @@ namespace Realm.DAL.Models
 
         public int DecayTimeInSeconds { get; set; }
 
+        public int? AbilityId { get; set; }
         public virtual Ability Ability { get; set; }
 
+        public int? MobileId { get; set; }
         public virtual Mobile Mobile { get; set; }
 
         [Required]
         public int ZoneId { get; set; }
-
-        [ForeignKey("ZoneId")]
-        public Zone Zone { get; set; }
+        public virtual Zone Zone { get; set; }
     }
 }

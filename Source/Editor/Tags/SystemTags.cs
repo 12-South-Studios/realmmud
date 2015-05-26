@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Ninject;
 using Realm.DAL.Enumerations;
-using Realm.DAL.Interfaces;
 using Realm.Library.Common;
 
 namespace Realm.Edit.Tags

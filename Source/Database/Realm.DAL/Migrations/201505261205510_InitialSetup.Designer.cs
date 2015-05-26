@@ -6,14 +6,14 @@ namespace Realm.DAL.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    [GeneratedCode("EntityFramework.Migrations", "6.1.2-31219")]
+    [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
     public sealed partial class InitialSetup : IMigrationMetadata
     {
         private readonly ResourceManager Resources = new ResourceManager(typeof(InitialSetup));
         
         string IMigrationMetadata.Id
         {
-            get { return "201502021406429_InitialSetup"; }
+            get { return "201505261205510_InitialSetup"; }
         }
         
         string IMigrationMetadata.Source

@@ -18,8 +18,6 @@ namespace Realm.DAL.Models
 
         [Required]
         public int EffectId { get; set; }
-
-        [ForeignKey("EffectId")]
-        public Effect Effect { get; set; }
+        public virtual Effect Effect { get; set; }
     }
 }

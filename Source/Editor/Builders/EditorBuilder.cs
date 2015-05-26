@@ -2,10 +2,9 @@
 using System.Drawing;
 using System.Windows.Forms;
 using Ninject;
-using Realm.Admin.DAL.Interfaces;
+using Realm.Admin.DAL;
 using Realm.DAL;
 using Realm.DAL.Enumerations;
-using Realm.DAL.Interfaces;
 using Realm.Edit.Editor;
 using Realm.Edit.EditorControls;
 using Realm.Edit.Extensions;
@@ -65,8 +64,8 @@ namespace Realm.Edit.Builders
 
                 var node = parentNode.Nodes.Add("node_" + obj.Id, obj.SystemName);
                 node.Tag = new EditorBrowseInfo(SystemType, obj.SystemName, classId, obj.Id);
-                node.ImageKey = obj.DisplayName.Value;
-                node.SelectedImageKey = obj.DisplayName.Value;
+                node.ImageKey = obj.DisplayName;
+                node.SelectedImageKey = obj.DisplayName;
                 
                 node.ContextMenuStrip = menu;
                 ++elementCount;

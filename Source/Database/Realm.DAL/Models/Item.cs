@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Realm.DAL.Enumerations;
 
@@ -24,6 +23,7 @@ namespace Realm.DAL.Models
 
         public ConditionTypes ConditionType { get; set; }
 
+        public int? UseAbilityId { get; set; }
         public virtual Ability UseAbility { get; set; }
 
         public int UseAbilityFrequency { get; set; }
@@ -32,15 +32,18 @@ namespace Realm.DAL.Models
 
         public DifficultyTypes SpotDifficultyType { get; set; }
 
+        public int? TrapItemId { get; set; }
         public virtual Item TrapItem { get; set; }
 
+        public int? TagSetId { get; set; }
         public virtual TagSet TagSet { get; set; }
 
         public ItemClassTypes ItemClassType { get; set; }
 
-        public ItemSet ItemSet { get; set; }
+        public int? ItemSetId { get; set; }
+        public virtual ItemSet ItemSet { get; set; }
 
-        public SystemString DisplayDescription { get; set; }
+        public string DisplayDescription { get; set; }
 
         public virtual ICollection<ItemBook> Books { get; set; }
 

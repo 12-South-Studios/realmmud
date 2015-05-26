@@ -9,16 +9,12 @@ namespace Realm.DAL.Models
     public class FactionRelation : Entity
     {
         public int? TargetFactionId { get; set; }
-
-        [ForeignKey("TargetFactionId")]
         public virtual Faction TargetFaction { get; set; }
 
         public FactionRelationshipTypes FactionRelationshipType { get; set; }
 
         [Required]
         public int FactionId { get; set; }
-
-        [ForeignKey("FactionId")]
-        public Faction Faction { get; set; }
+        public virtual Faction Faction { get; set; }
     }
 }

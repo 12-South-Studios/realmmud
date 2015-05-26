@@ -10,6 +10,7 @@ namespace Realm.DAL.Models
     {
         public Statistic Statistic { get; set; }
 
+        public int? SkillId { get; set; }
         public virtual Skill Skill { get; set; }
 
         public int ModValue { get; set; }
@@ -18,8 +19,6 @@ namespace Realm.DAL.Models
 
         [Required]
         public int ArchetypeId { get; set; }
-
-        [ForeignKey("ArchetypeId")]
-        public Archetype Archetype { get; set; }
+        public virtual Archetype Archetype { get; set; }
     }
 }

@@ -2,9 +2,9 @@
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Realm.Admin.DAL.Interfaces;
+using Realm.Admin.DAL;
+using Realm.DAL;
 using Realm.DAL.Enumerations;
-using Realm.DAL.Interfaces;
 using Realm.Edit.Editor;
 using Realm.Edit.EditorControls;
 using Realm.Edit.Properties;

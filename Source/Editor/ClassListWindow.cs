@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using Ninject;
-using Realm.DAL.Interfaces;
+using Realm.DAL;
 using Realm.Edit.Extensions;
 using Realm.Edit.Properties;
 

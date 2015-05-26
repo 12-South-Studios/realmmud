@@ -9,8 +9,6 @@ using System.Security.Cryptography;
 using Ninject;
 using Realm.DAL.Common;
 using Realm.Library.Common.Logging;
-using Realm.Live.DAL.DependencyModules;
-using Realm.Live.DAL.Interfaces;
 using Realm.Live.DAL.Models;
 
 namespace Realm.Live.DAL

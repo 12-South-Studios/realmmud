@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using Realm.DAL.Common;
 
 namespace Realm.DAL.Models
@@ -7,8 +6,12 @@ namespace Realm.DAL.Models
     [Table("ItemBooks")]
     public class ItemBook : Entity
     {
-        public SystemString Text { get; set; }
+        public int ItemId { get; set; }
+        public virtual Item Item { get; set; }
 
-        public Ability Ability { get; set; }
+        public string Text { get; set; }
+
+        public int? AbilityId { get; set; }
+        public virtual Ability Ability { get; set; }
     }
 }

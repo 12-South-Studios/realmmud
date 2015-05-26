@@ -1,6 +1,6 @@
 ﻿using System;
 using Realm.Library.Common;
-using Realm.Live.DAL.Interfaces;
+using Realm.Live.DAL;
 using Realm.Time.Interfaces;
 
 namespace Realm.Time

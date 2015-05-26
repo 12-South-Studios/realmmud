@@ -7,11 +7,8 @@ using System.Linq;
 using Ninject;
 using NUnit.Framework;
 using Realm.Admin.DAL;
-using Realm.Admin.DAL.Interfaces;
 using Realm.DAL;
-using Realm.DAL.Interfaces;
 using Realm.Live.DAL;
-using Realm.Live.DAL.Interfaces;
 
 namespace Integration.Tests
 {

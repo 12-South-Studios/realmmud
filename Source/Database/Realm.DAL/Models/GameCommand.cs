@@ -12,9 +12,10 @@ namespace Realm.DAL.Models
 
         public int Bits { get; set; }
 
+        public int? TagSetId { get; set; }
         public virtual TagSet TagSet { get; set; }
 
-        public virtual SystemString Keywords { get; set; }
+        public string Keywords { get; set; }
 
         public virtual ICollection<GameCommandPosition> Positions { get; set; }
 
@@ -23,17 +24,7 @@ namespace Realm.DAL.Models
         public static void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<GameCommand>()
-                .HasRequired(x => x.DisplayName)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<GameCommand>()
                 .HasOptional(x => x.TagSet)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<GameCommand>()
-                .HasOptional(x => x.Keywords)
                 .WithMany()
                 .WillCascadeOnDelete(true);
 

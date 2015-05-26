@@ -10,7 +10,7 @@ namespace Realm.DAL.Models
     public class Ability : Primitive
     {
         [Required]
-        public virtual SystemString DisplayDescription { get; set; }
+        public string DisplayDescription { get; set; }
 
         public int ManaCost { get; set; }
 
@@ -26,23 +26,27 @@ namespace Realm.DAL.Models
 
         public int Bits { get; set; }
 
+        public int? TerrainId { get; set; }
         public virtual Terrain Terrain { get; set; }
 
+        public int? TagSetId { get; set; }
         public virtual TagSet TagSet { get; set; }
 
+        public int? InterruptionResistSkillId { get; set; }
         public virtual Skill InterruptionResistSkill { get; set; }
 
+        public int? InterruptionEffectId { get; set; }
         public virtual Effect InterruptionEffect { get; set; }
 
         public float RechargeRate { get; set; }
 
         public TargetClassTypes TargetClass { get; set; }
 
-        public virtual SystemString VerbalText { get; set; }
+        public string VerbalText { get; set; }
 
-        public virtual SystemString BeginUseText { get; set; }
+        public string BeginUseText { get; set; }
 
-        public virtual SystemString UseText { get; set; }
+        public string UseText { get; set; }
 
         public virtual ICollection<AbilityEffect> Effects { get; set; }
 
@@ -54,31 +58,6 @@ namespace Realm.DAL.Models
 
         public static void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Ability>()
-                .HasRequired(x => x.DisplayName)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Ability>()
-                .HasRequired(x => x.DisplayDescription)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Ability>()
-                .HasOptional(x => x.VerbalText)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Ability>()
-                .HasOptional(x => x.BeginUseText)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Ability>()
-                .HasOptional(x => x.UseText)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
             modelBuilder.Entity<Ability>()
                 .HasOptional(x => x.TagSet)
                 .WithMany()

@@ -10,22 +10,23 @@ namespace Realm.DAL.Models
     {
         public int MinLevel { get; set; }
 
+        public int? RaceId { get; set; }
         public virtual Race Race { get; set; }
 
+        public int? FactionId { get; set; }
         public virtual Faction Faction { get; set; }
 
         public int FactionLevel { get; set; }
 
         public Statistic Statistic { get; set; }
 
+        public int? SkillId { get; set; }
         public virtual Skill Skill { get; set; }
 
         public int MinValue { get; set; }
 
         [Required]
         public int RitualId { get; set; }
-
-        [ForeignKey("RitualId")]
-        public Ritual Ritual { get; set; }
+        public virtual Ritual Ritual { get; set; }
     }
 }

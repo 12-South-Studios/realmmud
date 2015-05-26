@@ -7,12 +7,11 @@ namespace Realm.DAL.Models
     [Table("ZoneResets")]
     public class ZoneReset : Entity
     {
+        public int? ResetId { get; set; }
         public virtual Reset Reset { get; set; }
 
         [Required]
         public int ZoneId { get; set; }
-
-        [ForeignKey("ZoneId")]
-        public Zone Zone { get; set; }
+        public virtual Zone Zone { get; set; }
     }
 }

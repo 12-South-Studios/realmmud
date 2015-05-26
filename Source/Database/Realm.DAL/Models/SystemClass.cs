@@ -17,9 +17,7 @@ namespace Realm.DAL.Models
         public string Name { get; set; }
 
         public int? ParentClassId { get; set; }
-
-        [ForeignKey("ParentClassId")]
-        public SystemClass ParentClass { get; set; }
+        public virtual SystemClass ParentClass { get; set; }
 
         public SystemTypes SystemType { get; set; }
 

@@ -7,10 +7,11 @@ namespace Realm.Live.DAL.Models
     [Table("CharacterItems")]
     public class CharacterItem : Entity
     {
-        public Int64? InstanceId { get; set; }
+        public int CharacterId { get; set; }
+        public virtual Character Character { get; set; }
 
-        [ForeignKey("InstanceId")]
-        public Instance Instance { get; set; }
+        public Int64? InstanceId { get; set; }
+        public virtual Instance Instance { get; set; }
 
         public int? ItemId { get; set; }
 
@@ -19,8 +20,6 @@ namespace Realm.Live.DAL.Models
         public int? WearLocationId { get; set; }
 
         public Int64? ContainedInItemId { get; set; }
-
-        [ForeignKey("ContainedInItemId")]
-        public Instance ContainedInItem { get; set; }
+        public virtual Instance ContainedInItem { get; set; }
     }
 }

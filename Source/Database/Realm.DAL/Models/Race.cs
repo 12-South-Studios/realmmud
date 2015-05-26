@@ -10,7 +10,7 @@ namespace Realm.DAL.Models
     public class Race : Primitive
     {
         [Required]
-        public virtual SystemString DisplayDescription { get; set; }
+        public string DisplayDescription { get; set; }
 
         public int Bits { get; set; }
 
@@ -25,6 +25,7 @@ namespace Realm.DAL.Models
         [MaxLength(5)]
         public string Abbreviation { get; set; }
 
+        public int? TagSetId { get; set; }
         public virtual TagSet TagSet { get; set; }
 
         public virtual ICollection<RaceAbility> Abilities { get; set; }
@@ -35,16 +36,6 @@ namespace Realm.DAL.Models
 
         public static void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Race>()
-                .HasRequired(x => x.DisplayName)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Race>()
-                .HasRequired(x => x.DisplayDescription)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-            
             modelBuilder.Entity<Race>()
                 .HasOptional(x => x.TagSet)
                 .WithMany()

@@ -18,6 +18,7 @@ namespace Realm.DAL.Models
 
         public SpawnTypes SpawnType { get; set; }
 
+        public int? TagSetId { get; set; }
         public virtual TagSet TagSet { get; set; }
 
         public virtual ICollection<SpawnLocation> Locations { get; set; }
@@ -26,11 +27,6 @@ namespace Realm.DAL.Models
 
         public static void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Spawn>()
-                .HasRequired(x => x.DisplayName)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
             modelBuilder.Entity<Spawn>()
                 .HasOptional(x => x.TagSet)
                 .WithMany()

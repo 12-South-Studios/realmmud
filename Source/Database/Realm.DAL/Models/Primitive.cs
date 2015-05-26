@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Realm.DAL.Interfaces;
 using Realm.DAL.Common;
 
 namespace Realm.DAL.Models
@@ -11,9 +10,10 @@ namespace Realm.DAL.Models
         public string SystemName { get; set; }
 
         [Required]
+        public int? SystemClassId { get; set; }
         public virtual SystemClass SystemClass { get; set; }
 
         [Required]
-        public virtual SystemString DisplayName { get; set; }
+        public string DisplayName { get; set; }
     }
 }

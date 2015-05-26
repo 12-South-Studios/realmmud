@@ -10,14 +10,13 @@ namespace Realm.DAL.Models
     {
         public Statistic Statistic { get; set; }
 
+        public int? SkillId { get; set; }
         public virtual Skill Skill { get; set; }
 
         public int Value { get; set; }
 
         [Required]
         public int MobileId { get; set; }
-
-        [ForeignKey("MobileId")]
-        public Mobile Mobile { get; set; }
+        public virtual Mobile Mobile { get; set; }
     }
 }

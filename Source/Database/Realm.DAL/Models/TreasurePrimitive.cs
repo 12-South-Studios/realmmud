@@ -7,6 +7,7 @@ namespace Realm.DAL.Models
     [Table("TreasurePrimitives")]
     public class TreasurePrimitive : Entity
     {
+        public int? PrimitiveId { get; set; }
         public virtual Primitive Primitive { get; set; }
 
         public int Weight { get; set; }
@@ -15,9 +16,7 @@ namespace Realm.DAL.Models
 
         [Required]
         public int TreasureId { get; set; }
-
-        [ForeignKey("TreasureId")]
-        public Treasure Treasure { get; set; }
+        public virtual Treasure Treasure { get; set; }
 
         public TreasurePrimitive()
         {

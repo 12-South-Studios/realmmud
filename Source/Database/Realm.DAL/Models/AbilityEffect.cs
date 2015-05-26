@@ -8,6 +8,7 @@ namespace Realm.DAL.Models
     [Table("AbilityEffects")]
     public class AbilityEffect : Entity
     {
+        public int? EffectId { get; set; }
         public virtual Effect Effect { get; set; }
 
         public TargetClassTypes TargetClass { get; set; }
@@ -16,8 +17,6 @@ namespace Realm.DAL.Models
 
         [Required]
         public int AbilityId { get; set; }
-
-        [ForeignKey("AbilityId")]
         public virtual Ability Ability { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Ninject;
-using Realm.DAL.Interfaces;
+using Realm.DAL;
 using Realm.DAL.Models;
 using Realm.Edit.Tags;
 

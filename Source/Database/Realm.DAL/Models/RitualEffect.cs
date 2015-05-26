@@ -8,6 +8,7 @@ namespace Realm.DAL.Models
     [Table("RitualEffects")]
     public class RitualEffect : Entity
     {
+        public int? EffectId { get; set; }
         public virtual Effect Effect { get; set; }
 
         public TargetClassTypes TargetClassType { get; set; }
@@ -16,8 +17,6 @@ namespace Realm.DAL.Models
 
         [Required]
         public int RitualId { get; set; }
-        
-        [ForeignKey("RitualId")]
-        public Ritual Ritual { get; set; }
+        public virtual Ritual Ritual { get; set; }
     }
 }

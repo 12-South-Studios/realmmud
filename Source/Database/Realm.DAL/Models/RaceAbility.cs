@@ -7,12 +7,11 @@ namespace Realm.DAL.Models
     [Table("RaceAbilities")]
     public class RaceAbility : Entity
     {
+        public int? AbilityId { get; set; }
         public virtual Ability Ability { get; set; }
 
         [Required]
         public int RaceId { get; set; }
-
-        [ForeignKey("RaceId")]
-        public Race Race { get; set; }
+        public virtual Race Race { get; set; }
     }
 }

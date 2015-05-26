@@ -7,14 +7,13 @@ namespace Realm.DAL.Models
     [Table("ShopPrimitives")]
     public class ShopPrimitive : Entity
     {
+        public int? PrimitiveId { get; set; }
         public virtual Primitive Primitive { get; set; }
 
         public int Quantity { get; set; }
 
         [Required]
         public int ShopId { get; set; }
-
-        [ForeignKey("ShopId")]
-        public Shop Shop { get; set; }
+        public virtual Shop Shop { get; set; }
     }
 }
