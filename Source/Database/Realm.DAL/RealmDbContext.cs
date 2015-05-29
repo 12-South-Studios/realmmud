@@ -19,7 +19,7 @@ namespace Realm.DAL
 
         private DateTime _lastSaveTimeUtc;
 
-        public RealmDbContext()
+        public RealmDbContext() : base("Realm")
         {
             var kernel = new StandardKernel(new RealmDbContextModule());
             Logger = kernel.Get<ILogWrapper>();

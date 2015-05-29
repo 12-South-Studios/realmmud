@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Data.Entity;
 using System.Data.SqlClient;
-using System.Linq;
 using Ninject;
 using NUnit.Framework;
-using Realm.Admin.DAL;
-using Realm.DAL;
-using Realm.Live.DAL;
 
 namespace Integration.Tests
 {
@@ -17,18 +11,13 @@ namespace Integration.Tests
     {
         private static IKernel _kernel;
 
-        private static IEnumerable<string> ExcludeDatabases
-        {
-            get { return ConfigurationManager.AppSettings["ExcludeDatabaseServers"].Split(','); }
-        }
-
         [SetUp]
         public static void Initialize()
         {
             _kernel = new StandardKernel();
-            _kernel.Bind<IRealmDbContext>().To<RealmDbContext>();
-            _kernel.Bind<IRealmLiveDbContext>().To<RealmLiveDbContext>();
-            _kernel.Bind<IRealmAdminDbContext>().To<RealmAdminDbContext>();
+            _kernel.Bind<Realm.DAL.IRealmDbContext>().To<Realm.DAL.RealmDbContext>();
+            _kernel.Bind<Realm.Live.DAL.IRealmLiveDbContext>().To<Realm.Live.DAL.RealmLiveDbContext>();
+            _kernel.Bind<Realm.Admin.DAL.IRealmAdminDbContext>().To<Realm.Admin.DAL.RealmAdminDbContext>();
         }
 
         [TearDown]
@@ -39,23 +28,34 @@ namespace Integration.Tests
 
         [Test]
         [Category("Integration")]
-        public void CreateAndInitializeDatabase()
+        public void CreateAndInitializeDatabase_RealmAdmin()
         {
-            DropDatabase("Realm");
+            DropDatabase("AdminDbContext");
             Database.SetInitializer(new MigrateDatabaseToLatestVersion
-                <RealmDbContext, Realm.DAL.Migrations.Configuration>());
+                <Realm.Admin.DAL.RealmAdminDbContext, Realm.Admin.DAL.Migrations.Configuration>());
             AdminDatabaseSeeder.Kernel = _kernel;
             AdminDatabaseSeeder.Seed();
+        }
 
-            DropDatabase("Admin");
+        [Test]
+        [Category("Integration")]
+        public void CreateAndInitializeDatabase_Realm()
+        {
+
+            DropDatabase("RealmDbContext");
             Database.SetInitializer(new MigrateDatabaseToLatestVersion
-                <RealmAdminDbContext, Realm.Admin.DAL.Migrations.Configuration>());
+                <Realm.DAL.RealmDbContext, Realm.DAL.Migrations.Configuration>());
             RealmDatabaseSeeder.Kernel = _kernel;
             RealmDatabaseSeeder.Seed();
+        }
 
-            DropDatabase("Live");
+        [Test]
+        [Category("Integration")]
+        public void CreateAndInitializeDatabase_RealmLive()
+        {
+            DropDatabase("LiveDbContext");
             Database.SetInitializer(new MigrateDatabaseToLatestVersion
-                <RealmLiveDbContext, Realm.Live.DAL.Migrations.Configuration>());
+                <Realm.Live.DAL.RealmLiveDbContext, Realm.Live.DAL.Migrations.Configuration>());
             LiveDatabaseSeeder.Kernel = _kernel;
             LiveDatabaseSeeder.Seed();
         }
@@ -63,10 +63,6 @@ namespace Integration.Tests
         private static void DropDatabase(string connectionStringName)
         {
             var connectionString = ConfigurationManager.ConnectionStrings[connectionStringName].ToString();
-
-            if (ExcludeDatabases.Any(connectionString.Contains))
-                throw new InvalidOperationException("Umm what are you doing?  Unit tests are for local databases.");
-
             var builder = new SqlConnectionStringBuilder(connectionString);
             var databaseName = builder.InitialCatalog;
 
@@ -76,7 +72,7 @@ namespace Integration.Tests
                 {
                     sqlConnection.Open();
                 }
-                catch (SqlException)
+                catch (SqlException ex)
                 {
                     return;
                 }
