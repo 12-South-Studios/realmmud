@@ -37,5 +37,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
 //Load log4net logging configuration file from file
-[assembly: log4net.Config.XmlConfigurator(Watch = true)]
+//[assembly: log4net.Config.XmlConfigurator(Watch = true)]
 [assembly: NeutralResourcesLanguage("en-US")]

@@ -1,34 +1,21 @@
-﻿using log4net;
-using Realm.Library.Common;
+﻿using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Logging;
 using Realm.Library.Database.Framework;
 
 namespace Realm.Network.User
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public sealed class GameUserLoader : DatabaseClient, IGameUserLoader
     {
-        private readonly ILog _log;
+        private readonly ILogWrapper _log;
         private EventCallback<RealmEventArgs> _callback;
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="owner"></param>
-        /// <param name="loadBalancer"></param>
-        /// <param name="log"></param>
-        public GameUserLoader(IEntity owner, IDatabaseLoadBalancer loadBalancer, ILog log)
+        public GameUserLoader(IEntity owner, IDatabaseLoadBalancer loadBalancer, ILogWrapper log)
             : base(owner, loadBalancer)
         {
             _log = log;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <returns></returns>
         public bool Load(string username, string ipAddress, EventCallback<RealmEventArgs> callback)
         {
             Validation.IsNotNull(callback, "callback");
@@ -51,10 +38,6 @@ namespace Realm.Network.User
             return true;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="args"></param>
         private void OnLoadComplete(RealmEventArgs args)
         {
             Validation.IsNotNull(args, "args");

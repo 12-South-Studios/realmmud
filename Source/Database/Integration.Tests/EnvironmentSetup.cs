@@ -41,7 +41,6 @@ namespace Integration.Tests
         [Category("Integration")]
         public void CreateAndInitializeDatabase_Realm()
         {
-
             DropDatabase("RealmDbContext");
             Database.SetInitializer(new MigrateDatabaseToLatestVersion
                 <Realm.DAL.RealmDbContext, Realm.DAL.Migrations.Configuration>());

@@ -5,23 +5,17 @@ using log4net.Core;
 
 namespace Realm.Library.Common.Logging
 {
-    /// <summary>
-    ///
-    /// </summary>
     public class LogWrapper : ILogWrapper
     {
         private readonly int _minLoggingLevel;
 
-        /// <summary>
-        ///
-        /// </summary>
         public event EventHandler<LogEventArgs> OnLoggingEvent;
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="log"></param>
-        /// <param name="level"></param>
+        public LogWrapper()
+            : this(LogManager.GetLogger(typeof(LogWrapper)), LogLevel.Error)
+        {
+        }
+
         public LogWrapper(ILog log, LogLevel level)
         {
             Log = log;
@@ -34,27 +28,13 @@ namespace Realm.Library.Common.Logging
             IsWarnEnabled = true;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
         public virtual ILog Log { get; private set; }
 
-        /// <summary>
-        ///
-        /// </summary>
         [ExcludeFromCodeCoverage]
         public virtual ILogger Logger { get { return Log.Logger; } }
 
-        /// <summary>
-        ///
-        /// </summary>
         public virtual int MinLoggingLevel { get { return _minLoggingLevel; } }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="logLevel"></param>
-        /// <returns></returns>
         public virtual bool LogThis(LogLevel logLevel)
         {
             return (int)logLevel >= _minLoggingLevel;

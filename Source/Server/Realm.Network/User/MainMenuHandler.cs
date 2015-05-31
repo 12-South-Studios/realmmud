@@ -1,23 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using log4net;
 using Ninject;
 using Ninject.Parameters;
 using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Logging;
 using Realm.Library.Database.Framework;
 using Realm.Library.Lua;
 
 namespace Realm.Network.User
 {
-    /// <summary>
-    /// Handles the Main Menu
-    /// </summary>
     public class MainMenuHandler : IMenuHandler
     {
         private readonly ILuaLoadBalancer _luaLoadBalancer;
         private readonly IDatabaseLoadBalancer _dbLoadBalancer;
-        private readonly ILog _log;
+        private readonly ILogWrapper _log;
 
         private const string ScriptFile = "OnClientEnter.lua";
         private readonly string _dataPath;
@@ -25,15 +22,8 @@ namespace Realm.Network.User
 
         private readonly Dictionary<string, Action<GameUser, string>> _commands;
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="luaLoadBalancer"></param>
-        /// <param name="dbLoadBalancer"> </param>
-        /// <param name="log"> </param>
-        /// <param name="initAtom"> </param>
         public MainMenuHandler(ILuaLoadBalancer luaLoadBalancer, IDatabaseLoadBalancer dbLoadBalancer,
-            ILog log, DictionaryAtom initAtom)
+            ILogWrapper log, DictionaryAtom initAtom)
         {
             _luaLoadBalancer = luaLoadBalancer;
             _dbLoadBalancer = dbLoadBalancer;
@@ -54,10 +44,6 @@ namespace Realm.Network.User
                             };
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="user"></param>
         public void SendMenu(GameUser user)
         {
             _luaLoadBalancer.ExecuteScript(new LuaScript
@@ -69,12 +55,6 @@ namespace Realm.Network.User
                                                });
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="user"></param>
-        /// <param name="messageToEvaluate"></param>
-        /// <returns></returns>
         public bool Execute(GameUser user, string messageToEvaluate)
         {
             bool handled = false;
