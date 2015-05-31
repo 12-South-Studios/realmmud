@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using log4net;
 using Realm.Library.Common;
+using Realm.Library.Common.Logging;
 
 namespace Realm.Library.Ai
 {
@@ -14,7 +14,6 @@ namespace Realm.Library.Ai
         /// <summary>
         /// Adds a message to the internal stack
         /// </summary>
-        /// <param name="value"></param>
         public void Add(string value)
         {
             Validation.IsNotNullOrEmpty(value, "value");
@@ -25,7 +24,6 @@ namespace Realm.Library.Ai
         /// <summary>
         /// Gets the list of messages
         /// </summary>
-        /// <returns></returns>
         public IEnumerable<string> Get()
         {
             return _messageList;
@@ -42,8 +40,7 @@ namespace Realm.Library.Ai
         /// <summary>
         /// Outputs the messages to the given ILog
         /// </summary>
-        /// <param name="log"></param>
-        public void Dump(ILog log)
+        public void Dump(ILogWrapper log)
         {
             Validation.IsNotNull(log, "log");
 

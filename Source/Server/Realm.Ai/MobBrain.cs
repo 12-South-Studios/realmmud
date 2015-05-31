@@ -7,23 +7,12 @@ using Realm.Library.Common.Logging;
 
 namespace Realm.Ai
 {
-    /// <summary>
-    ///
-    /// </summary>
     public class MobBrain : AiAgent
     {
         private int _loggingDumpCounter;
         private readonly ILogWrapper _log;
         private readonly IEntityManager _entityManager;
 
-        ///  <summary>
-        /// 
-        ///  </summary>
-        ///  <param name="owner"></param>
-        /// <param name="entityManager"></param>
-        /// <param name="messageHandler"></param>
-        ///  <param name="behavior"></param>
-        /// <param name="log"> </param>
         public MobBrain(IEntity owner, IMessageContext messageHandler, IBehavior behavior, ILogWrapper log, 
             IEntityManager entityManager)
             : base(owner, messageHandler, behavior)
@@ -49,7 +38,7 @@ namespace Realm.Ai
 
             if (_loggingDumpCounter > 60)
             {
-                Messages.Dump(_log.Log);
+                Messages.Dump(_log);
                 _loggingDumpCounter = 0;
             }
         }

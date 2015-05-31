@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using Moq;
 using NUnit.Framework;
+using Realm.Library.Common.Logging;
 using Realm.Library.SmallDb.Test.Fakes;
 
 namespace Realm.Library.SmallDb.Test
@@ -11,29 +12,25 @@ namespace Realm.Library.SmallDb.Test
     [TestFixture]
     public class SmallDbTests
     {
-        public class FakeObject
+        private class FakeObject
         {
-            public string Name { get { return "Fake"; } }
+            public static string Name { get { return "Fake"; } }
         }  
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ValidateArguments_TakesNullConnection_ThrowsException()
         {
-            SmallDb.ValidateArguments(null, "TestProcedure");
-
-            Assert.Fail("Unit test expected an ArgumentNullException to be thrown!");
+            Assert.Throws<ArgumentNullException>(() => SmallDb.ValidateArguments(null, "TestProcedure"), 
+                "Unit test expected an ArgumentNullException to be thrown!");
         }
 
         [Test]
-        [ExpectedException(typeof (ArgumentNullException))]
         public void ValidateArguments_TakesEmptyStoredProcedureName_ThrowsException()
         {
             var mockConnection = new Mock<IDbConnection>();
 
-            SmallDb.ValidateArguments(mockConnection.Object, string.Empty);
-
-            Assert.Fail("Unit test expected an ArgumentNullException to be thrown!");
+            Assert.Throws<ArgumentNullException>(() => SmallDb.ValidateArguments(mockConnection.Object, string.Empty),
+                "Unit test expected an ArgumentNullException to be thrown!");
         }
 
         [Test]
@@ -41,14 +38,8 @@ namespace Realm.Library.SmallDb.Test
         {
             var mockConnection = new Mock<IDbConnection>();
 
-            try
-            {
-                SmallDb.ValidateArguments(mockConnection.Object, "TestProcedure");
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("ValidateArguments threw an Exception of Type {0}", ex.Message);
-            }
+            Assert.DoesNotThrow(() => SmallDb.ValidateArguments(mockConnection.Object, "TestProcedure"),
+                "Unit Test threw an exception that was not expected!");
         }
 
         [Test]
@@ -85,7 +76,9 @@ namespace Realm.Library.SmallDb.Test
 
             mockCommand.SetupGet(x => x.Connection).Returns(mockConnection.Object);
 
-            var helper = new SmallDb();
+            var mockLogger = new Mock<ILogWrapper>();
+
+            var helper = new SmallDb(mockLogger.Object);
             var actualResult = helper.ExecuteScalar(mockConnection.Object, "TestProcedure");
 
             Assert.That(expected, Is.EqualTo(actualResult));
@@ -102,15 +95,12 @@ namespace Realm.Library.SmallDb.Test
 
             mockCommand.SetupGet(x => x.Connection).Returns(mockConnection.Object);
 
-            var helper = new SmallDb();
-            try
-            {
-                helper.ExecuteNonQuery(mockConnection.Object, "TestProcedure");
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("ExecuteNonQuery threw an Exception of type {0}", ex.Message);
-            }
+            var mockLogger = new Mock<ILogWrapper>();
+
+            var helper = new SmallDb(mockLogger.Object);
+
+            Assert.DoesNotThrow(() =>  helper.ExecuteNonQuery(mockConnection.Object, "TestProcedure"),
+                "Unit Test threw an exception that was not expected!");
         }
 
         [Test]
@@ -127,7 +117,9 @@ namespace Realm.Library.SmallDb.Test
 
             mockCommand.SetupGet(x => x.Connection).Returns(mockConnection.Object);
 
-            var helper = new SmallDb();
+            var mockLogger = new Mock<ILogWrapper>();
+
+            var helper = new SmallDb(mockLogger.Object);
             var result = helper.ExecuteQuery(mockConnection.Object, "TestProcedure");
 
             Assert.That(result, Is.Not.Null);
@@ -155,19 +147,21 @@ namespace Realm.Library.SmallDb.Test
 
             mockCommand.SetupGet(x => x.Connection).Returns(mockConnection.Object);
 
-            var helper = new SmallDb();
+            var mockLogger = new Mock<ILogWrapper>();
+
+            var helper = new SmallDb(mockLogger.Object);
 
             var result = helper.ExecuteQuery(mockConnection.Object, "TestProcedure", CreateFakeObject);
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result, Is.InstanceOf<FakeObject>());
-            Assert.That(result.Name, Is.EqualTo("Fake"));
+            Assert.That(FakeObject.Name, Is.EqualTo("Fake"));
         }
 
         [TestCase("select something from table", true)]
         [TestCase("drop table", false)]
         [TestCase("whatever this is", false)]
-        public void IsInternalSqlTest(string sql, bool expectedValue)
+        public void IsInternalSql(string sql, bool expectedValue)
         {
             Assert.That(SmallDb.IsInternalSql(sql), Is.EqualTo(expectedValue));
         }

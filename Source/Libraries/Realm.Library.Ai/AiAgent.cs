@@ -32,19 +32,8 @@ namespace Realm.Library.Ai
             Behavior = behavior;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
         public event EventHandler<EventArgs> OnAgentWake;
-
-        /// <summary>
-        ///
-        /// </summary>
         public event EventHandler<EventArgs> OnAgentSleep;
-
-        /// <summary>
-        ///
-        /// </summary>
         public event EventHandler<EventArgs> OnStateChange;
 
         /// <summary>

@@ -18,10 +18,10 @@ namespace Realm.Library.NCalcExt.Test
         }
 
         [Test]
-        public void Add_NoConflicts_Test()
+        public void Add_HasNoConflicts()
         {
             var table = new ExpressionTable();
-            var expr = new CustomExpression()
+            var expr = new CustomExpression
                            {
                                Name = "Test",
                                RegexPattern = "[0-9]",
@@ -29,17 +29,14 @@ namespace Realm.Library.NCalcExt.Test
                                ReplacementFunction = FakeReplaceFunc
                            };
 
-            table.Add(expr);
-
-            Assert.Pass("No exceptions were thrown");
+            Assert.DoesNotThrow(() => table.Add(expr), "Unit Test expected no exceptions to be thrown!");
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
-        public void Add_NameConflict_Test()
+        public void Add_HasANameConflict_ThrowsException()
         {
             var table = new ExpressionTable();
-            var expr1 = new CustomExpression()
+            var expr1 = new CustomExpression
                             {
                                 Name = "Test",
                                 RegexPattern = "[0-9]",
@@ -49,7 +46,7 @@ namespace Realm.Library.NCalcExt.Test
 
             table.Add(expr1);
 
-            var expr2 = new CustomExpression()
+            var expr2 = new CustomExpression
                             {
                                 Name = "Test",
                                 RegexPattern = "[0-9]",
@@ -57,15 +54,15 @@ namespace Realm.Library.NCalcExt.Test
                                 ReplacementFunction = FakeReplaceFunc
                             };
 
-            table.Add(expr2);
+            Assert.Throws<ArgumentException>(() => table.Add(expr2), 
+                "Unit Test expected an ArgumentException to be thrown!");
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
-        public void Add_RegexConflict_Test()
+        public void Add_HasARegexConflict_ThrowsException()
         {
             var table = new ExpressionTable();
-            var expr1 = new CustomExpression()
+            var expr1 = new CustomExpression
                             {
                                 Name = "Test",
                                 RegexPattern = "[0-9]",
@@ -75,7 +72,7 @@ namespace Realm.Library.NCalcExt.Test
 
             table.Add(expr1);
 
-            var expr2 = new CustomExpression()
+            var expr2 = new CustomExpression
                             {
                                 Name = "Test1",
                                 RegexPattern = "[0-9]",
@@ -83,11 +80,12 @@ namespace Realm.Library.NCalcExt.Test
                                 ReplacementFunction = FakeReplaceFunc
                             };
 
-            table.Add(expr2);
+            Assert.Throws<ArgumentException>(() => table.Add(expr2),
+                "Unit Test expected an ArgumentException to be thrown!");
         }
 
         [Test]
-        public void Get_NameMatch_Test()
+        public void Get_HasANameMatch_ReturnsValidResult()
         {
             var table = new ExpressionTable();
             var expr1 = new CustomExpression()
@@ -104,7 +102,7 @@ namespace Realm.Library.NCalcExt.Test
         }
 
         [Test]
-        public void Get_RegexMatch_Test()
+        public void Get_HasARegexMatch_ReturnsValidResult()
         {
             var table = new ExpressionTable();
             var expr1 = new CustomExpression()

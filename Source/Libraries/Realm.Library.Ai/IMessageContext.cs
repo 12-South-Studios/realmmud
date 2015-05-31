@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using log4net;
+using Realm.Library.Common.Logging;
 
 // ReSharper disable CheckNamespace
 namespace Realm.Library.Ai
@@ -13,7 +13,6 @@ namespace Realm.Library.Ai
         /// <summary>
         /// Adds a message to the internal stack
         /// </summary>
-        /// <param name="value"></param>
         void Add(string value);
 
         /// <summary>
@@ -24,13 +23,11 @@ namespace Realm.Library.Ai
         /// <summary>
         /// Gets the list of messages
         /// </summary>
-        /// <returns></returns>
         IEnumerable<string> Get();
 
         /// <summary>
-        /// Outputs the messages to the given ILog
+        /// Outputs the messages to the given ILogWrapper
         /// </summary>
-        /// <param name="log"></param>
-        void Dump(ILog log);
+        void Dump(ILogWrapper log);
     }
 }

@@ -85,6 +85,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Realm.Library.Common\Realm.Library.Common.csproj">
+      <Project>{1fdee5bd-a724-4478-bca3-4c49daea291d}</Project>
+      <Name>Realm.Library.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Realm.Library.SmallDb\Realm.Library.SmallDb.csproj">
       <Project>{7d9c9772-4747-4e29-9806-1007528bbeee}</Project>
       <Name>Realm.Library.SmallDb</Name>

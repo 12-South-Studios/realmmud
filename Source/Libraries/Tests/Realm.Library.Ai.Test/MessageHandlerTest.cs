@@ -1,80 +1,83 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using Moq;
-using log4net;
+using NUnit.Framework;
+using Realm.Library.Common.Logging;
 
 namespace Realm.Library.Ai.Test
 {
-    [TestClass]
+    [TestFixture]
     public class MessageHandlerTest
     {
-        [TestMethod]
-        public void MessageHandler_AddTest()
+        [Test]
+        public void Add_ProperlyAddsMessagesToList()
         {
             var target = new MessageContext();
-            const string value = "test";
-            target.Add(value);
+            target.Add("test");
+
             var messageList = target.Get() as IList<string>;
             if (messageList == null)
-                throw new Exception("Failed");
+                Assert.Fail("Message list was null.");
 
-            const int expected = 1;
-            Assert.AreEqual(expected, messageList.Count);
+            Assert.That(messageList.Count, Is.EqualTo(1));
         }
 
-        [TestMethod]
-        public void MessageHandler_ClearTest()
+        [Test]
+        public void Clear_RemovesMessages()
         {
             var target = new MessageContext();
-            const string value = "test";
-            target.Add(value);
+            target.Add("test");
             target.Clear();
 
             var messageList = target.Get() as IList<string>;
             if (messageList == null)
-                throw new Exception("Failed");
-            const int expected = 0;
-            Assert.AreEqual(expected, messageList.Count);
+                Assert.Fail("Message list was null.");
+
+            Assert.That(messageList.Count, Is.EqualTo(0));
         }
 
-        [TestMethod]
-        public void MessageHandler_GetTest()
+        [Test]
+        public void Get_ReturnsValidMessageList()
         {
             var target = new MessageContext();
-            const string value = "test";
-            target.Add(value);
-            var messageList = target.Get() as IList<string>;
-            Assert.IsTrue(messageList != null);
-        }
-
-        [TestMethod]
-        public void MessageHandler_DumpTest()
-        {
-            var target = new MessageContext();
-            const string value = "test";
-            target.Add(value);
-            
-            target.Dump(new Mock<ILog>().Object);
+            target.Add("test");
 
             var messageList = target.Get() as IList<string>;
             if (messageList == null)
-                throw new Exception("Failed");
-            const int expected = 0;
-            Assert.AreEqual(expected, messageList.Count);
+                Assert.Fail("Message list was null.");
+
+            Assert.That(messageList, Is.Not.Null);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void MessageHandler_Dump_NullParameter_Test()
+        [Test]
+        public void Dump_GetsMessageList_OutputsCorrectNumberOfEntries()
         {
             var target = new MessageContext();
-            const string value = "test";
-            target.Add(value);
+            target.Add("test");
 
-            target.Dump(null);
+            var callbackTimes = 0;
 
-            Assert.Fail("Unit Test expected an ArgumentNullException to be thrown");
+            var mockLogger = new Mock<ILogWrapper>();
+            mockLogger.Setup(x => x.Info(It.IsAny<object>())).Callback(() => callbackTimes++);
+
+            target.Dump(mockLogger.Object);
+
+            var messageList = target.Get() as IList<string>;
+            if (messageList == null)
+                Assert.Fail("Message list was null.");
+
+            Assert.That(messageList.Count, Is.EqualTo(0));
+            Assert.That(callbackTimes, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Dump_GetsNullParameter_ThrowsException()
+        {
+            var target = new MessageContext();
+            target.Add("test");
+
+            Assert.Throws<ArgumentNullException>(() => target.Dump(null), 
+                "Unit Test expected an ArgumentNullException to be thrown");
         }
     }
 }

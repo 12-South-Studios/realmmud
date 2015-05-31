@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
-using log4net;
+using Realm.Library.Common.Logging;
 
 namespace Realm.Library.SmallDb
 {
@@ -12,8 +12,6 @@ namespace Realm.Library.SmallDb
     /// </summary>
     public sealed class SmallDb : ISmallDb
     {
-        private readonly ILog _log = LogManager.GetLogger(typeof(SmallDb));
-
         private static readonly List<string> SqlCommands = new List<string>
             {
                 "SELECT", "INSERT", "UPDATE", "DELETE", "DROP", "MERGE", "ALTER", "CREATE"
@@ -21,8 +19,16 @@ namespace Realm.Library.SmallDb
         private static readonly List<string> DisallowedCommands = new List<string>
             {
                 "DROP", "ALTER", "CREATE"
-            }; 
+            };
 
+        private readonly ILogWrapper _log;
+
+        public SmallDb(ILogWrapper logWrapper)
+        {
+            _log = logWrapper;
+        }
+
+ 
         /// <summary>
         /// Executes a scalar query and returns the result
         /// </summary>
