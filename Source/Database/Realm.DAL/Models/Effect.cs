@@ -53,36 +53,6 @@ namespace Realm.DAL.Models
         public static void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Effect>()
-                .HasOptional(x => x.TagSet)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Effect>()
-                .HasOptional(x => x.DynamicZones)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Effect>()
-                .HasOptional(x => x.HealthChanges)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Effect>()
-                .HasOptional(x => x.Positions)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Effect>()
-                .HasOptional(x => x.Primitives)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Effect>()
-                .HasOptional(x => x.StatMods)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Effect>()
                 .HasOptional(x => x.OnResistEffect)
                 .WithMany()
                 .HasForeignKey(x => x.OnResistEffectId);

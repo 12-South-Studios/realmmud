@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
 using Realm.DAL.Enumerations;
 
 namespace Realm.DAL.Models
@@ -17,13 +16,5 @@ namespace Realm.DAL.Models
         public int SortOrder { get; set; }
 
         public virtual ICollection<MonthEffect> Effects { get; set; }
-
-        public static void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Month>()
-                .HasOptional(x => x.Effects)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-        }
     }
 }

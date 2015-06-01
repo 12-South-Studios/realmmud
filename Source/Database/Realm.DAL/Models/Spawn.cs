@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
 using Realm.DAL.Enumerations;
 
 namespace Realm.DAL.Models
@@ -24,23 +23,5 @@ namespace Realm.DAL.Models
         public virtual ICollection<SpawnLocation> Locations { get; set; }
 
         public virtual ICollection<SpawnPrimitive> Primitives { get; set; }
-
-        public static void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Spawn>()
-                .HasOptional(x => x.TagSet)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Spawn>()
-                .HasOptional(x => x.Locations)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Spawn>()
-                .HasOptional(x => x.Primitives)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-        }
     }
 }

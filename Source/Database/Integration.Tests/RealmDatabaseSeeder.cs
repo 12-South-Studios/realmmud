@@ -29,15 +29,21 @@ namespace Integration.Tests
                 context.SaveChanges();
             }
 
+            AddHelp();
             AddMonths();
+
+            AddTerrain();
+            AddBarriers();
+            AddSpaces();
+            AddZones();
         }
 
         #region Lookup Data
         private static void SeedSystemClasses(IRealmDbContext context)
         {
-            foreach (var key in _systemClassTable.Keys)
+            foreach (var key in SystemClassTable.Keys)
             {
-                var kvp = _systemClassTable[key];
+                var kvp = SystemClassTable[key];
 
                 context.SystemClasses.AddOrUpdate(x => x.Id, new SystemClass
                 {
@@ -48,7 +54,7 @@ namespace Integration.Tests
             }
         }
 
-        private static readonly Dictionary<int, KeyValuePair<string, SystemTypes>> _systemClassTable = new Dictionary
+        private static readonly Dictionary<int, KeyValuePair<string, SystemTypes>> SystemClassTable = new Dictionary
             <int, KeyValuePair<string, SystemTypes>>
         {
             {1, new KeyValuePair<string, SystemTypes>("rootZones", SystemTypes.Zone)},
@@ -85,9 +91,9 @@ namespace Integration.Tests
 
         private static void SeedBits(IRealmDbContext context)
         {
-            foreach (var key in _bitTable.Keys)
+            foreach (var key in BitTable.Keys)
             {
-                var values = _bitTable[key];
+                var values = BitTable[key];
 
                 context.Bits.AddOrUpdate(x => x.Id, new Bit
                 {
@@ -101,7 +107,7 @@ namespace Integration.Tests
             }
         }
 
-        private static readonly Dictionary<int, List<object>> _bitTable = new Dictionary<int, List<object>>
+        private static readonly Dictionary<int, List<object>> BitTable = new Dictionary<int, List<object>>
         {
             {1, new List<object> {"AutoAttack", 1, BitTypes.AbilityBits, null, null}},
             {2, new List<object> {"NotInterruptible", 2, BitTypes.AbilityBits, "Not Interruptible", null}},
@@ -546,6 +552,57 @@ namespace Integration.Tests
         };
         #endregion
 
+        private static void AddHelp()
+        {
+            using (var dbContext = Kernel.Get<IRealmDbContext>())
+            {
+                foreach (var values in HelpTable.Keys.Select(key => HelpTable[key]))
+                {
+                    dbContext.Helps.Add(new Help
+                    {
+                        SystemClass = dbContext.SystemClasses.First(x => x.Name == "rootHelpLookups"),
+                        SystemName = (string)values[0],
+                        DisplayName = (string)values[1],
+                        Keywords = (string)values[2],
+                        Text = (string)values[3]
+                    });
+                }
+                dbContext.SaveChanges();
+            } 
+        }
+        
+        private static readonly Dictionary<int, List<object>> HelpTable = new Dictionary<int, List<object>>
+        {
+            {1, new List<object> {"LightElement", "Light Element", "Light", 
+                "Primal element of Light, linked to the forces of good and Maron the Creator."}},
+            {2, new List<object> {"ShadowElement", "Shadow Element", "Shadow", 
+                "Primal element of Shadow, linked to the forces of evil and Urman the Destroyer."}},
+            {3, new List<object> {"FireElement", "Fire Element", "Fire", 
+                ""}},
+            {4, new List<object> {"AirElement", "Air Element", "Air", 
+                ""}},
+            {5, new List<object> {"EarthElement", "Earth Element", "Earth", 
+                ""}},
+            {6, new List<object> {"WaterElement", "Water Element", "Water", 
+                ""}},
+            {7, new List<object> {"gods", "The gods", "gods", 
+                "The gods are also known as the Athlei and are powerful beings that have existed for " + 
+                "many thousands of years.  They helped create the world and the races that live on it " + 
+                "and in ancient times even fought alongside the “lesser” races. They are divided into " + 
+                "three groups, The Two, the Thirteen and The Hundred.  In total there are one-hundred " + 
+                "and fifteen gods.  Each of the gods is tied to one or more of the core elements of the Realms."}},
+            {8, new List<object> {"Maron", "Maron", "Maron", 
+                "Known as The Creator or The One, Maron is the ruler of Amaron, the leader of the Athlei " + 
+                "and the Armies of Light.  Maron works to rebuild what was lost during the Great Wars " + 
+                "and to stop his brother, Urman, from causing more destruction.  Maron’s element is that of Light."}},
+            {9, new List<object> {"Urman", "Urman", "Urman", 
+                "Known as The Destroyer or The Great Shadow, Urman is the leader of the Armies of Darkness. " + 
+                "Urman was chained to The Obelisk for the remainder of time after his defeat at the end of " + 
+                "the Second Great War, but in the darkness he has vowed to destroy his brother, Maron, and bring " + 
+                "chaos and destruction to the Seven Realms. Urman’s element is that of Shadow."}},
+
+        }; 
+
         private static void AddMonths()
         {
             using (var dbContext = Kernel.Get<IRealmDbContext>())
@@ -563,6 +620,7 @@ namespace Integration.Tests
                         SortOrder = (int)values[5]
                     });
                 }
+                dbContext.SaveChanges();
             }
         }
 
@@ -590,6 +648,151 @@ namespace Integration.Tests
             {20, new List<object> {"Veorota", "Veorota", 20, SeasonTypes.Winter, false, 20}}
         };
 
+        private static void AddTerrain()
+        {
+            using (var dbContext = Kernel.Get<IRealmDbContext>())
+            {
+                var defaultTerrain = new Terrain
+                {
+                    SystemClass = dbContext.SystemClasses.First(x => x.Name == "rootTerrains"),
+                    SystemName = "Indoor Terrain (Default)",
+                    DisplayName = "Indor Terrain",
+                    DisplayDescription = "Indoor Terrain.  This is the MUD default.",
+                    MovementCost = 1
+                };
+                dbContext.Terrains.Add(defaultTerrain);
+                dbContext.SaveChanges();
+            }
+        }
 
+        private static void AddBarriers()
+        {
+            using (var dbContext = Kernel.Get<IRealmDbContext>())
+            {
+                var door = new Barrier
+                {
+                    SystemClass = dbContext.SystemClasses.First(x => x.Name == "rootBarriers"),
+                    SystemName = "Start Space Door",
+                    DisplayName = "Wooden Door",
+                    MaterialType = MaterialTypes.ThickWood,
+                    Bits = 3
+                };
+                dbContext.Barriers.Add(door);
+                dbContext.SaveChanges();
+            }
+        }
+
+        private static void AddSpaces()
+        {
+            using (var dbContext = Kernel.Get<IRealmDbContext>())
+            {
+                var startSpace = new Space
+                {
+                    SystemClass = dbContext.SystemClasses.First(x => x.Name == "rootSpaces"),
+                    SystemName = "Start Space",
+                    DisplayName = "Unused Room",
+                    DisplayDescription = "An empty room with a single door leading out.",
+                    Bits = 31,
+                    Terrain = dbContext.Terrains.First(x => x.SystemName == "Indoor Terrain (Default)"),
+                    Portals = new List<SpacePortal>()
+                };
+                dbContext.Spaces.Add(startSpace);
+
+                var commonRoomSpace = new Space
+                {
+                    SystemClass = dbContext.SystemClasses.First(x => x.Name == "rootSpaces"),
+                    SystemName = "Common Room NW",
+                    DisplayName = "Common Room (Northwest)",
+                    DisplayDescription = "<Description Here>",
+                    Bits = 31,
+                    Terrain = dbContext.Terrains.First(x => x.SystemName == "Indoor Terrain (Default)"),
+                    Portals = new List<SpacePortal>()
+                };
+                dbContext.Spaces.Add(commonRoomSpace);
+                dbContext.SaveChanges();
+
+                commonRoomSpace.Portals.Add(new SpacePortal
+                {
+                    Keywords = "west",
+                    Direction = DirectionTypes.West,
+                    TargetSpaceId = dbContext.Spaces.First(x => x.SystemName == "Start Space").Id,
+                    BarrierId = dbContext.Barriers.First(x => x.SystemName == "Start Space Door").Id
+                });
+                startSpace.Portals.Add(new SpacePortal
+                {
+                    Keywords = "out leave exit east",
+                    Direction = DirectionTypes.East,
+                    TargetSpaceId = dbContext.Spaces.First(x => x.SystemName == "Common Room NW").Id,
+                    BarrierId = dbContext.Barriers.First(x => x.SystemName == "Start Space Door").Id
+                });
+                dbContext.SaveChanges();
+            }
+        }
+
+        private static void AddZones()
+        {
+            using (var dbContext = Kernel.Get<IRealmDbContext>())
+            {
+                var newZone = new Zone
+                {
+                    SystemClass = dbContext.SystemClasses.First(x => x.Name == "rootZones"),
+                    SystemName = "Inn of the Seven Realms",
+                    DisplayName = "Inn of the Seven Realms",
+                    DisplayDescription = "The Inn is located in the center of Aran of the Southern Gate and " +
+                        "is run by Bron Ma’Ganor, a tall but fan man of indeterminate age, who has lived in Aran his entire " +
+                        "life. He is of Manargoan decent and is very conscious of the tensions between his people and those " +
+                        "of Cardolania. Over his life in Aran he has amassed a small fortune running what is considered " +
+                        "by some to be the best Inn in Dushara. It is a very large inn, nearly six stories with over " +
+                        "one-hundred rooms and serves as the largest Adventurer’s Guild in the city of Dushara. Several " +
+                        "large rooms, a host of serving girls, and three thousand stones worth of bouncers keep the crowd " +
+                        "of Adventurers looking for jobs satisfied and in-line. Ma’Ganor’s rooms are small, and the prices " +
+                        "aren’t cheap, but they are clean, the stew is always warm, the bread is always fresh, and the ale " +
+                        "is always good. For those who have horses, Ma’Ganor provides stabling, for a modest fee, and for those " +
+                        "who need weapons or armor repaired he has a deal with Atinae’s Weapons and The Troll’s Mane for " +
+                        "discounts on repair fees.",
+                    Bits = 16,
+                    Spaces = new List<ZoneSpace>
+                    {
+                        new ZoneSpace
+                        {
+                            Space = dbContext.Spaces.First(x => x.SystemName == "Start Space")
+                        },
+                        new ZoneSpace
+                        {
+                            Space = dbContext.Spaces.First(x => x.SystemName == "Common Room NW")
+                        }
+                    }
+                };
+                dbContext.Zones.Add(newZone);
+
+                newZone = new Zone
+                {
+                    SystemClass = dbContext.SystemClasses.First(x => x.Name == "rootZones"),
+                    SystemName = "Catacombs",
+                    DisplayName = "The Catacombs",
+                    DisplayDescription = "Built millennia ago, the catacombs have been used by the residents of Aran " + 
+                        "and other cities on the southern side of the Osara River for years.  Some used the Catacombs " + 
+                        "to bury their family members, other used them as quarries for stone, and a few more used the " + 
+                        "Catacombs as places to hide or conduct secret meetings.  In recent months they have become overrun " + 
+                        "by the undead and few dare venture into their black depths any longer.  One known entrance to the " + 
+                        "catacombs is through the cellar of the Inn of the Seven Planes in Aran."
+                };
+                dbContext.Zones.Add(newZone);
+
+                newZone = new Zone
+                {
+                    SystemClass = dbContext.SystemClasses.First(x => x.Name == "rootZones"),
+                    SystemName = "Aran",
+                    DisplayName = "Aran of the Southern Gate",
+                    DisplayDescription = "The largest of the communities of Lesser Dushara, Aran is also one of the oldest " + 
+                        "communities in Dushara.  It serves as the prime location for many different residents, merchants, " + 
+                        "temples and it also contains the Southern Gate, the only way out of the city on this side of the " + 
+                        "river.  The ruler of Aran is a Baron by the name of Talor de’Sal."
+                };
+                dbContext.Zones.Add(newZone);
+
+                dbContext.SaveChanges();
+            }
+        }
     }
 }

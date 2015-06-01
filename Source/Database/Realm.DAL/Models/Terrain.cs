@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
 
 namespace Realm.DAL.Models
 {
@@ -19,13 +18,5 @@ namespace Realm.DAL.Models
         public virtual Skill Skill { get; set; }
 
         public virtual ICollection<TerrainRestriction> Restrictions { get; set; }
-
-        public static void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Terrain>()
-                .HasOptional(x => x.Restrictions)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-        }
     }
 }

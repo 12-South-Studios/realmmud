@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
 
 namespace Realm.DAL.Models
 {
@@ -19,13 +18,5 @@ namespace Realm.DAL.Models
         public string Keywords { get; set; }
 
         public string Text { get; set; }
-
-        public static void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Conversation>()
-                .HasOptional(x => x.TagSet)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-        }
     }
 }

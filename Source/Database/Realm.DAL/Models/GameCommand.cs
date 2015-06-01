@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
 using Realm.DAL.Enumerations;
 
 namespace Realm.DAL.Models
@@ -20,23 +19,5 @@ namespace Realm.DAL.Models
         public virtual ICollection<GameCommandPosition> Positions { get; set; }
 
         public virtual ICollection<GameCommandUserState> UserStates { get; set; }
-
-        public static void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<GameCommand>()
-                .HasOptional(x => x.TagSet)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<GameCommand>()
-                .HasOptional(x => x.Positions)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<GameCommand>()
-                .HasOptional(x => x.UserStates)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-        }
     }
 }

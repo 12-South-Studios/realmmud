@@ -13,7 +13,7 @@ namespace Realm.DAL.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201505261205510_InitialSetup"; }
+            get { return "201506011748191_InitialSetup"; }
         }
         
         string IMigrationMetadata.Source

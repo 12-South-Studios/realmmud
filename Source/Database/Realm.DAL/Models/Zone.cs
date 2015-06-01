@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
 
 namespace Realm.DAL.Models
 {
@@ -31,38 +30,5 @@ namespace Realm.DAL.Models
         public virtual ICollection<ZoneSpace> Spaces { get; set; }
 
         public virtual ICollection<ZoneSpawn> Spawns { get; set; }
-
-        public static void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Zone>()
-                .HasOptional(x => x.TagSet)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Zone>()
-                .HasOptional(x => x.Accesses)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Zone>()
-                .HasOptional(x => x.Dynamics)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Zone>()
-                .HasOptional(x => x.Resets)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Zone>()
-                .HasOptional(x => x.Spaces)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Zone>()
-                .HasOptional(x => x.Spawns)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-        }
     }
 }

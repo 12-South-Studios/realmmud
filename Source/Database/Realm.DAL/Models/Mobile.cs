@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
 using Realm.DAL.Enumerations;
 
 namespace Realm.DAL.Models
@@ -53,58 +52,5 @@ namespace Realm.DAL.Models
         public virtual ICollection<MobileTreasureTable> TreasureTables { get; set; }
 
         public virtual ICollection<MobileVendor> Vendors { get; set; }
-
-        public static void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Mobile>()
-                .HasOptional(x => x.TagSet)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Mobile>()
-                .HasOptional(x => x.Abilities)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Mobile>()
-                .HasOptional(x => x.AIs)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Mobile>()
-                .HasOptional(x => x.Equipment)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Mobile>()
-                .HasOptional(x => x.MudProgs)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Mobile>()
-                .HasOptional(x => x.Resources)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Mobile>()
-                .HasOptional(x => x.Statistics)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Mobile>()
-                .HasOptional(x => x.Treasures)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Mobile>()
-                .HasOptional(x => x.TreasureTables)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Mobile>()
-                .HasOptional(x => x.Vendors)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-        }
     }
 }

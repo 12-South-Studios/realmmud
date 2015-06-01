@@ -102,9 +102,9 @@
     <Compile Include="Enumerations\TagCategoryTypes.cs" />
     <Compile Include="Enumerations\TargetClassTypes.cs" />
     <Compile Include="Enumerations\SystemTypes.cs" />
-    <Compile Include="Migrations\201505261205510_InitialSetup.cs" />
-    <Compile Include="Migrations\201505261205510_InitialSetup.Designer.cs">
-      <DependentUpon>201505261205510_InitialSetup.cs</DependentUpon>
+    <Compile Include="Migrations\201506011748191_InitialSetup.cs" />
+    <Compile Include="Migrations\201506011748191_InitialSetup.Designer.cs">
+      <DependentUpon>201506011748191_InitialSetup.cs</DependentUpon>
     </Compile>
     <Compile Include="RealmDbContextModule.cs" />
     <Compile Include="ContextExtensions.cs" />
@@ -255,8 +255,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201505261205510_InitialSetup.resx">
-      <DependentUpon>201505261205510_InitialSetup.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201506011748191_InitialSetup.resx">
+      <DependentUpon>201506011748191_InitialSetup.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

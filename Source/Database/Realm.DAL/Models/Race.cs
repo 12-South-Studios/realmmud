@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
 using Realm.DAL.Enumerations;
 
 namespace Realm.DAL.Models
@@ -33,28 +32,5 @@ namespace Realm.DAL.Models
         public virtual ICollection<RaceHitLocation> HitLocations { get; set; }
 
         public virtual ICollection<RaceStatistic> Statistics { get; set; }
-
-        public static void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Race>()
-                .HasOptional(x => x.TagSet)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Race>()
-                .HasOptional(x => x.Abilities)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Race>()
-                .HasOptional(x => x.HitLocations)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Race>()
-                .HasOptional(x => x.Statistics)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-        }
     }
 }

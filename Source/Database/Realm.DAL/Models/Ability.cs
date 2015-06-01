@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
 using Realm.DAL.Enumerations;
 
 namespace Realm.DAL.Models
@@ -55,33 +54,5 @@ namespace Realm.DAL.Models
         public virtual ICollection<AbilityPrerequisite> Prerequisites { get; set; }
 
         public virtual ICollection<AbilityReagant> Reagants { get; set; }
-
-        public static void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Ability>()
-                .HasOptional(x => x.TagSet)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Ability>()
-                .HasOptional(x => x.Effects)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Ability>()
-                .HasOptional(x => x.GuildUpgrades)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Ability>()
-                .HasOptional(x => x.Prerequisites)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Ability>()
-                .HasOptional(x => x.Reagants)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-        }
     }
 }

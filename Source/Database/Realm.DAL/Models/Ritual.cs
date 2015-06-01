@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
 
 namespace Realm.DAL.Models
 {
@@ -26,33 +25,5 @@ namespace Realm.DAL.Models
         public virtual ICollection<RitualReagant> Reagants { get; set; }
 
         public virtual ICollection<RitualRequirement> Requirements { get; set; }
-
-        public static void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Ritual>()
-                .HasOptional(x => x.TagSet)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Ritual>()
-                .HasOptional(x => x.Effects)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Ritual>()
-                .HasOptional(x => x.Participants)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Ritual>()
-                .HasOptional(x => x.Reagants)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Ritual>()
-                .HasOptional(x => x.Requirements)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-        }
     }
 }

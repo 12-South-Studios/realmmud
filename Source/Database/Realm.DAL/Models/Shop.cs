@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
 using Realm.DAL.Enumerations;
 
 namespace Realm.DAL.Models
@@ -19,18 +18,5 @@ namespace Realm.DAL.Models
         public virtual ICollection<ShopBuyType> BuyTypes { get; set; }
 
         public virtual ICollection<ShopPrimitive> Primitives { get; set; }
-
-        public static void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Shop>()
-                .HasOptional(x => x.BuyTypes)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Shop>()
-                .HasOptional(x => x.Primitives)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-        }
     }
 }

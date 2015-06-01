@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
 
 namespace Realm.DAL.Models
 {
@@ -11,18 +10,5 @@ namespace Realm.DAL.Models
         public virtual TagSet TagSet { get; set; }
 
         public virtual ICollection<FactionRelation> Relations { get; set; }
-
-        public static void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Faction>()
-                .HasOptional(x => x.TagSet)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Faction>()
-                .HasOptional(x => x.Relations)
-                .WithMany()
-                .WillCascadeOnDelete(true);
-        }
     }
 }

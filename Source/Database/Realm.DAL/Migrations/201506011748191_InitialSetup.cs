@@ -166,12 +166,15 @@ namespace Realm.DAL.Migrations
                         FactionRelationshipType = c.Int(nullable: false),
                         FactionId = c.Int(nullable: false),
                         CreateDateUtc = c.DateTime(),
+                        Faction_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Factions", t => t.FactionId)
                 .ForeignKey("dbo.Factions", t => t.TargetFactionId)
+                .ForeignKey("dbo.Factions", t => t.Faction_Id)
                 .Index(t => t.TargetFactionId)
-                .Index(t => t.FactionId);
+                .Index(t => t.FactionId)
+                .Index(t => t.Faction_Id);
             
             CreateTable(
                 "dbo.MobileEquipments",
@@ -909,6 +912,7 @@ namespace Realm.DAL.Migrations
                         FactionLevel = c.Int(nullable: false),
                         QuestId = c.Int(nullable: false),
                         CreateDateUtc = c.DateTime(),
+                        Quest_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Factions", t => t.FactionId)
@@ -919,6 +923,7 @@ namespace Realm.DAL.Migrations
                 .ForeignKey("dbo.Quests", t => t.QuestNotCompletedId)
                 .ForeignKey("dbo.Races", t => t.RaceId)
                 .ForeignKey("dbo.Skills", t => t.SkillId)
+                .ForeignKey("dbo.Quests", t => t.Quest_Id)
                 .Index(t => t.RaceId)
                 .Index(t => t.NotRaceId)
                 .Index(t => t.SkillId)
@@ -926,7 +931,8 @@ namespace Realm.DAL.Migrations
                 .Index(t => t.QuestNotCompletedId)
                 .Index(t => t.HasItemId)
                 .Index(t => t.FactionId)
-                .Index(t => t.QuestId);
+                .Index(t => t.QuestId)
+                .Index(t => t.Quest_Id);
             
             CreateTable(
                 "dbo.RitualEffects",
@@ -1465,10 +1471,6 @@ namespace Realm.DAL.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false),
-                        Effects_Id = c.Int(),
-                        GuildUpgrades_Id = c.Int(),
-                        Prerequisites_Id = c.Int(),
-                        Reagants_Id = c.Int(),
                         DisplayDescription = c.String(nullable: false),
                         ManaCost = c.Int(nullable: false),
                         StaminaCost = c.Int(nullable: false),
@@ -1489,19 +1491,11 @@ namespace Realm.DAL.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Primitives", t => t.Id)
-                .ForeignKey("dbo.AbilityEffects", t => t.Effects_Id, cascadeDelete: true)
-                .ForeignKey("dbo.GuildAbilities", t => t.GuildUpgrades_Id, cascadeDelete: true)
-                .ForeignKey("dbo.AbilityPrerequisites", t => t.Prerequisites_Id, cascadeDelete: true)
-                .ForeignKey("dbo.AbilityReagants", t => t.Reagants_Id, cascadeDelete: true)
                 .ForeignKey("dbo.Terrains", t => t.TerrainId)
-                .ForeignKey("dbo.TagSets", t => t.TagSetId, cascadeDelete: true)
+                .ForeignKey("dbo.TagSets", t => t.TagSetId)
                 .ForeignKey("dbo.Skills", t => t.InterruptionResistSkillId)
                 .ForeignKey("dbo.Effects", t => t.InterruptionEffectId)
                 .Index(t => t.Id)
-                .Index(t => t.Effects_Id)
-                .Index(t => t.GuildUpgrades_Id)
-                .Index(t => t.Prerequisites_Id)
-                .Index(t => t.Reagants_Id)
                 .Index(t => t.TerrainId)
                 .Index(t => t.TagSetId)
                 .Index(t => t.InterruptionResistSkillId)
@@ -1512,22 +1506,13 @@ namespace Realm.DAL.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false),
-                        Abilities_Id = c.Int(),
-                        SkillCategories_Id = c.Int(),
-                        Statistics_Id = c.Int(),
                         DisplayDescription = c.String(nullable: false),
                         TagSetId = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Primitives", t => t.Id)
-                .ForeignKey("dbo.ArchetypeAbilities", t => t.Abilities_Id, cascadeDelete: true)
-                .ForeignKey("dbo.ArchetypeSkillCategories", t => t.SkillCategories_Id, cascadeDelete: true)
-                .ForeignKey("dbo.ArchetypeStatistics", t => t.Statistics_Id, cascadeDelete: true)
-                .ForeignKey("dbo.TagSets", t => t.TagSetId, cascadeDelete: true)
+                .ForeignKey("dbo.TagSets", t => t.TagSetId)
                 .Index(t => t.Id)
-                .Index(t => t.Abilities_Id)
-                .Index(t => t.SkillCategories_Id)
-                .Index(t => t.Statistics_Id)
                 .Index(t => t.TagSetId);
             
             CreateTable(
@@ -1547,7 +1532,7 @@ namespace Realm.DAL.Migrations
                 .ForeignKey("dbo.Items", t => t.KeyItemId)
                 .ForeignKey("dbo.Items", t => t.LockItemId)
                 .ForeignKey("dbo.Items", t => t.TrapItemId)
-                .ForeignKey("dbo.TagSets", t => t.TagSetId, cascadeDelete: true)
+                .ForeignKey("dbo.TagSets", t => t.TagSetId)
                 .Index(t => t.Id)
                 .Index(t => t.KeyItemId)
                 .Index(t => t.LockItemId)
@@ -1564,7 +1549,7 @@ namespace Realm.DAL.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Primitives", t => t.Id)
-                .ForeignKey("dbo.TagSets", t => t.TagSetId, cascadeDelete: true)
+                .ForeignKey("dbo.TagSets", t => t.TagSetId)
                 .Index(t => t.Id)
                 .Index(t => t.TagSetId);
             
@@ -1583,7 +1568,7 @@ namespace Realm.DAL.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Primitives", t => t.Id)
                 .ForeignKey("dbo.Factions", t => t.RequiredFactionId)
-                .ForeignKey("dbo.TagSets", t => t.TagSetId, cascadeDelete: true)
+                .ForeignKey("dbo.TagSets", t => t.TagSetId)
                 .Index(t => t.Id)
                 .Index(t => t.RequiredFactionId)
                 .Index(t => t.TagSetId);
@@ -1593,11 +1578,6 @@ namespace Realm.DAL.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false),
-                        DynamicZones_Id = c.Int(),
-                        HealthChanges_Id = c.Int(),
-                        Positions_Id = c.Int(),
-                        Primitives_Id = c.Int(),
-                        StatMods_Id = c.Int(),
                         DisplayDescription = c.String(nullable: false),
                         EffectType = c.Int(nullable: false),
                         Duration = c.Int(nullable: false),
@@ -1614,20 +1594,10 @@ namespace Realm.DAL.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Primitives", t => t.Id)
-                .ForeignKey("dbo.EffectDynamicZones", t => t.DynamicZones_Id, cascadeDelete: true)
-                .ForeignKey("dbo.EffectHealthChanges", t => t.HealthChanges_Id, cascadeDelete: true)
-                .ForeignKey("dbo.EffectPositions", t => t.Positions_Id, cascadeDelete: true)
-                .ForeignKey("dbo.EffectPrimitives", t => t.Primitives_Id, cascadeDelete: true)
-                .ForeignKey("dbo.EffectStatMods", t => t.StatMods_Id, cascadeDelete: true)
                 .ForeignKey("dbo.Effects", t => t.OnFailEffectId)
                 .ForeignKey("dbo.Effects", t => t.OnResistEffectId)
-                .ForeignKey("dbo.TagSets", t => t.TagSetId, cascadeDelete: true)
+                .ForeignKey("dbo.TagSets", t => t.TagSetId)
                 .Index(t => t.Id)
-                .Index(t => t.DynamicZones_Id)
-                .Index(t => t.HealthChanges_Id)
-                .Index(t => t.Positions_Id)
-                .Index(t => t.Primitives_Id)
-                .Index(t => t.StatMods_Id)
                 .Index(t => t.OnFailEffectId)
                 .Index(t => t.OnResistEffectId)
                 .Index(t => t.TagSetId);
@@ -1637,15 +1607,12 @@ namespace Realm.DAL.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false),
-                        Relations_Id = c.Int(),
                         TagSetId = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Primitives", t => t.Id)
-                .ForeignKey("dbo.FactionRelations", t => t.Relations_Id, cascadeDelete: true)
-                .ForeignKey("dbo.TagSets", t => t.TagSetId, cascadeDelete: true)
+                .ForeignKey("dbo.TagSets", t => t.TagSetId)
                 .Index(t => t.Id)
-                .Index(t => t.Relations_Id)
                 .Index(t => t.TagSetId);
             
             CreateTable(
@@ -1653,8 +1620,6 @@ namespace Realm.DAL.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false),
-                        Positions_Id = c.Int(),
-                        UserStates_Id = c.Int(),
                         LogActionType = c.Int(nullable: false),
                         Bits = c.Int(nullable: false),
                         TagSetId = c.Int(),
@@ -1662,12 +1627,8 @@ namespace Realm.DAL.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Primitives", t => t.Id)
-                .ForeignKey("dbo.GameCommandPositions", t => t.Positions_Id, cascadeDelete: true)
-                .ForeignKey("dbo.GameCommandUserStates", t => t.UserStates_Id, cascadeDelete: true)
-                .ForeignKey("dbo.TagSets", t => t.TagSetId, cascadeDelete: true)
+                .ForeignKey("dbo.TagSets", t => t.TagSetId)
                 .Index(t => t.Id)
-                .Index(t => t.Positions_Id)
-                .Index(t => t.UserStates_Id)
                 .Index(t => t.TagSetId);
             
             CreateTable(
@@ -1744,7 +1705,7 @@ namespace Realm.DAL.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Primitives", t => t.Id)
                 .ForeignKey("dbo.Colors", t => t.ColorId)
-                .ForeignKey("dbo.TagSets", t => t.TagSetId, cascadeDelete: true)
+                .ForeignKey("dbo.TagSets", t => t.TagSetId)
                 .Index(t => t.Id)
                 .Index(t => t.ColorId)
                 .Index(t => t.TagSetId);
@@ -1754,15 +1715,6 @@ namespace Realm.DAL.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false),
-                        Abilities_Id = c.Int(),
-                        AIs_Id = c.Int(),
-                        Equipment_Id = c.Int(),
-                        MudProgs_Id = c.Int(),
-                        Resources_Id = c.Int(),
-                        Statistics_Id = c.Int(),
-                        Treasures_Id = c.Int(),
-                        TreasureTables_Id = c.Int(),
-                        Vendors_Id = c.Int(),
                         DisplayDescription = c.String(nullable: false),
                         SizeType = c.Int(nullable: false),
                         MobileType = c.Int(nullable: false),
@@ -1777,29 +1729,11 @@ namespace Realm.DAL.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Primitives", t => t.Id)
-                .ForeignKey("dbo.MobileAbilities", t => t.Abilities_Id, cascadeDelete: true)
-                .ForeignKey("dbo.MobileAIs", t => t.AIs_Id, cascadeDelete: true)
-                .ForeignKey("dbo.MobileEquipments", t => t.Equipment_Id, cascadeDelete: true)
-                .ForeignKey("dbo.MobileMudProgs", t => t.MudProgs_Id, cascadeDelete: true)
-                .ForeignKey("dbo.MobileResources", t => t.Resources_Id, cascadeDelete: true)
-                .ForeignKey("dbo.MobileStatistics", t => t.Statistics_Id, cascadeDelete: true)
-                .ForeignKey("dbo.MobileTreasures", t => t.Treasures_Id, cascadeDelete: true)
-                .ForeignKey("dbo.MobileTreasureTables", t => t.TreasureTables_Id, cascadeDelete: true)
-                .ForeignKey("dbo.MobileVendor", t => t.Vendors_Id, cascadeDelete: true)
                 .ForeignKey("dbo.Races", t => t.RaceId)
                 .ForeignKey("dbo.Conversations", t => t.ConversationId)
                 .ForeignKey("dbo.Factions", t => t.FactionId)
-                .ForeignKey("dbo.TagSets", t => t.TagSetId, cascadeDelete: true)
+                .ForeignKey("dbo.TagSets", t => t.TagSetId)
                 .Index(t => t.Id)
-                .Index(t => t.Abilities_Id)
-                .Index(t => t.AIs_Id)
-                .Index(t => t.Equipment_Id)
-                .Index(t => t.MudProgs_Id)
-                .Index(t => t.Resources_Id)
-                .Index(t => t.Statistics_Id)
-                .Index(t => t.Treasures_Id)
-                .Index(t => t.TreasureTables_Id)
-                .Index(t => t.Vendors_Id)
                 .Index(t => t.RaceId)
                 .Index(t => t.ConversationId)
                 .Index(t => t.FactionId)
@@ -1810,7 +1744,6 @@ namespace Realm.DAL.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false),
-                        Effects_Id = c.Int(),
                         NumberDays = c.Int(nullable: false),
                         SeasonType = c.Int(nullable: false),
                         IsShrouding = c.Boolean(nullable: false),
@@ -1818,9 +1751,7 @@ namespace Realm.DAL.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Primitives", t => t.Id)
-                .ForeignKey("dbo.MonthEffects", t => t.Effects_Id, cascadeDelete: true)
-                .Index(t => t.Id)
-                .Index(t => t.Effects_Id);
+                .Index(t => t.Id);
             
             CreateTable(
                 "dbo.MudProgs",
@@ -1838,9 +1769,6 @@ namespace Realm.DAL.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false),
-                        Actions_Id = c.Int(),
-                        ProgressSteps_Id = c.Int(),
-                        Requirements_Id = c.Int(),
                         DisplayDescription = c.String(nullable: false),
                         Bits = c.Int(nullable: false),
                         Timer = c.Int(nullable: false),
@@ -1848,14 +1776,8 @@ namespace Realm.DAL.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Primitives", t => t.Id)
-                .ForeignKey("dbo.QuestActions", t => t.Actions_Id, cascadeDelete: true)
-                .ForeignKey("dbo.QuestProgresses", t => t.ProgressSteps_Id, cascadeDelete: true)
-                .ForeignKey("dbo.QuestRequirements", t => t.Requirements_Id, cascadeDelete: true)
-                .ForeignKey("dbo.TagSets", t => t.TagSetId, cascadeDelete: true)
+                .ForeignKey("dbo.TagSets", t => t.TagSetId)
                 .Index(t => t.Id)
-                .Index(t => t.Actions_Id)
-                .Index(t => t.ProgressSteps_Id)
-                .Index(t => t.Requirements_Id)
                 .Index(t => t.TagSetId);
             
             CreateTable(
@@ -1863,9 +1785,6 @@ namespace Realm.DAL.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false),
-                        Abilities_Id = c.Int(),
-                        HitLocations_Id = c.Int(),
-                        Statistics_Id = c.Int(),
                         DisplayDescription = c.String(nullable: false),
                         Bits = c.Int(nullable: false),
                         SizeType = c.Int(nullable: false),
@@ -1877,14 +1796,8 @@ namespace Realm.DAL.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Primitives", t => t.Id)
-                .ForeignKey("dbo.RaceAbilities", t => t.Abilities_Id, cascadeDelete: true)
-                .ForeignKey("dbo.RaceHitLocations", t => t.HitLocations_Id, cascadeDelete: true)
-                .ForeignKey("dbo.RaceStatistics", t => t.Statistics_Id, cascadeDelete: true)
-                .ForeignKey("dbo.TagSets", t => t.TagSetId, cascadeDelete: true)
+                .ForeignKey("dbo.TagSets", t => t.TagSetId)
                 .Index(t => t.Id)
-                .Index(t => t.Abilities_Id)
-                .Index(t => t.HitLocations_Id)
-                .Index(t => t.Statistics_Id)
                 .Index(t => t.TagSetId);
             
             CreateTable(
@@ -1912,10 +1825,6 @@ namespace Realm.DAL.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false),
-                        Effects_Id = c.Int(),
-                        Participants_Id = c.Int(),
-                        Reagants_Id = c.Int(),
-                        Requirements_Id = c.Int(),
                         DisplayDescription = c.String(nullable: false),
                         MagicalNodeItemId = c.Int(),
                         CastTime = c.Int(nullable: false),
@@ -1923,17 +1832,9 @@ namespace Realm.DAL.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Primitives", t => t.Id)
-                .ForeignKey("dbo.RitualEffects", t => t.Effects_Id, cascadeDelete: true)
-                .ForeignKey("dbo.RitualParticipants", t => t.Participants_Id, cascadeDelete: true)
-                .ForeignKey("dbo.RitualReagants", t => t.Reagants_Id, cascadeDelete: true)
-                .ForeignKey("dbo.RitualRequirements", t => t.Requirements_Id, cascadeDelete: true)
                 .ForeignKey("dbo.Items", t => t.MagicalNodeItemId)
-                .ForeignKey("dbo.TagSets", t => t.TagSetId, cascadeDelete: true)
+                .ForeignKey("dbo.TagSets", t => t.TagSetId)
                 .Index(t => t.Id)
-                .Index(t => t.Effects_Id)
-                .Index(t => t.Participants_Id)
-                .Index(t => t.Reagants_Id)
-                .Index(t => t.Requirements_Id)
                 .Index(t => t.MagicalNodeItemId)
                 .Index(t => t.TagSetId);
             
@@ -1942,8 +1843,6 @@ namespace Realm.DAL.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false),
-                        BuyTypes_Id = c.Int(),
-                        Primitives_Id = c.Int(),
                         BuyMarkup = c.Int(nullable: false),
                         SellMarkup = c.Int(nullable: false),
                         Bits = c.Int(nullable: false),
@@ -1951,11 +1850,7 @@ namespace Realm.DAL.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Primitives", t => t.Id)
-                .ForeignKey("dbo.ShopBuyTypes", t => t.BuyTypes_Id, cascadeDelete: true)
-                .ForeignKey("dbo.ShopPrimitives", t => t.Primitives_Id, cascadeDelete: true)
-                .Index(t => t.Id)
-                .Index(t => t.BuyTypes_Id)
-                .Index(t => t.Primitives_Id);
+                .Index(t => t.Id);
             
             CreateTable(
                 "dbo.SkillCategories",
@@ -2010,7 +1905,6 @@ namespace Realm.DAL.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false),
-                        Portals_Id = c.Int(),
                         DisplayDescription = c.String(nullable: false),
                         Bits = c.Int(nullable: false),
                         TerrainId = c.Int(),
@@ -2019,11 +1913,9 @@ namespace Realm.DAL.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Primitives", t => t.Id)
-                .ForeignKey("dbo.SpacePortals", t => t.Portals_Id, cascadeDelete: true)
                 .ForeignKey("dbo.Terrains", t => t.TerrainId)
-                .ForeignKey("dbo.TagSets", t => t.TagSetId, cascadeDelete: true)
+                .ForeignKey("dbo.TagSets", t => t.TagSetId)
                 .Index(t => t.Id)
-                .Index(t => t.Portals_Id)
                 .Index(t => t.TerrainId)
                 .Index(t => t.TagSetId);
             
@@ -2032,8 +1924,6 @@ namespace Realm.DAL.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false),
-                        Locations_Id = c.Int(),
-                        Primitives_Id = c.Int(),
                         MinQuantity = c.Int(nullable: false),
                         MaxQuantity = c.Int(nullable: false),
                         Chance = c.Int(nullable: false),
@@ -2043,12 +1933,8 @@ namespace Realm.DAL.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Primitives", t => t.Id)
-                .ForeignKey("dbo.SpawnLocations", t => t.Locations_Id, cascadeDelete: true)
-                .ForeignKey("dbo.SpawnPrimitives", t => t.Primitives_Id, cascadeDelete: true)
-                .ForeignKey("dbo.TagSets", t => t.TagSetId, cascadeDelete: true)
+                .ForeignKey("dbo.TagSets", t => t.TagSetId)
                 .Index(t => t.Id)
-                .Index(t => t.Locations_Id)
-                .Index(t => t.Primitives_Id)
                 .Index(t => t.TagSetId);
             
             CreateTable(
@@ -2056,7 +1942,6 @@ namespace Realm.DAL.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false),
-                        Restrictions_Id = c.Int(),
                         DisplayDescription = c.String(nullable: false),
                         Bits = c.Int(nullable: false),
                         MovementCost = c.Int(nullable: false),
@@ -2064,10 +1949,8 @@ namespace Realm.DAL.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Primitives", t => t.Id)
-                .ForeignKey("dbo.TerrainRestrictions", t => t.Restrictions_Id, cascadeDelete: true)
                 .ForeignKey("dbo.Skills", t => t.SkillId)
                 .Index(t => t.Id)
-                .Index(t => t.Restrictions_Id)
                 .Index(t => t.SkillId);
             
             CreateTable(
@@ -2075,25 +1958,17 @@ namespace Realm.DAL.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false),
-                        Primitives_Id = c.Int(),
                         SystemDescription = c.String(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Primitives", t => t.Id)
-                .ForeignKey("dbo.TreasurePrimitives", t => t.Primitives_Id, cascadeDelete: true)
-                .Index(t => t.Id)
-                .Index(t => t.Primitives_Id);
+                .Index(t => t.Id);
             
             CreateTable(
                 "dbo.Zones",
                 c => new
                     {
                         Id = c.Int(nullable: false),
-                        Accesses_Id = c.Int(),
-                        Dynamics_Id = c.Int(),
-                        Resets_Id = c.Int(),
-                        Spaces_Id = c.Int(),
-                        Spawns_Id = c.Int(),
                         DisplayDescription = c.String(nullable: false),
                         Bits = c.Int(nullable: false),
                         RecycleTime = c.Int(nullable: false),
@@ -2103,18 +1978,8 @@ namespace Realm.DAL.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Primitives", t => t.Id)
-                .ForeignKey("dbo.ZoneAccesses", t => t.Accesses_Id, cascadeDelete: true)
-                .ForeignKey("dbo.ZoneDynamics", t => t.Dynamics_Id, cascadeDelete: true)
-                .ForeignKey("dbo.ZoneResets", t => t.Resets_Id, cascadeDelete: true)
-                .ForeignKey("dbo.ZoneSpaces", t => t.Spaces_Id, cascadeDelete: true)
-                .ForeignKey("dbo.ZoneSpawns", t => t.Spawns_Id, cascadeDelete: true)
-                .ForeignKey("dbo.TagSets", t => t.TagSetId, cascadeDelete: true)
+                .ForeignKey("dbo.TagSets", t => t.TagSetId)
                 .Index(t => t.Id)
-                .Index(t => t.Accesses_Id)
-                .Index(t => t.Dynamics_Id)
-                .Index(t => t.Resets_Id)
-                .Index(t => t.Spaces_Id)
-                .Index(t => t.Spawns_Id)
                 .Index(t => t.TagSetId);
             
         }
@@ -2122,69 +1987,37 @@ namespace Realm.DAL.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.Zones", "TagSetId", "dbo.TagSets");
-            DropForeignKey("dbo.Zones", "Spawns_Id", "dbo.ZoneSpawns");
-            DropForeignKey("dbo.Zones", "Spaces_Id", "dbo.ZoneSpaces");
-            DropForeignKey("dbo.Zones", "Resets_Id", "dbo.ZoneResets");
-            DropForeignKey("dbo.Zones", "Dynamics_Id", "dbo.ZoneDynamics");
-            DropForeignKey("dbo.Zones", "Accesses_Id", "dbo.ZoneAccesses");
             DropForeignKey("dbo.Zones", "Id", "dbo.Primitives");
-            DropForeignKey("dbo.Treasures", "Primitives_Id", "dbo.TreasurePrimitives");
             DropForeignKey("dbo.Treasures", "Id", "dbo.Primitives");
             DropForeignKey("dbo.Terrains", "SkillId", "dbo.Skills");
-            DropForeignKey("dbo.Terrains", "Restrictions_Id", "dbo.TerrainRestrictions");
             DropForeignKey("dbo.Terrains", "Id", "dbo.Primitives");
             DropForeignKey("dbo.Spawns", "TagSetId", "dbo.TagSets");
-            DropForeignKey("dbo.Spawns", "Primitives_Id", "dbo.SpawnPrimitives");
-            DropForeignKey("dbo.Spawns", "Locations_Id", "dbo.SpawnLocations");
             DropForeignKey("dbo.Spawns", "Id", "dbo.Primitives");
             DropForeignKey("dbo.Spaces", "TagSetId", "dbo.TagSets");
             DropForeignKey("dbo.Spaces", "TerrainId", "dbo.Terrains");
-            DropForeignKey("dbo.Spaces", "Portals_Id", "dbo.SpacePortals");
             DropForeignKey("dbo.Spaces", "Id", "dbo.Primitives");
             DropForeignKey("dbo.Socials", "Id", "dbo.Primitives");
             DropForeignKey("dbo.Skills", "ParentSkillId", "dbo.Skills");
             DropForeignKey("dbo.Skills", "SkillCategoryId", "dbo.SkillCategories");
             DropForeignKey("dbo.Skills", "Id", "dbo.Primitives");
             DropForeignKey("dbo.SkillCategories", "Id", "dbo.Primitives");
-            DropForeignKey("dbo.Shops", "Primitives_Id", "dbo.ShopPrimitives");
-            DropForeignKey("dbo.Shops", "BuyTypes_Id", "dbo.ShopBuyTypes");
             DropForeignKey("dbo.Shops", "Id", "dbo.Primitives");
             DropForeignKey("dbo.Rituals", "TagSetId", "dbo.TagSets");
             DropForeignKey("dbo.Rituals", "MagicalNodeItemId", "dbo.Items");
-            DropForeignKey("dbo.Rituals", "Requirements_Id", "dbo.RitualRequirements");
-            DropForeignKey("dbo.Rituals", "Reagants_Id", "dbo.RitualReagants");
-            DropForeignKey("dbo.Rituals", "Participants_Id", "dbo.RitualParticipants");
-            DropForeignKey("dbo.Rituals", "Effects_Id", "dbo.RitualEffects");
             DropForeignKey("dbo.Rituals", "Id", "dbo.Primitives");
             DropForeignKey("dbo.Resets", "ObjectId", "dbo.Primitives");
             DropForeignKey("dbo.Resets", "SpaceId", "dbo.Spaces");
             DropForeignKey("dbo.Resets", "Id", "dbo.Primitives");
             DropForeignKey("dbo.Races", "TagSetId", "dbo.TagSets");
-            DropForeignKey("dbo.Races", "Statistics_Id", "dbo.RaceStatistics");
-            DropForeignKey("dbo.Races", "HitLocations_Id", "dbo.RaceHitLocations");
-            DropForeignKey("dbo.Races", "Abilities_Id", "dbo.RaceAbilities");
             DropForeignKey("dbo.Races", "Id", "dbo.Primitives");
             DropForeignKey("dbo.Quests", "TagSetId", "dbo.TagSets");
-            DropForeignKey("dbo.Quests", "Requirements_Id", "dbo.QuestRequirements");
-            DropForeignKey("dbo.Quests", "ProgressSteps_Id", "dbo.QuestProgresses");
-            DropForeignKey("dbo.Quests", "Actions_Id", "dbo.QuestActions");
             DropForeignKey("dbo.Quests", "Id", "dbo.Primitives");
             DropForeignKey("dbo.MudProgs", "Id", "dbo.Primitives");
-            DropForeignKey("dbo.Months", "Effects_Id", "dbo.MonthEffects");
             DropForeignKey("dbo.Months", "Id", "dbo.Primitives");
             DropForeignKey("dbo.Mobiles", "TagSetId", "dbo.TagSets");
             DropForeignKey("dbo.Mobiles", "FactionId", "dbo.Factions");
             DropForeignKey("dbo.Mobiles", "ConversationId", "dbo.Conversations");
             DropForeignKey("dbo.Mobiles", "RaceId", "dbo.Races");
-            DropForeignKey("dbo.Mobiles", "Vendors_Id", "dbo.MobileVendor");
-            DropForeignKey("dbo.Mobiles", "TreasureTables_Id", "dbo.MobileTreasureTables");
-            DropForeignKey("dbo.Mobiles", "Treasures_Id", "dbo.MobileTreasures");
-            DropForeignKey("dbo.Mobiles", "Statistics_Id", "dbo.MobileStatistics");
-            DropForeignKey("dbo.Mobiles", "Resources_Id", "dbo.MobileResources");
-            DropForeignKey("dbo.Mobiles", "MudProgs_Id", "dbo.MobileMudProgs");
-            DropForeignKey("dbo.Mobiles", "Equipment_Id", "dbo.MobileEquipments");
-            DropForeignKey("dbo.Mobiles", "AIs_Id", "dbo.MobileAIs");
-            DropForeignKey("dbo.Mobiles", "Abilities_Id", "dbo.MobileAbilities");
             DropForeignKey("dbo.Mobiles", "Id", "dbo.Primitives");
             DropForeignKey("dbo.Liquids", "TagSetId", "dbo.TagSets");
             DropForeignKey("dbo.Liquids", "ColorId", "dbo.Colors");
@@ -2197,20 +2030,12 @@ namespace Realm.DAL.Migrations
             DropForeignKey("dbo.Items", "Id", "dbo.Primitives");
             DropForeignKey("dbo.Helps", "Id", "dbo.Primitives");
             DropForeignKey("dbo.GameCommands", "TagSetId", "dbo.TagSets");
-            DropForeignKey("dbo.GameCommands", "UserStates_Id", "dbo.GameCommandUserStates");
-            DropForeignKey("dbo.GameCommands", "Positions_Id", "dbo.GameCommandPositions");
             DropForeignKey("dbo.GameCommands", "Id", "dbo.Primitives");
             DropForeignKey("dbo.Factions", "TagSetId", "dbo.TagSets");
-            DropForeignKey("dbo.Factions", "Relations_Id", "dbo.FactionRelations");
             DropForeignKey("dbo.Factions", "Id", "dbo.Primitives");
             DropForeignKey("dbo.Effects", "TagSetId", "dbo.TagSets");
             DropForeignKey("dbo.Effects", "OnResistEffectId", "dbo.Effects");
             DropForeignKey("dbo.Effects", "OnFailEffectId", "dbo.Effects");
-            DropForeignKey("dbo.Effects", "StatMods_Id", "dbo.EffectStatMods");
-            DropForeignKey("dbo.Effects", "Primitives_Id", "dbo.EffectPrimitives");
-            DropForeignKey("dbo.Effects", "Positions_Id", "dbo.EffectPositions");
-            DropForeignKey("dbo.Effects", "HealthChanges_Id", "dbo.EffectHealthChanges");
-            DropForeignKey("dbo.Effects", "DynamicZones_Id", "dbo.EffectDynamicZones");
             DropForeignKey("dbo.Effects", "Id", "dbo.Primitives");
             DropForeignKey("dbo.Conversations", "TagSetId", "dbo.TagSets");
             DropForeignKey("dbo.Conversations", "RequiredFactionId", "dbo.Factions");
@@ -2223,18 +2048,11 @@ namespace Realm.DAL.Migrations
             DropForeignKey("dbo.Barriers", "KeyItemId", "dbo.Items");
             DropForeignKey("dbo.Barriers", "Id", "dbo.Primitives");
             DropForeignKey("dbo.Archetypes", "TagSetId", "dbo.TagSets");
-            DropForeignKey("dbo.Archetypes", "Statistics_Id", "dbo.ArchetypeStatistics");
-            DropForeignKey("dbo.Archetypes", "SkillCategories_Id", "dbo.ArchetypeSkillCategories");
-            DropForeignKey("dbo.Archetypes", "Abilities_Id", "dbo.ArchetypeAbilities");
             DropForeignKey("dbo.Archetypes", "Id", "dbo.Primitives");
             DropForeignKey("dbo.Abilities", "InterruptionEffectId", "dbo.Effects");
             DropForeignKey("dbo.Abilities", "InterruptionResistSkillId", "dbo.Skills");
             DropForeignKey("dbo.Abilities", "TagSetId", "dbo.TagSets");
             DropForeignKey("dbo.Abilities", "TerrainId", "dbo.Terrains");
-            DropForeignKey("dbo.Abilities", "Reagants_Id", "dbo.AbilityReagants");
-            DropForeignKey("dbo.Abilities", "Prerequisites_Id", "dbo.AbilityPrerequisites");
-            DropForeignKey("dbo.Abilities", "GuildUpgrades_Id", "dbo.GuildAbilities");
-            DropForeignKey("dbo.Abilities", "Effects_Id", "dbo.AbilityEffects");
             DropForeignKey("dbo.Abilities", "Id", "dbo.Primitives");
             DropForeignKey("dbo.AbilityReagants", "ItemId", "dbo.Items");
             DropForeignKey("dbo.AbilityReagants", "AbilityId", "dbo.Abilities");
@@ -2304,6 +2122,7 @@ namespace Realm.DAL.Migrations
             DropForeignKey("dbo.RitualParticipants", "FocusItemId", "dbo.Items");
             DropForeignKey("dbo.RitualEffects", "RitualId", "dbo.Rituals");
             DropForeignKey("dbo.RitualEffects", "EffectId", "dbo.Effects");
+            DropForeignKey("dbo.QuestRequirements", "Quest_Id", "dbo.Quests");
             DropForeignKey("dbo.QuestRequirements", "SkillId", "dbo.Skills");
             DropForeignKey("dbo.QuestRequirements", "RaceId", "dbo.Races");
             DropForeignKey("dbo.QuestRequirements", "QuestNotCompletedId", "dbo.Quests");
@@ -2396,6 +2215,7 @@ namespace Realm.DAL.Migrations
             DropForeignKey("dbo.ItemContainers", "ItemId", "dbo.Items");
             DropForeignKey("dbo.ItemBooks", "ItemId", "dbo.Items");
             DropForeignKey("dbo.ItemBooks", "AbilityId", "dbo.Abilities");
+            DropForeignKey("dbo.FactionRelations", "Faction_Id", "dbo.Factions");
             DropForeignKey("dbo.FactionRelations", "TargetFactionId", "dbo.Factions");
             DropForeignKey("dbo.FactionRelations", "FactionId", "dbo.Factions");
             DropForeignKey("dbo.MobileAIs", "MobileId", "dbo.Mobiles");
@@ -2409,69 +2229,37 @@ namespace Realm.DAL.Migrations
             DropForeignKey("dbo.EffectDynamicZones", "EffectId", "dbo.Effects");
             DropForeignKey("dbo.AbilityEffects", "AbilityId", "dbo.Abilities");
             DropIndex("dbo.Zones", new[] { "TagSetId" });
-            DropIndex("dbo.Zones", new[] { "Spawns_Id" });
-            DropIndex("dbo.Zones", new[] { "Spaces_Id" });
-            DropIndex("dbo.Zones", new[] { "Resets_Id" });
-            DropIndex("dbo.Zones", new[] { "Dynamics_Id" });
-            DropIndex("dbo.Zones", new[] { "Accesses_Id" });
             DropIndex("dbo.Zones", new[] { "Id" });
-            DropIndex("dbo.Treasures", new[] { "Primitives_Id" });
             DropIndex("dbo.Treasures", new[] { "Id" });
             DropIndex("dbo.Terrains", new[] { "SkillId" });
-            DropIndex("dbo.Terrains", new[] { "Restrictions_Id" });
             DropIndex("dbo.Terrains", new[] { "Id" });
             DropIndex("dbo.Spawns", new[] { "TagSetId" });
-            DropIndex("dbo.Spawns", new[] { "Primitives_Id" });
-            DropIndex("dbo.Spawns", new[] { "Locations_Id" });
             DropIndex("dbo.Spawns", new[] { "Id" });
             DropIndex("dbo.Spaces", new[] { "TagSetId" });
             DropIndex("dbo.Spaces", new[] { "TerrainId" });
-            DropIndex("dbo.Spaces", new[] { "Portals_Id" });
             DropIndex("dbo.Spaces", new[] { "Id" });
             DropIndex("dbo.Socials", new[] { "Id" });
             DropIndex("dbo.Skills", new[] { "ParentSkillId" });
             DropIndex("dbo.Skills", new[] { "SkillCategoryId" });
             DropIndex("dbo.Skills", new[] { "Id" });
             DropIndex("dbo.SkillCategories", new[] { "Id" });
-            DropIndex("dbo.Shops", new[] { "Primitives_Id" });
-            DropIndex("dbo.Shops", new[] { "BuyTypes_Id" });
             DropIndex("dbo.Shops", new[] { "Id" });
             DropIndex("dbo.Rituals", new[] { "TagSetId" });
             DropIndex("dbo.Rituals", new[] { "MagicalNodeItemId" });
-            DropIndex("dbo.Rituals", new[] { "Requirements_Id" });
-            DropIndex("dbo.Rituals", new[] { "Reagants_Id" });
-            DropIndex("dbo.Rituals", new[] { "Participants_Id" });
-            DropIndex("dbo.Rituals", new[] { "Effects_Id" });
             DropIndex("dbo.Rituals", new[] { "Id" });
             DropIndex("dbo.Resets", new[] { "ObjectId" });
             DropIndex("dbo.Resets", new[] { "SpaceId" });
             DropIndex("dbo.Resets", new[] { "Id" });
             DropIndex("dbo.Races", new[] { "TagSetId" });
-            DropIndex("dbo.Races", new[] { "Statistics_Id" });
-            DropIndex("dbo.Races", new[] { "HitLocations_Id" });
-            DropIndex("dbo.Races", new[] { "Abilities_Id" });
             DropIndex("dbo.Races", new[] { "Id" });
             DropIndex("dbo.Quests", new[] { "TagSetId" });
-            DropIndex("dbo.Quests", new[] { "Requirements_Id" });
-            DropIndex("dbo.Quests", new[] { "ProgressSteps_Id" });
-            DropIndex("dbo.Quests", new[] { "Actions_Id" });
             DropIndex("dbo.Quests", new[] { "Id" });
             DropIndex("dbo.MudProgs", new[] { "Id" });
-            DropIndex("dbo.Months", new[] { "Effects_Id" });
             DropIndex("dbo.Months", new[] { "Id" });
             DropIndex("dbo.Mobiles", new[] { "TagSetId" });
             DropIndex("dbo.Mobiles", new[] { "FactionId" });
             DropIndex("dbo.Mobiles", new[] { "ConversationId" });
             DropIndex("dbo.Mobiles", new[] { "RaceId" });
-            DropIndex("dbo.Mobiles", new[] { "Vendors_Id" });
-            DropIndex("dbo.Mobiles", new[] { "TreasureTables_Id" });
-            DropIndex("dbo.Mobiles", new[] { "Treasures_Id" });
-            DropIndex("dbo.Mobiles", new[] { "Statistics_Id" });
-            DropIndex("dbo.Mobiles", new[] { "Resources_Id" });
-            DropIndex("dbo.Mobiles", new[] { "MudProgs_Id" });
-            DropIndex("dbo.Mobiles", new[] { "Equipment_Id" });
-            DropIndex("dbo.Mobiles", new[] { "AIs_Id" });
-            DropIndex("dbo.Mobiles", new[] { "Abilities_Id" });
             DropIndex("dbo.Mobiles", new[] { "Id" });
             DropIndex("dbo.Liquids", new[] { "TagSetId" });
             DropIndex("dbo.Liquids", new[] { "ColorId" });
@@ -2484,20 +2272,12 @@ namespace Realm.DAL.Migrations
             DropIndex("dbo.Items", new[] { "Id" });
             DropIndex("dbo.Helps", new[] { "Id" });
             DropIndex("dbo.GameCommands", new[] { "TagSetId" });
-            DropIndex("dbo.GameCommands", new[] { "UserStates_Id" });
-            DropIndex("dbo.GameCommands", new[] { "Positions_Id" });
             DropIndex("dbo.GameCommands", new[] { "Id" });
             DropIndex("dbo.Factions", new[] { "TagSetId" });
-            DropIndex("dbo.Factions", new[] { "Relations_Id" });
             DropIndex("dbo.Factions", new[] { "Id" });
             DropIndex("dbo.Effects", new[] { "TagSetId" });
             DropIndex("dbo.Effects", new[] { "OnResistEffectId" });
             DropIndex("dbo.Effects", new[] { "OnFailEffectId" });
-            DropIndex("dbo.Effects", new[] { "StatMods_Id" });
-            DropIndex("dbo.Effects", new[] { "Primitives_Id" });
-            DropIndex("dbo.Effects", new[] { "Positions_Id" });
-            DropIndex("dbo.Effects", new[] { "HealthChanges_Id" });
-            DropIndex("dbo.Effects", new[] { "DynamicZones_Id" });
             DropIndex("dbo.Effects", new[] { "Id" });
             DropIndex("dbo.Conversations", new[] { "TagSetId" });
             DropIndex("dbo.Conversations", new[] { "RequiredFactionId" });
@@ -2510,18 +2290,11 @@ namespace Realm.DAL.Migrations
             DropIndex("dbo.Barriers", new[] { "KeyItemId" });
             DropIndex("dbo.Barriers", new[] { "Id" });
             DropIndex("dbo.Archetypes", new[] { "TagSetId" });
-            DropIndex("dbo.Archetypes", new[] { "Statistics_Id" });
-            DropIndex("dbo.Archetypes", new[] { "SkillCategories_Id" });
-            DropIndex("dbo.Archetypes", new[] { "Abilities_Id" });
             DropIndex("dbo.Archetypes", new[] { "Id" });
             DropIndex("dbo.Abilities", new[] { "InterruptionEffectId" });
             DropIndex("dbo.Abilities", new[] { "InterruptionResistSkillId" });
             DropIndex("dbo.Abilities", new[] { "TagSetId" });
             DropIndex("dbo.Abilities", new[] { "TerrainId" });
-            DropIndex("dbo.Abilities", new[] { "Reagants_Id" });
-            DropIndex("dbo.Abilities", new[] { "Prerequisites_Id" });
-            DropIndex("dbo.Abilities", new[] { "GuildUpgrades_Id" });
-            DropIndex("dbo.Abilities", new[] { "Effects_Id" });
             DropIndex("dbo.Abilities", new[] { "Id" });
             DropIndex("dbo.AbilityReagants", new[] { "AbilityId" });
             DropIndex("dbo.AbilityReagants", new[] { "ItemId" });
@@ -2581,6 +2354,7 @@ namespace Realm.DAL.Migrations
             DropIndex("dbo.RitualParticipants", new[] { "FocusItemId" });
             DropIndex("dbo.RitualEffects", new[] { "RitualId" });
             DropIndex("dbo.RitualEffects", new[] { "EffectId" });
+            DropIndex("dbo.QuestRequirements", new[] { "Quest_Id" });
             DropIndex("dbo.QuestRequirements", new[] { "QuestId" });
             DropIndex("dbo.QuestRequirements", new[] { "FactionId" });
             DropIndex("dbo.QuestRequirements", new[] { "HasItemId" });
@@ -2678,6 +2452,7 @@ namespace Realm.DAL.Migrations
             DropIndex("dbo.MobileEquipments", new[] { "MobileId" });
             DropIndex("dbo.MobileEquipments", new[] { "WornAtId" });
             DropIndex("dbo.MobileEquipments", new[] { "ItemId" });
+            DropIndex("dbo.FactionRelations", new[] { "Faction_Id" });
             DropIndex("dbo.FactionRelations", new[] { "FactionId" });
             DropIndex("dbo.FactionRelations", new[] { "TargetFactionId" });
             DropIndex("dbo.Tags", new[] { "TagSet_Id" });

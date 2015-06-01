@@ -54,6 +54,7 @@ namespace Realm.DAL
         public IDbSet<Month> Months { get; set; }
         public IDbSet<MovementMode> MovementModes { get; set; } 
         public IDbSet<MudProg> MudProgs { get; set; }
+        public IDbSet<Primitive> Primitives { get; set; } 
         public IDbSet<Quest> Quests { get; set; }
         public IDbSet<Race> Races { get; set; }
         public IDbSet<Reset> Resets { get; set; } 
@@ -94,30 +95,9 @@ namespace Realm.DAL
             base.OnModelCreating(modelBuilder);
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
 
-            Ability.OnModelCreating(modelBuilder);
-            Archetype.OnModelCreating(modelBuilder);
-            Barrier.OnModelCreating(modelBuilder);
-            Behavior.OnModelCreating(modelBuilder);
-            Conversation.OnModelCreating(modelBuilder);
             Effect.OnModelCreating(modelBuilder);
-            Faction.OnModelCreating(modelBuilder);
-            GameCommand.OnModelCreating(modelBuilder);
-
             ItemFormula.OnModelCreating(modelBuilder);
             ItemSetItem.OnModelCreating(modelBuilder);
-
-            Liquid.OnModelCreating(modelBuilder);
-            Mobile.OnModelCreating(modelBuilder);
-            Month.OnModelCreating(modelBuilder);
-            Quest.OnModelCreating(modelBuilder);
-            Race.OnModelCreating(modelBuilder);
-            Ritual.OnModelCreating(modelBuilder);
-            Shop.OnModelCreating(modelBuilder);
-            Space.OnModelCreating(modelBuilder);
-            Spawn.OnModelCreating(modelBuilder);
-            Terrain.OnModelCreating(modelBuilder);
-            Treasure.OnModelCreating(modelBuilder);
-            Zone.OnModelCreating(modelBuilder);
         }
 
         private void LogDbEntityValidationResults(DbEntityValidationException e)
