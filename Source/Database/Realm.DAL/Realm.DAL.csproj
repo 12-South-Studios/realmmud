@@ -51,6 +51,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
   </ItemGroup>
@@ -102,9 +103,9 @@
     <Compile Include="Enumerations\TagCategoryTypes.cs" />
     <Compile Include="Enumerations\TargetClassTypes.cs" />
     <Compile Include="Enumerations\SystemTypes.cs" />
-    <Compile Include="Migrations\201506011748191_InitialSetup.cs" />
-    <Compile Include="Migrations\201506011748191_InitialSetup.Designer.cs">
-      <DependentUpon>201506011748191_InitialSetup.cs</DependentUpon>
+    <Compile Include="Migrations\201506071411465_InitialSetup.cs" />
+    <Compile Include="Migrations\201506071411465_InitialSetup.Designer.cs">
+      <DependentUpon>201506071411465_InitialSetup.cs</DependentUpon>
     </Compile>
     <Compile Include="RealmDbContextModule.cs" />
     <Compile Include="ContextExtensions.cs" />
@@ -181,7 +182,6 @@
     <Compile Include="Models\WearLocation.cs" />
     <Compile Include="Models\MovementMode.cs" />
     <Compile Include="Models\GuildLevel.cs" />
-    <Compile Include="Models\Primitive.cs" />
     <Compile Include="Models\Zone.cs" />
     <Compile Include="Models\Treasure.cs" />
     <Compile Include="Models\Spawn.cs" />
@@ -255,8 +255,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201506011748191_InitialSetup.resx">
-      <DependentUpon>201506011748191_InitialSetup.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201506071411465_InitialSetup.resx">
+      <DependentUpon>201506071411465_InitialSetup.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

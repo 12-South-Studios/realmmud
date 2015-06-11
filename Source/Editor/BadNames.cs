@@ -13,7 +13,7 @@ namespace Realm.Edit
         private readonly IRealmAdminDbContext _realmDbContext;
 
         public BadNames(IRealmAdminDbContext dbContext)
-    {
+        {
             _realmDbContext = dbContext;
             InitializeComponent();
             Init();

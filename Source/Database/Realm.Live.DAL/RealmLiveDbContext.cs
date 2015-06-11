@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
@@ -29,18 +30,20 @@ namespace Realm.Live.DAL
 
         private DateTime _lastSaveTimeUtc;
 
-        public RealmLiveDbContext(): base("RealmLive")
+        public RealmLiveDbContext() : base(ConfigurationManager.ConnectionStrings["LiveDbContext"].ConnectionString)
         {
             var kernel = new StandardKernel(new RealmLiveDbContextModule());
             Logger = kernel.Get<ILogWrapper>();
-            ObjectContext = ((IObjectContextAdapter)this).ObjectContext;
-        }
-        public RealmLiveDbContext(ILogWrapper logger)
-        {
-            Logger = logger;
             ObjectContext = ((IObjectContextAdapter) this).ObjectContext;
         }
- 
+
+        public RealmLiveDbContext(string connectionString, ILogWrapper logger): base(connectionString)
+        {
+            var kernel = new StandardKernel(new RealmLiveDbContextModule());
+            Logger = logger ?? kernel.Get<ILogWrapper>();
+            ObjectContext = ((IObjectContextAdapter)this).ObjectContext;
+        }
+
         public override int SaveChanges()
         {
             _lastSaveTimeUtc = DateTime.UtcNow;

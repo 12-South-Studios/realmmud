@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using Ninject;
 using Realm.DAL;
 using Realm.DAL.Enumerations;
@@ -29,8 +30,10 @@ namespace Integration.Tests
                 context.SaveChanges();
             }
 
+            AddAbilities();
             AddHelp();
             AddMonths();
+            AddRaces();
 
             AddTerrain();
             AddBarriers();
@@ -552,6 +555,24 @@ namespace Integration.Tests
         };
         #endregion
 
+        private static void AddAbilities()
+        {
+            using (var dbContext = Kernel.Get<IRealmDbContext>())
+            {
+                dbContext.Abilities.Add(new Ability
+                {
+                    SystemName = "Jab",
+                    DisplayName = "Jab",
+                    DisplayDescription = "A basic combat ability, a jab with the fist.",
+                    PostDelay = 1.0f,
+                    OffensiveStat = Statistic.Dexterity,
+                    DefensiveStat = Statistic.Defense,
+                    SystemClass = dbContext.SystemClasses.First(x => x.Name == "rootAbilities")
+                });
+
+                dbContext.SaveChanges();
+            }
+        }
         private static void AddHelp()
         {
             using (var dbContext = Kernel.Get<IRealmDbContext>())
@@ -585,7 +606,7 @@ namespace Integration.Tests
                 ""}},
             {6, new List<object> {"WaterElement", "Water Element", "Water", 
                 ""}},
-            {7, new List<object> {"gods", "The gods", "gods", 
+            {7, new List<object> {"deities", "The gods", "deities gods", 
                 "The gods are also known as the Athlei and are powerful beings that have existed for " + 
                 "many thousands of years.  They helped create the world and the races that live on it " + 
                 "and in ancient times even fought alongside the “lesser” races. They are divided into " + 
@@ -601,7 +622,31 @@ namespace Integration.Tests
                 "the Second Great War, but in the darkness he has vowed to destroy his brother, Maron, and bring " + 
                 "chaos and destruction to the Seven Realms. Urman’s element is that of Shadow."}},
 
-        }; 
+        };
+
+        private static void AddRaces()
+        {
+            using (var dbContext = Kernel.Get<IRealmDbContext>())
+            {
+                var newRace = new Race
+                {
+                    SystemClass = dbContext.SystemClasses.First(x => x.Name == "rootRaces"),
+                    SystemName = "Human",
+                    DisplayName = "Human",
+                    DisplayDescription = "Your average run-of-the-mill human comes in many heights, " +
+                                         "shapes, and colors.  In Cardolania they average 5 ½ to 6 feet " + 
+                                         "tall with dark hair and eyes and a more olive (e.g. Mediterranean) " + 
+                                         "complexion.",
+                    BaseHealth = 100,
+                    BaseMana = 20,
+                    BaseStamina = 20,
+                    Abbreviation = "HUM",
+                    SizeType = SizeTypes.Medium
+                };
+                dbContext.Races.Add(newRace);
+                dbContext.SaveChanges();
+            }
+        }
 
         private static void AddMonths()
         {
@@ -675,6 +720,7 @@ namespace Integration.Tests
                     SystemName = "Start Space Door",
                     DisplayName = "Wooden Door",
                     MaterialType = MaterialTypes.ThickWood,
+                    DisplayDescription = "A wooden door",
                     Bits = 3
                 };
                 dbContext.Barriers.Add(door);

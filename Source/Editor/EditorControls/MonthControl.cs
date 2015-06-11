@@ -74,8 +74,8 @@ namespace Realm.Edit.EditorControls
             txtDisplayName.Text = obj.DisplayName;
             numNumberDays.Value = obj.NumberDays;
             chkIsShrouding.Checked = obj.IsShrouding;
-
-            PopulateEffectsGrid(obj);
+            cboSeasonTypes.Fill<SeasonTypes>(obj.SeasonType);
+            PopulateEffectsGrid(obj);;
 
             ControlName = txtSystemName.Text;
         }

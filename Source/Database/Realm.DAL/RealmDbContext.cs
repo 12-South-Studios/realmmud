@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
@@ -19,16 +20,18 @@ namespace Realm.DAL
 
         private DateTime _lastSaveTimeUtc;
 
-        public RealmDbContext() : base("Realm")
+        public RealmDbContext() : base(ConfigurationManager.ConnectionStrings["RealmDbContext"].ConnectionString)
         {
             var kernel = new StandardKernel(new RealmDbContextModule());
             Logger = kernel.Get<ILogWrapper>();
-            ObjectContext = ((IObjectContextAdapter)this).ObjectContext;
-        }
-        public RealmDbContext(ILogWrapper logger)
-        {
-            Logger = logger;
             ObjectContext = ((IObjectContextAdapter) this).ObjectContext;
+        }
+
+        public RealmDbContext(string connectionString, ILogWrapper logger) : base(connectionString)
+        {
+            var kernel = new StandardKernel(new RealmDbContextModule());
+            Logger = logger ?? kernel.Get<ILogWrapper>();
+            ObjectContext = ((IObjectContextAdapter)this).ObjectContext;
         }
 
         public IDbSet<Ability> Abilities { get; set; }
@@ -54,7 +57,6 @@ namespace Realm.DAL
         public IDbSet<Month> Months { get; set; }
         public IDbSet<MovementMode> MovementModes { get; set; } 
         public IDbSet<MudProg> MudProgs { get; set; }
-        public IDbSet<Primitive> Primitives { get; set; } 
         public IDbSet<Quest> Quests { get; set; }
         public IDbSet<Race> Races { get; set; }
         public IDbSet<Reset> Resets { get; set; } 

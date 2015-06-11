@@ -30,7 +30,6 @@ namespace Realm.DAL
         IDbSet<Month> Months { get; set; }
         IDbSet<MovementMode> MovementModes { get; set; }
         IDbSet<MudProg> MudProgs { get; set; }
-        IDbSet<Primitive> Primitives { get; set; }
         IDbSet<Quest> Quests { get; set; }
         IDbSet<Race> Races { get; set; }
         IDbSet<Reset> Resets { get; set; }

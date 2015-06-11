@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Ninject;
 using Realm.DAL.Enumerations;
 using Realm.Library.Common;
 

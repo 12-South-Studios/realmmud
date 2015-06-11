@@ -17,8 +17,10 @@ namespace Realm.DAL.Models
         [MaxLength(50)]
         public string Name { get; set; }
 
+        [Required]
         public int Value { get; set; }
 
+        [Required]
         public BitTypes BitType { get; set; }
 
         [MaxLength(1024)]

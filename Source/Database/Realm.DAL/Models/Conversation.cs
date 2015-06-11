@@ -1,10 +1,33 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Realm.DAL.Models
 {
     [Table("Conversations")]
-    public class Conversation : Primitive
+    public class Conversation : IPrimitive
     {
+        [Key]
+        public int Id { get; set; }
+
+        public DateTime? CreateDateUtc { get; set; }
+
+        [Required]
+        [MaxLength(255), MinLength(5)]
+        public string SystemName { get; set; }
+
+        [Required]
+        public int? SystemClassId { get; set; }
+        public virtual SystemClass SystemClass { get; set; }
+
+        [Required]
+        [MaxLength(255), MinLength(5)]
+        public string DisplayName { get; set; }
+
+        [Required]
+        [MaxLength(2048)]
+        public string DisplayDescription { get; set; }
+
         public bool IsDefault { get; set; }
 
         public int? RequiredFactionId { get; set; }
@@ -15,8 +38,11 @@ namespace Realm.DAL.Models
         public int? TagSetId { get; set; }
         public virtual TagSet TagSet { get; set; }
 
+        [Required]
+        [MaxLength(255)]
         public string Keywords { get; set; }
 
+        [Required]
         public string Text { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace Realm.DAL.Models
     public class EffectPrimitive : Entity
     {
         public int? PrimitiveId { get; set; }
-        public virtual Primitive Primitive { get; set; }
+        public virtual IPrimitive Primitive { get; set; }
 
         [Required]
         public int EffectId { get; set; }

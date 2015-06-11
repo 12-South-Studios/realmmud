@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
@@ -24,16 +25,18 @@ namespace Realm.Admin.DAL
 
         private DateTime _lastSaveTimeUtc;
 
-        public RealmAdminDbContext() : base("RealmAdmin")
+        public RealmAdminDbContext() : base(ConfigurationManager.ConnectionStrings["AdminDbContext"].ConnectionString)
         {
             var kernel = new StandardKernel(new RealmAdminDbContextModule());
             Logger = kernel.Get<ILogWrapper>();
-            ObjectContext = ((IObjectContextAdapter)this).ObjectContext;
-        }
-        public RealmAdminDbContext(ILogWrapper logger)
-        {
-            Logger = logger;
             ObjectContext = ((IObjectContextAdapter) this).ObjectContext;
+        }
+
+        public RealmAdminDbContext(string connectionString, ILogWrapper logger) : base(connectionString)
+        {
+            var kernel = new StandardKernel(new RealmAdminDbContextModule());
+            Logger = logger ?? kernel.Get<ILogWrapper>();
+            ObjectContext = ((IObjectContextAdapter)this).ObjectContext;
         }
 
         public override int SaveChanges()

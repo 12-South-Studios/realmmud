@@ -11,7 +11,7 @@ namespace Realm.DAL.Models
         public QuestProgressTypes QuestProgressType { get; set; }
 
         public int? PrimitiveId { get; set; }
-        public virtual Primitive Primitive { get; set; }
+        public virtual IPrimitive Primitive { get; set; }
 
         public int Quantity { get; set; }
 

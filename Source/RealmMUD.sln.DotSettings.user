@@ -2,4 +2,7 @@
 	<s:String x:Key="/Default/CodeInspection/Highlighting/AnalysisEnabled/@EntryValue">SOLUTION</s:String>
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.1\System.dll" /&gt;&#xD;
-&lt;/AssemblyExplorer&gt;</s:String></wpf:ResourceDictionary>
+&lt;/AssemblyExplorer&gt;</s:String>
+	<s:Boolean x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=E7F25866C56D4284B1CB7F19C3FF842E/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=E7F25866C56D4284B1CB7F19C3FF842E/Name/@EntryValue">CreateAndInitializeDatabase_Realm</s:String>
+	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=E7F25866C56D4284B1CB7F19C3FF842E/XmlSerializedElements/@EntryValue">&lt;Session&gt;&lt;Elements&gt;&lt;UnitTestElement Provider="nUnit" Id="Integration.Tests.EnvironmentSetup" type="NUnitTestFixtureElement" Project="D24A9B54-287C-4CD3-AB57-7786B7FE8324" /&gt;&lt;UnitTestElement Provider="nUnit" Id="Integration.Tests.EnvironmentSetup.CreateAndInitializeDatabase_Realm" ParentId="Integration.Tests.EnvironmentSetup" type="NUnitTestElement" TypeName="Integration.Tests.EnvironmentSetup" MethodName="CreateAndInitializeDatabase_Realm" Project="D24A9B54-287C-4CD3-AB57-7786B7FE8324" /&gt;&lt;/Elements&gt;&lt;/Session&gt;</s:String></wpf:ResourceDictionary>

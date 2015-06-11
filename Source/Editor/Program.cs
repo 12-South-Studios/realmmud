@@ -17,7 +17,8 @@ namespace Realm.Edit
     {
         public static MainForm MainForm { get; private set; }
         public static readonly ILogWrapper Log = new LogWrapper(LogManager.GetLogger(typeof(Program)), LogLevel.Error);
-        private static String ConnectionString { get; set; }
+        private static String RealmConnectionString { get; set; }
+        private static String AdminConnectionString { get; set; }
         public static IKernel NinjectKernel { get; private set; }
 
         [STAThread]
@@ -34,7 +35,8 @@ namespace Realm.Edit
 
             try
             {
-                ConnectionString = ConfigurationManager.ConnectionStrings["RealmDbContext"].ConnectionString;
+                RealmConnectionString = ConfigurationManager.ConnectionStrings["RealmDbContext"].ConnectionString;
+                AdminConnectionString = ConfigurationManager.ConnectionStrings["AdminDbContext"].ConnectionString;
 
                 NinjectKernel = new StandardKernel(new List<INinjectModule>
                     {
@@ -52,7 +54,7 @@ namespace Realm.Edit
             catch (Exception ex)
             {
                 Log.Error(ex);
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.ToString());
             }
 
             Application.ThreadException -= ApplicationThreadException;

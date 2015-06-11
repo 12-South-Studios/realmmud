@@ -17,10 +17,10 @@ namespace Realm.DAL.Models
         public int Experience { get; set; }
 
         public int? GivePrimitiveId { get; set; }
-        public virtual Primitive GivePrimitive { get; set; }
+        public virtual IPrimitive GivePrimitive { get; set; }
 
         public int? DeletePrimitiveId { get; set; }
-        public virtual Primitive DeletePrimitive { get; set; }
+        public virtual IPrimitive DeletePrimitive { get; set; }
 
         public int Quantity { get; set; }
 

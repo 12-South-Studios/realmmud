@@ -3,6 +3,9 @@ using System.Data.Entity;
 using System.Data.SqlClient;
 using Ninject;
 using NUnit.Framework;
+using Realm.Admin.DAL;
+using Realm.DAL;
+using Realm.Live.DAL;
 
 namespace Integration.Tests
 {
@@ -14,10 +17,8 @@ namespace Integration.Tests
         [SetUp]
         public static void Initialize()
         {
-            _kernel = new StandardKernel();
-            _kernel.Bind<Realm.DAL.IRealmDbContext>().To<Realm.DAL.RealmDbContext>();
-            _kernel.Bind<Realm.Live.DAL.IRealmLiveDbContext>().To<Realm.Live.DAL.RealmLiveDbContext>();
-            _kernel.Bind<Realm.Admin.DAL.IRealmAdminDbContext>().To<Realm.Admin.DAL.RealmAdminDbContext>();
+            _kernel = new StandardKernel(new RealmDbContextModule(), 
+                new RealmAdminDbContextModule(), new RealmLiveDbContextModule());
         }
 
         [TearDown]
@@ -32,7 +33,7 @@ namespace Integration.Tests
         {
             DropDatabase("AdminDbContext");
             Database.SetInitializer(new MigrateDatabaseToLatestVersion
-                <Realm.Admin.DAL.RealmAdminDbContext, Realm.Admin.DAL.Migrations.Configuration>());
+                <RealmAdminDbContext, Realm.Admin.DAL.Migrations.Configuration>());
             AdminDatabaseSeeder.Kernel = _kernel;
             AdminDatabaseSeeder.Seed();
         }
@@ -43,7 +44,7 @@ namespace Integration.Tests
         {
             DropDatabase("RealmDbContext");
             Database.SetInitializer(new MigrateDatabaseToLatestVersion
-                <Realm.DAL.RealmDbContext, Realm.DAL.Migrations.Configuration>());
+                <RealmDbContext, Realm.DAL.Migrations.Configuration>());
             RealmDatabaseSeeder.Kernel = _kernel;
             RealmDatabaseSeeder.Seed();
         }
@@ -54,7 +55,7 @@ namespace Integration.Tests
         {
             DropDatabase("LiveDbContext");
             Database.SetInitializer(new MigrateDatabaseToLatestVersion
-                <Realm.Live.DAL.RealmLiveDbContext, Realm.Live.DAL.Migrations.Configuration>());
+                <RealmLiveDbContext, Realm.Live.DAL.Migrations.Configuration>());
             LiveDatabaseSeeder.Kernel = _kernel;
             LiveDatabaseSeeder.Seed();
         }

@@ -29,5 +29,14 @@
     <NamedTestSelector>
       <TestName>Integration.Tests.EnvironmentSetup.CreateAndInitializeDatabase</TestName>
     </NamedTestSelector>
+    <NamedTestSelector>
+      <TestName>Integration.Tests.EnvironmentSetup.CreateAndInitializeDatabase_RealmAdmin</TestName>
+    </NamedTestSelector>
+    <NamedTestSelector>
+      <TestName>Integration.Tests.EnvironmentSetup.CreateAndInitializeDatabase_RealmLive</TestName>
+    </NamedTestSelector>
+    <NamedTestSelector>
+      <TestName>Integration.Tests.EnvironmentSetup.CreateAndInitializeDatabase_Realm</TestName>
+    </NamedTestSelector>
   </IgnoredTests>
 </ProjectConfiguration>

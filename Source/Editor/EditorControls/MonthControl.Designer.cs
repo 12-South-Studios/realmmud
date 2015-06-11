@@ -145,7 +145,7 @@ namespace Realm.Edit.EditorControls
             this.gridEffects.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridEffects.Size = new System.Drawing.Size(229, 165);
             this.gridEffects.TabIndex = 257;
-            this.gridEffects.ValidateRow = ((Realm.Edit.CustomControls.ValidateRowDelegate)(resources.GetObject("gridEffects.ValidateRow")));
+            //this.gridEffects.ValidateRow = ((Realm.Edit.CustomControls.ValidateRowDelegate)(resources.GetObject("gridEffects.ValidateRow")));
             // 
             // label1
             // 

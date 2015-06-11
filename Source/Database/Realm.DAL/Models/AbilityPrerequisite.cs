@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Realm.DAL.Common;
 using Realm.DAL.Enumerations;
@@ -6,7 +7,7 @@ using Realm.DAL.Enumerations;
 namespace Realm.DAL.Models
 {
     [Table("AbilityPrerequisites")]
-    public class AbilityPrerequisite : Entity
+    public class AbilityPrerequisite : IEntity
     {
         public int MinLevel { get; set; }
 
@@ -30,5 +31,10 @@ namespace Realm.DAL.Models
         [Required]
         public int AbilityId { get; set; }
         public virtual Ability Ability { get; set; }
+
+        [Key]
+        public int Id { get; set; }
+
+        public DateTime? CreateDateUtc { get; set; }
     }
 }

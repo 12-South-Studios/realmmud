@@ -90,7 +90,7 @@ namespace Realm.Edit
                     rootNode.ImageKey = Resources.ClosedFolderImageKey;
                     rootNode.ContextMenuStrip = contextBrowseFolder;
 
-                    rootNode.SetupBrowseTree(builder, !String.IsNullOrEmpty(filterText), filterText);
+                    rootNode.SetupBrowseTree(builder, true, filterText);
                     if (!builder.HasDelete())
                     {
                         // This will disable for everything...?

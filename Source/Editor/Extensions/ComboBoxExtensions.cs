@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
-using Ninject;
 using Realm.Edit.Properties;
 using Realm.Edit.Tags;
 
@@ -20,52 +18,17 @@ namespace Realm.Edit.Extensions
             comboBox.SelectedIndex = selectedId;
         }
 
-        public static void Fill(this ComboBox value, string tableName, string idColumn,
-            int selectedId)
+        public static void Fill<T>(this ComboBox comboBox, Enum selectedEnum)
         {
-           /* IGeneralDal generalDal = Program.NinjectKernel.Get<IGeneralDal>();
-            IEnumerable<RefTable> refTables = generalDal.GetRefData(tableName, idColumn);
+            var baseType = typeof(T).BaseType;
+            if (baseType != null && baseType.Name != "Enum") return;
 
-            value.BeginUpdate();
-            value.Items.Clear();
+            foreach (var value in Enum.GetValues(typeof(T)))
+                comboBox.Items.Add(value);
 
-            var selectedIndex = 0;
-            foreach (var obj in refTables)
-            {
-                var index = value.Items.Add(new TagInfo(obj.Name, obj.Id, 0));
-                if (obj.Id == selectedId)
-                    selectedIndex = index;
-            }
-
-            if (value.Items.Count > 0)
-                value.SelectedIndex = selectedIndex;
-
-            value.EndUpdate();*/
+            var selected = comboBox.FindStringExact(selectedEnum.ToString());
+            comboBox.SelectedIndex = selected;
         }
-
-        /*public static void Fill(this ComboBox value, IEnumerable<SimpleObject> simpleObjects, int selectedId = -1)
-        {
-            if (value == null)
-                throw new ArgumentNullException("value", Resources.NullParameterErrorMessage);
-            if (simpleObjects == null)
-                throw new ArgumentNullException("simpleObjects", Resources.NullParameterErrorMessage);
-
-            value.BeginUpdate();
-            value.Items.Clear();
-
-            var selectedIndex = 0;
-            foreach (var obj in simpleObjects)
-            {
-                var index = value.Items.Add(new TagInfo(obj.SystemName, obj.Id, 0));
-                if (obj.Id == selectedId)
-                    selectedIndex = index;
-            }
-
-            //if (value.Items.Count > 0 && selectedIndex > -1)
-            //    value.SelectedIndex = selectedIndex;
-
-            value.EndUpdate();
-        }*/
 
         public static int GetContentId(this ComboBox value)
         {
@@ -116,25 +79,5 @@ namespace Realm.Edit.Extensions
 
             value.EndUpdate();
         }
-
-        /*public static void fillComboFlags(ComboBox value, string aSystemName, int aSelectedFlagId )
-        {
-            value.BeginUpdate();
-            value.Items.Clear();
-
-            int selectedIndex = 0;
-            FlagSet flagSet = SystemFlags.getFlagSet(aSystemName);
-            foreach (Flag flag in flagSet.Flags.Values)
-            {
-                int index = value.Items.Add(new TagInfo(flag.Name, flag.Value, 0));
-                if (flag.Value == aSelectedFlagId)
-                    selectedIndex = index;
-            }
-
-            if (value.Items.Count > 0)
-                value.SelectedIndex = selectedIndex;
-
-            value.EndUpdate();
-        }*/
     }
 }
