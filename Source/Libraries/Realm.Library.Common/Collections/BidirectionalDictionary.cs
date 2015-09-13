@@ -22,7 +22,8 @@ namespace Realm.Library.Common.Collections
         /// </summary>
         /// <param name="forward"></param>
         /// <param name="backward"></param>
-        public BidirectionalDictionary(IDictionary<TFirst, IEnumerable<TSecond>> forward, IDictionary<TSecond, IEnumerable<TFirst>> backward)
+        public BidirectionalDictionary(IDictionary<TFirst, IEnumerable<TSecond>> forward, 
+            IDictionary<TSecond, IEnumerable<TFirst>> backward)
         {
             Forward = forward;
             Backward = backward;
