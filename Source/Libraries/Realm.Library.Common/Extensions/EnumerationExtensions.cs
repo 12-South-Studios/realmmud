@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Realm.Library.Common.Properties;
+using Realm.Library.Common.Exceptions;
 
 // ReSharper disable CheckNamespace
 namespace Realm.Library.Common
@@ -216,6 +217,17 @@ namespace Realm.Library.Common
         public static bool HasBit(this Enum value, int bits)
         {
             return (bits & value.GetValue()) != 0;
+        }
+
+        public static object GetAttributeValue<T>(this Enum value, string propertyName) where T : Attribute
+        {
+            var field = value.GetType().GetField(value.ToString());
+            T attrib = Attribute.GetCustomAttribute(field, typeof(T)) as T;
+            if (attrib == null)
+                throw new NoCustomAttributeFoundException("Attribute {0} not found on Enumeration {1}", typeof(T),
+                    value);
+
+            return attrib.GetValue(propertyName);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Realm.Library.Common.Data
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static T ToAtom<T>(this Int32 value) where T : Atom
+        public static T ToAtom<T>(this int value) where T : Atom
         {
             return (T)Activator.CreateInstance(typeof(T), value);
         }
@@ -27,7 +27,7 @@ namespace Realm.Library.Common.Data
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static T ToAtom<T>(this Boolean value) where T : Atom
+        public static T ToAtom<T>(this bool value) where T : Atom
         {
             return (T)Activator.CreateInstance(typeof(T), new object[] { value });
         }
@@ -38,7 +38,7 @@ namespace Realm.Library.Common.Data
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static T ToAtom<T>(this Int64 value) where T : Atom
+        public static T ToAtom<T>(this long value) where T : Atom
         {
             return (T)Activator.CreateInstance(typeof(T), value);
         }
@@ -49,7 +49,7 @@ namespace Realm.Library.Common.Data
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static T ToAtom<T>(this Single value) where T : Atom
+        public static T ToAtom<T>(this float value) where T : Atom
         {
             return (T)Activator.CreateInstance(typeof(T), value);
         }
@@ -60,7 +60,7 @@ namespace Realm.Library.Common.Data
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static T ToAtom<T>(this Double value) where T : Atom
+        public static T ToAtom<T>(this double value) where T : Atom
         {
             return (T)Activator.CreateInstance(typeof(T), value);
         }
@@ -78,20 +78,20 @@ namespace Realm.Library.Common.Data
             switch (typeof(T).Name.ToLower())
             {
                 case "boolatom":
-                    Boolean boolResult;
-                    return !Boolean.TryParse(value, out boolResult) ? ToAtom<T>(false) : boolResult.ToAtom<T>();
+                    bool boolResult;
+                    return !bool.TryParse(value, out boolResult) ? ToAtom<T>(false) : boolResult.ToAtom<T>();
 
                 case "intatom":
-                    Int32 intResult;
-                    return !Int32.TryParse(value, out intResult) ? ToAtom<T>(-1) : intResult.ToAtom<T>();
+                    int intResult;
+                    return !int.TryParse(value, out intResult) ? ToAtom<T>(-1) : intResult.ToAtom<T>();
 
                 case "realatom":
-                    Int64 result64;
-                    if (Int64.TryParse(value, out result64))
+                    long result64;
+                    if (long.TryParse(value, out result64))
                         return result64.ToAtom<T>();
 
-                    Double resultDbl;
-                    return Double.TryParse(value, out resultDbl) ? resultDbl.ToAtom<T>() : ToAtom<T>(0.0f);
+                    double resultDbl;
+                    return double.TryParse(value, out resultDbl) ? resultDbl.ToAtom<T>() : ToAtom<T>(0.0f);
 
                 case "stringatom":
                 case "objectatom":
@@ -112,12 +112,12 @@ namespace Realm.Library.Common.Data
 
             list.Cast<object>().Where(value => value != null).ToList().ForEach(value =>
                 {
-                    if (value is Int32)
-                        atom.Add(((Int32) value).ToAtom<IntAtom>());
-                    else if (value is Int64 || value is Double || value is Single)
-                        atom.Add(((Int64) value).ToAtom<RealAtom>());
-                    else if (value is Boolean)
-                        atom.Add(((Boolean) value).ToAtom<BoolAtom>());
+                    if (value is int)
+                        atom.Add(((int) value).ToAtom<IntAtom>());
+                    else if (value is long || value is double || value is float)
+                        atom.Add(((long) value).ToAtom<RealAtom>());
+                    else if (value is bool)
+                        atom.Add(((bool) value).ToAtom<BoolAtom>());
                     else
                     {
                         var s = value as string;
@@ -163,19 +163,19 @@ namespace Realm.Library.Common.Data
                         return;
                     }
 
-                    var str = value as String;
+                    var str = value as string;
                     if (str != null)
                     {
-                        atom.Set(info.Name, ToAtom<StringAtom>((String)value));
+                        atom.Set(info.Name, ToAtom<StringAtom>((string)value));
                         return;
                     }
 
-                    if (value is Int32)
-                        atom.Set(info.Name, ((Int32)value).ToAtom<IntAtom>());
-                    else if (value is Int64 || value is Double || value is Single)
-                        atom.Set(info.Name, ((Int64)value).ToAtom<RealAtom>());
-                    else if (value is Boolean)
-                        atom.Set(info.Name, ((Boolean)value).ToAtom<BoolAtom>());
+                    if (value is int)
+                        atom.Set(info.Name, ((int)value).ToAtom<IntAtom>());
+                    else if (value is long || value is double || value is float)
+                        atom.Set(info.Name, ((long)value).ToAtom<RealAtom>());
+                    else if (value is bool)
+                        atom.Set(info.Name, ((bool)value).ToAtom<BoolAtom>());
                     else
                         atom.Set(info.Name, value.ToDictionaryAtom());  
                 });

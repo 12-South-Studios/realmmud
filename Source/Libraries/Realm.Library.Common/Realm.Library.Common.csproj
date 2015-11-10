@@ -132,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArticleAppendOptions.cs" />
+    <Compile Include="Attributes\PrecisionAttribute.cs" />
     <Compile Include="Attributes\RangeAttribute.cs" />
     <Compile Include="Caching\CachedObjectRepository.cs" />
     <Compile Include="Caching\IMemoryCacheWrapper.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="Data\ObjectAtom.cs" />
     <Compile Include="Data\RealAtom.cs" />
     <Compile Include="Data\StringAtom.cs" />
+    <Compile Include="DoublePrecisionComparisonTypes.cs" />
     <Compile Include="Entities\EntityContext.cs" />
     <Compile Include="Entities\IEntityModule.cs" />
     <Compile Include="Entities\IHelper.cs" />
@@ -164,6 +166,7 @@
     <Compile Include="Exceptions\InitializationException.cs" />
     <Compile Include="Exceptions\InstantiationException.cs" />
     <Compile Include="Exceptions\GeneralException.cs" />
+    <Compile Include="Exceptions\NoCustomAttributeFoundException.cs" />
     <Compile Include="Extensions\CharExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\ExceptionHandlingOptions.cs" />

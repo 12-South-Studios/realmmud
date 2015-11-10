@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 
 // ReSharper disable CheckNamespace
 namespace Realm.Library.Common
@@ -136,6 +137,19 @@ namespace Realm.Library.Common
             return (list is ICollection<T>)
                 ? ((ICollection<T>)list).Count == 0
                 : !list.Any();
+        }
+
+        public static object GetValue(this object obj, string propName)
+        {
+            var type = obj.GetType();
+
+            var propInfo = type.GetProperty(propName,
+                BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
+            if (propInfo == null)
+                throw new ArgumentException(string.Format("{0} is not a valid property of type: {1}",
+                    propName, type.FullName));
+
+            return propInfo.GetValue(obj);
         }
     }
 }

@@ -37,7 +37,7 @@ namespace Realm.Library.Common
             Validation.Validate(sb.Length > 0);
             Validation.IsNotNull(characters, "characters");
             Validation.Validate(characters.Length > 0);
-            Validation.Validate<ArgumentOutOfRangeException>(startIndex >= 0 && startIndex < Int32.MaxValue);
+            Validation.Validate<ArgumentOutOfRangeException>(startIndex >= 0 && startIndex < int.MaxValue);
             Validation.Validate(startIndex < sb.Length);
 
             return sb.ToString().IndexOfAny(characters, startIndex);
@@ -54,8 +54,8 @@ namespace Realm.Library.Common
         {
             Validation.IsNotNull(sb, "sb");
             Validation.Validate(sb.Length > 0);
-            Validation.Validate<ArgumentOutOfRangeException>(startIndex >= 0 && startIndex < Int32.MaxValue);
-            Validation.Validate<ArgumentOutOfRangeException>(length > 0 && length < Int32.MaxValue);
+            Validation.Validate<ArgumentOutOfRangeException>(startIndex >= 0 && startIndex < int.MaxValue);
+            Validation.Validate<ArgumentOutOfRangeException>(length > 0 && length < int.MaxValue);
             Validation.Validate(length < sb.Length && startIndex < sb.Length && (length + startIndex) < sb.Length);
 
             return sb.ToString(startIndex, length);
@@ -92,7 +92,7 @@ namespace Realm.Library.Common
         {
             Validation.IsNotNull(sb, "sb");
             Validation.Validate(sb.Length > 0);
-            Validation.Validate<ArgumentOutOfRangeException>(value > 0 && value < Int32.MaxValue);
+            Validation.Validate<ArgumentOutOfRangeException>(value > 0 && value < int.MaxValue);
             Validation.Validate(value <= sb.Length);
 
             return sb.Remove(sb.Length - value, value);
@@ -202,7 +202,7 @@ namespace Realm.Library.Common
         /// <param name="oldValue">Old string to search for</param>
         /// <param name="newValue">New string to replace with</param>
         /// <returns>Returns a new stringbuilder object</returns>
-        public static StringBuilder ReplaceFirst(this StringBuilder sb, String oldValue, String newValue)
+        public static StringBuilder ReplaceFirst(this StringBuilder sb, string oldValue, string newValue)
         {
             Validation.IsNotNull(sb, "sb");
             Validation.IsNotNullOrEmpty(oldValue, "oldValue");
@@ -224,7 +224,7 @@ namespace Realm.Library.Common
         public static int IndexOf(this StringBuilder sb, char value, int startIndex)
         {
             Validation.IsNotNull(sb, "sb");
-            Validation.Validate<ArgumentOutOfRangeException>(startIndex >= 0 && startIndex < Int32.MaxValue);
+            Validation.Validate<ArgumentOutOfRangeException>(startIndex >= 0 && startIndex < int.MaxValue);
             Validation.Validate(startIndex < sb.Length);
 
             return sb.ToString().IndexOf(value, startIndex);
@@ -236,7 +236,7 @@ namespace Realm.Library.Common
         /// <param name="sb">StringBuilder object</param>
         /// <param name="value">String to search for</param>
         /// <returns>Returns the index of the string, -1 if not found</returns>
-        public static int IndexOf(this StringBuilder sb, String value)
+        public static int IndexOf(this StringBuilder sb, string value)
         {
             Validation.IsNotNull(sb, "sb");
             Validation.IsNotNullOrEmpty(value, "value");
@@ -251,11 +251,11 @@ namespace Realm.Library.Common
         /// <param name="value">String to search for</param>
         /// <param name="startIndex">Index to begin at</param>
         /// <returns>Returns the index of the given string, -1 if not found</returns>
-        public static int IndexOf(this StringBuilder sb, String value, int startIndex)
+        public static int IndexOf(this StringBuilder sb, string value, int startIndex)
         {
             Validation.IsNotNull(sb, "sb");
             Validation.IsNotNullOrEmpty(value, "value");
-            Validation.Validate<ArgumentOutOfRangeException>(startIndex >= 0 && startIndex < Int32.MaxValue);
+            Validation.Validate<ArgumentOutOfRangeException>(startIndex >= 0 && startIndex < int.MaxValue);
             Validation.Validate(startIndex < sb.Length);
 
             return sb.ToString().IndexOf(value, startIndex, StringComparison.InvariantCulture);
@@ -267,7 +267,7 @@ namespace Realm.Library.Common
         /// <param name="sb">StringBuilder object</param>
         /// <param name="value">String to search for</param>
         /// <returns>Returns the index of the given string, -1 if not found</returns>
-        public static int IndexOfAndIgnoreCase(this StringBuilder sb, String value)
+        public static int IndexOfAndIgnoreCase(this StringBuilder sb, string value)
         {
             Validation.IsNotNull(sb, "sb");
             Validation.IsNotNullOrEmpty(value, "value");

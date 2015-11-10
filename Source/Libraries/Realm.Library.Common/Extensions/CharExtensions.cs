@@ -29,7 +29,7 @@ namespace Realm.Library.Common
         /// <returns></returns>
         public static bool IsDigit(this char value)
         {
-            return Char.IsDigit(value);
+            return char.IsDigit(value);
         }
 
         /// <summary>

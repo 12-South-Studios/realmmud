@@ -1,5 +1,6 @@
 ﻿using System;
 using Realm.Library.Common.Properties;
+using Realm.Library.Common.Attributes;
 
 // ReSharper disable CheckNamespace
 namespace Realm.Library.Common
@@ -40,7 +41,7 @@ namespace Realm.Library.Common
         public static bool IsNumeric(this object value)
         {
             double result;
-            return value.IsNotNull() && Double.TryParse(value.ToString(), out result);
+            return value.IsNotNull() && double.TryParse(value.ToString(), out result);
         }
 
         /// <summary>
@@ -60,19 +61,19 @@ namespace Realm.Library.Common
                 var words = string.Empty;
                 if ((value/1000000) > 0)
                 {
-                    words += String.Format("{0} {1} ", ToWords(value/1000000), Resources.MSG_MILLION);
+                    words += string.Format("{0} {1} ", ToWords(value/1000000), Resources.MSG_MILLION);
                     value %= 1000000;
                 }
 
                 if ((value/1000) > 0)
                 {
-                    words += String.Format("{0} {1} ", ToWords(value/1000), Resources.MSG_THOUSAND);
+                    words += string.Format("{0} {1} ", ToWords(value/1000), Resources.MSG_THOUSAND);
                     value %= 1000;
                 }
 
                 if ((value/100) > 0)
                 {
-                    words += String.Format("{0} {1} ", ToWords(value/100), Resources.MSG_HUNDRED);
+                    words += string.Format("{0} {1} ", ToWords(value/100), Resources.MSG_HUNDRED);
                     value %= 100;
                 }
 
@@ -157,7 +158,7 @@ namespace Realm.Library.Common
         /// <param name="max"></param>
         /// <param name="inclusive"></param>
         /// <returns></returns>
-        public static bool InRange(this Int32 value, Int32 min, Int32 max, bool inclusive = false)
+        public static bool InRange(this int value, int min, int max, bool inclusive = false)
         {
             return inclusive ? value >= min && value <= max : value > min && value < max;
         }
@@ -170,7 +171,7 @@ namespace Realm.Library.Common
         /// <param name="max"></param>
         /// <param name="inclusive"></param>
         /// <returns></returns>
-        public static bool InRange(this Int64 value, Int64 min, Int64 max, bool inclusive = false)
+        public static bool InRange(this long value, long min, long max, bool inclusive = false)
         {
             return inclusive ? value >= min && value <= max : value > min && value < max;
         }
@@ -183,9 +184,16 @@ namespace Realm.Library.Common
         /// <param name="max"></param>
         /// <param name="inclusive"></param>
         /// <returns></returns>
-        public static bool InRange(this Double value, Double min, Double max, bool inclusive = false)
+        public static bool InRange(this double value, double min, double max, bool inclusive = false)
         {
             return inclusive ? value >= min && value <= max : value > min && value < max;
+        }
+
+        public static bool IsEquivalent(this double left, double right,
+            DoublePrecisionComparisonTypes comparison = DoublePrecisionComparisonTypes.ThreeDigits)
+        {
+            var precision = (double)comparison.GetAttributeValue<PrecisionAttribute>("Value");
+            return Math.Abs(left - right) < precision;
         }
     }
 }
