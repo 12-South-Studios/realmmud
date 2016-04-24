@@ -115,7 +115,7 @@ namespace Realm.Library.Common.Test.Data
         [Test]
         public void AtomExtensionToAtomStringObjectAtomTest()
         {
-            const String value = "test";
+            const string value = "test";
 
             var actual = value.ToAtom<ObjectAtom>();
 
@@ -126,7 +126,7 @@ namespace Realm.Library.Common.Test.Data
         [Test]
         public void AtomExtensionToAtomStringInvalidTypeTest()
         {
-            const String value = "test";
+            const string value = "test";
 
             var actual = value.ToAtom<ListAtom>();
 
@@ -134,12 +134,9 @@ namespace Realm.Library.Common.Test.Data
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void AtomExtensionToAtomListNullTest()
+        public void ToAtomList_ThrowsException_WhenNullIsPassed()
         {
-            AtomExtensions.ToAtom(null);
-
-            Assert.Fail("Unit test expected an ArgumentNullException to be thrown");
+            Assert.Throws<ArgumentNullException>(() => AtomExtensions.ToAtom(null));
         }
 
         /*[Test]

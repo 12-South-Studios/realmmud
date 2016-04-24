@@ -69,13 +69,16 @@ namespace Realm.Library.Common.Test.Extensions
             Assert.That(number.ConvertHour(), Is.EqualTo(expected));
         }
 
-        [TestCase(-1, ExpectedException = typeof(ArgumentException), ExpectedMessage = "Invalid hour (must be between 0 and 24)")]
-        [TestCase(25, ExpectedException = typeof(ArgumentException), ExpectedMessage = "Invalid hour (must be between 0 and 24)")]
-        public void ConvertHourInvalidTest(int number)
+        [Test]
+        public void ConvertHour_ThrowsException_WhenHourIsTooLow()
         {
-            number.ConvertHour();
+            Assert.Throws<ArgumentException>(() => (-1).ConvertHour());
+        }
 
-            Assert.Fail("Unit test expected an ArgumentException to be thrown");
+        [Test]
+        public void ConvertHour_ThrowsException_WhenHourIsTooHigh()
+        {
+            Assert.Throws<ArgumentException>(() => (25).ConvertHour());
         }
 
         [TestCase(21, "21st")]

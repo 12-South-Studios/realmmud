@@ -13,10 +13,8 @@ namespace Realm.Library.Common.Test.Extensions
             public TestException(string msg, Exception innerException) : base(msg, innerException) { }
         }
 
-        [TestCase(ExceptionHandlingOptions.RecordAndThrow, "Test", false, ExpectedException = typeof(TestException))]
         [TestCase(ExceptionHandlingOptions.RecordOnly, "Test", false)]
         [TestCase(ExceptionHandlingOptions.RecordOnly, "", false)]
-        [TestCase(ExceptionHandlingOptions.ThrowOnly, "Test", true, ExpectedException = typeof(TestException))]
         [TestCase(ExceptionHandlingOptions.Suppress, "Test", true)]
         public void HandleGenericTest(ExceptionHandlingOptions options, string msg, bool throwLoggingException)
         {
@@ -37,10 +35,43 @@ namespace Realm.Library.Common.Test.Extensions
             }
         }
 
-        [TestCase(ExceptionHandlingOptions.RecordAndThrow, "Test", false, ExpectedException = typeof(Exception))]
+        [Test]
+        public void Handle_ReThrowsException_WhenRecordAndThrowIsOption()
+        {
+            var mockLog = new Mock<ILogWrapper>();
+            mockLog.Setup(x => x.Error(It.IsAny<object>(), It.IsAny<Exception>()));
+
+            try
+            {
+                throw new Exception("Test");
+            }
+            catch (Exception ex)
+            {
+                Assert.Throws<TestException>(
+                    () => ex.Handle<TestException>(ExceptionHandlingOptions.RecordAndThrow, mockLog.Object, "Test"));
+            }
+        }
+
+        [Test]
+        public void Handle_ReThrowsException_WhenThrowOnlyIsOption()
+        {
+            var mockLog = new Mock<ILogWrapper>();
+            mockLog.Setup(x => x.Error(It.IsAny<object>(), It.IsAny<Exception>()))
+                .Throws(new InvalidOperationException("Unit test should not get an exception of this type"));
+
+            try
+            {
+                throw new Exception("Test");
+            }
+            catch (Exception ex)
+            {
+                Assert.Throws<TestException>(
+                    () => ex.Handle<TestException>(ExceptionHandlingOptions.ThrowOnly, mockLog.Object, "Test"));
+            }
+        }
+
         [TestCase(ExceptionHandlingOptions.RecordOnly, "Test", false)]
         [TestCase(ExceptionHandlingOptions.RecordOnly, "", false)]
-        [TestCase(ExceptionHandlingOptions.ThrowOnly, "Test", true, ExpectedException = typeof(Exception))]
         [TestCase(ExceptionHandlingOptions.Suppress, "Test", true)]
         public void HandleTest(ExceptionHandlingOptions options, string msg, bool throwLoggingException)
         {

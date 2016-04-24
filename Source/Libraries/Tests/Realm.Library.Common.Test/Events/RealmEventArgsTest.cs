@@ -15,24 +15,30 @@ namespace Realm.Library.Common.Test.Events
             Assert.IsTrue(typeof(EventTable) == result.Data.GetType());
         }
 
-        [TestCase(false, ExpectedException = typeof(ArgumentNullException))]
-        [TestCase(true)]
-        public void RealmEventArgsOverloadConstructor1Test(bool createEventTable)
+        [Test]
+        public void Constructor_ReturnsValidData_WhenEventTableIsPassed()
         {
-            var result = new RealmEventArgs(createEventTable ? new EventTable() : null);
-
-            Assert.That(result, Is.Not.Null);
+            var result = new RealmEventArgs(new EventTable());
             Assert.That(result.Data, Is.Not.Null);
         }
 
-        [TestCase("", ExpectedException = typeof(ArgumentNullException))]
-        [TestCase("test")]
-        public void RealmEventArgsOverloadConstructor2Test(string arg)
+        [Test]
+        public void Constructor_ThrowsException_WhenCreateEventTableIsFalse()
         {
-            var result = new RealmEventArgs(arg);
+            Assert.Throws<ArgumentNullException>(() => new RealmEventArgs((EventTable)null));
+        }
 
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.Type, Is.EqualTo(arg));
+        [Test]
+        public void Constructor_TypeIsAssignedProperly_WHenValidParameterIsPassed()
+        {
+            var result = new RealmEventArgs("test");
+            Assert.That(result.Type, Is.EqualTo("test"));
+        }
+
+        [Test]
+        public void Constructor_ThrowsException_WhenArgTypeIsNotProvided()
+        {
+            Assert.Throws<ArgumentNullException>(() => new RealmEventArgs(string.Empty));
         }
 
         [Test]

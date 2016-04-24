@@ -243,8 +243,7 @@ namespace Realm.Library.Common.Test.Events
         }
 
         [Test, Timeout(10000)]
-        [ExpectedException(typeof(InstanceNotFoundException))]
-        public void ThrowEventOfTypeWithSenderAndEventTableWithUnknownEventType()
+        public void ThrowEvent_ThrowsException_WhenUnknownEventTypeIsSent()
         {
             var objectListening = new FakeObject();
             var objectActing = new FakeObject { Name = "Actor" };
@@ -254,9 +253,7 @@ namespace Realm.Library.Common.Test.Events
 
             handler.RegisterListener(new EventListener(objectListening, null, typeof(FakeEvent), _eventCallback));
 
-            handler.ThrowEvent<BuggyFakeEvent>(objectActing, table);
-
-            Assert.Fail("Unit test expected an InstanceNotFoundException to be thrown!");
+            Assert.Throws<InstanceNotFoundException>(() => handler.ThrowEvent<BuggyFakeEvent>(objectActing, table));
         }
 
         [Test, Timeout(10000)]
@@ -280,8 +277,7 @@ namespace Realm.Library.Common.Test.Events
         }
 
         [Test, Timeout(10000)]
-        [ExpectedException(typeof(InstanceNotFoundException))]
-        public void ThrowEventOfTypeWithSenderWithUnknownEventType()
+        public void ThrowEvent_ThrowsException_WhenUnknownEventTypeIsPassed()
         {
             var objectListening = new FakeObject();
             var objectActing = new FakeObject { Name = "Actor" };
@@ -290,9 +286,7 @@ namespace Realm.Library.Common.Test.Events
 
             handler.RegisterListener(new EventListener(objectListening, null, typeof(FakeEvent), _eventCallback));
 
-            handler.ThrowEvent<BuggyFakeEvent>(objectActing);
-
-            Assert.Fail("Unit test expected an InstanceNotFoundException to be thrown!");
+            Assert.Throws<InstanceNotFoundException>(() => handler.ThrowEvent<BuggyFakeEvent>(objectActing));
         }
     }
 }

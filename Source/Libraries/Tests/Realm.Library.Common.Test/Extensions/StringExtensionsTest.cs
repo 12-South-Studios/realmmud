@@ -313,8 +313,6 @@ namespace Realm.Library.Common.Test.Extensions
         #endregion
 
         #region AddArticle
-
-        [TestCase("", "", true, false, false, ExpectedException = typeof(ArgumentNullException))]
         [TestCase("the big sword", "the big sword", false, false, false)]
         [TestCase("ancient sword", "an ancient sword", false, false, false)]
         [TestCase("big sword", "a big sword", false, false, false)]
@@ -332,6 +330,14 @@ namespace Realm.Library.Common.Test.Extensions
                 options |= ArticleAppendOptions.CapitalizeFirstLetter;
 
             Assert.That(value.AddArticle(options), Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void AddArticle_ThrowsException_WhenNoStringIsProvided()
+        {
+            var options = ArticleAppendOptions.None | ArticleAppendOptions.NewLineToEnd;
+
+            Assert.Throws<ArgumentNullException>(() => "".AddArticle(options));
         }
 
         #endregion

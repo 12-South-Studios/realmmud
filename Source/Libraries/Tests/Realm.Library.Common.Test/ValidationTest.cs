@@ -9,11 +9,16 @@ namespace Realm.Library.Common.Test
     [TestFixture]
     public class ValidationTest
     {
-        [TestCase(null, "null", ExpectedException = typeof(ArgumentNullException))]
         [TestCase(25, "number")]
         public void IsNotNullTest(object obj, string param)
         {
             Validation.IsNotNull(obj, param);
+        }
+
+        [Test]
+        public void IsNotNull_ThrowsException_WhenObjectIsNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => Validation.IsNotNull(null, "null"));
         }
 
         [TestCase(25, typeof(int))]
