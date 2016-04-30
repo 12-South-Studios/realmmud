@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Realm.Entity;
-using Realm.Library.Common;
+using Realm.Entity.Interfaces;
+using Realm.Library.Common.Contexts;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Server.Attributes
 {
@@ -68,6 +69,6 @@ namespace Realm.Server.Attributes
         /// <summary>
         /// 
         /// </summary>
-        public IEnumerable<GameAttribute> Attributes { get { return _attributes.AsEnumerable(); } } 
+        public IEnumerable<GameAttribute> Attributes => _attributes.AsEnumerable();
     }
 }

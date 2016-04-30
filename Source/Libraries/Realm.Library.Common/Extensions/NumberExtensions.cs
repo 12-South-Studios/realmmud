@@ -1,10 +1,10 @@
 ﻿using System;
-using Realm.Library.Common.Properties;
 using Realm.Library.Common.Attributes;
+using Realm.Library.Common.Objects;
+using Realm.Library.Common.Properties;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Common.Extensions
+
 {
     /// <summary>
     /// Static class for some number extension functions
@@ -55,25 +55,25 @@ namespace Realm.Library.Common
             if (value == 0)
                 returnVal = Resources.MSG_ZERO;
             else if (value < 0)
-                returnVal = string.Format("{0} {1}", Resources.MSG_MINUS, ToWords(Math.Abs(value)));
+                returnVal = $"{Resources.MSG_MINUS} {ToWords(Math.Abs(value))}";
             else
             {
                 var words = string.Empty;
-                if ((value/1000000) > 0)
+                if (value/1000000 > 0)
                 {
-                    words += string.Format("{0} {1} ", ToWords(value/1000000), Resources.MSG_MILLION);
+                    words += $"{ToWords(value/1000000)} {Resources.MSG_MILLION} ";
                     value %= 1000000;
                 }
 
-                if ((value/1000) > 0)
+                if (value/1000 > 0)
                 {
-                    words += string.Format("{0} {1} ", ToWords(value/1000), Resources.MSG_THOUSAND);
+                    words += $"{ToWords(value/1000)} {Resources.MSG_THOUSAND} ";
                     value %= 1000;
                 }
 
-                if ((value/100) > 0)
+                if (value/100 > 0)
                 {
-                    words += string.Format("{0} {1} ", ToWords(value/100), Resources.MSG_HUNDRED);
+                    words += $"{ToWords(value/100)} {Resources.MSG_HUNDRED} ";
                     value %= 100;
                 }
 
@@ -87,7 +87,7 @@ namespace Realm.Library.Common
                     else
                     {
                         words += TensMap[value/10];
-                        if ((value%10) > 0)
+                        if (value%10 > 0)
                             words += "-" + UnitsMap[value%10];
                     }
                 }
@@ -107,7 +107,7 @@ namespace Realm.Library.Common
         {
             Validation.Validate(hour > 0 && hour <= 24, Resources.ERR_INVALID_HOUR);
 
-            return (hour > 12) ? HourMap[hour - 12] : HourMap[hour];
+            return hour > 12 ? HourMap[hour - 12] : HourMap[hour];
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace Realm.Library.Common
         public static string GetOrdinal(this int number)
         {
             var suf = "th";
-            if (((number%100)/10) == 1) return number + suf;
+            if (number%100/10 == 1) return number + suf;
             switch (number % 10)
             {
                 case 1:

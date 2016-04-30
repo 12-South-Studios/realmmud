@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using Realm.Library.Controls;
+using Realm.Library.Controls.DataGridViewControls;
 
 namespace Realm.Edit
 {

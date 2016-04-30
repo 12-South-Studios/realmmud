@@ -6,7 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Realm.Edit.Extensions;
 using Realm.Edit.Properties;
-using Realm.Library.Controls;
+using Realm.Library.Controls.DataGridViewControls;
 
 namespace Realm.Edit.CustomControls
 {
@@ -39,10 +39,7 @@ namespace Realm.Edit.CustomControls
         #region Properties
         public ValidateRowDelegate ValidateRow { get; set; }
 
-        public DataGridViewRow SelectedRow
-        {
-            get { return SelectedRows.Count == 0 ? null : SelectedRows[0]; }
-        }
+        public DataGridViewRow SelectedRow => SelectedRows.Count == 0 ? null : SelectedRows[0];
 
         public bool AllowRowDeletion { get; set; }
 
@@ -91,7 +88,7 @@ namespace Realm.Edit.CustomControls
         public bool OnValidateRow(DataGridViewRow row)
         {
             if (row == null)
-                throw new ArgumentNullException("row", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(row), Resources.NullParameterErrorMessage);
 
             var invalidCol = string.Empty;
             if (!row.IsNewRow)
@@ -118,7 +115,7 @@ namespace Realm.Edit.CustomControls
         public bool IsDeleted(DataGridViewRow value)
         {
             if (value == null)
-                throw new ArgumentNullException("value", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(value), Resources.NullParameterErrorMessage);
 
             return DeletedRows.ToList().Find(r => r.Tag == value.Tag) != null;
         }
@@ -126,7 +123,7 @@ namespace Realm.Edit.CustomControls
         public void SetVisible(DataGridViewRow value, bool visible)
         {
             if (value == null)
-                throw new ArgumentNullException("value", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(value), Resources.NullParameterErrorMessage);
 
             if (IsDeleted(value)) return;
             value.Visible = visible;
@@ -135,7 +132,7 @@ namespace Realm.Edit.CustomControls
         public void DeleteRowObjectTagged(DataGridViewRow value)
         {
             if (value == null)
-                throw new ArgumentNullException("value", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(value), Resources.NullParameterErrorMessage);
 
             if (!value.CanDeleteIfTagged()) return;
             value.Visible = false;
@@ -145,7 +142,7 @@ namespace Realm.Edit.CustomControls
         public void DeleteRow(DataGridViewRow value)
         {
             if (value == null)
-                throw new ArgumentNullException("value", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(value), Resources.NullParameterErrorMessage);
 
             if (value.IsNewRow) return;
             value.Visible = false;
@@ -157,7 +154,7 @@ namespace Realm.Edit.CustomControls
         public void CommitDeletedRows(DataView value)
         {
             if (value == null)
-                throw new ArgumentNullException("value", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(value), Resources.NullParameterErrorMessage);
 
             foreach (var row in DeletedRows.Where(x => !x.CanDelete()))
             {
@@ -181,7 +178,7 @@ namespace Realm.Edit.CustomControls
         protected override void OnCellValueChanged(DataGridViewCellEventArgs e)
         {
             if (e == null)
-                throw new ArgumentNullException("e", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(e), Resources.NullParameterErrorMessage);
 
             base.OnCellValueChanged(e);
             ValidateRow(Rows[e.RowIndex]);
@@ -190,7 +187,7 @@ namespace Realm.Edit.CustomControls
         protected override void OnRowValidating(DataGridViewCellCancelEventArgs e)
         {
             if (e == null)
-                throw new ArgumentNullException("e", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(e), Resources.NullParameterErrorMessage);
 
             base.OnRowValidating(e);
             var gridRow = Rows[e.RowIndex];
@@ -201,7 +198,7 @@ namespace Realm.Edit.CustomControls
         protected override void OnMouseDown(MouseEventArgs e)
         {
             if (e == null)
-                throw new ArgumentNullException("e", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(e), Resources.NullParameterErrorMessage);
 
             if (AllowDrop)
             {
@@ -211,8 +208,8 @@ namespace Realm.Edit.CustomControls
                     {
                         _draggingRow = true;
                         var dragSize = SystemInformation.DragSize;
-                        _dragDropRectangle = new Rectangle(new Point(e.X - (dragSize.Width / 2),
-                            e.Y - (dragSize.Height / 2)), dragSize);
+                        _dragDropRectangle = new Rectangle(new Point(e.X - dragSize.Width / 2,
+                            e.Y - dragSize.Height / 2), dragSize);
                         _dragDropSourceIndex = HitTest(e.X, e.Y).RowIndex;
                     }
                     else
@@ -233,7 +230,7 @@ namespace Realm.Edit.CustomControls
         protected override void OnMouseMove(MouseEventArgs e)
         {
             if (e == null)
-                throw new ArgumentNullException("e", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(e), Resources.NullParameterErrorMessage);
 
             if (AllowDrop)
             {
@@ -249,7 +246,7 @@ namespace Realm.Edit.CustomControls
         protected override void OnDragDrop(DragEventArgs drgevent)
         {
             if (drgevent == null)
-                throw new ArgumentNullException("drgevent", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(drgevent), Resources.NullParameterErrorMessage);
 
             if (AllowDrop && _draggingRow)
             {
@@ -278,7 +275,7 @@ namespace Realm.Edit.CustomControls
         protected override void OnDragOver(DragEventArgs e)
         {
             if (e == null)
-                throw new ArgumentNullException("e", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(e), Resources.NullParameterErrorMessage);
 
             e.Effect = DragDropEffects.Move;
 
@@ -310,7 +307,7 @@ namespace Realm.Edit.CustomControls
         protected override void OnCellPainting(DataGridViewCellPaintingEventArgs e)
         {
             if (e == null)
-                throw new ArgumentNullException("e", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(e), Resources.NullParameterErrorMessage);
 
             if (_dragDropCurrentIndex > -1 && _draggingRow)
             {

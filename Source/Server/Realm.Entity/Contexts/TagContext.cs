@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Realm.Library.Common;
+using Realm.Library.Common.Contexts;
+using Realm.Library.Common.Entities;
 
 namespace Realm.Entity.Contexts
 {
@@ -67,7 +69,7 @@ namespace Realm.Entity.Contexts
         /// <param name="id"></param>
         public void RemoveTag(int id)
         {
-            Validation.Validate<ArgumentOutOfRangeException>(id > 0 && id <= Int32.MaxValue);
+            Validation.Validate<ArgumentOutOfRangeException>(id > 0);
 
             foreach (var tag in _tags.Where(tag => tag.ID == id))
             {
@@ -79,6 +81,6 @@ namespace Realm.Entity.Contexts
         /// <summary>
         ///
         /// </summary>
-        public IList<object> Tags { get { return new List<object>(_tags); } }
+        public IList<object> Tags => new List<object>(_tags);
     }
 }

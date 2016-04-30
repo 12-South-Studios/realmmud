@@ -2,7 +2,9 @@
 using System.Linq;
 using Realm.Entity;
 using Realm.Entity.Entities;
-using Realm.Library.Common;
+using Realm.Entity.Entities.Interfaces;
+using Realm.Entity.Interfaces;
+using Realm.Library.Common.Objects;
 using Realm.Pathing.Core;
 using Realm.Pathing.Interfaces;
 

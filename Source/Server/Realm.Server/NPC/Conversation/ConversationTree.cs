@@ -10,11 +10,10 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Realm.Library.Common;
+using Realm.Library.Common.Objects;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Server.NPC
-// ReSharper restore CheckNamespace
+namespace Realm.Server.NPC.Conversation
+
 {
     public class ConversationTree : Cell
     {
@@ -26,9 +25,9 @@ namespace Realm.Server.NPC
             Name = name;
         }
 
-        public IEnumerable<ConversationNode> Nodes { get { return _nodes; } }
+        public IEnumerable<ConversationNode> Nodes => _nodes;
 
-        public int NodeCount { get { return _nodes.Count; } }
+        public int NodeCount => _nodes.Count;
 
         public bool AddNode(long number, int parent, string keywords, string txt, int type)
         {

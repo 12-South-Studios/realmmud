@@ -1,4 +1,5 @@
-﻿using Realm.Entity;
+﻿using Realm.Data;
+using Realm.Entity.Interfaces;
 
 namespace Realm.Command
 {
@@ -9,6 +10,6 @@ namespace Realm.Command
         public int Quantity { get; set; }
         public IGameEntity FoundEntity { get; set; }
         public IGameEntity FoundEntityLocation { get; set; }
-        public Globals.Globals.EntityLocationTypes FoundEntityLocationType { get; set; }
+        public Globals.EntityLocationTypes FoundEntityLocationType { get; set; }
     }
 }

@@ -1,6 +1,6 @@
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+
+namespace Realm.Library.Common.Extensions
+
 {
     /// <summary>
     /// Behavior options for how exceptions can be handled

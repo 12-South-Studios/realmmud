@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Realm.Library.Common;
+using Realm.Library.Common.Events;
 
 namespace Realm.Network.User
 {
@@ -87,10 +88,10 @@ namespace Realm.Network.User
             var errors = new List<string>();
 
             if (username.Length > _maxUsernameLength)
-                errors.Add(string.Format("Usernames cannot be longer than {0} characters.", _maxUsernameLength));
+                errors.Add($"Usernames cannot be longer than {_maxUsernameLength} characters.");
             
             if (username.Length < _minUsernameLength)
-                errors.Add(string.Format("Usernames mmust be at least {0} characters in length.", _minUsernameLength));
+                errors.Add($"Usernames mmust be at least {_minUsernameLength} characters in length.");
             
             return errors;
         }

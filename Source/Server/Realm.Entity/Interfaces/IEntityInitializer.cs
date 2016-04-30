@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Realm.Library.Common;
+using Realm.Library.Common.Events;
 
-namespace Realm.Entity
+namespace Realm.Entity.Interfaces
 {
     /// <summary>
     /// The entity initializer interface defines a contract for an object

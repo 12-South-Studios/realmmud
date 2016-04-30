@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using Realm.Library.Common;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Library.Ai
 {
@@ -16,13 +17,13 @@ namespace Realm.Library.Ai
 
         private int CurrentBucket { get; set; }
 
-        private int NumberBuckets { get; set; }
+        private int NumberBuckets { get; }
 
         public AiAgentContext(ITimer timer, int maxBuckets, int timerInterval)
         {
             Validation.IsNotNull(timer, "timer");
-            Validation.Validate<ArgumentOutOfRangeException>(maxBuckets >= 1 && maxBuckets <= Int32.MaxValue);
-            Validation.Validate<ArgumentOutOfRangeException>(timerInterval >= 50 && timerInterval <= Int32.MaxValue);
+            Validation.Validate<ArgumentOutOfRangeException>(maxBuckets >= 1);
+            Validation.Validate<ArgumentOutOfRangeException>(timerInterval >= 50);
 
             _repository = new AiAgentRepository();
             NumberBuckets = maxBuckets;
@@ -34,7 +35,7 @@ namespace Realm.Library.Ai
             _aiTimer.Elapsed += AiTimerElapsed;
             _aiTimer.Interval = timerInterval;
 
-            Enumerable.Range(1, NumberBuckets).Select(i => _repository.Add(i, new List<IAiAgent>()));
+            Enumerable.Range(1, NumberBuckets).ToList().ForEach(i => _repository.Add(i, new List<IAiAgent>()));
         }
 
         ~AiAgentContext()
@@ -56,7 +57,7 @@ namespace Realm.Library.Ai
 
         public event EventHandler<EventArgs> OnPause;
 
-        public IEnumerable<int> Buckets { get { return _repository.Keys; } }
+        public IEnumerable<int> Buckets => _repository.Keys;
 
         public IList<IAiAgent> GetAgents(int bucket)
         {
@@ -87,7 +88,7 @@ namespace Realm.Library.Ai
 
         public bool IsPaused { get; private set; }
 
-        public bool IsEnabled { get { return _aiTimer.Enabled; } }
+        public bool IsEnabled => _aiTimer.Enabled;
 
         public void Register(IAiAgent agent)
         {

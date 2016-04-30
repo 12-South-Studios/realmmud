@@ -34,7 +34,7 @@ namespace Realm.Library.Database
         /// <summary>
         /// Gets the name of the procedure
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the text of the procedure
@@ -44,22 +44,22 @@ namespace Realm.Library.Database
         /// <summary>
         ///
         /// </summary>
-        public CommandType CommandType { get; private set; }
+        public CommandType CommandType { get; }
 
         /// <summary>
         /// Gets the number of parameters
         /// </summary>
-        public int NumberParameters { get { return _parameters.Count; } }
+        public int NumberParameters => _parameters.Count;
 
         /// <summary>
         /// Gets an enumerable list of parameters
         /// </summary>
-        public IEnumerable<IDataParameter> ParameterList { get { return _parameters.Values; } }
+        public IEnumerable<IDataParameter> ParameterList => _parameters.Values;
 
         /// <summary>
         ///
         /// </summary>
-        public IDictionary<string, IDataParameter> Parameters { get { return _parameters; } }
+        public IDictionary<string, IDataParameter> Parameters => _parameters;
 
         /// <summary>
         /// Adds a parameter to the procedure
@@ -89,7 +89,7 @@ namespace Realm.Library.Database
         /// Converts the procedure to a string
         /// </summary>
         /// <returns></returns>
-        new public string ToString()
+        public new string ToString()
         {
             return string.Format(Resources.MSG_PROC_TOSTRING, GetType(), Name, NumberParameters);
         }

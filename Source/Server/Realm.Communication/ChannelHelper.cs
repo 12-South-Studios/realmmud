@@ -1,6 +1,6 @@
 ﻿using Realm.Data;
-using Realm.Entity;
-using Realm.Library.Common;
+using Realm.Data.Interfaces;
+using Realm.Entity.Interfaces;
 using Realm.Library.Common.Data;
 using Realm.Library.Common.Logging;
 using Realm.Library.Database.Framework;

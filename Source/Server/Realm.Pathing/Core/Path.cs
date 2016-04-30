@@ -29,7 +29,7 @@ namespace Realm.Pathing.Core
             return _nodes.FirstOrDefault(node => node.Destination == Space);
         }
 
-        public IEnumerable<PathNode> PathNodes { get { return _nodes; } }
+        public IEnumerable<PathNode> PathNodes => _nodes;
 
         //public bool BuildPath(Objects.Biota oMob, Objects.Space oDestination, Dijkstra.Table table)
         //{

@@ -1,8 +1,8 @@
 ﻿using System;
 using Realm.Command.Interfaces;
 using Realm.Communication;
-using Realm.Entity.Entities;
-using Realm.Library.Common;
+using Realm.Entity.Entities.Interfaces;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Command.Parsers
 {

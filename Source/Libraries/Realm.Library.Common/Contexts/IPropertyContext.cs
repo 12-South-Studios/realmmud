@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Common.Contexts
+
 {
     /// <summary>
     /// Declares the contract for an object that can handle properties

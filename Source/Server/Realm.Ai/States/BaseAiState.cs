@@ -1,5 +1,5 @@
 ﻿using Realm.Command.Interfaces;
-using Realm.Entity;
+using Realm.Entity.Interfaces;
 using Realm.Library.Ai;
 using Realm.Library.Common.Data;
 using Realm.Library.Common.Logging;

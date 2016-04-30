@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Realm.Data;
 using Realm.Data.Definitions;
 using Realm.Data.Interfaces;
 
@@ -12,7 +10,7 @@ namespace Realm.Help
         public void Load(IStaticDataManager staticDataManager, IHelpRepository helpRepository)
         {
             Dictionary<string, Definition> helps =
-                staticDataManager.GetStaticData(Globals.Globals.SystemTypes.HelpLookup);
+                staticDataManager.GetStaticData(Globals.SystemTypes.HelpLookup);
             
             // TODO Do something here
         }

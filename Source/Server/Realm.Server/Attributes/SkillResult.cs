@@ -1,4 +1,6 @@
-﻿namespace Realm.Server.Attributes
+﻿using Realm.Data;
+
+namespace Realm.Server.Attributes
 {
     /// <summary>
     /// 
@@ -13,6 +15,6 @@
         /// <summary>
         /// 
         /// </summary>
-        public Globals.Globals.SkillTestResultTypes Result { get; set; }
+        public Globals.SkillTestResultTypes Result { get; set; }
     }
 }

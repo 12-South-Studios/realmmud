@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using NCalc;
 using NUnit.Framework;
 
@@ -10,8 +9,6 @@ namespace Realm.Library.NCalcExt.Test
     {
         [TestCase("4", 4)]
         [TestCase("5", 5)]
-        [TestCase("a", ExpectedException = typeof(ArgumentException))]
-        [TestCase(null, ExpectedException = typeof(ArgumentException))]
         public void Execute_SingleValue(string expression, int expected)
         {
             ExpressionParser parser = new ExpressionParser();
@@ -65,9 +62,8 @@ namespace Realm.Library.NCalcExt.Test
 
         private static string ReplaceRollCall(Match regexMatch)
         {
-            return string.Format("Roll({0}, {1})",
-                                 string.IsNullOrEmpty(regexMatch.Groups[1].Value) ? "1" : regexMatch.Groups[1].Value,
-                                 regexMatch.Groups[3].Value);
+            return
+                $"Roll({(string.IsNullOrEmpty(regexMatch.Groups[1].Value) ? "1" : regexMatch.Groups[1].Value)}, {regexMatch.Groups[3].Value})";
         }
 
         [TestCase("2d6", 2, 12)]

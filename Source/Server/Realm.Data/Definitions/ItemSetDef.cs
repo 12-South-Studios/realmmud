@@ -16,18 +16,12 @@ namespace Realm.Data.Definitions
         {
         }
 
-        public string DisplayName { get { return Def.GetString("DisplayName"); } }
+        public string DisplayName => Def.GetString("DisplayName");
 
-        public string DisplayDescription { get { return Def.GetString("DisplayDescription"); } }
+        public string DisplayDescription => Def.GetString("DisplayDescription");
 
-        public IEnumerable<Atom> Bonuses
-        {
-            get { return Def.GetAtom<ListAtom>("Bonuses"); }
-        }
+        public IEnumerable<Atom> Bonuses => Def.GetAtom<ListAtom>("Bonuses");
 
-        public IEnumerable<Atom> Items
-        {
-            get { return Def.GetAtom<ListAtom>("Items"); }
-        }
+        public IEnumerable<Atom> Items => Def.GetAtom<ListAtom>("Items");
     }
 }

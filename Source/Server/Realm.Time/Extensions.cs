@@ -1,5 +1,7 @@
 ﻿using System;
-using Realm.Library.Common;
+using Realm.Data;
+using Realm.Library.Common.Exceptions;
+using Realm.Library.Common.Extensions;
 using Realm.Live.DAL;
 using Realm.Time.Interfaces;
 
@@ -7,7 +9,7 @@ namespace Realm.Time
 {
     public static class Extensions
     {
-        public static Globals.Globals.SeasonTypes GetSeason(this ITimeManager manager)
+        public static Globals.SeasonTypes GetSeason(this ITimeManager manager)
         {
             return manager.CurrentGameState.Month.Season;
         }

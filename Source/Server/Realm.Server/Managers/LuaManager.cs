@@ -4,7 +4,11 @@ using Ninject;
 using Realm.Event;
 using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Events;
+using Realm.Library.Common.Exceptions;
+using Realm.Library.Common.Extensions;
 using Realm.Library.Common.Logging;
+using Realm.Library.Common.Objects;
 using Realm.Library.Lua;
 using Realm.Server.Properties;
 
@@ -34,7 +38,7 @@ namespace Realm.Server.Managers
             Validation.IsNotNull(initAtom, "initAtom");
 
             _numberVMs = initAtom.GetInt("NumberLuaVMs");
-            Validation.Validate<ArgumentOutOfRangeException>(_numberVMs >= 1 && _numberVMs <= Int32.MaxValue);
+            Validation.Validate<ArgumentOutOfRangeException>(_numberVMs >= 1);
 
             _dataPath = initAtom.GetString("DataPath");
 
@@ -83,7 +87,7 @@ namespace Realm.Server.Managers
         /// 
         /// </summary>
         /// <param name="aObject"></param>
-        public void RegisterLuaFunctions(Object aObject)
+        public void RegisterLuaFunctions(object aObject)
         {
             Log.Info("Registering LuaFunctions for " + aObject);
 

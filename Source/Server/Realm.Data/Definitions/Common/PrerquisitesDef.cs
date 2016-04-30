@@ -1,9 +1,8 @@
-﻿using Realm.Library.Common;
-using Realm.Library.Common.Data;
+﻿using Realm.Library.Common.Data;
+using Realm.Library.Common.Extensions;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Data.Definitions
-// ReSharper restore CheckNamespace
+namespace Realm.Data.Definitions.Common
+
 {
     public class PrerquisitesDef : SubDefinition
     {
@@ -12,23 +11,20 @@ namespace Realm.Data.Definitions
         {
         }
 
-        public int MinLevel { get { return Def.GetInt("MinLevel"); } }
+        public int MinLevel => Def.GetInt("MinLevel");
 
-        public int RaceID { get { return Def.GetInt("RaceID"); } }
+        public int RaceID => Def.GetInt("RaceID");
 
-        public int FactionID { get { return Def.GetInt("FactionID"); } }
+        public int FactionID => Def.GetInt("FactionID");
 
-        public int FactionLevel { get { return Def.GetInt("FactionLevel"); } }
+        public int FactionLevel => Def.GetInt("FactionLevel");
 
-        public Globals.Globals.Statistics Statistic
-        {
-            get { return EnumerationExtensions.GetEnum<Globals.Globals.Statistics>(Def.GetInt("StatisticID")); }
-        }
+        public Globals.Statistics Statistic => EnumerationExtensions.GetEnum<Globals.Statistics>(Def.GetInt("StatisticID"));
 
-        public int StatisticValue { get { return Def.GetInt("StatisticValue"); } }
+        public int StatisticValue => Def.GetInt("StatisticValue");
 
-        public int SkillID { get { return Def.GetInt("SkillID"); } }
+        public int SkillID => Def.GetInt("SkillID");
 
-        public int SkillValue { get { return Def.GetInt("SkillValue"); } }
+        public int SkillValue => Def.GetInt("SkillValue");
     }
 }

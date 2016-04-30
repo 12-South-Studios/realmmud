@@ -1,5 +1,6 @@
-﻿using Realm.Library.Common;
-using Realm.Library.Common.Data;
+﻿using Realm.Library.Common.Data;
+using Realm.Library.Common.Extensions;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Data.Definitions
 {
@@ -16,35 +17,25 @@ namespace Realm.Data.Definitions
         {
         }
 
-        public string DisplayName { get { return Def.GetString("DisplayName"); } }
+        public string DisplayName => Def.GetString("DisplayName");
 
-        public string DisplayDescription { get { return Def.GetString("DisplayDescription"); } }
+        public string DisplayDescription => Def.GetString("DisplayDescription");
 
-        public SkillCategoryDef SkillCategory
-        {
-            get
-            {
-                return
-                    (SkillCategoryDef)
-                    StaticDataManager.GetStaticData(Globals.Globals.SystemTypes.SkillCategory,
-                                                             Def.GetString("SkillCategoryID"));
-            }
-        }
+        public SkillCategoryDef SkillCategory => (SkillCategoryDef)
+            StaticDataManager.GetStaticData(Globals.SystemTypes.SkillCategory,
+                Def.GetString("SkillCategoryID"));
 
-        public Globals.Globals.Statistics Statistic
-        {
-            get { return EnumerationExtensions.GetEnum<Globals.Globals.Statistics>(Def.GetInt("StatisticID")); }
-        }
+        public Globals.Statistics Statistic => EnumerationExtensions.GetEnum<Globals.Statistics>(Def.GetInt("StatisticID"));
 
-        public int MaxValue { get { return Def.GetInt("MaxValue"); } }
+        public int MaxValue => Def.GetInt("MaxValue");
 
-        public bool IsMasterable { get { return Def.GetBool("IsMasterable"); } }
+        public bool IsMasterable => Def.GetBool("IsMasterable");
 
         public SkillDef ParentSkill
         {
             get
             {
-                var def = StaticDataManager.GetStaticData(Globals.Globals.SystemTypes.Skill,
+                var def = StaticDataManager.GetStaticData(Globals.SystemTypes.Skill,
                                                                    Def.GetString("ParentSkillID"));
                 return def.IsNull() ? null : (SkillDef)def;
             }

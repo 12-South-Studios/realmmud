@@ -1,11 +1,10 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Realm.Library.Common;
+using Realm.Library.Common.Objects;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Controls
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Controls.DataGridViewControls
+
 {
     /// <summary>
     /// Defines the editing control for the DataGridViewNumericUpDownCell custom cell type.
@@ -89,25 +88,13 @@ namespace Realm.Library.Controls
         /// Property which determines which cursor must be used for the editing panel,
         /// i.e. the parent of the editing control.
         /// </summary>
-        public virtual Cursor EditingPanelCursor
-        {
-            get
-            {
-                return Cursors.Default;
-            }
-        }
+        public virtual Cursor EditingPanelCursor => Cursors.Default;
 
         /// <summary>
         /// Property which indicates whether the editing control needs to be repositioned
         /// when its value changes.
         /// </summary>
-        public virtual bool RepositionEditingControlOnValueChange
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public virtual bool RepositionEditingControlOnValueChange => false;
 
         /// <summary>
         /// Method called by the grid before the editing control is shown so it can adapt to the

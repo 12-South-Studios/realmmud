@@ -14,7 +14,7 @@ namespace Realm.Library.SmallDb.Test
     {
         private class FakeObject
         {
-            public static string Name { get { return "Fake"; } }
+            public static string Name => "Fake";
         }  
 
         [Test]

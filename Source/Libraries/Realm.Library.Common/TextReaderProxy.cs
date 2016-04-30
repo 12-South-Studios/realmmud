@@ -36,10 +36,7 @@ namespace Realm.Library.Common
             return _reader.ReadToEnd();
         }
 
-        public virtual bool EndOfStream
-        {
-            get { return _reader.Peek() == -1; }
-        }
+        public virtual bool EndOfStream => _reader.Peek() == -1;
 
         public virtual char ReadNextLetter()
         {

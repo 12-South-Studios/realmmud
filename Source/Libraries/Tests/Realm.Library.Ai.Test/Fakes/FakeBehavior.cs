@@ -1,8 +1,7 @@
-﻿using Realm.Library.Common;
+﻿using Realm.Library.Common.Contexts;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Ai.Test
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Ai.Test.Fakes
+
 {
     public class FakeBehavior : IBehavior
     {

@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Realm.Library.Common.Extensions;
+using Realm.Library.Common.Objects;
 using Realm.Library.Common.Properties;
 
 namespace Realm.Library.Common
@@ -28,8 +30,8 @@ namespace Realm.Library.Common
         /// <param name="type"></param>
         public static void IsInstanceOfType(object obj, Type type)
         {
-            if (obj.IsNull()) throw new ArgumentNullException("obj", Resources.ERR_NULL_PARAMETER);
-            if (type.IsNull()) throw new ArgumentNullException("type", Resources.ERR_NULL_PARAMETER);
+            if (obj.IsNull()) throw new ArgumentNullException(nameof(obj), Resources.ERR_NULL_PARAMETER);
+            if (type.IsNull()) throw new ArgumentNullException(nameof(type), Resources.ERR_NULL_PARAMETER);
             if (obj.GetType() != type && !obj.GetType().IsSubclassOf(type))
                 throw new ArgumentException(string.Format(Resources.ERR_INVALID_TYPE, type));
         }

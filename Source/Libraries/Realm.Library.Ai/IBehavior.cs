@@ -1,8 +1,8 @@
-﻿using Realm.Library.Common;
+﻿using Realm.Library.Common.Contexts;
 
-// ReSharper disable CheckNamespace
+
 namespace Realm.Library.Ai
-// ReSharper restore CheckNamespace
+
 {
     /// <summary>
     /// Declares the contract for a behavior

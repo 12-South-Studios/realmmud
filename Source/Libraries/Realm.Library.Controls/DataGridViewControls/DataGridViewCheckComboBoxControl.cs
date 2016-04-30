@@ -2,11 +2,10 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
-using Realm.Library.Common;
+using Realm.Library.Common.Objects;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Controls
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Controls.DataGridViewControls
+
 {
     /// <summary>
     ///

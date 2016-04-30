@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Diagnostics;
 using log4net;
+using Realm.Library.Common.Extensions;
 using Realm.Library.Common.Logging;
 using Realm.Library.Common.Properties;
 
 #pragma warning disable 1591
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+
+namespace Realm.Library.Common.Exceptions
+
 {
     /// <summary>
     /// Class that handles extension functions to Exception objects
@@ -74,7 +75,7 @@ namespace Realm.Library.Common
             if (method == null || method.DeclaringType == null)
                 return string.Empty;
 
-            return string.Format("{0}:{1}", method.DeclaringType.FullName, method.Name);
+            return $"{method.DeclaringType.FullName}:{method.Name}";
         }
     }
 }

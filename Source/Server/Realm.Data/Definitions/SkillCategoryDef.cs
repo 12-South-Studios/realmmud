@@ -1,5 +1,5 @@
-﻿using Realm.Library.Common;
-using Realm.Library.Common.Data;
+﻿using Realm.Library.Common.Data;
+using Realm.Library.Common.Extensions;
 
 namespace Realm.Data.Definitions
 {
@@ -16,11 +16,8 @@ namespace Realm.Data.Definitions
         {
         }
 
-        public string DisplayName { get { return Def.GetString("DisplayName"); } }
+        public string DisplayName => Def.GetString("DisplayName");
 
-        public Globals.Globals.Statistics Statistic
-        {
-            get { return EnumerationExtensions.GetEnum<Globals.Globals.Statistics>(Def.GetInt("StatisticID")); }
-        }
+        public Globals.Statistics Statistic => EnumerationExtensions.GetEnum<Globals.Statistics>(Def.GetInt("StatisticID"));
     }
 }

@@ -11,7 +11,7 @@ namespace Realm.Edit.Extensions
         public static TreeNode FindTreeNode(this TreeView value, EditorBrowseInfo browseInfo)
         {
             if (value == null)
-                throw new ArgumentNullException("value", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(value), Resources.NullParameterErrorMessage);
 
             return FindTreeNodeImpl(value.Nodes, browseInfo);
         }

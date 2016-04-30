@@ -5,12 +5,14 @@ using System.Linq;
 using System.Management.Instrumentation;
 using System.Timers;
 using Ninject;
+using Realm.Library.Common.Exceptions;
+using Realm.Library.Common.Extensions;
 using Realm.Library.Common.Logging;
+using Realm.Library.Common.Objects;
 using Realm.Library.Common.Properties;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Common.Events
+
 {
     /// <summary>
     ///

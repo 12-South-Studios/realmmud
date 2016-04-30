@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Extensions;
 
 namespace Realm.Data.Definitions
 {
@@ -18,39 +18,18 @@ namespace Realm.Data.Definitions
         {
         }
 
-        public Globals.Globals.LogActionTypes LogAction
-        {
-            get { return EnumerationExtensions.GetEnum<Globals.Globals.LogActionTypes>(Def.GetInt("LogActionTypeID")); }
-        }
+        public Globals.LogActionTypes LogAction => EnumerationExtensions.GetEnum<Globals.LogActionTypes>(Def.GetInt("LogActionTypeID"));
 
-        public int TagSetID
-        {
-            get { return Def.GetInt("TagSetID"); }
-        }
+        public int TagSetID => Def.GetInt("TagSetID");
 
-        public bool AdminOnly
-        {
-            get { return Globals.Globals.GameCommandBits.AdminOnly.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool AdminOnly => Globals.GameCommandBits.AdminOnly.HasBit(Def.GetInt("Bits"));
 
-        public bool WizardOnly
-        {
-            get { return Globals.Globals.GameCommandBits.WizardOnly.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool WizardOnly => Globals.GameCommandBits.WizardOnly.HasBit(Def.GetInt("Bits"));
 
-        public IEnumerable<string> Keywords
-        {
-            get { return Def.GetString("Keywords").Split(':').ToList(); }
-        }
+        public IEnumerable<string> Keywords => Def.GetString("Keywords").Split(':').ToList();
 
-        public IEnumerable<Atom> Positions
-        {
-            get { return Def.GetAtom<ListAtom>("Positions"); }
-        }
+        public IEnumerable<Atom> Positions => Def.GetAtom<ListAtom>("Positions");
 
-        public IEnumerable<Atom> UserStates
-        {
-            get { return Def.GetAtom<ListAtom>("UserStates"); }
-        }
+        public IEnumerable<Atom> UserStates => Def.GetAtom<ListAtom>("UserStates");
     }
 }

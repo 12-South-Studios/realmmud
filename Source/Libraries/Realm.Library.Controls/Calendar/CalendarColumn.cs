@@ -1,10 +1,9 @@
 using System;
 using System.Windows.Forms;
-using Realm.Library.Common;
+using Realm.Library.Common.Objects;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Controls
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Controls.Calendar
+
 {
     /// <summary>
     ///

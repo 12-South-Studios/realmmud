@@ -1,5 +1,9 @@
 ﻿using System;
 using NUnit.Framework;
+using Realm.Library.Common.Attributes;
+using Realm.Library.Common.Contexts;
+using Realm.Library.Common.Objects;
+
 namespace Realm.Library.Common.Test
 {
     [TestFixture]

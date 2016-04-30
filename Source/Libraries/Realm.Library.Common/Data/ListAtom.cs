@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Realm.Library.Common.Logging;
+using Realm.Library.Common.Objects;
 using Realm.Library.Common.Properties;
 
 namespace Realm.Library.Common.Data
@@ -61,7 +62,7 @@ namespace Realm.Library.Common.Data
         /// <summary>
         /// Gets the number of objects in the list
         /// </summary>
-        public int Count { get { return _list.Count; } }
+        public int Count => _list.Count;
 
         #region Get Functions
 
@@ -83,7 +84,7 @@ namespace Realm.Library.Common.Data
         public string GetString(int i)
         {
             var atom = Get(i);
-            return (atom is StringAtom) ? (atom as StringAtom).Value : string.Empty;
+            return atom is StringAtom ? (atom as StringAtom).Value : string.Empty;
         }
 
         /// <summary>
@@ -94,7 +95,7 @@ namespace Realm.Library.Common.Data
         public int GetInt(int i)
         {
             var atom = Get(i);
-            return (atom is IntAtom) ? (atom as IntAtom).Value : 0;
+            return atom is IntAtom ? (atom as IntAtom).Value : 0;
         }
 
         /// <summary>
@@ -105,7 +106,7 @@ namespace Realm.Library.Common.Data
         public object GetObject(int i)
         {
             var atom = Get(i);
-            return (atom is ObjectAtom) ? (atom as ObjectAtom).Value : null;
+            return atom is ObjectAtom ? (atom as ObjectAtom).Value : null;
         }
 
         /// <summary>
@@ -116,7 +117,7 @@ namespace Realm.Library.Common.Data
         public ListAtom GetList(int i)
         {
             var atom = Get(i);
-            return (atom is ListAtom) ? atom as ListAtom : null;
+            return atom is ListAtom ? atom as ListAtom : null;
         }
 
         /// <summary>
@@ -127,7 +128,7 @@ namespace Realm.Library.Common.Data
         public DictionaryAtom GetDictionary(int i)
         {
             var atom = Get(i);
-            return (atom is DictionaryAtom) ? atom as DictionaryAtom : null;
+            return atom is DictionaryAtom ? atom as DictionaryAtom : null;
         }
 
         /// <summary>
@@ -138,7 +139,7 @@ namespace Realm.Library.Common.Data
         public bool GetBool(int i)
         {
             var atom = Get(i);
-            return (atom is BoolAtom) && (atom as BoolAtom).Value;
+            return atom is BoolAtom && (atom as BoolAtom).Value;
         }
 
         /// <summary>
@@ -149,7 +150,7 @@ namespace Realm.Library.Common.Data
         public double GetReal(int i)
         {
             var atom = Get(i);
-            return (atom is RealAtom) ? (atom as RealAtom).Value : 0.0f;
+            return atom is RealAtom ? (atom as RealAtom).Value : 0.0f;
         }
 
         #endregion Get Functions
@@ -269,7 +270,7 @@ namespace Realm.Library.Common.Data
             Enumerable.Range(1, Count).ToList().ForEach(i =>
                 {
                     var atom = Get(i - 1);
-                    atom.Dump(log, string.Format("{0}.{1}", prefix, i - 1));
+                    atom.Dump(log, $"{prefix}.{i - 1}");
                 });
         }
     }

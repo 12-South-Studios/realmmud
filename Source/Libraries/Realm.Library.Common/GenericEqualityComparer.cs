@@ -10,7 +10,7 @@ namespace Realm.Library.Common
         public GenericEqualityComparer(Func<T, T, bool> comparer)
         {
             if (comparer == null)
-                throw new ArgumentNullException("comparer");
+                throw new ArgumentNullException(nameof(comparer));
 
             _comparer = comparer;
         }

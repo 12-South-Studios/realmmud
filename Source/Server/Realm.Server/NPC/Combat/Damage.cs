@@ -7,21 +7,23 @@
 //
 // </summary>
 // ------------------------------------------------------------------------
-// ReSharper disable CheckNamespace
-namespace Realm.Server.NPC
-// ReSharper restore CheckNamespace
+
+using Realm.Data;
+
+namespace Realm.Server.NPC.Combat
+
 {
     public class Damage
     {
         public Damage()
         {
             DamageAmount = 0;
-            DamageType = Globals.Globals.DamageTypes.Crush;
-            DamageLocation = Globals.Globals.WearLocations.none;
+            DamageType = Globals.DamageTypes.Crush;
+            DamageLocation = Globals.WearLocations.none;
         }
 
-        public Globals.Globals.DamageTypes DamageType { get; set; }
+        public Globals.DamageTypes DamageType { get; set; }
         public int DamageAmount { get; set; }
-        public Globals.Globals.WearLocations DamageLocation { get; set; }
+        public Globals.WearLocations DamageLocation { get; set; }
     }
 }

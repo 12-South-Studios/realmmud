@@ -1,8 +1,11 @@
 ﻿using Ninject;
 using Realm.Entity.Entities;
+using Realm.Entity.Interfaces;
 using Realm.Library.Common;
 using Realm.Library.Common.Collections;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Entities;
+using Realm.Library.Common.Events;
 
 namespace Realm.Entity
 {

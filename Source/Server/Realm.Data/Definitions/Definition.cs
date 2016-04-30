@@ -3,6 +3,8 @@ using Ninject;
 using Realm.Data.Interfaces;
 using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Entities;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Data.Definitions
 {

@@ -2,7 +2,7 @@
 
 namespace Realm.DAL.Common.Attributes
 {
-    [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Field)]
     public sealed class ColorAttribute : Attribute
     {
         public ColorAttribute(int id)

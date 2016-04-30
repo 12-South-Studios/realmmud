@@ -1,9 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Realm.Entity.Contexts;
+using Realm.Entity.Interfaces;
 using Realm.Library.Common;
+using Realm.Library.Common.Contexts;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Entity
 {
@@ -20,12 +22,12 @@ namespace Realm.Entity
         {
             var type = entity.GetType();
             var outputList = type.GetFields().Select(t => t.GetValue(entity).IsNull()
-                ? String.Format(" {0}", t.Name)
-                : String.Format(" {0}: {1}", t.Name, t.GetValue(entity))).ToList();
+                ? $" {t.Name}"
+                : $" {t.Name}: {t.GetValue(entity)}").ToList();
 
             outputList.AddRange(type.GetProperties().Select(t => t.GetValue(entity, null).IsNull()
-                ? String.Format(" {0}", t.Name)
-                : String.Format(" {0}: {1}", t.Name, t.GetValue(entity, null))));
+                ? $" {t.Name}"
+                : $" {t.Name}: {t.GetValue(entity, null)}"));
 
             return outputList;
         }

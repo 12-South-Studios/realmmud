@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Realm.Ai.States;
-using Realm.Library.Common;
+using Realm.Library.Common.Entities;
 
 namespace Realm.Ai
 {

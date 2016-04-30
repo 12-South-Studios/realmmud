@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using Realm.Library.Ai.Test.Fakes;
 
 namespace Realm.Library.Ai.Test
 {

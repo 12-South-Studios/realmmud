@@ -22,10 +22,7 @@ namespace Realm.Library.Controls
         /// <summary>
         /// A list containing all keywords.
         /// </summary>
-        public ICollection<string> Keywords
-        {
-            get { return _rgKeywords.RgList; }
-        }
+        public ICollection<string> Keywords => _rgKeywords.RgList;
 
         /// <summary>
         /// The color of keywords.

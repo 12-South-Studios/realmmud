@@ -5,11 +5,18 @@ using System.Text;
 using Realm.Command.Interfaces;
 using Realm.Command.Parsers;
 using Realm.Command.Properties;
+using Realm.Data;
 using Realm.Data.Definitions;
 using Realm.Entity;
 using Realm.Entity.Entities;
+using Realm.Entity.Entities.Interfaces;
+using Realm.Entity.Interfaces;
 using Realm.Library.Common;
+using Realm.Library.Common.Entities;
+using Realm.Library.Common.Exceptions;
+using Realm.Library.Common.Extensions;
 using Realm.Library.Common.Logging;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Command
 {
@@ -28,12 +35,12 @@ namespace Realm.Command
 
         private delegate void SendMessageScope(StringBuilder sb, ReportData data);
 
-        private readonly Dictionary<Globals.Globals.MessageScopeTypes, SendMessageScope> _messageScopeTable = new Dictionary<Globals.Globals.MessageScopeTypes, SendMessageScope>()
+        private readonly Dictionary<Globals.MessageScopeTypes, SendMessageScope> _messageScopeTable = new Dictionary<Globals.MessageScopeTypes, SendMessageScope>()
             {
-                { Globals.Globals.MessageScopeTypes.Character, SendMessageScopeCharacter },
-                { Globals.Globals.MessageScopeTypes.Space, SendMessageScopeSpace },
-                { Globals.Globals.MessageScopeTypes.SpaceLimited, SendMessageScopeSpaceLimited },
-                { Globals.Globals.MessageScopeTypes.Victim, SendMessageScopeVictim }
+                { Globals.MessageScopeTypes.Character, SendMessageScopeCharacter },
+                { Globals.MessageScopeTypes.Space, SendMessageScopeSpace },
+                { Globals.MessageScopeTypes.SpaceLimited, SendMessageScopeSpaceLimited },
+                { Globals.MessageScopeTypes.Victim, SendMessageScopeVictim }
             };
 
         public bool Execute(IGameEntity entity, string command)
@@ -82,7 +89,7 @@ namespace Realm.Command
                 return true;
             }
 
-            Report(Globals.Globals.MessageScopeTypes.Character, Resources.MSG_NOT_UNDERSTAND, entity);
+            Report(Globals.MessageScopeTypes.Character, Resources.MSG_NOT_UNDERSTAND, entity);
             return false;
         }
 
@@ -94,7 +101,7 @@ namespace Realm.Command
             if (commandDef.AdminOnly && !CommandManager.AdminFlagCheckAndNotify(entity, entity.GetFlagContext()))
                 return false;
 
-            if (commandDef.LogAction == Globals.Globals.LogActionTypes.Always)
+            if (commandDef.LogAction == Globals.LogActionTypes.Always)
                 Logger.InfoFormat("Entity[{0}, {1}] executed Action[{2}, {3}]", entity.ID, entity.Name,
                                   commandDef.ID, commandDef.Name);
 
@@ -106,7 +113,7 @@ namespace Realm.Command
         /// Submits the given string to a filtered list of users (determined by scope)
         /// and after parsing any variables contained within the string.
         /// </summary>
-        public void Report(Globals.Globals.MessageScopeTypes scope, string message, IEntity oActor,
+        public void Report(Globals.MessageScopeTypes scope, string message, IEntity oActor,
             IEntity oVictim = null, object oDirectObject = null, object oIndirectObject = null,
             IGameEntity oSpace = null, object oExtra = null)
         {
@@ -121,7 +128,7 @@ namespace Realm.Command
         /// Submits the given string to a filtered list of users (determined by scope)
         /// and after parsing any variables contained within the string.
         /// </summary>
-        public void Report(Globals.Globals.MessageScopeTypes scope, string message, ReportData data)
+        public void Report(Globals.MessageScopeTypes scope, string message, ReportData data)
         {
             Validation.IsNotNullOrEmpty(message, "message");
             Validation.IsNotNull(data, "data");

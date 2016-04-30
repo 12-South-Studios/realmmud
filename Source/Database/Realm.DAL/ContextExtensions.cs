@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using Ninject.Infrastructure.Language;
 using Realm.DAL.Enumerations;
-using Realm.DAL.Models;
 
 namespace Realm.DAL
 {

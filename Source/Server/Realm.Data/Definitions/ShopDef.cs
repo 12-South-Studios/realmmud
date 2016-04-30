@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Extensions;
 
 namespace Realm.Data.Definitions
 {
@@ -20,31 +20,16 @@ namespace Realm.Data.Definitions
         {
         }
 
-        public int BuyMarkup
-        {
-            get { return Def.GetInt("BuyMarkup"); }
-        }
+        public int BuyMarkup => Def.GetInt("BuyMarkup");
 
-        public int SellMarkup
-        {
-            get { return Def.GetInt("SellMarkup"); }
-        }
+        public int SellMarkup => Def.GetInt("SellMarkup");
 
-        public Globals.Globals.ShopTypes ShopType
-        {
-            get { return EnumerationExtensions.GetEnum<Globals.Globals.ShopTypes>(Def.GetInt("ShopTypeID")); }
-        }
+        public Globals.ShopTypes ShopType => EnumerationExtensions.GetEnum<Globals.ShopTypes>(Def.GetInt("ShopTypeID"));
 
-        public int Bits { get { return Def.GetInt("Bits"); } }
+        public int Bits => Def.GetInt("Bits");
 
-        public IEnumerable<Atom> BuyTypes
-        {
-            get { return Def.GetAtom<ListAtom>("BuyTypes"); }
-        }
+        public IEnumerable<Atom> BuyTypes => Def.GetAtom<ListAtom>("BuyTypes");
 
-        public IEnumerable<Atom> Primitives
-        {
-            get { return Def.GetAtom<ListAtom>("Primitives"); }
-        }
+        public IEnumerable<Atom> Primitives => Def.GetAtom<ListAtom>("Primitives");
     }
 }

@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Common.Extensions
+
 {
     /// <summary>
     /// Extension class for String objects
@@ -253,8 +252,8 @@ namespace Realm.Library.Common
         public static bool IsAlphaNum(this string str)
         {
             return !string.IsNullOrEmpty(str)
-                && (str.ToCharArray().All(c => Char.IsLetter(c)
-                    || Char.IsNumber(c)));
+                && str.ToCharArray().All(c => Char.IsLetter(c)
+                                              || Char.IsNumber(c));
         }
 
         /// <summary>

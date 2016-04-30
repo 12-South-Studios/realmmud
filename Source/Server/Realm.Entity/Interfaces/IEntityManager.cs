@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Entities;
 
-namespace Realm.Entity
+namespace Realm.Entity.Interfaces
 {
     /// <summary>
     ///

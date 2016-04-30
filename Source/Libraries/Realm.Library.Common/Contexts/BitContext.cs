@@ -1,8 +1,9 @@
 ﻿using System;
+using Realm.Library.Common.Entities;
+using Realm.Library.Common.Extensions;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Common.Contexts
+
 {
     /// <summary>
     ///
@@ -80,10 +81,7 @@ namespace Realm.Library.Common
         /// <summary>
         ///
         /// </summary>
-        public int GetBits
-        {
-            get { return _bits; }
-        }
+        public int GetBits => _bits;
 
         /// <summary>
         ///

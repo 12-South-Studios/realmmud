@@ -2,6 +2,7 @@
 using Realm.Command.Parsers;
 using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Events;
 
 namespace Realm.Command
 {

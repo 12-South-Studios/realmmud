@@ -5,9 +5,9 @@ using Realm.Data.Definitions;
 using Realm.Library.Common;
 using Realm.Library.Common.Exceptions;
 
-// ReSharper disable CheckNamespace
+
 namespace Realm.Server.Players
-// ReSharper restore CheckNamespace
+
 {
     /// <summary>
     /// Login Player command

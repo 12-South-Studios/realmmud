@@ -1,7 +1,7 @@
 ﻿using System;
 using Realm.Data.Definitions;
-using Realm.Entity;
-using Realm.Library.Common;
+using Realm.Entity.Interfaces;
+using Realm.Library.Common.Contexts;
 using Realm.Library.Common.Data;
 
 namespace Realm.Command.Test.Fakes

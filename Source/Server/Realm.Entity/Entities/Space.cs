@@ -3,8 +3,10 @@ using System.IO;
 using System.Linq;
 using Realm.Data.Definitions;
 using Realm.Entity.Events;
-using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Events;
+using Realm.Library.Common.Exceptions;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Entity.Entities
 {
@@ -31,7 +33,7 @@ namespace Realm.Entity.Entities
         /// <summary>
         ///
         /// </summary>
-        public SpaceDef SpaceDef { get { return Definition.CastAs<SpaceDef>(); } }
+        public SpaceDef SpaceDef => Definition.CastAs<SpaceDef>();
 
         /// <summary>
         ///
@@ -68,7 +70,7 @@ namespace Realm.Entity.Entities
             LoadPortals();
             LoadBarriers();
 
-            _loadingSet.CompleteItem(string.Format("Space{0}", ID));
+            _loadingSet.CompleteItem($"Space{ID}");
         }
 
         private void LoadPortals()
@@ -84,11 +86,7 @@ namespace Realm.Entity.Entities
         {
             Portals.Where(x => x.Barrier.IsNotNull()).ToList().ForEach(portal =>
                 {
-                    var obj = EntityManager.Create<Barrier>(new object[]
-                        {
-                            portal.Barrier.ID, portal.Barrier.DisplayName,
-                            portal.Barrier
-                        });
+                    var obj = EntityManager.Create<Barrier>(portal.Barrier.ID, portal.Barrier.DisplayName, portal.Barrier);
                     if (obj.IsNull())
                         throw new InstantiationException("Barrier {0} could not be instantiated.", portal.Barrier.ID);
 

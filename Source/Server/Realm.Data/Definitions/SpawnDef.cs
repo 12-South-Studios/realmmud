@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Extensions;
 
 namespace Realm.Data.Definitions
 {
@@ -20,23 +20,20 @@ namespace Realm.Data.Definitions
         {
         }
 
-        public int MinQuantity { get { return Def.GetInt("MinQuantity"); } }
+        public int MinQuantity => Def.GetInt("MinQuantity");
 
-        public int MaxQuantity { get { return Def.GetInt("MaxQuantity"); } }
+        public int MaxQuantity => Def.GetInt("MaxQuantity");
 
-        public int Chance { get { return Def.GetInt("Chance"); } }
+        public int Chance => Def.GetInt("Chance");
 
-        public int RespawnPeriod { get { return Def.GetInt("RespawnPeriod"); } }
+        public int RespawnPeriod => Def.GetInt("RespawnPeriod");
 
-        public Globals.Globals.SpawnTypes SpawnType
-        {
-            get { return EnumerationExtensions.GetEnum<Globals.Globals.SpawnTypes>(Def.GetInt("SpawnTypeID")); }
-        }
+        public Globals.SpawnTypes SpawnType => EnumerationExtensions.GetEnum<Globals.SpawnTypes>(Def.GetInt("SpawnTypeID"));
 
-        public int TagSetID { get { return Def.GetInt("TagSetID"); } }
+        public int TagSetID => Def.GetInt("TagSetID");
 
-        public IEnumerable<Atom> Locations { get { return Def.GetAtom<ListAtom>("Locations"); } }
+        public IEnumerable<Atom> Locations => Def.GetAtom<ListAtom>("Locations");
 
-        public IEnumerable<Atom> Primitives { get { return Def.GetAtom<ListAtom>("Primitives"); } }
+        public IEnumerable<Atom> Primitives => Def.GetAtom<ListAtom>("Primitives");
     }
 }

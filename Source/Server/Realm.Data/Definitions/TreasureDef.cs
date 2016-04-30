@@ -19,6 +19,6 @@ namespace Realm.Data.Definitions
         {
         }
 
-        public IEnumerable<Atom> Primitives { get { return Def.GetAtom<ListAtom>("Primitives"); } }
+        public IEnumerable<Atom> Primitives => Def.GetAtom<ListAtom>("Primitives");
     }
 }

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Common.Extensions
+
 {
     /// <summary>
     ///
@@ -99,7 +98,7 @@ namespace Realm.Library.Common
                                                  params TParam1[] args)
         {
             if (executeFunc == null)
-                throw new ArgumentNullException("executeFunc");
+                throw new ArgumentNullException(nameof(executeFunc));
 
             try
             {
@@ -126,7 +125,7 @@ namespace Realm.Library.Common
                                                          params TParam1[] args)
         {
             if (executeFunc == null)
-                throw new ArgumentNullException("executeFunc");
+                throw new ArgumentNullException(nameof(executeFunc));
 
             try
             {
@@ -157,7 +156,7 @@ namespace Realm.Library.Common
                                                                      params TParam1[] args) where TException : Exception
         {
             if (executeFunc == null)
-                throw new ArgumentNullException("executeFunc");
+                throw new ArgumentNullException(nameof(executeFunc));
 
             try
             {

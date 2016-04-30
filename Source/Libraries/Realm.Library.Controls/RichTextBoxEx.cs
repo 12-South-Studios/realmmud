@@ -147,9 +147,9 @@ namespace Realm.Library.Controls
         public void InsertLink(string text, int position)
         {
             if (String.IsNullOrEmpty(text))
-                throw new ArgumentNullException("text", "Parameter is null");
+                throw new ArgumentNullException(nameof(text), "Parameter is null");
             if (position < 0 || position > Text.Length)
-                throw new ArgumentOutOfRangeException("position");
+                throw new ArgumentOutOfRangeException(nameof(position));
 
             SelectionStart = position;
             SelectedText = text;
@@ -184,14 +184,14 @@ namespace Realm.Library.Controls
         public void InsertLink(string text, string hyperlink, int position)
         {
             if (String.IsNullOrEmpty(text))
-                throw new ArgumentNullException("text", "Parameter is null");
+                throw new ArgumentNullException(nameof(text), "Parameter is null");
             if (String.IsNullOrEmpty(hyperlink))
-                throw new ArgumentNullException("hyperlink", "Parameter is null");
+                throw new ArgumentNullException(nameof(hyperlink), "Parameter is null");
             if (position < 0 || position > Text.Length)
-                throw new ArgumentOutOfRangeException("position");
+                throw new ArgumentOutOfRangeException(nameof(position));
 
             SelectionStart = position;
-            SelectedRtf = String.Format(@"{{\rtf1\ansi {0}\v #{1}\v0}}", text, hyperlink);
+            SelectedRtf = $@"{{\rtf1\ansi {text}\v #{hyperlink}\v0}}";
             Select(position, text.Length + hyperlink.Length + 1);
             SetSelectionLink(true);
             Select(position + text.Length + hyperlink.Length + 1, 0);
@@ -210,10 +210,7 @@ namespace Realm.Library.Controls
         /// Get the link style for the current selection
         /// </summary>
         /// <returns>0: link style not set, 1: link style set, -1: mixed</returns>
-        public int SelectionLink
-        {
-            get { return GetSelectionStyle(CFM_LINK, CFE_LINK); }
-        }
+        public int SelectionLink => GetSelectionStyle(CFM_LINK, CFE_LINK);
 
         private void SetSelectionStyle(UInt32 mask, UInt32 effect)
         {

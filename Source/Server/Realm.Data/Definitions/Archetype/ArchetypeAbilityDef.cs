@@ -1,8 +1,8 @@
-﻿using Realm.Library.Common.Data;
+﻿using Realm.Data.Definitions.Common;
+using Realm.Library.Common.Data;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Data.Definitions
-// ReSharper restore CheckNamespace
+namespace Realm.Data.Definitions.Archetype
+
 {
     public class ArchetypeAbilityDef : SubDefinition
     {
@@ -11,6 +11,6 @@ namespace Realm.Data.Definitions
         {
         }
 
-        public bool IsExempt { get { return Def.GetBool("IsExempt"); } }
+        public bool IsExempt => Def.GetBool("IsExempt");
     }
 }

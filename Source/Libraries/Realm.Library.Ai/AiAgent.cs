@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Realm.Library.Ai.Properties;
 using Realm.Library.Common;
+using Realm.Library.Common.Entities;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Library.Ai
 {
@@ -39,19 +41,19 @@ namespace Realm.Library.Ai
         /// <summary>
         /// Entity object that owns this AiBrain
         /// </summary>
-        public IEntity Owner { get; private set; }
+        public IEntity Owner { get; }
 
         /// <summary>
         /// Message handler, which maintains and processes internal messages
         /// for the AiBrain
         /// </summary>
-        public IMessageContext Messages { get; private set; }
+        public IMessageContext Messages { get; }
 
         /// <summary>
         /// Reference to the behavior that determines what states this AiBrain
         /// uses and how they operate.
         /// </summary>
-        public IBehavior Behavior { get; private set; }
+        public IBehavior Behavior { get; }
 
         /// <summary>
         /// Event function that fires on each tick of the AiBrain.
@@ -118,10 +120,7 @@ namespace Realm.Library.Ai
         /// <summary>
         /// Gets a reference to the current Ai state instance on the stack
         /// </summary>
-        public IAiState CurrentState
-        {
-            get { return _stateStack.Peek(); }
-        }
+        public IAiState CurrentState => _stateStack.Peek();
 
         /// <summary>
         /// Called to inform the AiBrain that it needs to get an Ai state.

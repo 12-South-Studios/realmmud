@@ -1,7 +1,10 @@
+using Realm.Data;
 using Realm.Data.Definitions;
 using Realm.Entity.Contexts;
+using Realm.Entity.Entities.Interfaces;
 using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Objects;
 using Realm.Library.Database.Framework;
 
 namespace Realm.Entity.Entities
@@ -49,16 +52,16 @@ namespace Realm.Entity.Entities
             Game.SetManagerReferences(StatisticHandler);*/
         }
 
-        public abstract Globals.Globals.PositionTypes Position { get; set; }
+        public abstract Globals.PositionTypes Position { get; set; }
 
-        public abstract Globals.Globals.GenderTypes Gender { get; }
+        public abstract Globals.GenderTypes Gender { get; }
 
         public abstract RaceDef Race { get; }
 
-        public abstract Globals.Globals.MovementModeTypes Movement { get; set; }
+        public abstract Globals.MovementModeTypes Movement { get; set; }
         public string LastAttack { get; set; }
         public IBiota Fighting { get; set; }
-        public bool IsFighting { get { return Fighting.IsNull(); } }
+        public bool IsFighting => Fighting.IsNull();
         public bool IsDead { get; private set; }
 
         /*public Inventory Inventory { get; private set; }

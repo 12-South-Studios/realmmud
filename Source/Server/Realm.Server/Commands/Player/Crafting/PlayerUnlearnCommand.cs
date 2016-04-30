@@ -3,9 +3,9 @@
 //using Realm.Library.Common;
 //using Realm.Server.Item;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server.Commands
-//// ReSharper restore CheckNamespace
+//
 //{
 //    /// <summary>
 //    /// Unlearn command

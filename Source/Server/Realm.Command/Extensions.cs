@@ -2,9 +2,14 @@
 using Realm.Command.Interfaces;
 using Realm.Command.Parsers;
 using Realm.Command.Properties;
+using Realm.Data;
 using Realm.Entity;
 using Realm.Entity.Contexts;
+using Realm.Entity.Interfaces;
 using Realm.Library.Common;
+using Realm.Library.Common.Entities;
+using Realm.Library.Common.Extensions;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Command
 {
@@ -89,7 +94,7 @@ namespace Realm.Command
         {
             Validation.IsNotNull(manager, "manager");
 
-            manager.Report(Globals.Globals.MessageScopeTypes.Character, message,
+            manager.Report(Globals.MessageScopeTypes.Character, message,
                            CommandParser.ToReportData(oActor, oVictim, oDirectObject, oIndirectObject, oSpace, oExtra));
         }
 
@@ -102,7 +107,7 @@ namespace Realm.Command
         {
             Validation.IsNotNull(manager, "manager");
 
-            manager.Report(Globals.Globals.MessageScopeTypes.Space, message,
+            manager.Report(Globals.MessageScopeTypes.Space, message,
                            CommandParser.ToReportData(oActor, oVictim, oDirectObject, oIndirectObject, oSpace, oExtra));
         }
 
@@ -115,7 +120,7 @@ namespace Realm.Command
         {
             Validation.IsNotNull(manager, "manager");
 
-            manager.Report(Globals.Globals.MessageScopeTypes.SpaceLimited, message,
+            manager.Report(Globals.MessageScopeTypes.SpaceLimited, message,
                            CommandParser.ToReportData(oActor, oVictim, oDirectObject, oIndirectObject, oSpace, oExtra));
         }
 
@@ -128,7 +133,7 @@ namespace Realm.Command
         {
             Validation.IsNotNull(manager, "manager");
 
-            manager.Report(Globals.Globals.MessageScopeTypes.Game, message,
+            manager.Report(Globals.MessageScopeTypes.Game, message,
                            CommandParser.ToReportData(oActor, oVictim, oDirectObject, oIndirectObject, oSpace, oExtra));
         }
 
@@ -141,7 +146,7 @@ namespace Realm.Command
         {
             Validation.IsNotNull(manager, "manager");
 
-            manager.Report(Globals.Globals.MessageScopeTypes.Zone, message,
+            manager.Report(Globals.MessageScopeTypes.Zone, message,
                            CommandParser.ToReportData(oActor, oVictim, oDirectObject, oIndirectObject, oSpace, oExtra));
         }
 
@@ -154,7 +159,7 @@ namespace Realm.Command
         {
             Validation.IsNotNull(manager, "manager");
 
-            manager.Report(Globals.Globals.MessageScopeTypes.Victim, message,
+            manager.Report(Globals.MessageScopeTypes.Victim, message,
                            CommandParser.ToReportData(oActor, oVictim, oDirectObject, oIndirectObject, oSpace, oExtra));
         }
     }

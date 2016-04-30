@@ -27,7 +27,7 @@ namespace Realm.Library.Common.Caching
 
         private string GetCacheKey(TKey key)
         {
-            return string.Format("CacheItem_{0}", key.ToString());
+            return $"CacheItem_{key.ToString()}";
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace Realm.Library.Common.Caching
         /// <summary>
         /// 
         /// </summary>
-        public int Count { get { return (int)Cache.GetCount(); } }
+        public int Count => (int)Cache.GetCount();
 
         /// <summary>
         /// Gets the entity by key

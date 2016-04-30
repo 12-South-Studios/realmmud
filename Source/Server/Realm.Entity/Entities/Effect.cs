@@ -1,6 +1,6 @@
 using Realm.Data.Definitions;
-using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Entity.Entities
 {
@@ -23,7 +23,7 @@ namespace Realm.Entity.Entities
         /// <summary>
         ///
         /// </summary>
-        public EffectDef EffectDef { get { return Definition.CastAs<EffectDef>(); } }
+        public EffectDef EffectDef => Definition.CastAs<EffectDef>();
 
         /// <summary>
         ///

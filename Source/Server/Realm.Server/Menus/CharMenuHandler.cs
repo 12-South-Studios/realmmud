@@ -14,9 +14,9 @@
 //using Realm.Server.Commands;
 //using Realm.Server.Properties;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server.Players
-//// ReSharper restore CheckNamespace
+//
 //{
 //    /// <summary>
 //    /// Handles the Character Menu

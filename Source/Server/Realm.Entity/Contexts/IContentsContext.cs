@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Realm.Entity.Interfaces;
 
 namespace Realm.Entity.Contexts
 {

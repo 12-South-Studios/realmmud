@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using Realm.Library.Common.Extensions;
 
 namespace Realm.Library.Common.Test.Extensions
 {

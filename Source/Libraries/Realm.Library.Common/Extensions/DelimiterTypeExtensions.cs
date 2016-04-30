@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Common.Extensions
+
 {
     /// <summary>
     /// Extension class for the DelimiterType enum

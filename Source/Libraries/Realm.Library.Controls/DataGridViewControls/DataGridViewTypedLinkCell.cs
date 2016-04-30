@@ -1,10 +1,9 @@
 using System.Drawing;
 using System.Windows.Forms;
-using Realm.Library.Common;
+using Realm.Library.Common.Objects;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Controls
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Controls.DataGridViewControls
+
 {
     /// <summary>
     ///
@@ -37,7 +36,7 @@ namespace Realm.Library.Controls
         /// <summary>
         ///
         /// </summary>
-        public Icon Icon { get { return _icon; } }
+        public Icon Icon => _icon;
 
         /// <summary>
         ///

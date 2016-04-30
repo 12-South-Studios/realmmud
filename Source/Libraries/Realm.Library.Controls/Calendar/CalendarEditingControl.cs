@@ -1,10 +1,9 @@
 using System;
 using System.Windows.Forms;
-using Realm.Library.Common;
+using Realm.Library.Common.Objects;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Controls
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Controls.Calendar
+
 {
     /// <summary>
     ///
@@ -97,7 +96,7 @@ namespace Realm.Library.Controls
         /// <summary>
         /// Implements the IDataGridViewEditingControl.RepositionEditingControlOnValueChange property.
         /// </summary>
-        public bool RepositionEditingControlOnValueChange { get { return false; } }
+        public bool RepositionEditingControlOnValueChange => false;
 
         /// <summary>
         /// Implements the IDataGridViewEditingControl.EditingControlDataGridView property.
@@ -112,7 +111,7 @@ namespace Realm.Library.Controls
         /// <summary>
         /// Implements the IDataGridViewEditingControl.EditingPanelCursor property.
         /// </summary>
-        public Cursor EditingPanelCursor { get { return base.Cursor; } }
+        public Cursor EditingPanelCursor => Cursor;
 
         /// <summary>
         /// Notify the DataGridView that the contents of the cell have changed.

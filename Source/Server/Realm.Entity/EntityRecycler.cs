@@ -5,17 +5,22 @@ using System.Threading;
 using System.Threading.Tasks;
 using Ninject;
 using Realm.Entity.Events;
+using Realm.Entity.Interfaces;
 using Realm.Entity.Properties;
 using Realm.Event;
 using Realm.Library.Common;
+using Realm.Library.Common.Events;
+using Realm.Library.Common.Exceptions;
+using Realm.Library.Common.Extensions;
 using Realm.Library.Common.Logging;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Entity
 {
     /// <summary>
     ///
     /// </summary>
-    public class EntityRecycler : Library.Common.Entity, IEntityRecycler
+    public class EntityRecycler : Library.Common.Objects.Entity, IEntityRecycler
     {
         private readonly ConcurrentDictionary<long, IGameEntity> _recycledEntities;
         private readonly ILogWrapper _log;
@@ -57,9 +62,9 @@ namespace Realm.Entity
                 IGameEntity entity = entityList[0];
                 entityList.RemoveAt(0);
 
-                if (entity.IsNull() || !(entity is Library.Common.Entity)) continue;
+                if (entity.IsNull() || !(entity is Library.Common.Objects.Entity)) continue;
 
-                entity.CastAs<Library.Common.Entity>().Dispose();
+                entity.CastAs<Library.Common.Objects.Entity>().Dispose();
             }
             entityList.Clear();
 

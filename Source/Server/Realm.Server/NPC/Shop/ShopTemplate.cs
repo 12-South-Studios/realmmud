@@ -14,9 +14,9 @@
 //using Realm.Library.Common;
 //using Realm.Server.Item;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server.NPC
-//// ReSharper restore CheckNamespace
+//
 //{
 //    public class ShopTemplate : GameEntityTemplate
 //    {

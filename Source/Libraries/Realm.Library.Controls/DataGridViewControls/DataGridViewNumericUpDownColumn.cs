@@ -4,9 +4,8 @@ using System.Globalization;
 using System.Text;
 using System.Windows.Forms;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Controls
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Controls.DataGridViewControls
+
 {
     /// <summary>
     /// Custom column type dedicated to the DataGridViewNumericUpDownCell cell type.
@@ -295,13 +294,7 @@ namespace Realm.Library.Controls
         /// <summary>
         /// Small utility function that returns the template cell as a DataGridViewNumericUpDownCell
         /// </summary>
-        private DataGridViewNumericUpDownCell NumericUpDownCellTemplate
-        {
-            get
-            {
-                return (DataGridViewNumericUpDownCell)CellTemplate;
-            }
-        }
+        private DataGridViewNumericUpDownCell NumericUpDownCellTemplate => (DataGridViewNumericUpDownCell)CellTemplate;
 
         /// <summary>
         /// Returns a standard compact string representation of the column.

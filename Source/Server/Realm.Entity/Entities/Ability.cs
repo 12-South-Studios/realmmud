@@ -1,6 +1,6 @@
 ﻿using System;
 using Realm.Data.Definitions;
-using Realm.Library.Common;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Entity.Entities
 {
@@ -23,7 +23,7 @@ namespace Realm.Entity.Entities
         /// <summary>
         ///
         /// </summary>
-        public AbilityDef AbilityDef { get { return Definition.CastAs<AbilityDef>(); } }
+        public AbilityDef AbilityDef => Definition.CastAs<AbilityDef>();
 
         /// <summary>
         ///

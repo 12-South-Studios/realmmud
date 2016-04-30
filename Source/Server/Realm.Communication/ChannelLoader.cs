@@ -2,16 +2,20 @@
 using Realm.Data;
 using Realm.Data.Definitions;
 using Realm.Data.Interfaces;
-using Realm.Entity;
+using Realm.Entity.Interfaces;
 using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Events;
+using Realm.Library.Common.Exceptions;
+using Realm.Library.Common.Extensions;
 using Realm.Library.Common.Logging;
+using Realm.Library.Common.Objects;
 using Realm.Library.Database;
 using Realm.Library.Database.Framework;
 
 namespace Realm.Communication
 {
-    public class ChannelLoader : Library.Common.Entity
+    public class ChannelLoader : Library.Common.Objects.Entity
     {
         private readonly IDatabaseManager _dbManager;
         private readonly IEntityManager _entityManager;
@@ -74,8 +78,8 @@ namespace Realm.Communication
             while (it.MoveNext())
             {
                 var result = it.Current.CastAs<DictionaryAtom>();
-                var channelDef = (ChannelDef)_staticDataManager.GetStaticData(Globals.Globals.SystemTypes.Channel, result.GetInt("ChannelPrimitiveID").ToString());
-                var obj = _entityManager.Create<Channel>(new object[] { result.GetInt("ChannelID"), result.GetString("Name"), result, channelDef });
+                var channelDef = (ChannelDef)_staticDataManager.GetStaticData(Globals.SystemTypes.Channel, result.GetInt("ChannelPrimitiveID").ToString());
+                var obj = _entityManager.Create<Channel>(result.GetInt("ChannelID"), result.GetString("Name"), result, channelDef);
                 if (obj.IsNull())
                     throw new InstantiationException("Failed to instantiate Channel {0}", result.GetInt("ChannelID"));
 

@@ -7,7 +7,7 @@ namespace Realm.Ai.Test
     [TestFixture]
     public class AiStateFactoryHelperTests
     {
-        [TestCase("invalid", (Type)null)]
+        [TestCase("invalid", null)]
         [TestCase("chase", typeof(AiChaseState))]
         public void Get(string value, Type expected)
         {

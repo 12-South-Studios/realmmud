@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Reflection;
 using LuaInterface;
-using Realm.Library.Common;
+using Realm.Library.Common.Objects;
 using Realm.Library.Lua.Properties;
 
 namespace Realm.Library.Lua

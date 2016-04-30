@@ -21,7 +21,7 @@ namespace Realm.Edit.Editor
         public static void RegisterEditor(EditorBuilder value)
         {
             if (value == null)
-                throw new ArgumentNullException("value", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(value), Resources.NullParameterErrorMessage);
 
             if (!Builders.ContainsKey(value.SystemType))
                 Builders.Add(value.SystemType, value);

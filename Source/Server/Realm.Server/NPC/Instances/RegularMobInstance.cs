@@ -6,9 +6,9 @@
 //using Realm.Server.Events;
 //using Realm.Server.Players;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server.NPC
-//// ReSharper restore CheckNamespace
+//
 //{
 //    public class RegularMobInstance : MobInstance, IRegularMob
 //    {

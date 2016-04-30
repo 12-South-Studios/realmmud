@@ -1,5 +1,5 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using Realm.Data;
 
 namespace Realm.Command.Test
 {
@@ -14,11 +14,11 @@ namespace Realm.Command.Test
 
             var result = new TargetResult();
 
-            var actual = result.Populate(entity1, entity2, Globals.Globals.EntityLocationTypes.Space);
+            var actual = result.Populate(entity1, entity2, Globals.EntityLocationTypes.Space);
 
             Assert.That(actual.FoundEntity, Is.EqualTo(entity1));
             Assert.That(actual.FoundEntityLocation, Is.EqualTo(entity2));
-            Assert.That(actual.FoundEntityLocationType, Is.EqualTo(Globals.Globals.EntityLocationTypes.Space));
+            Assert.That(actual.FoundEntityLocationType, Is.EqualTo(Globals.EntityLocationTypes.Space));
         }
 
         [TestCase("#5", 5)]

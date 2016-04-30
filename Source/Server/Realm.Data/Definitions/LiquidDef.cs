@@ -1,5 +1,5 @@
-﻿using Realm.Library.Common;
-using Realm.Library.Common.Data;
+﻿using Realm.Library.Common.Data;
+using Realm.Library.Common.Extensions;
 
 namespace Realm.Data.Definitions
 {
@@ -16,26 +16,20 @@ namespace Realm.Data.Definitions
         {
         }
 
-        public string DisplayName { get { return Def.GetString("DisplayName"); } }
+        public string DisplayName => Def.GetString("DisplayName");
 
-        public string DisplayDescription { get { return Def.GetString("DisplayDescription"); } }
+        public string DisplayDescription => Def.GetString("DisplayDescription");
 
-        public Globals.Globals.ColorTypes ColorType
-        {
-            get { return EnumerationExtensions.GetEnum<Globals.Globals.ColorTypes>(Def.GetInt("ColorTypeID")); }
-        }
+        public Globals.ColorTypes ColorType => EnumerationExtensions.GetEnum<Globals.ColorTypes>(Def.GetInt("ColorTypeID"));
 
-        public int ThirstPoints { get { return Def.GetInt("ThirstPoints"); } }
+        public int ThirstPoints => Def.GetInt("ThirstPoints");
 
-        public int DrunkPoints { get { return Def.GetInt("DrunkPoints"); } }
+        public int DrunkPoints => Def.GetInt("DrunkPoints");
 
-        public float CostPerCharge { get { return (float)Def.GetReal("CostPerCharge"); } }
+        public float CostPerCharge => (float)Def.GetReal("CostPerCharge");
 
-        public Globals.Globals.FlammabilityTypes FlammabilityType
-        {
-            get { return EnumerationExtensions.GetEnum<Globals.Globals.FlammabilityTypes>(Def.GetInt("FlammabilityTypeID")); }
-        }
+        public Globals.FlammabilityTypes FlammabilityType => EnumerationExtensions.GetEnum<Globals.FlammabilityTypes>(Def.GetInt("FlammabilityTypeID"));
 
-        public int TagSetID { get { return Def.GetInt("TagSetID"); } }
+        public int TagSetID => Def.GetInt("TagSetID");
     }
 }

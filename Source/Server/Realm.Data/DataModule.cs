@@ -1,6 +1,8 @@
 ﻿using Realm.Data.Interfaces;
 using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Entities;
+using Realm.Library.Common.Events;
 using Realm.Library.Database.Framework;
 
 namespace Realm.Data

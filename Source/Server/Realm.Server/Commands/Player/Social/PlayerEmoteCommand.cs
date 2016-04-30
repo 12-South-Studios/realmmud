@@ -4,9 +4,9 @@
 //using Realm.Server.NPC;
 //using Realm.Server.Players;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server.Commands
-//// ReSharper restore CheckNamespace
+//
 //{
 //    /// <summary>
 //    /// emote command

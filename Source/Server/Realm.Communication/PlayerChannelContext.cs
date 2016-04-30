@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Realm.Entity;
-using Realm.Library.Common;
+using Realm.Entity.Interfaces;
+using Realm.Library.Common.Entities;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Communication
 {

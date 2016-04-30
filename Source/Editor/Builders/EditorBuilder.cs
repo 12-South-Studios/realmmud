@@ -46,9 +46,9 @@ namespace Realm.Edit.Builders
             string filter)
         {
             if (parentNode == null)
-                throw new ArgumentNullException("parentNode", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(parentNode), Resources.NullParameterErrorMessage);
             if (menu == null)
-                throw new ArgumentNullException("menu", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(menu), Resources.NullParameterErrorMessage);
 
             parentNode.RemoveNonFolderNodes();
 

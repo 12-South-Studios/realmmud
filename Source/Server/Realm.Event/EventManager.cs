@@ -2,7 +2,9 @@
 using Realm.Event.Properties;
 using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Events;
 using Realm.Library.Common.Logging;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Event
 {

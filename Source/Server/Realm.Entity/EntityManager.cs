@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Ninject;
+using Realm.Entity.Interfaces;
 using Realm.Entity.Properties;
 using Realm.Event;
 using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Entities;
+using Realm.Library.Common.Events;
 using Realm.Library.Common.Logging;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Entity
 {
@@ -64,7 +68,7 @@ namespace Realm.Entity
             InitializationAtom = initAtom;
 
             var recycleFrequency = initAtom.GetInt("RecycleFrequency");
-            Validation.Validate<ArgumentOutOfRangeException>(recycleFrequency > 0 && recycleFrequency <= Int32.MaxValue);
+            Validation.Validate<ArgumentOutOfRangeException>(recycleFrequency > 0);
             Log.DebugFormat("EntityManager initialized with Recycle Frequency of {0}", recycleFrequency);
 
             _recycler.Timer.Interval = recycleFrequency;
@@ -261,7 +265,7 @@ namespace Realm.Entity
         /// <summary>
         ///
         /// </summary>
-        public int EntityCount { get { return _repository.Count; } }
+        public int EntityCount => _repository.Count;
 
         /// <summary>
         ///

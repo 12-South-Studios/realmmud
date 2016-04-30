@@ -17,11 +17,11 @@ namespace Realm.Edit.Extensions
             bool fillContent, string filter)
         {
             if (value == null)
-                throw new ArgumentNullException("value", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(value), Resources.NullParameterErrorMessage);
             if (builder == null)
-                throw new ArgumentNullException("builder", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(builder), Resources.NullParameterErrorMessage);
             if (filter == null)
-                throw new ArgumentNullException("filter", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(filter), Resources.NullParameterErrorMessage);
 
             var saveNodes = new Dictionary<int, TreeNode>();
             foreach (TreeNode node in value.Nodes)
@@ -35,7 +35,7 @@ namespace Realm.Edit.Extensions
             int elementCount = 0;
             value.Nodes.Clear();
 
-            var browseInfo = (value.Tag as EditorBrowseInfo);
+            var browseInfo = value.Tag as EditorBrowseInfo;
             if (browseInfo == null) return 0;
 
             IRealmDbContext dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
@@ -66,7 +66,7 @@ namespace Realm.Edit.Extensions
         public static void RemoveNonFolderNodes(this TreeNode value)
         {
             if (value == null)
-                throw new ArgumentNullException("value", Resources.NullParentNodeErrorMessage);
+                throw new ArgumentNullException(nameof(value), Resources.NullParentNodeErrorMessage);
 
             for (var i = 0; i < value.Nodes.Count; ++i)
             {
@@ -80,9 +80,9 @@ namespace Realm.Edit.Extensions
         public static void DeleteBrowseNode(this TreeNode value, string filter)
         {
             if (value == null)
-                throw new ArgumentNullException("value", Resources.NullNodeErrorMessage);
+                throw new ArgumentNullException(nameof(value), Resources.NullNodeErrorMessage);
             if (filter == null)
-                throw new ArgumentNullException("filter", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(filter), Resources.NullParameterErrorMessage);
 
             var browseInfo = value.Tag as EditorBrowseInfo;
             if (browseInfo == null || browseInfo.Id <= 0 || browseInfo.SubId != 0) return;
@@ -109,7 +109,7 @@ namespace Realm.Edit.Extensions
         public static TreeNode FindNodeByClass(this TreeNode value, int classId)
         {
             if (value == null)
-                throw new ArgumentNullException("value", Resources.NullNodeErrorMessage);
+                throw new ArgumentNullException(nameof(value), Resources.NullNodeErrorMessage);
 
             var browseInfo = value.Tag as EditorBrowseInfo;
             if (browseInfo != null && browseInfo.ClassId == classId)
@@ -122,7 +122,7 @@ namespace Realm.Edit.Extensions
         public static void OpenContentNode(this TreeNode value, bool isCopy = false)
         {
             if (value == null)
-                throw new ArgumentNullException("value", Resources.NullNodeErrorMessage);
+                throw new ArgumentNullException(nameof(value), Resources.NullNodeErrorMessage);
 
             var browseInfo = (EditorBrowseInfo)value.Tag;
             if (browseInfo != null && browseInfo.Id > 0)

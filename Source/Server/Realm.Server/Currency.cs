@@ -28,7 +28,7 @@ namespace Realm.Server
             {
                 sb.AppendFormat(" " + (isLongForm ? MessageResources.MSG_PLATINUM_LONG
                     : MessageResources.MSG_PLATINUM_SHORT), platinumAmount);
-                remainingCoins = remainingCoins - (platinumAmount * 1000000);
+                remainingCoins = remainingCoins - platinumAmount * 1000000;
             }
 
             var goldAmount = remainingCoins / 10000;
@@ -36,7 +36,7 @@ namespace Realm.Server
             {
                 sb.AppendFormat(" " + (isLongForm ? MessageResources.MSG_GOLD_LONG
                     : MessageResources.MSG_GOLD_SHORT), goldAmount);
-                remainingCoins = remainingCoins - (goldAmount * 10000);
+                remainingCoins = remainingCoins - goldAmount * 10000;
             }
 
             var silverAmount = remainingCoins / 100;
@@ -44,7 +44,7 @@ namespace Realm.Server
             {
                 sb.AppendFormat(" " + (isLongForm ? MessageResources.MSG_SILVER_LONG
                     : MessageResources.MSG_SILVER_SHORT), silverAmount);
-                remainingCoins = remainingCoins - (silverAmount * 100);
+                remainingCoins = remainingCoins - silverAmount * 100;
             }
 
             if (remainingCoins > 0)

@@ -1,18 +1,19 @@
-﻿using Realm.Data.Definitions;
+﻿using Realm.Data;
+using Realm.Data.Definitions;
+using Realm.Entity.Interfaces;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Entity.Entities
-// ReSharper restore CheckNamespace
+namespace Realm.Entity.Entities.Interfaces
+
 {
     public interface IBiota : IGameEntity
     {
-        Globals.Globals.PositionTypes Position { get; set; }
+        Globals.PositionTypes Position { get; set; }
 
-        Globals.Globals.GenderTypes Gender { get; }
+        Globals.GenderTypes Gender { get; }
 
         RaceDef Race { get; }
 
-        Globals.Globals.MovementModeTypes Movement { get; set; }
+        Globals.MovementModeTypes Movement { get; set; }
 
         string LastAttack { get; set; }
 

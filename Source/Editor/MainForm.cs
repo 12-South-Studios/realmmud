@@ -16,7 +16,7 @@ using Realm.Edit.EditorControls;
 using Realm.Edit.Extensions;
 using Realm.Edit.Properties;
 using Realm.Edit.Tags;
-using Realm.Library.Common;
+using Realm.Library.Common.Extensions;
 using Color = System.Drawing.Color;
 
 namespace Realm.Edit
@@ -25,9 +25,9 @@ namespace Realm.Edit
     {
         public bool Loading { get; private set; }
         public TreeNode DragNode { get; private set; }
-        public TreeView BrowseTree { get { return treeBrowse; } }
-        public ContextMenuStrip BrowseFolder { get { return contextBrowseFolder; } }
-        public ToolStripProgressBar ProgressStatus { get { return progressStatus; } }
+        public TreeView BrowseTree => treeBrowse;
+        public ContextMenuStrip BrowseFolder => contextBrowseFolder;
+        public ToolStripProgressBar ProgressStatus => progressStatus;
 
         public MainForm()
         {
@@ -137,7 +137,7 @@ namespace Realm.Edit
         public void OpenTab(EditorBrowseInfo browseInfo, bool openCopy, bool makeDirty)
         {
             if (browseInfo == null)
-                throw new ArgumentNullException("browseInfo", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(browseInfo), Resources.NullParameterErrorMessage);
 
             TabPage page = null;
 
@@ -181,7 +181,7 @@ namespace Realm.Edit
         public bool CloseTabs(IList tabPages, bool promptSave)
         {
             if (tabPages == null)
-                throw new ArgumentNullException("tabPages", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(tabPages), Resources.NullParameterErrorMessage);
 
             // Prompt to save all of the dirty tabs first
             // If there are any cancels, nobody closes
@@ -457,17 +457,17 @@ namespace Realm.Edit
             var tv = menuStrip.SourceControl as TreeView;
             if (tv == null || !tv.Equals(treeBrowse) || treeBrowse.SelectedNode == null) return;
 
-            var browseInfo = (treeBrowse.SelectedNode.Tag as EditorBrowseInfo);
+            var browseInfo = treeBrowse.SelectedNode.Tag as EditorBrowseInfo;
             if (browseInfo == null) return;
 
             var builder = EditorFactory.Builders[(SystemTypes)browseInfo.SystemType];
             if (builder == null) return;
 
             mnuBrowseNewNode.Text = Resources.TEXT_NEW_NODE.Replace("{0}", builder.DisplayName);
-            var topNode = (treeBrowse.SelectedNode.Parent == null);
+            var topNode = treeBrowse.SelectedNode.Parent == null;
             mnuBrowseNewNode.Enabled = builder.HasEditor() && builder.HasCreate();
 
-            mnuBrowseDeleteClass.Enabled = (!topNode && treeBrowse.SelectedNode.Nodes.Count == 0 && builder.HasDelete());
+            mnuBrowseDeleteClass.Enabled = !topNode && treeBrowse.SelectedNode.Nodes.Count == 0 && builder.HasDelete();
             mnuBrowseRenameClass.Enabled = !topNode;
         }
 

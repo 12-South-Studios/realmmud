@@ -10,7 +10,7 @@ namespace Realm.Edit.CustomControls
         protected override void OnMouseClick(MouseEventArgs e)
         {
             if (e == null)
-                throw new ArgumentNullException("e", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(e), Resources.NullParameterErrorMessage);
 
             if (e.Button != MouseButtons.Right) return;
             var p = e.Location;

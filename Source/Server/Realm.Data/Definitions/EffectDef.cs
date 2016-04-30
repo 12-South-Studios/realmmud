@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Extensions;
 
 namespace Realm.Data.Definitions
 {
@@ -17,131 +17,54 @@ namespace Realm.Data.Definitions
         {
         }
 
-        public string DisplayName
-        {
-            get { return Def.GetString("DisplayName"); }
-        }
+        public string DisplayName => Def.GetString("DisplayName");
 
-        public string DisplayDescription
-        {
-            get { return Def.GetString("DisplayDescription"); }
-        }
+        public string DisplayDescription => Def.GetString("DisplayDescription");
 
-        public Globals.Globals.EffectTypes EffectType
-        {
-            get { return EnumerationExtensions.GetEnum<Globals.Globals.EffectTypes>(Def.GetInt("EffectTypeID")); }
-        }
+        public Globals.EffectTypes EffectType => EnumerationExtensions.GetEnum<Globals.EffectTypes>(Def.GetInt("EffectTypeID"));
 
-        public int Duration
-        {
-            get { return Def.GetInt("Duration"); }
-        }
+        public int Duration => Def.GetInt("Duration");
 
-        public Globals.Globals.Statistics ResistStatistic
-        {
-            get { return EnumerationExtensions.GetEnum<Globals.Globals.Statistics>(Def.GetInt("ResistStatisticID")); }
-        }
+        public Globals.Statistics ResistStatistic => EnumerationExtensions.GetEnum<Globals.Statistics>(Def.GetInt("ResistStatisticID"));
 
-        public EffectDef OnFailEffect
-        {
-            get
-            {
-                return
-                    (EffectDef)
-                    StaticDataManager.GetStaticData(Globals.Globals.SystemTypes.Effect,
-                                                             Def.GetString("OnFailEffectID"));
-            }
-        }
+        public EffectDef OnFailEffect => (EffectDef)
+            StaticDataManager.GetStaticData(Globals.SystemTypes.Effect,
+                Def.GetString("OnFailEffectID"));
 
-        public EffectDef OnResistEffect
-        {
-            get
-            {
-                return
-                    (EffectDef)
-                    StaticDataManager.GetStaticData(Globals.Globals.SystemTypes.Effect,
-                                                             Def.GetString("OnResistEffectID"));
-            }
-        }
+        public EffectDef OnResistEffect => (EffectDef)
+            StaticDataManager.GetStaticData(Globals.SystemTypes.Effect,
+                Def.GetString("OnResistEffectID"));
 
-        public int TagSetID
-        {
-            get { return Def.GetInt("TagSetID"); }
-        }
+        public int TagSetID => Def.GetInt("TagSetID");
 
-        public int MovementModeBits
-        {
-            get { return Def.GetInt("MovementModeBitField"); }
-        }
+        public int MovementModeBits => Def.GetInt("MovementModeBitField");
 
-        public string ApplicationTextSelf
-        {
-            get { return Def.GetString("ApplicationTextSelf"); }
-        }
+        public string ApplicationTextSelf => Def.GetString("ApplicationTextSelf");
 
-        public string ApplicationTextOther
-        {
-            get { return Def.GetString("ApplicationTextOther"); }
-        }
+        public string ApplicationTextOther => Def.GetString("ApplicationTextOther");
 
-        public string FadeTextSelf
-        {
-            get { return Def.GetString("FadeTextSelf"); }
-        }
+        public string FadeTextSelf => Def.GetString("FadeTextSelf");
 
-        public string FadeTextOther
-        {
-            get { return Def.GetString("FadeTextOther"); }
-        }
+        public string FadeTextOther => Def.GetString("FadeTextOther");
 
-        public bool IsRemoveable
-        {
-            get { return Globals.Globals.EffectBits.IsRemoveable.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsRemoveable => Globals.EffectBits.IsRemoveable.HasBit(Def.GetInt("Bits"));
 
-        public bool IsTavern
-        {
-            get { return Globals.Globals.EffectBits.IsTavern.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsTavern => Globals.EffectBits.IsTavern.HasBit(Def.GetInt("Bits"));
 
-        public bool IsSafe
-        {
-            get { return Globals.Globals.EffectBits.IsSafe.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsSafe => Globals.EffectBits.IsSafe.HasBit(Def.GetInt("Bits"));
 
-        public bool OnEnter
-        {
-            get { return Globals.Globals.EffectBits.OnEnter.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool OnEnter => Globals.EffectBits.OnEnter.HasBit(Def.GetInt("Bits"));
 
-        public bool OnTurn
-        {
-            get { return Globals.Globals.EffectBits.OnTurn.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool OnTurn => Globals.EffectBits.OnTurn.HasBit(Def.GetInt("Bits"));
 
-        public IEnumerable<Atom> DynamicZones
-        {
-            get { return Def.GetAtom<ListAtom>("DynamicZones"); }
-        }
+        public IEnumerable<Atom> DynamicZones => Def.GetAtom<ListAtom>("DynamicZones");
 
-        public IEnumerable<Atom> HealthChanges
-        {
-            get { return Def.GetAtom<ListAtom>("HealthChanges"); }
-        }
+        public IEnumerable<Atom> HealthChanges => Def.GetAtom<ListAtom>("HealthChanges");
 
-        public IEnumerable<Atom> Positions
-        {
-            get { return Def.GetAtom<ListAtom>("Positions"); }
-        }
+        public IEnumerable<Atom> Positions => Def.GetAtom<ListAtom>("Positions");
 
-        public IEnumerable<Atom> Primitives
-        {
-            get { return Def.GetAtom<ListAtom>("Primitives"); }
-        }
+        public IEnumerable<Atom> Primitives => Def.GetAtom<ListAtom>("Primitives");
 
-        public IEnumerable<Atom> StatMods
-        {
-            get { return Def.GetAtom<ListAtom>("StatMods"); }
-        }
+        public IEnumerable<Atom> StatMods => Def.GetAtom<ListAtom>("StatMods");
     }
 }

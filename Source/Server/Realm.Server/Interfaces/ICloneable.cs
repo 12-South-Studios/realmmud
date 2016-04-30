@@ -1,4 +1,4 @@
-﻿using Realm.Entity;
+﻿using Realm.Entity.Interfaces;
 
 namespace Realm.Server.Interfaces
 {

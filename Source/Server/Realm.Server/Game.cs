@@ -23,6 +23,14 @@ using Realm.Server.Managers;
 using Realm.Server.Players;
 using Realm.Time;
 using Ninject;
+using Realm.Entity.Interfaces;
+using Realm.Event.EventTypes.GameEvents;
+using Realm.Library.Common.Contexts;
+using Realm.Library.Common.Events;
+using Realm.Library.Common.Exceptions;
+using Realm.Library.Common.Extensions;
+using Realm.Library.Common.Objects;
+using Realm.Server.Extensions;
 using Realm.Time.Interfaces;
 
 namespace Realm.Server
@@ -67,14 +75,8 @@ namespace Realm.Server
         // ReSharper disable once MemberCanBePrivate.Global
         public ILogWrapper Logger { get; set; }
 
-        public bool IsRunning
-        {
-            get
-            {
-                return (NetMgr.IsNotNull() && NetMgr.Server.IsNotNull())
-                    && NetMgr.Server.Status == TcpServerStatus.Listening;
-            }
-        }
+        public bool IsRunning => NetMgr.IsNotNull() && NetMgr.Server.IsNotNull()
+                                 && NetMgr.Server.Status == TcpServerStatus.Listening;
 
         private readonly List<Type> _ninjectGameModules = new List<Type>
         {
@@ -110,8 +112,7 @@ namespace Realm.Server
                 InitBooleanSet = new BooleanSet("OnGameInitialize", Game_OnInitializationComplete);
 
                 NinjectKernel.Load(_ninjectGameModules.Select(
-                    moduleType => (NinjectGameModule)Activator.CreateInstance(moduleType, 
-                        new object[] {initAtom, InitBooleanSet})));
+                    moduleType => (NinjectGameModule)Activator.CreateInstance(moduleType, initAtom, InitBooleanSet)));
 
                 EventMgr = (EventManager)NinjectKernel.Get<IEventManager>();
                 LuaMgr = (LuaManager) NinjectKernel.Get<ILuaManager>();

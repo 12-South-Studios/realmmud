@@ -1,5 +1,6 @@
 ﻿using Moq;
 using NUnit.Framework;
+using Realm.Data;
 using Realm.Data.Definitions;
 using Realm.Data.Interfaces;
 using Realm.Library.Common.Data;
@@ -15,7 +16,7 @@ namespace Realm.Time.Test
             var monthDef = new MonthDef(1, "Test", new DictionaryAtom());
 
             var mockStaticDataManager = new Mock<IStaticDataManager>();
-            mockStaticDataManager.Setup(x => x.GetStaticData(It.IsAny<Globals.Globals.SystemTypes>(), 
+            mockStaticDataManager.Setup(x => x.GetStaticData(It.IsAny<Globals.SystemTypes>(), 
                 It.IsAny<string>())).Returns(monthDef);
 
             var mudTime = new MudTime {Month = 1};

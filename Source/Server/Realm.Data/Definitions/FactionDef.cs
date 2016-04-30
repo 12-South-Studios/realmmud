@@ -16,10 +16,10 @@ namespace Realm.Data.Definitions
         {
         }
 
-        public string DisplayName { get { return Def.GetString("DisplayName"); } }
+        public string DisplayName => Def.GetString("DisplayName");
 
-        public int TagSetID { get { return Def.GetInt("TagSetID"); } }
+        public int TagSetID => Def.GetInt("TagSetID");
 
-        public IEnumerable<Atom> Oppositions { get { return Def.GetAtom<ListAtom>("Oppositions"); } }
+        public IEnumerable<Atom> Oppositions => Def.GetAtom<ListAtom>("Oppositions");
     }
 }

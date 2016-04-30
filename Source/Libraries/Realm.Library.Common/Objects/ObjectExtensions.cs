@@ -4,9 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Common.Objects
+
 {
     /// <summary>
     /// Class that handles extension functions to objects
@@ -73,10 +72,9 @@ namespace Realm.Library.Common
         /// <returns></returns>
         public static T? ToNullable<T>(this object value) where T : struct
         {
-            T? result = null;
-            if (!value.IsNotNull()) return result;
+            if (!value.IsNotNull()) return null;
             TypeConverter converter = TypeDescriptor.GetConverter(typeof(T?));
-            result = (T?)converter.ConvertFrom(value);
+            var result = (T?)converter.ConvertFrom(value);
             return result;
         }
 
@@ -89,7 +87,7 @@ namespace Realm.Library.Common
         public static bool IsNull<T>(this T obj)
         {
             // ReSharper disable CompareNonConstrainedGenericWithNull
-            return (obj == null);
+            return obj == null;
             // ReSharper restore CompareNonConstrainedGenericWithNull
         }
 
@@ -101,9 +99,7 @@ namespace Realm.Library.Common
         /// <returns></returns>
         public static bool IsNotNull<T>(this T obj)
         {
-            // ReSharper disable CompareNonConstrainedGenericWithNull
-            return (obj != null);
-            // ReSharper restore CompareNonConstrainedGenericWithNull
+            return obj != null;
         }
 
         /// <summary>
@@ -134,7 +130,7 @@ namespace Realm.Library.Common
         /// <returns></returns>
         public static bool IsEmpty<T>(this IEnumerable<T> list)
         {
-            return (list is ICollection<T>)
+            return list is ICollection<T>
                 ? ((ICollection<T>)list).Count == 0
                 : !list.Any();
         }
@@ -146,8 +142,7 @@ namespace Realm.Library.Common
             var propInfo = type.GetProperty(propName,
                 BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
             if (propInfo == null)
-                throw new ArgumentException(string.Format("{0} is not a valid property of type: {1}",
-                    propName, type.FullName));
+                throw new ArgumentException($"{propName} is not a valid property of type: {type.FullName}");
 
             return propInfo.GetValue(obj);
         }

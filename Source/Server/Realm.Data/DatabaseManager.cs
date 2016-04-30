@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Linq;
+using Realm.Data.Interfaces;
 using Realm.Data.Properties;
 using Realm.Event;
 using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Events;
+using Realm.Library.Common.Exceptions;
+using Realm.Library.Common.Extensions;
 using Realm.Library.Common.Logging;
+using Realm.Library.Common.Objects;
 using Realm.Library.Database.Framework;
 
 namespace Realm.Data

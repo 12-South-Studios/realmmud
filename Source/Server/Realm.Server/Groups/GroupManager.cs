@@ -1,6 +1,6 @@
-﻿// ReSharper disable CheckNamespace
-namespace Realm.Server.Players
-// ReSharper restore CheckNamespace
+﻿
+namespace Realm.Server.Groups
+
 {
     public class GroupManager
     {

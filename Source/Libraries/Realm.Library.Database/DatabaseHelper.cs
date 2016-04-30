@@ -44,8 +44,8 @@ namespace Realm.Library.Database
             catch (DbException ex)
             {
                 _log.Error(string.IsNullOrEmpty(errorMessage)
-                              ? string.Format("{0} threw an Exception: {1}", storedProcedureName, ex.Message)
-                              : errorMessage, ex);
+                              ? $"{storedProcedureName} threw an Exception: {ex.Message}"
+                    : errorMessage, ex);
             }
             finally
             {
@@ -77,8 +77,8 @@ namespace Realm.Library.Database
             catch (DbException ex)
             {
                 _log.Error(string.IsNullOrEmpty(errorMessage)
-                              ? string.Format("{0} threw an Exception: {1}", storedProcedureName, ex.Message)
-                              : errorMessage, ex);
+                              ? $"{storedProcedureName} threw an Exception: {ex.Message}"
+                    : errorMessage, ex);
             }
             finally
             {
@@ -113,8 +113,8 @@ namespace Realm.Library.Database
             catch (DbException ex)
             {
                 _log.Error(string.IsNullOrEmpty(errorMessage)
-                              ? string.Format("{0} threw an Exception: {1}", storedProcedureName, ex.Message)
-                              : errorMessage, ex);
+                              ? $"{storedProcedureName} threw an Exception: {ex.Message}"
+                    : errorMessage, ex);
             }
             finally
             {
@@ -133,7 +133,7 @@ namespace Realm.Library.Database
                                         string errorMessage = "") where T : class, new()
         {
             ValidateArguments(connection, storedProcedureName);
-            if (translateFunction == null) throw new ArgumentNullException("translateFunction");
+            if (translateFunction == null) throw new ArgumentNullException(nameof(translateFunction));
 
             try
             {
@@ -152,8 +152,8 @@ namespace Realm.Library.Database
             catch (DbException ex)
             {
                 _log.Error(string.IsNullOrEmpty(errorMessage)
-                              ? string.Format("{0} threw an Exception: {1}", storedProcedureName, ex.Message)
-                              : errorMessage, ex);
+                              ? $"{storedProcedureName} threw an Exception: {ex.Message}"
+                    : errorMessage, ex);
             }
             finally
             {
@@ -182,8 +182,8 @@ namespace Realm.Library.Database
         /// </summary>
         internal static bool ValidateArguments(IDbConnection connection, string storedProcedureName)
         {
-            if (connection == null) throw new ArgumentNullException("connection");
-            if (string.IsNullOrWhiteSpace(storedProcedureName)) throw new ArgumentNullException("storedProcedureName");
+            if (connection == null) throw new ArgumentNullException(nameof(connection));
+            if (string.IsNullOrWhiteSpace(storedProcedureName)) throw new ArgumentNullException(nameof(storedProcedureName));
             return true;
         }
     }

@@ -1,5 +1,5 @@
 ﻿using Realm.Data.Definitions;
-using Realm.Library.Common;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Entity.Entities
 {
@@ -22,10 +22,7 @@ namespace Realm.Entity.Entities
         /// <summary>
         ///
         /// </summary>
-        public BarrierDef BarrierDef
-        {
-            get { return Definition.CastAs<BarrierDef>(); }
-        }
+        public BarrierDef BarrierDef => Definition.CastAs<BarrierDef>();
 
         // TODO: State of the Barrier
     }

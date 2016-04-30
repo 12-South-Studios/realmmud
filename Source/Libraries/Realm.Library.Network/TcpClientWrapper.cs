@@ -8,6 +8,9 @@ using System.Net.Sockets;
 using System.Text;
 using Realm.Library.Common.Logging;
 using Realm.Library.Common;
+using Realm.Library.Common.Exceptions;
+using Realm.Library.Common.Extensions;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Library.Network
 {

@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Library.Common.Test
 {

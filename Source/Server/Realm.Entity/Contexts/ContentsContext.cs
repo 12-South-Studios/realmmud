@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Realm.Library.Common;
+using Realm.Entity.Interfaces;
+using Realm.Library.Common.Entities;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Entity.Contexts
 {
@@ -42,20 +44,14 @@ namespace Realm.Entity.Contexts
                 .FirstOrDefault(instance => instance.Parent == aTemplate);
         }*/
 
-        public new int Count
-        {
-            get { return Entities.Count; }
-        }
+        public new int Count => Entities.Count;
 
         public bool Contains(string aName)
         {
             return Entities.Any(entity => entity.CompareName(aName));
         }
 
-        public new IList<IGameEntity> Entities
-        {
-            get { return base.Entities; }
-        }
+        public new IList<IGameEntity> Entities => base.Entities;
 
         /*public IList<IGameEntity> GetEntities(IGameTemplate aTemplate)
         {

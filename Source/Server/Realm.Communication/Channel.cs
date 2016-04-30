@@ -1,10 +1,13 @@
 using System.Linq;
 using Realm.Communication.Properties;
+using Realm.Data;
 using Realm.Data.Definitions;
 using Realm.Entity;
-using Realm.Entity.Entities;
+using Realm.Entity.Entities.Interfaces;
 using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Extensions;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Communication
 {
@@ -15,7 +18,7 @@ namespace Realm.Communication
     {
         private long OwnerId { get; set; }
 
-        private Globals.Globals.ChannelTypes ChannelType { get; set; }
+        private Globals.ChannelTypes ChannelType { get; set; }
 
         private int Bits { get; set; }
 
@@ -35,7 +38,7 @@ namespace Realm.Communication
 
             Data = data;
             OwnerId = data.GetInt("OwnerID");
-            ChannelType = EnumerationExtensions.GetEnum<Globals.Globals.ChannelTypes>(data.GetInt("ChannelTypeID"));
+            ChannelType = EnumerationExtensions.GetEnum<Globals.ChannelTypes>(data.GetInt("ChannelTypeID"));
             Bits = data.GetInt("Bits");
         }
 
@@ -44,7 +47,7 @@ namespace Realm.Communication
         /// <summary>
         ///
         /// </summary>
-        private ChannelDef ChannelDef { get { return Definition.CastAs<ChannelDef>(); } }
+        private ChannelDef ChannelDef => Definition.CastAs<ChannelDef>();
 
         /// <summary>
         /// Changes the ownership of the channel from one owner to another

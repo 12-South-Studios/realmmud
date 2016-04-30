@@ -2,9 +2,8 @@
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Common.Exceptions
+
 {
     /// <summary>
     /// 
@@ -63,7 +62,7 @@ namespace Realm.Library.Common
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             if (info == null)
-                throw new ArgumentNullException("info");
+                throw new ArgumentNullException(nameof(info));
 
             info.AddValue("ResourceReferenceProperty", ResourceReferenceProperty);
             base.GetObjectData(info, context);

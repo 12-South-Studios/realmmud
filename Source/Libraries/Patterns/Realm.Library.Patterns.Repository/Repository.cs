@@ -70,25 +70,16 @@ namespace Realm.Library.Patterns.Repository
         /// <summary>
         /// Gets the number of entities in the repository
         /// </summary>
-        public virtual int Count
-        {
-            get { return _entities.Count; }
-        }
+        public virtual int Count => _entities.Count;
 
         /// <summary>
         /// Gets the keys
         /// </summary>
-        public IEnumerable<TKey> Keys
-        {
-            get { return _entities.Keys; }
-        }
+        public IEnumerable<TKey> Keys => _entities.Keys;
 
         /// <summary>
         /// Gets the values
         /// </summary>
-        public IEnumerable<T> Values
-        {
-            get { return _entities.Values; }
-        }
+        public IEnumerable<T> Values => _entities.Values;
     }
 }

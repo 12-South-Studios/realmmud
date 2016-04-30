@@ -1,4 +1,5 @@
-﻿using Realm.Library.Patterns.Repository;
+﻿using Realm.Library.Common.Entities;
+using Realm.Library.Patterns.Repository;
 
 namespace Realm.Library.Common.Collections
 {

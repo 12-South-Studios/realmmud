@@ -2,9 +2,9 @@
 using Ninject;
 using Ninject.Parameters;
 using Realm.Data.Definitions;
-using Realm.Entity;
-using Realm.Entity.Entities;
-using Realm.Library.Common;
+using Realm.Entity.Entities.Interfaces;
+using Realm.Entity.Interfaces;
+using Realm.Library.Common.Contexts;
 using Realm.Library.Common.Data;
 using Realm.Library.Network;
 
@@ -13,7 +13,7 @@ namespace Realm.Network.User
     /// <summary>
     ///
     /// </summary>
-    public sealed class GameUser : Library.Common.Entity, IGameUser
+    public sealed class GameUser : Library.Common.Objects.Entity, IGameUser
     {
         ///  <summary>
         /// 

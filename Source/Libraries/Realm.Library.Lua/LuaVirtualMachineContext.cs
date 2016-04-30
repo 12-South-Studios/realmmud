@@ -4,7 +4,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using LuaInterface;
 using Realm.Library.Common;
+using Realm.Library.Common.Exceptions;
+using Realm.Library.Common.Extensions;
 using Realm.Library.Common.Logging;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Library.Lua
 {
@@ -41,7 +44,7 @@ namespace Realm.Library.Lua
         /// <summary>
         /// Gets the number of virtual machines on the queue
         /// </summary>
-        public int VMCount { get { return _virtualMachines.Count; } }
+        public int VMCount => _virtualMachines.Count;
 
         /// <summary>
         /// Gets the next virtual machine on the queue and then re-enqueues the chosen vm.

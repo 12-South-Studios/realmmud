@@ -3,6 +3,8 @@ using NUnit.Framework;
 using Realm.Library.Common.Data;
 using Realm.Library.Common.Logging;
 using log4net;
+using Realm.Library.Common.Events;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Library.Common.Test
 {
@@ -24,7 +26,7 @@ namespace Realm.Library.Common.Test
         [Test]
         public void OnGameInitialize_Test()
         {
-            var mockLogger = new Mock<LogWrapper>(new object[] {new Mock<ILog>().Object, LogLevel.Info});
+            var mockLogger = new Mock<LogWrapper>(new Mock<ILog>().Object, LogLevel.Info);
             mockLogger.Setup(x => x.InfoFormat(It.IsAny<string>(), It.IsAny<object>()));
 
             var initAtom = new DictionaryAtom();

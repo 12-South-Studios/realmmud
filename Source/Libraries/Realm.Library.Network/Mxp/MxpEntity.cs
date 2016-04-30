@@ -1,4 +1,5 @@
 ﻿using Realm.Library.Common;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Library.Network.Mxp
 {
@@ -32,7 +33,7 @@ namespace Realm.Library.Network.Mxp
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("!ELEMENT {0} \"{1}\"", Name, Value);
+            return $"!ELEMENT {Name} \"{Value}\"";
         }
     }
 }

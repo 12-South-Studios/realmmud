@@ -3,9 +3,9 @@
 //using Realm.Data.Definitions;
 //using Realm.Library.Patterns.Command;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server.Commands
-//// ReSharper restore CheckNamespace
+//
 //{
 //    /// <summary>
 //    /// who command

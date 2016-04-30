@@ -1,9 +1,9 @@
 ﻿//using Realm.Library.Common;
 //using Realm.Server.Players;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server
-//// ReSharper restore CheckNamespace
+//
 //{
 //// ReSharper disable CSharpWarnings::CS1591
 //    public static class GameUserExtensions

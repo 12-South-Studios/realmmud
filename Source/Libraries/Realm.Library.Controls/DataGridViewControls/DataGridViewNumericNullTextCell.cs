@@ -1,6 +1,6 @@
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Controls
-// ReSharper restore CheckNamespace
+
+namespace Realm.Library.Controls.DataGridViewControls
+
 {
     /// <summary>
     ///
@@ -10,6 +10,6 @@ namespace Realm.Library.Controls
         /// <summary>
         ///
         /// </summary>
-        public override object DefaultNewRowValue { get { return null; } }
+        public override object DefaultNewRowValue => null;
     }
 }

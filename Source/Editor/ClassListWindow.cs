@@ -34,7 +34,7 @@ namespace Realm.Edit
         private void SetupClasses(TreeNode parentNode, int selectedClassId, int? parentClassId)
         {
             if (parentNode == null)
-                throw new ArgumentNullException("parentNode", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(parentNode), Resources.NullParameterErrorMessage);
 
             BuildSystemClassNode(parentNode, selectedClassId, parentClassId);
         }

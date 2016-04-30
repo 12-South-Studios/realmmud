@@ -1,9 +1,5 @@
-﻿using System;
-using System.Text;
+﻿namespace Realm.Library.Common.Test.Extensions
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Common.Test
-// ReSharper restore CheckNamespace
 {
     /*[TestClass]
     public class StringBuilderExtensionTest

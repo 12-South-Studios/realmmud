@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Extensions;
 
 namespace Realm.Data.Definitions
 {
@@ -23,170 +23,78 @@ namespace Realm.Data.Definitions
         /// <summary>
         ///
         /// </summary>
-        public string DisplayName { get { return Def.GetString("DisplayName"); } }
+        public string DisplayName => Def.GetString("DisplayName");
 
         /// <summary>
         ///
         /// </summary>
-        public string DisplayDescription { get { return Def.GetString("DisplayDescription"); } }
+        public string DisplayDescription => Def.GetString("DisplayDescription");
 
-        public Globals.Globals.SizeTypes SizeType
-        {
-            get { return EnumerationExtensions.GetEnum<Globals.Globals.SizeTypes>(Def.GetInt("SizeTypeID")); }
-        }
+        public Globals.SizeTypes SizeType => EnumerationExtensions.GetEnum<Globals.SizeTypes>(Def.GetInt("SizeTypeID"));
 
-        public Globals.Globals.MobileTypes MobileType
-        {
-            get { return EnumerationExtensions.GetEnum<Globals.Globals.MobileTypes>(Def.GetInt("MobileTypeID")); }
-        }
+        public Globals.MobileTypes MobileType => EnumerationExtensions.GetEnum<Globals.MobileTypes>(Def.GetInt("MobileTypeID"));
 
-        public RaceDef Race
-        {
-            get
-            {
-                return
-                    (RaceDef)
-                    StaticDataManager.GetStaticData(Globals.Globals.SystemTypes.Race, Def.GetString("RaceID"));
-            }
-        }
+        public RaceDef Race => (RaceDef)
+            StaticDataManager.GetStaticData(Globals.SystemTypes.Race, Def.GetString("RaceID"));
 
-        public int ConversationID { get { return Def.GetInt("ConversationID"); } }
+        public int ConversationID => Def.GetInt("ConversationID");
 
-        public int AccessLevel { get { return Def.GetInt("AccessLevel"); } }
+        public int AccessLevel => Def.GetInt("AccessLevel");
 
-        public Globals.Globals.GenderTypes GenderType
-        {
-            get { return EnumerationExtensions.GetEnum<Globals.Globals.GenderTypes>(Def.GetInt("GenderTypeID")); }
-        }
+        public Globals.GenderTypes GenderType => EnumerationExtensions.GetEnum<Globals.GenderTypes>(Def.GetInt("GenderTypeID"));
 
-        public int Level { get { return Def.GetInt("Level"); } }
+        public int Level => Def.GetInt("Level");
 
-        public FactionDef Faction
-        {
-            get
-            {
-                return
-                    (FactionDef)
-                    StaticDataManager.GetStaticData(Globals.Globals.SystemTypes.Faction,
-                                                             Def.GetString("FactionID"));
-            }
-        }
+        public FactionDef Faction => (FactionDef)
+            StaticDataManager.GetStaticData(Globals.SystemTypes.Faction,
+                Def.GetString("FactionID"));
 
-        public int TagSetID { get { return Def.GetInt("TagSetID"); } }
+        public int TagSetID => Def.GetInt("TagSetID");
 
-        public bool IsHarvestable
-        {
-            get { return Globals.Globals.MobileBits.IsHarvestable.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsHarvestable => Globals.MobileBits.IsHarvestable.HasBit(Def.GetInt("Bits"));
 
-        public bool IsTrainer
-        {
-            get { return Globals.Globals.MobileBits.IsTrainer.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsTrainer => Globals.MobileBits.IsTrainer.HasBit(Def.GetInt("Bits"));
 
-        public bool IsPostman
-        {
-            get { return Globals.Globals.MobileBits.IsPostman.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsPostman => Globals.MobileBits.IsPostman.HasBit(Def.GetInt("Bits"));
 
-        public bool IsMerchant
-        {
-            get { return Globals.Globals.MobileBits.IsMerchant.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsMerchant => Globals.MobileBits.IsMerchant.HasBit(Def.GetInt("Bits"));
 
-        public bool IsCoroner
-        {
-            get { return Globals.Globals.MobileBits.IsCoroner.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsCoroner => Globals.MobileBits.IsCoroner.HasBit(Def.GetInt("Bits"));
 
-        public bool IsBanker
-        {
-            get { return Globals.Globals.MobileBits.IsBanker.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsBanker => Globals.MobileBits.IsBanker.HasBit(Def.GetInt("Bits"));
 
-        public bool IsBlacksmith
-        {
-            get { return Globals.Globals.MobileBits.IsBlacksmith.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsBlacksmith => Globals.MobileBits.IsBlacksmith.HasBit(Def.GetInt("Bits"));
 
-        public bool IsHealer
-        {
-            get { return Globals.Globals.MobileBits.IsHealer.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsHealer => Globals.MobileBits.IsHealer.HasBit(Def.GetInt("Bits"));
 
-        public bool IsAuctioneer
-        {
-            get { return Globals.Globals.MobileBits.IsAuctioneer.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsAuctioneer => Globals.MobileBits.IsAuctioneer.HasBit(Def.GetInt("Bits"));
 
-        public bool NoSummon
-        {
-            get { return Globals.Globals.MobileBits.NoSummon.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool NoSummon => Globals.MobileBits.NoSummon.HasBit(Def.GetInt("Bits"));
 
-        public bool NoAttack
-        {
-            get { return Globals.Globals.MobileBits.NoAttack.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool NoAttack => Globals.MobileBits.NoAttack.HasBit(Def.GetInt("Bits"));
 
-        public bool NoCharm
-        {
-            get { return Globals.Globals.MobileBits.NoCharm.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool NoCharm => Globals.MobileBits.NoCharm.HasBit(Def.GetInt("Bits"));
 
-        public bool NoBash
-        {
-            get { return Globals.Globals.MobileBits.NoBash.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool NoBash => Globals.MobileBits.NoBash.HasBit(Def.GetInt("Bits"));
 
-        public bool NoBlind
-        {
-            get { return Globals.Globals.MobileBits.NoBlind.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool NoBlind => Globals.MobileBits.NoBlind.HasBit(Def.GetInt("Bits"));
 
-        public IEnumerable<Atom> Abilities
-        {
-            get { return Def.GetAtom<ListAtom>("Abilities"); }
-        }
+        public IEnumerable<Atom> Abilities => Def.GetAtom<ListAtom>("Abilities");
 
-        public IEnumerable<Atom> Equipment
-        {
-            get { return Def.GetAtom<ListAtom>("Equipment"); }
-        }
+        public IEnumerable<Atom> Equipment => Def.GetAtom<ListAtom>("Equipment");
 
-        public IEnumerable<Atom> MudProgs
-        {
-            get { return Def.GetAtom<ListAtom>("MudProgs"); }
-        }
+        public IEnumerable<Atom> MudProgs => Def.GetAtom<ListAtom>("MudProgs");
 
-        public DictionaryAtom Regular
-        {
-            get { return Def.GetAtom<DictionaryAtom>("Regular"); }
-        }
+        public DictionaryAtom Regular => Def.GetAtom<DictionaryAtom>("Regular");
 
-        public DictionaryAtom Resource
-        {
-            get { return Def.GetAtom<DictionaryAtom>("Resource"); }
-        }
+        public DictionaryAtom Resource => Def.GetAtom<DictionaryAtom>("Resource");
 
-        public IEnumerable<Atom> Statistics
-        {
-            get { return Def.GetAtom<ListAtom>("Statistics"); }
-        }
+        public IEnumerable<Atom> Statistics => Def.GetAtom<ListAtom>("Statistics");
 
-        public IEnumerable<Atom> Treasures
-        {
-            get { return Def.GetAtom<ListAtom>("Treasures"); }
-        }
+        public IEnumerable<Atom> Treasures => Def.GetAtom<ListAtom>("Treasures");
 
-        public IEnumerable<Atom> TreasureTables
-        {
-            get { return Def.GetAtom<ListAtom>("TreasureTables"); }
-        }
+        public IEnumerable<Atom> TreasureTables => Def.GetAtom<ListAtom>("TreasureTables");
 
-        public DictionaryAtom Vendor
-        {
-            get { return Def.GetAtom<DictionaryAtom>("Vendor"); }
-        }
+        public DictionaryAtom Vendor => Def.GetAtom<DictionaryAtom>("Vendor");
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
-using Realm.Library.Common;
+using Realm.Library.Common.Entities;
+using Realm.Library.Common.Events;
 
 namespace Realm.Library.Ai.Goals
 {

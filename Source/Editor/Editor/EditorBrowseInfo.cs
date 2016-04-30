@@ -1,5 +1,5 @@
 ﻿using Realm.DAL.Enumerations;
-using Realm.Library.Common;
+using Realm.Library.Common.Extensions;
 using Realm.Library.Controls;
 
 namespace Realm.Edit.Editor

@@ -12,9 +12,9 @@
 //using System.Text;
 //using Realm.Library.Common;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server.Item
-//// ReSharper restore CheckNamespace
+//
 //{
 //    public class DrinkContainerItemInstance : ItemInstance
 //    {

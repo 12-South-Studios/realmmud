@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Realm.Library.Common;
+using Realm.Library.Common.Entities;
 using Realm.Server.Test.Helpers;
 
 namespace Realm.Server.Test.Realm.Server.Entities

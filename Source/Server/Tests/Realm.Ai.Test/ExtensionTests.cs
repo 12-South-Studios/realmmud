@@ -2,8 +2,8 @@
 using NUnit.Framework;
 using Moq;
 using Realm.Ai.Test.Fakes;
-using Realm.Entity;
-using Realm.Library.Common;
+using Realm.Entity.Interfaces;
+using Realm.Library.Common.Entities;
 
 namespace Realm.Ai.Test
 {

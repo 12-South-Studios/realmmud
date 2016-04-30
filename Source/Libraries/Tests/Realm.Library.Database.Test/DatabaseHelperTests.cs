@@ -13,7 +13,7 @@ namespace Realm.Library.Database.Test
     {
         private class FakeObject
         {
-            public static string Name { get { return "Fake"; } }
+            public static string Name => "Fake";
         }
 
         private static SqlException MakeSqlException()
@@ -28,7 +28,7 @@ namespace Realm.Library.Database.Test
             {
                 exception = ex;
             }
-            return (exception);
+            return exception;
         }
 
         private static FakeObject CreateFakeObject(IDataReader reader)

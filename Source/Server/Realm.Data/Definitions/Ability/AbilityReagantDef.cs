@@ -1,8 +1,8 @@
-﻿using Realm.Library.Common.Data;
+﻿using Realm.Data.Definitions.Common;
+using Realm.Library.Common.Data;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Data.Definitions
-// ReSharper restore CheckNamespace
+namespace Realm.Data.Definitions.Ability
+
 {
     public class AbilityReagantDef : SubDefinition
     {
@@ -11,8 +11,8 @@ namespace Realm.Data.Definitions
         {
         }
 
-        public int ItemID { get { return Def.GetInt("ItemID"); } }
+        public int ItemID => Def.GetInt("ItemID");
 
-        public int Quantity { get { return Def.GetInt("Quantity"); } }
+        public int Quantity => Def.GetInt("Quantity");
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Extensions;
 
 namespace Realm.Data.Definitions
 {
@@ -17,58 +17,34 @@ namespace Realm.Data.Definitions
         {
         }
 
-        public string DisplayName { get { return Def.GetString("DisplayName"); } }
+        public string DisplayName => Def.GetString("DisplayName");
 
-        public string DisplayDescription { get { return Def.GetString("DisplayDescription"); } }
+        public string DisplayDescription => Def.GetString("DisplayDescription");
 
-        public Globals.Globals.SizeTypes Size
-        {
-            get { return EnumerationExtensions.GetEnum<Globals.Globals.SizeTypes>(Def.GetInt("SizeTypeID")); }
-        }
+        public Globals.SizeTypes Size => EnumerationExtensions.GetEnum<Globals.SizeTypes>(Def.GetInt("SizeTypeID"));
 
-        public int BaseHealth { get { return Def.GetInt("BaseHealth"); } }
+        public int BaseHealth => Def.GetInt("BaseHealth");
 
-        public int BaseMana { get { return Def.GetInt("BaseMana"); } }
+        public int BaseMana => Def.GetInt("BaseMana");
 
-        public int BaseStamina { get { return Def.GetInt("BaseStamina"); } }
+        public int BaseStamina => Def.GetInt("BaseStamina");
 
-        public string Abbreviation { get { return Def.GetString("Abbreviation"); } }
+        public string Abbreviation => Def.GetString("Abbreviation");
 
-        public int TagSetID { get { return Def.GetInt("TagSetID"); } }
+        public int TagSetID => Def.GetInt("TagSetID");
 
-        public bool DetectInvisible
-        {
-            get { return Globals.Globals.RaceBits.DetectInvisible.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool DetectInvisible => Globals.RaceBits.DetectInvisible.HasBit(Def.GetInt("Bits"));
 
-        public bool DetectHidden
-        {
-            get { return Globals.Globals.RaceBits.DetectHidden.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool DetectHidden => Globals.RaceBits.DetectHidden.HasBit(Def.GetInt("Bits"));
 
-        public bool Infravision
-        {
-            get { return Globals.Globals.RaceBits.Infravision.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool Infravision => Globals.RaceBits.Infravision.HasBit(Def.GetInt("Bits"));
 
-        public bool MoveSilently
-        {
-            get { return Globals.Globals.RaceBits.MoveSilently.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool MoveSilently => Globals.RaceBits.MoveSilently.HasBit(Def.GetInt("Bits"));
 
-        public IEnumerable<Atom> Abilities
-        {
-            get { return Def.GetAtom<ListAtom>("Abilities"); }
-        }
+        public IEnumerable<Atom> Abilities => Def.GetAtom<ListAtom>("Abilities");
 
-        public IEnumerable<Atom> HitLocations
-        {
-            get { return Def.GetAtom<ListAtom>("HitLocations"); }
-        }
+        public IEnumerable<Atom> HitLocations => Def.GetAtom<ListAtom>("HitLocations");
 
-        public IEnumerable<Atom> Statistics
-        {
-            get { return Def.GetAtom<ListAtom>("Statistics"); }
-        }
+        public IEnumerable<Atom> Statistics => Def.GetAtom<ListAtom>("Statistics");
     }
 }

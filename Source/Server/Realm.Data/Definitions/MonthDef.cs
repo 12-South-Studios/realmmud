@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Extensions;
 
 namespace Realm.Data.Definitions
 {
@@ -17,20 +17,14 @@ namespace Realm.Data.Definitions
         {
         }
 
-        public string DisplayName { get { return Def.GetString("DisplayName"); } }
+        public string DisplayName => Def.GetString("DisplayName");
 
-        public int NumberOfDays { get { return Def.GetInt("NumberDays"); } }
+        public int NumberOfDays => Def.GetInt("NumberDays");
 
-        public Globals.Globals.SeasonTypes Season
-        {
-            get { return EnumerationExtensions.GetEnum<Globals.Globals.SeasonTypes>(Def.GetInt("SeasonTypeID")); }
-        }
+        public Globals.SeasonTypes Season => EnumerationExtensions.GetEnum<Globals.SeasonTypes>(Def.GetInt("SeasonTypeID"));
 
-        public bool IsShrouding { get { return Def.GetBool("IsShrouding"); } }
+        public bool IsShrouding => Def.GetBool("IsShrouding");
 
-        public IEnumerable<Atom> Effects
-        {
-            get { return Def.GetAtom<ListAtom>("Effects"); }
-        }
+        public IEnumerable<Atom> Effects => Def.GetAtom<ListAtom>("Effects");
     }
 }

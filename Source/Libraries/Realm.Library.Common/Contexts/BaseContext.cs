@@ -1,6 +1,8 @@
-﻿// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+﻿
+using Realm.Library.Common.Entities;
+
+namespace Realm.Library.Common.Contexts
+
 {
     /// <summary>
     ///

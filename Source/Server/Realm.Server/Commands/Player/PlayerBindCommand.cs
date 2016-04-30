@@ -4,9 +4,9 @@
 //using Realm.Server.Events;
 //using Realm.Server.Zones;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server.Commands
-//// ReSharper restore CheckNamespace
+//
 //{
 //    /// <summary>
 //    /// Bind command

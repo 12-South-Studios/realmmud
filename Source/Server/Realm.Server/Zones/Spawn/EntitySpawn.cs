@@ -11,9 +11,9 @@
 //using Realm.Server.Players;
 //using Realm.Server.Properties;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server.Zones
-//// ReSharper restore CheckNamespace
+//
 //{
 //    public class EntitySpawn : GameEntityConcrete
 //    {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Extensions;
 
 namespace Realm.Data.Definitions
 {
@@ -23,115 +23,78 @@ namespace Realm.Data.Definitions
         /// <summary>
         ///
         /// </summary>
-        public TerrainDef Terrain
-        {
-            get
-            {
-                return
-                    (TerrainDef)
-                    StaticDataManager.GetStaticData(Globals.Globals.SystemTypes.Terrain,
-                                                             Def.GetString("TerrainID"));
-            }
-        }
+        public TerrainDef Terrain => (TerrainDef)
+            StaticDataManager.GetStaticData(Globals.SystemTypes.Terrain,
+                Def.GetString("TerrainID"));
 
         /// <summary>
         ///
         /// </summary>
-        public int AccessLevel { get { return Def.GetInt("AccessLevel"); } }
+        public int AccessLevel => Def.GetInt("AccessLevel");
 
         /// <summary>
         ///
         /// </summary>
-        public int TagSetID { get { return Def.GetInt("TagSetID"); } }
+        public int TagSetID => Def.GetInt("TagSetID");
 
         /// <summary>
         ///
         /// </summary>
-        public string DisplayName { get { return Def.GetString("DisplayName"); } }
+        public string DisplayName => Def.GetString("DisplayName");
 
         /// <summary>
         ///
         /// </summary>
-        public string DisplayDescription { get { return Def.GetString("DisplayDescription"); } }
+        public string DisplayDescription => Def.GetString("DisplayDescription");
 
         /// <summary>
         ///
         /// </summary>
-        public IEnumerable<Atom> Portals
-        {
-            get { return Def.GetAtom<ListAtom>("Portals"); }
-        }
+        public IEnumerable<Atom> Portals => Def.GetAtom<ListAtom>("Portals");
 
         /// <summary>
         ///
         /// </summary>
-        public bool NoMobAllowed
-        {
-            get { return Globals.Globals.SpaceBits.NoMobAllowed.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool NoMobAllowed => Globals.SpaceBits.NoMobAllowed.HasBit(Def.GetInt("Bits"));
 
         /// <summary>
         ///
         /// </summary>
-        public bool NoRecall
-        {
-            get { return Globals.Globals.SpaceBits.NoRecall.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool NoRecall => Globals.SpaceBits.NoRecall.HasBit(Def.GetInt("Bits"));
 
         /// <summary>
         ///
         /// </summary>
-        public bool NoSummon
-        {
-            get { return Globals.Globals.SpaceBits.NoSummon.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool NoSummon => Globals.SpaceBits.NoSummon.HasBit(Def.GetInt("Bits"));
 
         /// <summary>
         ///
         /// </summary>
-        public bool IsSafe
-        {
-            get { return Globals.Globals.SpaceBits.IsSafe.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsSafe => Globals.SpaceBits.IsSafe.HasBit(Def.GetInt("Bits"));
 
         /// <summary>
         ///
         /// </summary>
-        public bool NoMagic
-        {
-            get { return Globals.Globals.SpaceBits.NoMagic.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool NoMagic => Globals.SpaceBits.NoMagic.HasBit(Def.GetInt("Bits"));
 
         /// <summary>
         ///
         /// </summary>
-        public bool IsShrine
-        {
-            get { return Globals.Globals.SpaceBits.IsShrine.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsShrine => Globals.SpaceBits.IsShrine.HasBit(Def.GetInt("Bits"));
 
         /// <summary>
         ///
         /// </summary>
-        public bool IsTavern
-        {
-            get { return Globals.Globals.SpaceBits.IsTavern.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsTavern => Globals.SpaceBits.IsTavern.HasBit(Def.GetInt("Bits"));
 
         /// <summary>
         ///
         /// </summary>
-        public bool IsDynamic
-        {
-            get { return Globals.Globals.SpaceBits.IsDynamic.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsDynamic => Globals.SpaceBits.IsDynamic.HasBit(Def.GetInt("Bits"));
 
         /// <summary>
         ///
         /// </summary>
-        public bool AllowDynamic
-        {
-            get { return Globals.Globals.SpaceBits.AllowDynamic.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool AllowDynamic => Globals.SpaceBits.AllowDynamic.HasBit(Def.GetInt("Bits"));
     }
 }

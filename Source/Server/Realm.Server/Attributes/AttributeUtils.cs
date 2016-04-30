@@ -25,35 +25,35 @@ namespace Realm.Server.Attributes
             if (ignoreSkillCheck)
             {
                 result.Xp = CalculateXp(sourceRating, targetRating,
-                    Globals.Globals.SkillTestResultTypes.Success, xpValue);
-                result.Result = Globals.Globals.SkillTestResultTypes.Success;
+                    Globals.SkillTestResultTypes.Success, xpValue);
+                result.Result = Globals.SkillTestResultTypes.Success;
             }
             else
             {
-                var skillCheck = (sourceRating + Library.Common.Random.D100(1)) - targetRating;
+                var skillCheck = sourceRating + Library.Common.Random.D100(1) - targetRating;
                 if (skillCheck <= -100)
                 {
                     result.Xp = CalculateXp(sourceRating, targetRating,
-                        Globals.Globals.SkillTestResultTypes.CriticalFailure, xpValue);
-                    result.Result = Globals.Globals.SkillTestResultTypes.CriticalFailure;
+                        Globals.SkillTestResultTypes.CriticalFailure, xpValue);
+                    result.Result = Globals.SkillTestResultTypes.CriticalFailure;
                 }
                 else if (skillCheck <= 0)
                 {
                     result.Xp = CalculateXp(sourceRating, targetRating,
-                        Globals.Globals.SkillTestResultTypes.Failure, xpValue);
-                    result.Result = Globals.Globals.SkillTestResultTypes.Failure;
+                        Globals.SkillTestResultTypes.Failure, xpValue);
+                    result.Result = Globals.SkillTestResultTypes.Failure;
                 }
                 else if (skillCheck >= 100)
                 {
                     result.Xp = CalculateXp(sourceRating, targetRating,
-                        Globals.Globals.SkillTestResultTypes.CriticalSuccess, xpValue);
-                    result.Result = Globals.Globals.SkillTestResultTypes.CriticalSuccess;
+                        Globals.SkillTestResultTypes.CriticalSuccess, xpValue);
+                    result.Result = Globals.SkillTestResultTypes.CriticalSuccess;
                 }
                 else
                 {
                     result.Xp = CalculateXp(sourceRating, targetRating,
-                        Globals.Globals.SkillTestResultTypes.Success, xpValue);
-                    result.Result = Globals.Globals.SkillTestResultTypes.Success;
+                        Globals.SkillTestResultTypes.Success, xpValue);
+                    result.Result = Globals.SkillTestResultTypes.Success;
                 } 
             }
 
@@ -78,7 +78,7 @@ namespace Realm.Server.Attributes
         /// result by 50%.
         ///</remarks>
         public static int CalculateXp(int sourceRating, int targetRating,
-            Globals.Globals.SkillTestResultTypes testResult, int baseXpValue)
+            Globals.SkillTestResultTypes testResult, int baseXpValue)
         {
             float modifiedXp;
             var skillDiff = Math.Abs(sourceRating - targetRating);
@@ -98,7 +98,7 @@ namespace Realm.Server.Attributes
                 }
                 else
                 {
-                    modifiedXp = baseXpValue + (baseXpValue * CalculateXpMultiplier(skillDiff));
+                    modifiedXp = baseXpValue + baseXpValue * CalculateXpMultiplier(skillDiff);
                     modifiedXp = testResult.CalculateXpResult(modifiedXp);
                 }
             }
@@ -133,7 +133,7 @@ namespace Realm.Server.Attributes
         /// <returns></returns>
         public static int CalculateBonus(int rating)
         {
-            return (int)(Math.Round((double)(-6 + (rating / 2))));
+            return (int)Math.Round((double)(-6 + rating / 2));
         }
     }
 }

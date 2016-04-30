@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Runtime.Caching;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Common.Caching
+
 {
     /// <summary>
     ///

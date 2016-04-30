@@ -1,8 +1,9 @@
 using Realm.Ai.Properties;
-using Realm.Entity.Entities;
+using Realm.Entity.Entities.Interfaces;
 using Realm.Library.Ai;
 using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Ai.States
 {

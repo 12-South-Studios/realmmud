@@ -1,7 +1,8 @@
 ﻿using Realm.Data.Definitions;
-using Realm.Library.Common;
+using Realm.Library.Common.Contexts;
+using Realm.Library.Common.Entities;
 
-namespace Realm.Entity
+namespace Realm.Entity.Interfaces
 {
     public interface IGameEntity : IEntity, IInitializable
     {

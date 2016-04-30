@@ -1,4 +1,6 @@
-﻿namespace Realm.Server.Attributes
+﻿using Realm.Data;
+
+namespace Realm.Server.Attributes
 {
     /// <summary>
     /// 
@@ -11,7 +13,7 @@
         /// <param name="id"></param>
         /// <param name="name"></param>
         /// <param name="type"></param>
-        public StatAttribute(long id, string name, Globals.Globals.Statistics type)
+        public StatAttribute(long id, string name, Globals.Statistics type)
             : base(id, name)
         {
             Type = type;
@@ -20,6 +22,6 @@
         /// <summary>
         /// 
         /// </summary>
-        public Globals.Globals.Statistics Type { get; private set; }
+        public Globals.Statistics Type { get; private set; }
     }
 }

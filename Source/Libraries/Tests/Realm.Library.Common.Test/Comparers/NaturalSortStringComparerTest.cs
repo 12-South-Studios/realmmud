@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using NUnit.Framework;
+using Realm.Library.Common.Comparers;
 
 namespace Realm.Library.Common.Test.Comparers
 {

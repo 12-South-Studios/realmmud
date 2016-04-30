@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Realm.Command.Interfaces;
-using Realm.Entity;
-using Realm.Entity.Entities;
+using Realm.Entity.Entities.Interfaces;
+using Realm.Entity.Interfaces;
 using Realm.Library.Common;
+using Realm.Library.Common.Contexts;
+using Realm.Library.Common.Entities;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Command.Parsers
 {

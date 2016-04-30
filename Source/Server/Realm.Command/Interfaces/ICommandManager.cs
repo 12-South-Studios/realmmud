@@ -1,7 +1,8 @@
 ﻿using System;
 using Realm.Command.Parsers;
-using Realm.Entity;
-using Realm.Library.Common;
+using Realm.Data;
+using Realm.Entity.Interfaces;
+using Realm.Library.Common.Entities;
 
 namespace Realm.Command.Interfaces
 {
@@ -20,11 +21,11 @@ namespace Realm.Command.Interfaces
 
         bool Execute(IGameEntity entity, string verb, string phrase);
 
-        void Report(Globals.Globals.MessageScopeTypes scope, string message, IEntity oActor,
+        void Report(Globals.MessageScopeTypes scope, string message, IEntity oActor,
                     IEntity oVictim = null, object oDirectObject = null, object oIndirectObject = null,
                     IGameEntity oSpace = null, object oExtra = null);
 
-        void Report(Globals.Globals.MessageScopeTypes scope, string message, ReportData data);
+        void Report(Globals.MessageScopeTypes scope, string message, ReportData data);
 
         #endregion Command Executor
 

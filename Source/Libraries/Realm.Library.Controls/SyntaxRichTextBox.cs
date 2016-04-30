@@ -21,10 +21,7 @@ namespace Realm.Library.Controls
         /// <summary>
         /// The settings.
         /// </summary>
-        public SyntaxSettings Settings
-        {
-            get { return _mSettings; }
-        }
+        public SyntaxSettings Settings => _mSettings;
 
         /// <summary>
         /// WndProc
@@ -136,9 +133,9 @@ namespace Realm.Library.Controls
                 var strKeyword = keywords[i];
 
                 if (i == keywords.Count - 1)
-                    _strKeywords += String.Format("\\b{0}\\b", strKeyword);
+                    _strKeywords += $"\\b{strKeyword}\\b";
                 else
-                    _strKeywords += String.Format("\\b{0}\\b|", strKeyword);
+                    _strKeywords += $"\\b{strKeyword}\\b|";
             }
         }
 

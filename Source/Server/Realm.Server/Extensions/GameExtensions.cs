@@ -2,11 +2,12 @@
 using System.Configuration;
 using System.Linq;
 using Realm.Library.Common;
+using Realm.Library.Common.Exceptions;
+using Realm.Library.Common.Extensions;
 using Realm.Server.Properties;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Server
-// ReSharper restore CheckNamespace
+namespace Realm.Server.Extensions
+
 {
     // ReSharper disable CSharpWarnings::CS1591
     public static class GameExtensions

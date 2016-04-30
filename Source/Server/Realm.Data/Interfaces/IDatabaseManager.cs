@@ -1,6 +1,6 @@
 ﻿using Realm.Library.Database.Framework;
 
-namespace Realm.Data
+namespace Realm.Data.Interfaces
 {
     /// <summary>
     ///

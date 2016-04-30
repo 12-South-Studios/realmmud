@@ -8,9 +8,9 @@
 //using Realm.Server.Item;
 //using Realm.Library.Network.Mxp;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server.Commands
-//// ReSharper restore CheckNamespace
+//
 //{
 //    /// <summary>
 //    /// Change Password command

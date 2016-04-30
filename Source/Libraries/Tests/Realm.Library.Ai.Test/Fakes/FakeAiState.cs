@@ -1,6 +1,6 @@
-﻿// ReSharper disable CheckNamespace
-namespace Realm.Library.Ai.Test
-// ReSharper restore CheckNamespace
+﻿
+namespace Realm.Library.Ai.Test.Fakes
+
 {
     public class FakeAiState : AiState
     {

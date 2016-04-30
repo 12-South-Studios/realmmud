@@ -15,20 +15,20 @@ namespace Realm.Data.Definitions
         {
         }
 
-        public string DisplayName { get { return Def.GetString("DisplayName"); } }
+        public string DisplayName => Def.GetString("DisplayName");
 
-        public string CharNoArg { get { return Def.GetString("CharNoArg"); } }
+        public string CharNoArg => Def.GetString("CharNoArg");
 
-        public string OthersNoArg { get { return Def.GetString("OthersNoArg"); } }
+        public string OthersNoArg => Def.GetString("OthersNoArg");
 
-        public string CharFound { get { return Def.GetString("CharFound"); } }
+        public string CharFound => Def.GetString("CharFound");
 
-        public string OthersFound { get { return Def.GetString("OthersFound"); } }
+        public string OthersFound => Def.GetString("OthersFound");
 
-        public string VictFound { get { return Def.GetString("VictFound"); } }
+        public string VictFound => Def.GetString("VictFound");
 
-        public string CharAuto { get { return Def.GetString("CharAuto"); } }
+        public string CharAuto => Def.GetString("CharAuto");
 
-        public string OthersAuto { get { return Def.GetString("OthersAuto"); } }
+        public string OthersAuto => Def.GetString("OthersAuto");
     }
 }

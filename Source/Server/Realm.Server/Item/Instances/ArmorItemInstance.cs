@@ -8,12 +8,12 @@
 //// </summary>
 //// ------------------------------------------------------------------------
 
-//// ReSharper disable CheckNamespace
+//
 
 //using Realm.Library.Common;
 
 //namespace Realm.Server.Item
-//// ReSharper restore CheckNamespace
+//
 //{
 //    public class ArmorItemInstance : ItemInstance
 //    {

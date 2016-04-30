@@ -8,9 +8,9 @@
 //using Realm.Server.Effects;
 //using Realm.Server.Zones;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server.Commands
-//// ReSharper restore CheckNamespace
+//
 //{
 //    /// <summary>
 //    /// Score command

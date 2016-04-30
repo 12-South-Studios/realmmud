@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using Ninject;
 using Realm.DAL;
 using Realm.DAL.Enumerations;

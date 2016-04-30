@@ -8,7 +8,7 @@ using Realm.DAL.Enumerations;
 using Realm.DAL.Models;
 using Realm.Edit.Extensions;
 using Realm.Library.Common;
-using Realm.Library.Controls;
+using Realm.Library.Controls.DataGridViewControls;
 
 namespace Realm.Edit.EditorControls
 {
@@ -123,7 +123,7 @@ namespace Realm.Edit.EditorControls
                 race.Abbreviation = txtAbbreviation.Text;
                 race.SizeType = (SizeTypes)EnumerationFunctions.GetEnumByName<SizeTypes>(cboSize.Text);
                 
-                int bits = (chkPlayerRace.Checked ? dbContext.GetBitValue(BitTypes.RaceBits, "PlayerRace") : 0);
+                int bits = chkPlayerRace.Checked ? dbContext.GetBitValue(BitTypes.RaceBits, "PlayerRace") : 0;
                 race.Bits = bits;
 
                 // todo stat mod grid
@@ -139,7 +139,7 @@ namespace Realm.Edit.EditorControls
             }
             catch (DataException ex)
             {
-                Program.Log.Error(string.Format("Error saving {0}", ControlName), ex);
+                Program.Log.Error($"Error saving {ControlName}", ex);
                 return false;
             }
             catch (Exception ex)

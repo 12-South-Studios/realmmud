@@ -1,7 +1,7 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Realm.Library.Common;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Library.Network.Mxp
 {
@@ -29,8 +29,8 @@ namespace Realm.Library.Network.Mxp
         public static string MxpTag(this string input, params object[] parameters)
         {
             return parameters.IsNull()
-                ? (MxpBeg() + input + MxpEnd())
-                : (MxpBeg() + string.Format(input, parameters) + MxpEnd());
+                ? MxpBeg() + input + MxpEnd()
+                : MxpBeg() + string.Format(input, parameters) + MxpEnd();
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace Realm.Library.Network.Mxp
         /// </summary>
         public static string MxpMode(this int arg)
         {
-            return String.Format("{0}[{1}z", ESC, arg);
+            return $"{ESC}[{arg}z";
         }
 
         /// <summary>

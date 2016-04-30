@@ -1,4 +1,3 @@
-using System;
 using System.Windows.Forms;
 using System.Reflection;
 using Realm.Edit.Properties;

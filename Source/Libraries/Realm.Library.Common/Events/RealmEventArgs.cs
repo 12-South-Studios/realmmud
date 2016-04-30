@@ -1,8 +1,8 @@
 using System;
+using Realm.Library.Common.Objects;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Common.Events
+
 {
     /// <summary>
     /// Event Argument class for the MUD

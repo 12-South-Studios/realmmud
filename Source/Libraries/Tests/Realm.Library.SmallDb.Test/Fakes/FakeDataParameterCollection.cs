@@ -24,7 +24,7 @@ namespace Realm.Library.SmallDb.Test.Fakes
             throw new NotImplementedException();
         }
 
-        public int Count { get { return _parameters.Count; } }
+        public int Count => _parameters.Count;
         public object SyncRoot { get; private set; }
         public bool IsSynchronized { get; private set; }
         public int Add(object value)

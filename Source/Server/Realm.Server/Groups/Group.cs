@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using Realm.Entity.Entities;
-using Realm.Server.NPC;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Server.Players
-// ReSharper restore CheckNamespace
+namespace Realm.Server.Groups
+
 {
     public class Group
     {

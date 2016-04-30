@@ -1,4 +1,6 @@
-﻿namespace Realm.Entity.Entities
+﻿using Realm.Entity.Interfaces;
+
+namespace Realm.Entity.Entities.Interfaces
 {
     public interface IGameUser : IGameEntity
     {

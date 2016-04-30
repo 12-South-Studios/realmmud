@@ -40,36 +40,28 @@ namespace Realm.Library.Controls
             // just before the end bracket of the header
             if (iInsertLoc == -1) iInsertLoc = strRtf.IndexOf('}', iRtfLoc) - 1;
 
-            var strCommentColor = String.Format("\\red{0}\\green{1}\\blue{2}",
-                settings.CommentColor.R.ToString(CultureInfo.InvariantCulture),
-                settings.CommentColor.G.ToString(CultureInfo.InvariantCulture),
-                settings.CommentColor.B.ToString(CultureInfo.InvariantCulture));
+            var strCommentColor =
+                $"\\red{settings.CommentColor.R.ToString(CultureInfo.InvariantCulture)}\\green{settings.CommentColor.G.ToString(CultureInfo.InvariantCulture)}\\blue{settings.CommentColor.B.ToString(CultureInfo.InvariantCulture)}";
 
-            var strStringColor = String.Format("\\red{0}\\green{1}\\blue{2}",
-                settings.StringColor.R.ToString(CultureInfo.InvariantCulture),
-                settings.StringColor.G.ToString(CultureInfo.InvariantCulture),
-                settings.StringColor.B.ToString(CultureInfo.InvariantCulture));
+            var strStringColor =
+                $"\\red{settings.StringColor.R.ToString(CultureInfo.InvariantCulture)}\\green{settings.StringColor.G.ToString(CultureInfo.InvariantCulture)}\\blue{settings.StringColor.B.ToString(CultureInfo.InvariantCulture)}";
 
-            var strKeywordColor = String.Format("\\red{0}\\green{1}\\blue{2}",
-                settings.KeywordColor.R.ToString(CultureInfo.InvariantCulture),
-                settings.KeywordColor.G.ToString(CultureInfo.InvariantCulture),
-                settings.KeywordColor.B.ToString(CultureInfo.InvariantCulture));
+            var strKeywordColor =
+                $"\\red{settings.KeywordColor.R.ToString(CultureInfo.InvariantCulture)}\\green{settings.KeywordColor.G.ToString(CultureInfo.InvariantCulture)}\\blue{settings.KeywordColor.B.ToString(CultureInfo.InvariantCulture)}";
 
-            var strIntegerColor = String.Format("\\red{0}\\green{1}\\blue{2}",
-                settings.IntegerColor.R.ToString(CultureInfo.InvariantCulture),
-                settings.IntegerColor.G.ToString(CultureInfo.InvariantCulture),
-                settings.IntegerColor.B.ToString(CultureInfo.InvariantCulture));
+            var strIntegerColor =
+                $"\\red{settings.IntegerColor.R.ToString(CultureInfo.InvariantCulture)}\\green{settings.IntegerColor.G.ToString(CultureInfo.InvariantCulture)}\\blue{settings.IntegerColor.B.ToString(CultureInfo.InvariantCulture)}";
 
             // insert the colour table at our chosen location
-            strRtf = strRtf.Insert(iInsertLoc, String.Format("{{\\colortbl ;{0};{1};{2};{3};}}",
-                strCommentColor, strStringColor, strKeywordColor, strIntegerColor));
+            strRtf = strRtf.Insert(iInsertLoc,
+                $"{{\\colortbl ;{strCommentColor};{strStringColor};{strKeywordColor};{strIntegerColor};}}");
 
             // build the keywords regex
-            var strKeywords = settings.Keywords.Aggregate(String.Empty, (current, keyword) => current + (keyword + ","));
+            var strKeywords = settings.Keywords.Aggregate(String.Empty, (current, keyword) => current + keyword + ",");
             strKeywords = strKeywords.Substring(0, strKeywords.Length - 1);
 
             var r = new Regex(@", ?");
-            strKeywords = String.Format(@"\b({0})\b", r.Replace(strKeywords, @"|"));
+            strKeywords = $@"\b({r.Replace(strKeywords, @"|")})\b";
 
             // start coloring
             // Keywords
@@ -81,7 +73,7 @@ namespace Realm.Library.Controls
             strRtf = r.Replace(strRtf, MatchInteger);
 
             // Comments
-            r = new Regex(String.Format("({0}.*$)", settings.Comment), RegexOptions.Multiline | RegexOptions.IgnoreCase);
+            r = new Regex($"({settings.Comment}.*$)", RegexOptions.Multiline | RegexOptions.IgnoreCase);
             strRtf = r.Replace(strRtf, MatchComment);
 
             // Strings
@@ -99,7 +91,7 @@ namespace Realm.Library.Controls
         private static string MatchKeyword(Match match)
         {
             return match.Groups[1].Success
-                ? String.Format(@"\cf3 {0}\cf0 ", RemoveRtfColors(match.Value))
+                ? $@"\cf3 {RemoveRtfColors(match.Value)}\cf0 "
                 : String.Empty;
         }
 
@@ -111,7 +103,7 @@ namespace Realm.Library.Controls
         private static string MatchString(Match match)
         {
             return match.Groups[1].Success
-                ? String.Format(@"\cf2 {0}\cf0 ", RemoveRtfColors(match.Value))
+                ? $@"\cf2 {RemoveRtfColors(match.Value)}\cf0 "
                 : String.Empty;
         }
 
@@ -123,7 +115,7 @@ namespace Realm.Library.Controls
         private static string MatchComment(Match match)
         {
             return match.Groups[1].Success
-                ? String.Format(@"\cf1 {0}\cf0 ", RemoveRtfColors(match.Value))
+                ? $@"\cf1 {RemoveRtfColors(match.Value)}\cf0 "
                 : String.Empty;
         }
 
@@ -135,7 +127,7 @@ namespace Realm.Library.Controls
         private static string MatchInteger(Match match)
         {
             return match.Groups[1].Success
-                ? String.Format(@"\cf4 {0}\cf0 ", RemoveRtfColors(match.Value))
+                ? $@"\cf4 {RemoveRtfColors(match.Value)}\cf0 "
                 : String.Empty;
         }
 

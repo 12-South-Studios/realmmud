@@ -4,11 +4,15 @@ using System.Globalization;
 using Ninject;
 using Realm.Command;
 using Realm.Command.Interfaces;
+using Realm.Data;
 using Realm.Data.Definitions;
-using Realm.Entity;
-using Realm.Entity.Entities;
+using Realm.Entity.Entities.Interfaces;
+using Realm.Entity.Interfaces;
 using Realm.Library.Common;
-using Realm.Server.NPC;
+using Realm.Library.Common.Entities;
+using Realm.Library.Common.Extensions;
+using Realm.Library.Common.Objects;
+using Realm.Server.NPC.Combat;
 using Realm.Server.Properties;
 using Realm.Time.Interfaces;
 
@@ -86,7 +90,7 @@ namespace Realm.Server.Commands
         /// <summary>
         /// 
         /// </summary>
-        public int Count { get { return _variableTable.Count; } }
+        public int Count => _variableTable.Count;
 
         /// <summary>
         /// Variable is $n, name of the object doing the acting
@@ -94,7 +98,7 @@ namespace Realm.Server.Commands
         public string ParseActorName(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             var cell = data.Actor as ICell;
             return cell.IsNull() ? string.Empty : cell.Name;
@@ -106,7 +110,7 @@ namespace Realm.Server.Commands
         public string ParseVictimName(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             var cell = data.Victim as ICell;
             return cell.IsNull() ? string.Empty : cell.Name;
@@ -118,7 +122,7 @@ namespace Realm.Server.Commands
         public string ParseDirectObjectName(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             var obj = data.DirectObject as IEntity;
             return obj.IsNull() ? string.Empty : obj.Name;
@@ -130,7 +134,7 @@ namespace Realm.Server.Commands
         public string ParseIndirectObjectName(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             var obj = data.IndirectObject as IEntity;
             return obj.IsNull() ? string.Empty : obj.Name;
@@ -142,7 +146,7 @@ namespace Realm.Server.Commands
         public string ParseDirectObjectPluralName(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             var _object = data.DirectObject as IEntity;
             if (_object.IsNull()) return string.Empty;
@@ -162,7 +166,7 @@ namespace Realm.Server.Commands
         public static string ParseIndirectObjectPluralName(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             var _object = data.IndirectObject as IEntity;
             if (_object.IsNull()) return string.Empty;
@@ -182,7 +186,7 @@ namespace Realm.Server.Commands
         public static string ParseDirectObjectId(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             var _object = data.DirectObject as IEntity;
             return _object.IsNotNull() ? _object.ID.ToString(CultureInfo.InvariantCulture) : string.Empty;
@@ -194,7 +198,7 @@ namespace Realm.Server.Commands
         public static string ParseIndirectObjectId(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             var _object = data.IndirectObject as IEntity;
             return _object.IsNotNull() ? _object.ID.ToString(CultureInfo.InvariantCulture) : string.Empty;
@@ -206,7 +210,7 @@ namespace Realm.Server.Commands
         public static string AddArticleToActorName(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             var cell = data.Actor as ICell;
             return cell.IsNull() ? string.Empty : cell.Name.AddArticle();
@@ -218,7 +222,7 @@ namespace Realm.Server.Commands
         public static string AddArticleToVictimName(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             var cell = data.Victim as ICell;
             return cell.IsNull() ? string.Empty : cell.Name.AddArticle();
@@ -230,7 +234,7 @@ namespace Realm.Server.Commands
         public static string AddTheToActorName(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             var cell = data.Actor as ICell;
             return cell.IsNull() ? string.Empty : cell.Name.AddArticle(ArticleAppendOptions.TheToFront);
@@ -242,7 +246,7 @@ namespace Realm.Server.Commands
         public static string AddTheToVictimName(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             var cell = data.Victim as ICell;
             return cell.IsNull() ? string.Empty : cell.Name.AddArticle(ArticleAppendOptions.TheToFront);
@@ -254,12 +258,12 @@ namespace Realm.Server.Commands
         public static string ParseActorSubjectPronoun(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             if (data.Actor is IBiota)
             {
                 var biote = data.Actor as IBiota;
-                return Data.GlobalsExtensions.SubjectPronoun(biote.Gender);
+                return biote.Gender.SubjectPronoun();
             }
             return "it";
         }
@@ -270,12 +274,12 @@ namespace Realm.Server.Commands
         public static string ParseVictimSubjectPronoun(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             if (data.Victim is IBiota)
             {
                 var biote = data.Victim as IBiota;
-                return Data.GlobalsExtensions.SubjectPronoun(biote.Gender);
+                return biote.Gender.SubjectPronoun();
             }
             return "it";
         }
@@ -286,12 +290,12 @@ namespace Realm.Server.Commands
         private string ParseActorObjectPronoun(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             if (data.Actor is IBiota)
             {
                 var biote = data.Actor as IBiota;
-                return Data.GlobalsExtensions.ObjectPronoun(biote.Gender);
+                return biote.Gender.ObjectPronoun();
             }
             return "it";
         }
@@ -302,12 +306,12 @@ namespace Realm.Server.Commands
         private string ParseVictimObjectPronoun(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             if (data.Victim is IBiota)
             {
                 var biote = data.Victim as IBiota;
-                return Data.GlobalsExtensions.ObjectPronoun(biote.Gender);
+                return biote.Gender.ObjectPronoun();
             }
             return "it";
         }
@@ -318,12 +322,12 @@ namespace Realm.Server.Commands
         private string ParseActorPossessivePronoun(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             if (data.Actor is IBiota)
             {
                 var biote = data.Actor as IBiota;
-                return Data.GlobalsExtensions.PossessivePronoun(biote.Gender);
+                return biote.Gender.PossessivePronoun();
             }
             return "its";
         }
@@ -336,7 +340,7 @@ namespace Realm.Server.Commands
             if (data.Victim is IBiota)
             {
                 var biote = data.Victim as IBiota;
-                return Data.GlobalsExtensions.PossessivePronoun(biote.Gender);
+                return biote.Gender.PossessivePronoun();
             }
             return "its";
         }
@@ -347,12 +351,12 @@ namespace Realm.Server.Commands
         private string ParseActorReflexivePronoun(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             if (data.Actor is IBiota)
             {
                 var biote = data.Actor as IBiota;
-                return Data.GlobalsExtensions.ReflexivePronoun(biote.Gender);
+                return biote.Gender.ReflexivePronoun();
             }
             return "itself";
         }
@@ -363,12 +367,12 @@ namespace Realm.Server.Commands
         private string ParseVictimReflexivePronoun(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             if (data.Victim is IBiota)
             {
                 var biote = data.Victim as IBiota;
-                return Data.GlobalsExtensions.ReflexivePronoun(biote.Gender);
+                return biote.Gender.ReflexivePronoun();
             }
             return "itself";
         }
@@ -379,7 +383,7 @@ namespace Realm.Server.Commands
         private string ParseDirectionOfMovement(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             var oExit = data.DirectObject as PortalDef;
             return oExit.IsNull() ? string.Empty : oExit.Direction.GetName();
@@ -391,10 +395,10 @@ namespace Realm.Server.Commands
         private string ParseReverseDirectionOfMovement(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             var oExit = data.DirectObject as PortalDef;
-            return oExit.IsNull() ? string.Empty : Data.GlobalsExtensions.GetOpposite(oExit.Direction);
+            return oExit.IsNull() ? string.Empty : oExit.Direction.GetOpposite();
         }
 
         /// <summary>
@@ -403,7 +407,7 @@ namespace Realm.Server.Commands
         private string ParseActorPosition(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             if (data.Actor is IBiota)
             {
@@ -419,7 +423,7 @@ namespace Realm.Server.Commands
         private string ParseVictimPosition(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             if (data.Victim is IBiota)
             {
@@ -435,7 +439,7 @@ namespace Realm.Server.Commands
         private string ParseActorMovementMode(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             if (data.Actor is IBiota)
             {
@@ -451,7 +455,7 @@ namespace Realm.Server.Commands
         private string ParseVictimMovementMode(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             if (data.Victim is IBiota)
             {
@@ -467,10 +471,10 @@ namespace Realm.Server.Commands
         private string WearLocationShortName(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             var loc = data.IndirectObject as string;
-            return EnumerationExtensions.GetEnum<Globals.Globals.WearLocations>(loc).GetShortName();
+            return EnumerationExtensions.GetEnum<Globals.WearLocations>(loc).GetShortName();
         }
 
         /// <summary>
@@ -479,10 +483,10 @@ namespace Realm.Server.Commands
         private string WearLocationLongName(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             var loc = data.IndirectObject as string;
-            return EnumerationExtensions.GetEnum<Globals.Globals.WearLocations>(loc).GetExtraData();
+            return EnumerationExtensions.GetEnum<Globals.WearLocations>(loc).GetExtraData();
         }
 
         /// <summary>
@@ -491,7 +495,7 @@ namespace Realm.Server.Commands
         private string ParseDamageDetails(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             var dmg = data.IndirectObject as Damage;
             return dmg.IsNull() ? string.Empty : dmg.DamageAmount + " " + dmg.DamageType.ToString().ToLower();
@@ -503,7 +507,7 @@ namespace Realm.Server.Commands
         private string ParseDirectObjectValue<T>(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             try
             {
@@ -521,7 +525,7 @@ namespace Realm.Server.Commands
         private string ParseIndirectObjectValue<T>(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             try
             {
@@ -539,7 +543,7 @@ namespace Realm.Server.Commands
         private string ParseExtraObjectValue<T>(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             try
             {
@@ -557,7 +561,7 @@ namespace Realm.Server.Commands
         private string ParseNumberToWords(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             try
             {
@@ -575,7 +579,7 @@ namespace Realm.Server.Commands
         private string ParseQuantityToCurrency(ReportData data)
         {
             if (data.IsNull())
-                throw new ArgumentNullException("data", ErrorResources.ERR_NULL_PARAMETER);
+                throw new ArgumentNullException(nameof(data), ErrorResources.ERR_NULL_PARAMETER);
 
             try
             {

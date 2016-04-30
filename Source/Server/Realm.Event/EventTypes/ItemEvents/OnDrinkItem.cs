@@ -1,8 +1,7 @@
-﻿using Realm.Library.Common;
+﻿using Realm.Library.Common.Events;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Event
-// ReSharper restore CheckNamespace
+namespace Realm.Event.EventTypes.ItemEvents
+
 {
     public class OnDrinkItem : EventBase
     {

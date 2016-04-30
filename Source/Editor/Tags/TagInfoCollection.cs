@@ -9,7 +9,7 @@ namespace Realm.Edit.Tags
         protected override int GetKeyForItem(TagInfo value)
         {
             if (value == null)
-                throw new ArgumentNullException("value", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(value), Resources.NullParameterErrorMessage);
 
             return value.Id;
         }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Realm.Library.Ai.Test
+﻿namespace Realm.Library.Ai.Test
 {
     /*[TestClass]
     public class AiStateUnitTest

@@ -1,5 +1,5 @@
-﻿using Realm.Library.Common;
-using Realm.Data.Definitions;
+﻿using Realm.Data.Definitions;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Server.Attributes
 {

@@ -1,9 +1,9 @@
 ﻿//using System.Collections.Generic;
 //using Realm.Library.Common;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server.Zones
-//// ReSharper restore CheckNamespace
+//
 //{
 //    public class SpawnProfile : Cell
 //    {

@@ -1,5 +1,7 @@
-﻿using Realm.Data.Definitions;
-using Realm.Library.Common;
+﻿using Realm.Data;
+using Realm.Data.Definitions;
+using Realm.Entity.Entities.Interfaces;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Entity.Entities
 {
@@ -22,25 +24,19 @@ namespace Realm.Entity.Entities
         /// <summary>
         ///
         /// </summary>
-        public MobileDef MobileDef { get { return Definition.CastAs<MobileDef>(); } }
+        public MobileDef MobileDef => Definition.CastAs<MobileDef>();
 
-        public override Globals.Globals.PositionTypes Position
+        public override Globals.PositionTypes Position
         {
             get { throw new System.NotImplementedException(); }
             set { throw new System.NotImplementedException(); }
         }
 
-        public override Globals.Globals.GenderTypes Gender
-        {
-            get { return MobileDef.GenderType; }
-        }
+        public override Globals.GenderTypes Gender => MobileDef.GenderType;
 
-        public override RaceDef Race
-        {
-            get { return MobileDef.Race; }
-        }
+        public override RaceDef Race => MobileDef.Race;
 
-        public override Globals.Globals.MovementModeTypes Movement
+        public override Globals.MovementModeTypes Movement
         {
             get { throw new System.NotImplementedException(); }
             set { throw new System.NotImplementedException(); }

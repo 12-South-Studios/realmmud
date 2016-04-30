@@ -1,7 +1,9 @@
 ﻿using System;
 using Moq;
 using NUnit.Framework;
+using Realm.Library.Common.Extensions;
 using Realm.Library.Common.Logging;
+using Realm.Library.Common.Exceptions;
 
 namespace Realm.Library.Common.Test.Extensions
 {

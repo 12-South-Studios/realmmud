@@ -8,7 +8,7 @@ using Realm.DAL.Enumerations;
 using Realm.DAL.Models;
 using Realm.Edit.Extensions;
 using Realm.Library.Common;
-using Realm.Library.Controls;
+using Realm.Library.Controls.DataGridViewControls;
 
 namespace Realm.Edit.EditorControls
 {
@@ -230,15 +230,15 @@ namespace Realm.Edit.EditorControls
                     ? null
                     : dbContext.Terrains.FirstOrDefault(x => x.Id == linkTerrain.GetContentId());
 
-                int bits = (chkNotInterruptible.Checked ? dbContext.GetBitValue(BitTypes.AbilityBits, "NotInterruptible") : 0);
-                bits += (chkAutoAttack.Checked ? dbContext.GetBitValue(BitTypes.AbilityBits, "AutoAttack") : 0);
-                bits += (chkWeaponRequired.Checked ? dbContext.GetBitValue(BitTypes.AbilityBits, "WeaponRequired") : 0);
-                bits += (chkImplementRequired.Checked ? dbContext.GetBitValue(BitTypes.AbilityBits, "ImplementRequired") : 0);
-                bits += (chkVerbalRequired.Checked ? dbContext.GetBitValue(BitTypes.AbilityBits, "VerbalRequired") : 0);
-                bits += (chkPassive.Checked ? dbContext.GetBitValue(BitTypes.AbilityBits, "Passive") : 0);
-                bits += (chkTerrainRequired.Checked ? dbContext.GetBitValue(BitTypes.AbilityBits, "TerrainRequired") : 0);
-                bits += (chkNoCombatUse.Checked ? dbContext.GetBitValue(BitTypes.AbilityBits, "NoCombatUse") : 0);
-                bits += (chkSightRequired.Checked ? dbContext.GetBitValue(BitTypes.AbilityBits, "SightRequired") : 0);
+                int bits = chkNotInterruptible.Checked ? dbContext.GetBitValue(BitTypes.AbilityBits, "NotInterruptible") : 0;
+                bits += chkAutoAttack.Checked ? dbContext.GetBitValue(BitTypes.AbilityBits, "AutoAttack") : 0;
+                bits += chkWeaponRequired.Checked ? dbContext.GetBitValue(BitTypes.AbilityBits, "WeaponRequired") : 0;
+                bits += chkImplementRequired.Checked ? dbContext.GetBitValue(BitTypes.AbilityBits, "ImplementRequired") : 0;
+                bits += chkVerbalRequired.Checked ? dbContext.GetBitValue(BitTypes.AbilityBits, "VerbalRequired") : 0;
+                bits += chkPassive.Checked ? dbContext.GetBitValue(BitTypes.AbilityBits, "Passive") : 0;
+                bits += chkTerrainRequired.Checked ? dbContext.GetBitValue(BitTypes.AbilityBits, "TerrainRequired") : 0;
+                bits += chkNoCombatUse.Checked ? dbContext.GetBitValue(BitTypes.AbilityBits, "NoCombatUse") : 0;
+                bits += chkSightRequired.Checked ? dbContext.GetBitValue(BitTypes.AbilityBits, "SightRequired") : 0;
                 ability.Bits = bits;
 
                 // todo tag set
@@ -257,7 +257,7 @@ namespace Realm.Edit.EditorControls
             }
             catch (DataException ex)
             {
-                Program.Log.Error(string.Format("Error saving {0}", ControlName), ex);
+                Program.Log.Error($"Error saving {ControlName}", ex);
                 return false;
             }
             catch (Exception ex)

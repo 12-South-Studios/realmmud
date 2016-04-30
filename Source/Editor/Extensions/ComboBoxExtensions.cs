@@ -33,7 +33,7 @@ namespace Realm.Edit.Extensions
         public static int GetContentId(this ComboBox value)
         {
             if (value == null)
-                throw new ArgumentNullException("value", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(value), Resources.NullParameterErrorMessage);
 
             var selectedItem = value.SelectedItem;
             if (selectedItem == null) return 0;
@@ -49,11 +49,11 @@ namespace Realm.Edit.Extensions
         public static void Fill(this ComboBox value, string categoryName, int selectTag, string nullEntryName)
         {
             if (value == null)
-                throw new ArgumentNullException("value", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(value), Resources.NullParameterErrorMessage);
             if (String.IsNullOrEmpty(categoryName))
-                throw new ArgumentNullException("categoryName", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(categoryName), Resources.NullParameterErrorMessage);
             if (nullEntryName == null)
-                throw new ArgumentNullException("nullEntryName", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(nullEntryName), Resources.NullParameterErrorMessage);
 
             value.BeginUpdate();
             value.Items.Clear();

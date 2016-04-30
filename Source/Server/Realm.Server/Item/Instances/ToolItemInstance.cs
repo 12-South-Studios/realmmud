@@ -11,9 +11,9 @@
 //using System.Collections.Generic;
 //using Realm.Library.Common;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server.Item
-//// ReSharper restore CheckNamespace
+//
 //{
 //    public class ToolItemInstance : ItemInstance
 //    {

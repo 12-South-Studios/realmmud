@@ -1,6 +1,6 @@
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+
+namespace Realm.Library.Common.Objects
+
 {
     /// <summary>
     /// Atomic abstract object class containing an ID and a Name.

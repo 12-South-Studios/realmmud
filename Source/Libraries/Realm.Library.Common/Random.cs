@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-// ReSharper disable CheckNamespace
+
 namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+
 {
     /// <summary>
     ///

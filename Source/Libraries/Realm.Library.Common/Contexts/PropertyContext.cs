@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Realm.Library.Common.Entities;
+using Realm.Library.Common.Extensions;
+using Realm.Library.Common.Objects;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Common.Contexts
+
 {
     /// <summary>
     ///
@@ -134,12 +136,12 @@ namespace Realm.Library.Common
         /// <summary>
         ///
         /// </summary>
-        public IEnumerable<string> PropertyKeys { get { return _properties.Keys; } }
+        public IEnumerable<string> PropertyKeys => _properties.Keys;
 
         /// <summary>
         ///
         /// </summary>
-        public int Count { get { return _properties.Count; } }
+        public int Count => _properties.Count;
 
         /// <summary>
         ///

@@ -1,5 +1,6 @@
 ﻿using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Events;
 using Realm.Pathing.Interfaces;
 
 namespace Realm.Pathing

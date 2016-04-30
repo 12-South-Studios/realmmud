@@ -31,7 +31,7 @@ namespace Integration.Tests
         [Category("Integration")]
         public void CreateAndInitializeDatabase_RealmAdmin()
         {
-            DropDatabase("AdminDbContext");
+           // DropDatabase("AdminDbContext");
             Database.SetInitializer(new MigrateDatabaseToLatestVersion
                 <RealmAdminDbContext, Realm.Admin.DAL.Migrations.Configuration>());
             AdminDatabaseSeeder.Kernel = _kernel;
@@ -42,7 +42,7 @@ namespace Integration.Tests
         [Category("Integration")]
         public void CreateAndInitializeDatabase_Realm()
         {
-            DropDatabase("RealmDbContext");
+           // DropDatabase("RealmDbContext");
             Database.SetInitializer(new MigrateDatabaseToLatestVersion
                 <RealmDbContext, Realm.DAL.Migrations.Configuration>());
             RealmDatabaseSeeder.Kernel = _kernel;
@@ -53,7 +53,7 @@ namespace Integration.Tests
         [Category("Integration")]
         public void CreateAndInitializeDatabase_RealmLive()
         {
-            DropDatabase("LiveDbContext");
+           // DropDatabase("LiveDbContext");
             Database.SetInitializer(new MigrateDatabaseToLatestVersion
                 <RealmLiveDbContext, Realm.Live.DAL.Migrations.Configuration>());
             LiveDatabaseSeeder.Kernel = _kernel;
@@ -72,17 +72,18 @@ namespace Integration.Tests
                 {
                     sqlConnection.Open();
                 }
-                catch (SqlException ex)
+                catch (SqlException)
                 {
                     return;
                 }
 
                 sqlConnection.ChangeDatabase("Master");
-                var singleUserCommand = new SqlCommand(string.Format("alter database {0} set single_user with rollback immediate", databaseName),
+                var singleUserCommand = new SqlCommand(
+                    $"alter database {databaseName} set single_user with rollback immediate",
                         sqlConnection);
                 singleUserCommand.ExecuteNonQuery();
 
-                var command = new SqlCommand(string.Format("drop database {0}", databaseName), sqlConnection);
+                var command = new SqlCommand($"drop database {databaseName}", sqlConnection);
                 command.ExecuteNonQuery();
                 sqlConnection.Close();
             }

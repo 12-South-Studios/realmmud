@@ -23,27 +23,33 @@ namespace Realm.Library.Common.Test
 
         [TestCase(25, typeof(int))]
         [TestCase("test", typeof(string))]
-        [TestCase(null, typeof(int), ExpectedException = typeof(ArgumentNullException))]
-        [TestCase("test", (Type)null, ExpectedException = typeof(ArgumentNullException))]
-        [TestCase(25, typeof(bool), ExpectedException = typeof(ArgumentException))]
         public void IsInstanceOfTest(object obj, Type type)
         {
             Validation.IsInstanceOfType(obj, type);
         }
-
-        [TestCase("", "null", ExpectedException = typeof(ArgumentNullException))]
+        
         [TestCase("test", "number")]
         public void IsNotNullOrEmptyTest(string obj, string param)
         {
             Validation.IsNotNullOrEmpty(obj, param);
         }
 
-        [TestCase(null, "null", ExpectedException = typeof(ArgumentNullException))]
-        [TestCase(new object[] { }, "object", ExpectedException = typeof(ArgumentException))]
+        [Test]
+        public void IsNotNullOrEmpty_ThrowsException_WhenNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => Validation.IsNotNullOrEmpty("", null));
+        }
+        
         [TestCase(new object[] { 25, 15 }, "value")]
         public void IsNotEmpty(ICollection value, string param)
         {
             Validation.IsNotEmpty(value, param);
+        }
+
+        [Test]
+        public void IsNotEmpty_THrowsException_WhenNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => Validation.IsNotEmpty(null, "null"));
         }
 
         [Test]
@@ -57,14 +63,12 @@ namespace Realm.Library.Common.Test
         }
 
         [TestCase(true, "test")]
-        [TestCase(false, "test", ExpectedException = typeof(ArgumentException))]
         public void Validate(bool test, string message)
         {
             Validation.Validate(test, message);
         }
 
         [TestCase(true, "test")]
-        [TestCase(false, "test", ExpectedException = typeof(InconclusiveException))]
         public void ValidateCustomException(bool test, string message)
         {
             Validation.Validate<InconclusiveException>(test, message);

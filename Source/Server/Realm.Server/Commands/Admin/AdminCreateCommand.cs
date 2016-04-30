@@ -4,9 +4,9 @@
 //using Realm.Server.Item;
 //using Realm.Server.Properties;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server.Commands
-//// ReSharper restore CheckNamespace
+//
 //{
 //    /// <summary>
 //    /// Admin Create command

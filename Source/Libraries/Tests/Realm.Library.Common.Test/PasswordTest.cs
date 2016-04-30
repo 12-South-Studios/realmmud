@@ -6,9 +6,9 @@ namespace Realm.Library.Common.Test
     [TestFixture]
     public class PasswordTest
     {
-        private static string PreHash { get { return "tqzOngQC"; } }
-        private static string PostHash { get { return "LfbPsmik"; } }
-        private static string EncryptedPass { get { return "SeFROWqcINCrgwcZ/zYbvKr497A="; } }
+        private static string PreHash => "tqzOngQC";
+        private static string PostHash => "LfbPsmik";
+        private static string EncryptedPass => "SeFROWqcINCrgwcZ/zYbvKr497A=";
 
         [TestCase("12south", true)]
         [TestCase("tester", false)]

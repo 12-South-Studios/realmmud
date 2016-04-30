@@ -1,10 +1,9 @@
 using System;
 using System.Windows.Forms;
-using Realm.Library.Common;
+using Realm.Library.Common.Objects;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Controls
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Controls.DataGridViewControls
+
 {
     /// <summary>
     ///
@@ -14,7 +13,7 @@ namespace Realm.Library.Controls
         /// <summary>
         ///
         /// </summary>
-        public override Type EditType { get { return typeof(DataGridViewCheckComboBoxControl); } }
+        public override Type EditType => typeof(DataGridViewCheckComboBoxControl);
 
         /// <summary>
         ///

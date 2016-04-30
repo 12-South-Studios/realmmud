@@ -2,9 +2,9 @@
 //using System.Collections.Generic;
 //using Realm.Server.Item;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server.NPC
-//// ReSharper restore CheckNamespace
+//
 //{
 //    public interface IShop
 //    {

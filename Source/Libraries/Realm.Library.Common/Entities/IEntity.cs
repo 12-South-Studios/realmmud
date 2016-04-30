@@ -1,6 +1,6 @@
-﻿// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+﻿
+namespace Realm.Library.Common.Entities
+
 {
     /// <summary>
     /// Basic interface for the Entity object

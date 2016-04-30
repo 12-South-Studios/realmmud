@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using Realm.Data;
+using Realm.Data.Interfaces;
+using Realm.Entity.Interfaces;
 using Realm.Entity.Properties;
 using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Events;
+using Realm.Library.Common.Exceptions;
+using Realm.Library.Common.Extensions;
 using Realm.Library.Common.Logging;
+using Realm.Library.Common.Objects;
 using Realm.Library.Database;
 using Realm.Library.Database.Framework;
 
@@ -13,7 +18,7 @@ namespace Realm.Entity
     /// <summary>
     ///
     /// </summary>
-    public class EntityLoader : Library.Common.Entity, IEntityLoader
+    public class EntityLoader : Library.Common.Objects.Entity, IEntityLoader
     {
         private static readonly Dictionary<string, int> StartupZones = new Dictionary<string, int>();
         private readonly IDatabaseManager _dbManager;
@@ -43,7 +48,7 @@ namespace Realm.Entity
             {
                 var client = new DatabaseClient(this, _dbManager as IDatabaseLoadBalancer);
                 client.BeginTransaction();
-                client.AddCommand("dbo", "game_GetStartupZones", null, callback, null);
+                client.AddCommand("dbo", "game_GetStartupZones", null, callback);
                 client.PerformTransaction(OnLoadStartupEntitiesCompleted, null);
             }
             catch (Exception ex)

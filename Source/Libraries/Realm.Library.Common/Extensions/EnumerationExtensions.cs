@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Realm.Library.Common.Properties;
+using Realm.Library.Common.Attributes;
 using Realm.Library.Common.Exceptions;
+using Realm.Library.Common.Objects;
+using Realm.Library.Common.Properties;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Common.Extensions
+
 {
     /// <summary>
     /// Static class used to extend <see cref="System.Enum"/>
@@ -171,7 +172,7 @@ namespace Realm.Library.Common
             foreach (T value in GetValues<T>().Where(value => value.ToString().EqualsIgnoreCase(name)))
                 return value;
 
-            throw new InvalidEnumArgumentException(string.Format("{0} not found in Enum Type {1}", name, typeof(T)));
+            throw new InvalidEnumArgumentException($"{name} not found in Enum Type {typeof (T)}");
         }
 
         /// <summary>

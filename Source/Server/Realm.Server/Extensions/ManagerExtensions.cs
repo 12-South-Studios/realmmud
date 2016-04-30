@@ -8,9 +8,9 @@
 //using Realm.Time;
 //using log4net;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server
-//// ReSharper restore CheckNamespace
+//
 //{
 //// ReSharper disable CSharpWarnings::CS1591
 //    public static class ManagerExtensions

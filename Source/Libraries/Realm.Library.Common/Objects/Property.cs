@@ -1,6 +1,6 @@
-﻿// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+﻿
+namespace Realm.Library.Common.Objects
+
 {
     /// <summary>
     /// Class that defines a value or modification to an object. A Property

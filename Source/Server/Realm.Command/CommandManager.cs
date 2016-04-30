@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using Ninject;
 using Realm.Command.Interfaces;
 using Realm.Command.Parsers;
+using Realm.Data;
 using Realm.Entity;
+using Realm.Entity.Interfaces;
 using Realm.Event;
-using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Entities;
+using Realm.Library.Common.Events;
+using Realm.Library.Common.Extensions;
 using Realm.Library.Common.Logging;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Command
 {
@@ -74,14 +79,14 @@ namespace Realm.Command
             var game = InitializationAtom.GetObject("Game").CastAs<IGameEntity>();
             game.GetPropertyContext().SetProperty("last command verb", verb);
             game.GetPropertyContext().SetProperty("last command string", phrase);
-            game.GetPropertyContext().SetProperty("last command", String.Format("{0} {1}", verb, phrase));
+            game.GetPropertyContext().SetProperty("last command", $"{verb} {phrase}");
         }
 
         private static void SetPropertiesOnUser(IGameEntity user, string verb, string phrase)
         {
             user.GetPropertyContext().SetProperty("last command verb", verb);
             user.GetPropertyContext().SetProperty("last command string", phrase);
-            user.GetPropertyContext().SetProperty("last command", String.Format("{0} {1}", verb, phrase));
+            user.GetPropertyContext().SetProperty("last command", $"{verb} {phrase}");
         }
 
         public Parser GetParser(string name)
@@ -104,14 +109,14 @@ namespace Realm.Command
             return CommandExecutor.Execute(entity, verb, phrase);
         }
 
-        public void Report(Globals.Globals.MessageScopeTypes scope, string message, IEntity oActor,
+        public void Report(Globals.MessageScopeTypes scope, string message, IEntity oActor,
             IEntity oVictim = null, object oDirectObject = null, object oIndirectObject = null,
             IGameEntity oSpace = null, object oExtra = null)
         {
             CommandExecutor.Report(scope, message, oActor, oVictim, oDirectObject, oIndirectObject, oSpace, oExtra);
         }
 
-        public void Report(Globals.Globals.MessageScopeTypes scope, string message, ReportData data)
+        public void Report(Globals.MessageScopeTypes scope, string message, ReportData data)
         {
             CommandExecutor.Report(scope, message, data);
         }

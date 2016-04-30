@@ -1,5 +1,6 @@
-﻿using Realm.Data.Definitions;
-using Realm.Library.Common;
+﻿using Realm.Data;
+using Realm.Data.Definitions;
+using Realm.Library.Common.Events;
 
 namespace Realm.Entity.Resets
 {
@@ -32,15 +33,15 @@ namespace Realm.Entity.Resets
                 return;
 
             var numberNeeded = ResetDef.Quantity > 0 ? ResetDef.Quantity : 1;
-            if ((ResetDef.Limit - currentQty) > numberNeeded)
+            if (ResetDef.Limit - currentQty > numberNeeded)
                 numberNeeded = ResetDef.Limit - currentQty;
 
             switch (ResetDef.ResetLocationType)
             {
-                case Globals.Globals.ResetLocTypes.Space:
+                case Globals.ResetLocTypes.Space:
                     break;
 
-                case Globals.Globals.ResetLocTypes.Access:
+                case Globals.ResetLocTypes.Access:
                     break;
             }
         }

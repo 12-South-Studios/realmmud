@@ -2,9 +2,9 @@
 //using Realm.Library.Common;
 //using Realm.Server.Players;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server
-//// ReSharper restore CheckNamespace
+//
 //{
 //    /// <summary>
 //    /// Extension class that handles functions for Characters

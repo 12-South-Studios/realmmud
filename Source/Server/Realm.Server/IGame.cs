@@ -1,5 +1,5 @@
 ﻿using System;
-using Realm.Entity;
+using Realm.Entity.Interfaces;
 using Realm.Library.Network;
 
 namespace Realm.Server

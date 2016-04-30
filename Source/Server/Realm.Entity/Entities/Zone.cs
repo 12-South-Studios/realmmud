@@ -2,12 +2,17 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Timers;
+using Realm.Data;
 using Realm.Data.Definitions;
 using Realm.Entity.Events;
 using Realm.Entity.Resets;
-using Realm.Event;
+using Realm.Event.EventTypes.ZoneEvents;
 using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Events;
+using Realm.Library.Common.Exceptions;
+using Realm.Library.Common.Extensions;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Entity.Entities
 {
@@ -51,7 +56,7 @@ namespace Realm.Entity.Entities
         /// <summary>
         ///
         /// </summary>
-        public ZoneDef ZoneDef { get { return Definition.CastAs<ZoneDef>(); } }
+        public ZoneDef ZoneDef => Definition.CastAs<ZoneDef>();
 
         /// <summary>
         ///
@@ -102,20 +107,20 @@ namespace Realm.Entity.Entities
             zoneDef.Spaces.OfType<DictionaryAtom>().ToList().ForEach(space =>
                 {
                     var id = space.GetInt("ID");
-                    var def = StaticDataManager.GetStaticData(Globals.Globals.SystemTypes.Space.GetValue(),
+                    var def = StaticDataManager.GetStaticData(Globals.SystemTypes.Space.GetValue(),
                                                               id.ToString(CultureInfo.InvariantCulture));
                     if (def.IsNull())
-                        throw new InvalidDataException(string.Format("Definition for Space {0} not found.", id));
+                        throw new InvalidDataException($"Definition for Space {id} not found.");
 
                     var spaceDef = def.CastAs<SpaceDef>();
                     if (spaceDef.IsNull())
-                        throw new InvalidDataException(string.Format("Definition file {0} was not a SpaceDef file.", id));
+                        throw new InvalidDataException($"Definition file {id} was not a SpaceDef file.");
 
-                    var obj = EntityManager.Create<Space>(new object[] {id, spaceDef.Name, spaceDef});
+                    var obj = EntityManager.Create<Space>(id, spaceDef.Name, spaceDef);
                     if (obj.IsNull())
                         throw new InstantiationException("Space {0} could not be instantiated.", id);
 
-                    _loadingSet.AddItem(string.Format("Space{0}", obj.ID));
+                    _loadingSet.AddItem($"Space{obj.ID}");
                     obj.OnInit(InitializationAtom);
                     count++;
                 });
@@ -137,16 +142,15 @@ namespace Realm.Entity.Entities
                 {
                     var id = reset.GetInt("ID");
 
-                    var def = StaticDataManager.GetStaticData(Globals.Globals.SystemTypes.Reset.GetValue(),
+                    var def = StaticDataManager.GetStaticData(Globals.SystemTypes.Reset.GetValue(),
                                                               id.ToString(CultureInfo.InvariantCulture));
                     if (def.IsNull())
-                        throw new InvalidDataException(string.Format("Definition for Reset {0} not found.", id));
+                        throw new InvalidDataException($"Definition for Reset {id} not found.");
 
                     var resetDef = def.CastAs<ResetDef>();
                     if (resetDef.IsNull())
-                        throw new InvalidDataException(string.Format("Definition file {0} was not a ResetDef file.", id));
-                    var obj = EntityManager.Create(new ResetFactoryHelper(), resetDef.ResetType.ToString(),
-                                                   new object[] {id, resetDef.Name, resetDef});
+                        throw new InvalidDataException($"Definition file {id} was not a ResetDef file.");
+                    var obj = EntityManager.Create(new ResetFactoryHelper(), resetDef.ResetType.ToString(), id, resetDef.Name, resetDef);
                     if (obj.IsNull())
                         throw new InstantiationException("Reset {0} {1} could not be instantiated.", resetDef.ResetType,
                                                          id);
@@ -166,7 +170,7 @@ namespace Realm.Entity.Entities
         /// <param name="args"></param>
         private void OnSpaceLoadingComplete(RealmEventArgs args)
         {
-            _startupSet.CompleteItem(string.Format("Zone{0}", ID));
+            _startupSet.CompleteItem($"Zone{ID}");
         }
 
         /// <summary>

@@ -2,7 +2,11 @@
 using System.Timers;
 using Ninject;
 using Realm.Event;
+using Realm.Event.EventTypes.GameEvents;
 using Realm.Library.Common;
+using Realm.Library.Common.Events;
+using Realm.Library.Common.Exceptions;
+using Realm.Library.Common.Extensions;
 using Realm.Library.Common.Logging;
 using Realm.Server.Properties;
 
@@ -46,7 +50,7 @@ namespace Realm.Server
             try
             {
                 Log.InfoFormat(MessageResources.MSG_GAME_START, SegmentTimer.Interval);
-                SegmentTimer.Start(null);
+                SegmentTimer.Start();
                 Running = true;
             }
             catch (Exception ex)
@@ -69,7 +73,7 @@ namespace Realm.Server
         /// <summary>
         /// 
         /// </summary>
-        public bool IsRunning { get { return Running; } }
+        public bool IsRunning => Running;
 
         private void Timer_OnGameSegment(object sender, ElapsedEventArgs e)
         {

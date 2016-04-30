@@ -15,10 +15,10 @@ namespace Realm.Data.Definitions
         {
         }
 
-        public string DisplayName { get { return Def.GetString("DisplayName"); } }
+        public string DisplayName => Def.GetString("DisplayName");
 
-        public string Keywords { get { return Def.GetString("Keywords"); } }
+        public string Keywords => Def.GetString("Keywords");
 
-        public string Text { get { return Def.GetString("Text"); } }
+        public string Text => Def.GetString("Text");
     }
 }

@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Realm.Library.Common;
+using Realm.Data.Definitions.Archetype;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Data.Definitions
 {
@@ -18,17 +19,11 @@ namespace Realm.Data.Definitions
         {
         }
 
-        public string DisplayName { get { return Def.GetString("DisplayName"); } }
+        public string DisplayName => Def.GetString("DisplayName");
 
-        public string DisplayDescription
-        {
-            get { return Def.GetString("DisplayDescription"); }
-        }
+        public string DisplayDescription => Def.GetString("DisplayDescription");
 
-        public int TagSet
-        {
-            get { return Def.GetInt("TagSetID"); }
-        }
+        public int TagSet => Def.GetInt("TagSetID");
 
         private List<ArchetypeAbilityDef> _abilities;
 

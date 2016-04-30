@@ -22,10 +22,7 @@ namespace Realm.Library.NCalcExt
         /// <summary>
         /// Gets the regular expression object using the established pattern
         /// </summary>
-        public Regex Regex
-        {
-            get { return new Regex(RegexPattern); }
-        }
+        public Regex Regex => new Regex(RegexPattern);
 
         /// <summary>
         /// Function call if a regex match is found (after replacement)

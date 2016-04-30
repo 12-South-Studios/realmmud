@@ -11,9 +11,9 @@
 //using Realm.Library.Common;
 //using Realm.Server.NPC;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server.Item
-//// ReSharper restore CheckNamespace
+//
 //{
 //    public class CorpseItemInstance : ContainerItemInstance
 //    {

@@ -14,9 +14,9 @@
 //using Realm.Server.Zones;
 //using Realm.Library.Network.Mxp;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server
-//// ReSharper restore CheckNamespace
+//
 //{
 //    public static class SpaceExtension
 //    {

@@ -1,4 +1,5 @@
 ﻿using Realm.Entity;
+using Realm.Entity.Interfaces;
 using Realm.Library.Common.Data;
 using Realm.Pathing.Core;
 

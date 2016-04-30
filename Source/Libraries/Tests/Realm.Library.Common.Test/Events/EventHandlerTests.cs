@@ -3,7 +3,10 @@ using System.Management.Instrumentation;
 using System.Threading;
 using Moq;
 using NUnit.Framework;
+using Realm.Library.Common.Events;
 using Realm.Library.Common.Logging;
+using Realm.Library.Common.Objects;
+using EventHandler = Realm.Library.Common.Events.EventHandler;
 
 namespace Realm.Library.Common.Test.Events
 {

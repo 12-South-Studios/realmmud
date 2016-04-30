@@ -1,5 +1,6 @@
 ﻿using System;
 using Realm.Library.Common;
+using Realm.Library.Common.Extensions;
 
 namespace Realm.Data
 {
@@ -15,7 +16,7 @@ namespace Realm.Data
         /// <param name="value"></param>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static bool CompareName(this Globals.Globals.WearLocations value, string str)
+        public static bool CompareName(this Globals.WearLocations value, string str)
         {
             Validation.IsNotNullOrEmpty(str, "str");
 
@@ -31,15 +32,15 @@ namespace Realm.Data
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static Globals.Globals.ElementTypes GetOpposite(this Globals.Globals.ElementTypes value)
+        public static Globals.ElementTypes GetOpposite(this Globals.ElementTypes value)
         {
-            var vals = value.GetExtraData().Split(new[] { ':', ';' });
+            var vals = value.GetExtraData().Split(':', ';');
 
             //Validation.Validate<InvalidDataException>(vals.All(x => !string.IsNullOrWhiteSpace(x)), ErrorResources.ERR_NULL_EXTRA_DATA, value.GetName());
             //Validation.Validate<InvalidDataException>(vals.Length >= 1, ErrorResources.ERR_NULL_EXTRA_DATA,
             //                                          value.GetName());
 
-            return EnumerationExtensions.GetEnum<Globals.Globals.ElementTypes>(Convert.ToInt32(vals[0]) - 1);
+            return EnumerationExtensions.GetEnum<Globals.ElementTypes>(Convert.ToInt32(vals[0]) - 1);
         }
 
         /// <summary>
@@ -47,15 +48,15 @@ namespace Realm.Data
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static Globals.Globals.ElementTypes GetLeft(this Globals.Globals.ElementTypes value)
+        public static Globals.ElementTypes GetLeft(this Globals.ElementTypes value)
         {
-            var vals = value.GetExtraData().Split(new[] { ';', ':' });
+            var vals = value.GetExtraData().Split(';', ':');
 
             //Validation.Validate<InvalidDataException>(vals.All(x => !string.IsNullOrWhiteSpace(x)), ErrorResources.ERR_NULL_EXTRA_DATA, value.GetName());
             //Validation.Validate<InvalidDataException>(vals.Length >= 1, ErrorResources.ERR_NULL_EXTRA_DATA,
             //                                          value.GetName());
 
-            return EnumerationExtensions.GetEnum<Globals.Globals.ElementTypes>(Convert.ToInt32(vals[1]) - 1);
+            return EnumerationExtensions.GetEnum<Globals.ElementTypes>(Convert.ToInt32(vals[1]) - 1);
         }
 
         /// <summary>
@@ -63,15 +64,15 @@ namespace Realm.Data
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static Globals.Globals.ElementTypes GetRight(this Globals.Globals.ElementTypes value)
+        public static Globals.ElementTypes GetRight(this Globals.ElementTypes value)
         {
-            var vals = value.GetExtraData().Split(new[] { ':', ';' });
+            var vals = value.GetExtraData().Split(':', ';');
 
             //Validation.Validate<InvalidDataException>(vals.All(x => !string.IsNullOrWhiteSpace(x)), ErrorResources.ERR_NULL_EXTRA_DATA, value.GetName());
             //Validation.Validate<InvalidDataException>(vals.Length >= 1, ErrorResources.ERR_NULL_EXTRA_DATA,
             //                                          value.GetName());
 
-            return EnumerationExtensions.GetEnum<Globals.Globals.ElementTypes>(Convert.ToInt32(vals[2]) - 1);
+            return EnumerationExtensions.GetEnum<Globals.ElementTypes>(Convert.ToInt32(vals[2]) - 1);
         }
 
         #endregion Element Types
@@ -84,15 +85,15 @@ namespace Realm.Data
         /// <param name="result"></param>
         /// <param name="xp"></param>
         /// <returns></returns>
-        public static float CalculateXpResult(this Globals.Globals.SkillTestResultTypes result, Single xp)
+        public static float CalculateXpResult(this Globals.SkillTestResultTypes result, Single xp)
         {
             Validation.Validate<ArgumentOutOfRangeException>(xp >= 1 && xp <= Single.MaxValue);
 
             switch (result)
             {
-                case Globals.Globals.SkillTestResultTypes.CriticalFailure:
+                case Globals.SkillTestResultTypes.CriticalFailure:
                     return xp * 0.5f;
-                case Globals.Globals.SkillTestResultTypes.CriticalSuccess:
+                case Globals.SkillTestResultTypes.CriticalSuccess:
                     return xp * 1.5f;
                 default:
                     return xp;
@@ -108,29 +109,29 @@ namespace Realm.Data
         /// </summary>
         /// <param name="value">Enumeration reference</param>
         /// <returns>Returns a string name of the reverse direction</returns>
-        public static string GetOpposite(this Globals.Globals.Directions value)
+        public static string GetOpposite(this Globals.Directions value)
         {
             switch (value)
             {
-                case Globals.Globals.Directions.Down:
+                case Globals.Directions.Down:
                     return "up";
-                case Globals.Globals.Directions.Up:
+                case Globals.Directions.Up:
                     return "down";
-                case Globals.Globals.Directions.West:
+                case Globals.Directions.West:
                     return "east";
-                case Globals.Globals.Directions.East:
+                case Globals.Directions.East:
                     return "west";
-                case Globals.Globals.Directions.North:
+                case Globals.Directions.North:
                     return "south";
-                case Globals.Globals.Directions.South:
+                case Globals.Directions.South:
                     return "north";
-                case Globals.Globals.Directions.Northeast:
+                case Globals.Directions.Northeast:
                     return "southwest";
-                case Globals.Globals.Directions.Southwest:
+                case Globals.Directions.Southwest:
                     return "northeast";
-                case Globals.Globals.Directions.Northwest:
+                case Globals.Directions.Northwest:
                     return "southeast";
-                case Globals.Globals.Directions.Southeast:
+                case Globals.Directions.Southeast:
                     return "northwest";
                 default:
                     return "none";
@@ -146,13 +147,13 @@ namespace Realm.Data
         /// </summary>
         /// <param name="type">The type of Gender</param>
         /// <returns>Returns a string representing the subject pronoun</returns>
-        public static string SubjectPronoun(this Globals.Globals.GenderTypes type)
+        public static string SubjectPronoun(this Globals.GenderTypes type)
         {
             switch (type)
             {
-                case Globals.Globals.GenderTypes.Male:
+                case Globals.GenderTypes.Male:
                     return "he";
-                case Globals.Globals.GenderTypes.Female:
+                case Globals.GenderTypes.Female:
                     return "she";
                 default:
                     return "it";
@@ -164,13 +165,13 @@ namespace Realm.Data
         /// </summary>
         /// <param name="type">The type of Gender</param>
         /// <returns>Returns a string representing the object pronoun</returns>
-        public static string ObjectPronoun(this Globals.Globals.GenderTypes type)
+        public static string ObjectPronoun(this Globals.GenderTypes type)
         {
             switch (type)
             {
-                case Globals.Globals.GenderTypes.Male:
+                case Globals.GenderTypes.Male:
                     return "him";
-                case Globals.Globals.GenderTypes.Female:
+                case Globals.GenderTypes.Female:
                     return "her";
                 default:
                     return "it";
@@ -182,13 +183,13 @@ namespace Realm.Data
         /// </summary>
         /// <param name="type">The type of Gender</param>
         /// <returns>Returns a string representing the possessive pronoun</returns>
-        public static string PossessivePronoun(this Globals.Globals.GenderTypes type)
+        public static string PossessivePronoun(this Globals.GenderTypes type)
         {
             switch (type)
             {
-                case Globals.Globals.GenderTypes.Male:
+                case Globals.GenderTypes.Male:
                     return "his";
-                case Globals.Globals.GenderTypes.Female:
+                case Globals.GenderTypes.Female:
                     return "hers";
                 default:
                     return "its";
@@ -200,13 +201,13 @@ namespace Realm.Data
         /// </summary>
         /// <param name="type">The type of Gender</param>
         /// <returns>Returns a string representing the reflexive pronoun</returns>
-        public static string ReflexivePronoun(this Globals.Globals.GenderTypes type)
+        public static string ReflexivePronoun(this Globals.GenderTypes type)
         {
             switch (type)
             {
-                case Globals.Globals.GenderTypes.Male:
+                case Globals.GenderTypes.Male:
                     return "himself";
-                case Globals.Globals.GenderTypes.Female:
+                case Globals.GenderTypes.Female:
                     return "herself";
                 default:
                     return "itself";

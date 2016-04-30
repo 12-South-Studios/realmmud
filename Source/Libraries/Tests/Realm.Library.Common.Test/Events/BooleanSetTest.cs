@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using NUnit.Framework;
+using Realm.Library.Common.Events;
 
 namespace Realm.Library.Common.Test.Events
 {

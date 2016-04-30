@@ -60,9 +60,6 @@ namespace Realm.Edit.Tags
             return tagSet == null ? null : tagSet.GetTag(aTagId);
         }
 
-        public static IEnumerable<SystemTagSet> TagSetValues
-        {
-            get { return TagSets.Values; }
-        }
+        public static IEnumerable<SystemTagSet> TagSetValues => TagSets.Values;
     }
 }

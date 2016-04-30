@@ -5,9 +5,9 @@
 //using Realm.Library.Common;
 //using Realm.Library.Common.Security;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server.Commands
-//// ReSharper restore CheckNamespace
+//
 //{
 //    /// <summary>
 //    /// Change Password command

@@ -7,9 +7,9 @@
 //
 // </summary>
 // ------------------------------------------------------------------------
-// ReSharper disable CheckNamespace
-namespace Realm.Server.NPC
-// ReSharper restore CheckNamespace
+
+namespace Realm.Server.NPC.Conversation
+
 {
     public class ConversationNode
     {

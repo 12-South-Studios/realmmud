@@ -26,7 +26,7 @@ namespace Realm.Monitors
         public override void OnTimerElapsed(object sender, ElapsedEventArgs e)
         {
             var del = new OnMonitorEvent(UpdateServerTimer);
-            del.DynamicInvoke(new object[] {DateTime.Now.Subtract(_startTime)});
+            del.DynamicInvoke(DateTime.Now.Subtract(_startTime));
         }
     }
 }

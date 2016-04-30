@@ -6,12 +6,12 @@ namespace Realm.Library.Pattern.Test
     [TestFixture]
     public class DecoratorTest
     {
-        private class ConcreteComponent : Patterns.Decorator.IComponent
+        private class ConcreteComponent : IComponent
         { }
 
         private class ConcreteDecorator : Decorator
         {
-            public ConcreteDecorator(Patterns.Decorator.IComponent component)
+            public ConcreteDecorator(IComponent component)
                 : base(component)
             {
             }

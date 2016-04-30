@@ -9,18 +9,18 @@ namespace Realm.Edit.Extensions
         public static bool CanDelete(this DataGridViewRow value)
         {
             if (value == null)
-                throw new ArgumentNullException("value", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(value), Resources.NullParameterErrorMessage);
 
             if (!(value.Tag is int)) return CanDeleteIfTagged(value);
-            return (value.Tag != null && (int)value.Tag >= 0 && !value.IsNewRow);
+            return value.Tag != null && (int)value.Tag >= 0 && !value.IsNewRow;
         }
 
         public static bool CanDeleteIfTagged(this DataGridViewRow value)
         {
             if (value == null)
-                throw new ArgumentNullException("value", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(value), Resources.NullParameterErrorMessage);
 
-            return (value.Tag != null && !value.IsNewRow);
+            return value.Tag != null && !value.IsNewRow;
         }
     }
 }

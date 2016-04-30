@@ -28,7 +28,7 @@ namespace Realm.Monitors
         public override void OnTimerElapsed(object sender, ElapsedEventArgs e)
         {
             var del = new OnMonitorEvent(UpdateServerServiceStatus);
-            del.DynamicInvoke(new object[] { _controller.Status });
+            del.DynamicInvoke(_controller.Status);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
+using Realm.Library.Common.Extensions;
 
 namespace Realm.Library.Common.Test.Extensions
 {
@@ -32,13 +33,13 @@ namespace Realm.Library.Common.Test.Extensions
             public override int GetHashCode()
             {
                 int hash = 13;
-                hash = (hash * 7) + Name.GetHashCode();
+                hash = hash * 7 + Name.GetHashCode();
                 return hash;
             }
 
             public override string ToString()
             {
-                return string.Format("{0}", Name);
+                return $"{Name}";
             }
         }
 

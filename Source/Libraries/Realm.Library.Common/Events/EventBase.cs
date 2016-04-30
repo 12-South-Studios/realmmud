@@ -1,6 +1,6 @@
-﻿// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+﻿
+namespace Realm.Library.Common.Events
+
 {
     /// <summary>
     /// Abstract class that defines the

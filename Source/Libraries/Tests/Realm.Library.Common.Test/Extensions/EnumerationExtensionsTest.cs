@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using NUnit.Framework;
+using Realm.Library.Common.Attributes;
+using Realm.Library.Common.Extensions;
 
 namespace Realm.Library.Common.Test.Extensions
 {
@@ -31,13 +33,13 @@ namespace Realm.Library.Common.Test.Extensions
 
         private enum RangeTest
         {
-            [Range(Minimum = 5, Maximum = 10)]
+            [Attributes.Range(Minimum = 5, Maximum = 10)]
             Test1,
 
-            [Range(Maximum = 5)]
+            [Attributes.Range(Maximum = 5)]
             Test2,
 
-            [Range(Minimum = 11, Maximum = 20)]
+            [Attributes.Range(Minimum = 11, Maximum = 20)]
             Test3
         }
 

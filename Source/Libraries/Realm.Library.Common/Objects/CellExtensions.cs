@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Globalization;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Common.Objects
+
 {
     /// <summary>
     /// Class that handles extension functions to Cell objects

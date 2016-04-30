@@ -1,5 +1,6 @@
 ﻿using Ninject.Modules;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Events;
 
 namespace Realm.Library.Common
 {

@@ -2,9 +2,8 @@
 using System.Runtime.Serialization.Json;
 using System.Text;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Common.Serializers
+
 {
     /// <summary>
     ///

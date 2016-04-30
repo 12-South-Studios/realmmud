@@ -7,9 +7,9 @@
 //using Realm.Server.Item;
 //using Realm.Server.Zones;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server.Commands
-//// ReSharper restore CheckNamespace
+//
 //{
 //    /// <summary>
 //    /// create command

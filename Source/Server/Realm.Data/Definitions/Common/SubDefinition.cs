@@ -1,8 +1,7 @@
 ﻿using Realm.Library.Common.Data;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Data.Definitions
-// ReSharper restore CheckNamespace
+namespace Realm.Data.Definitions.Common
+
 {
     /// <summary>
     ///

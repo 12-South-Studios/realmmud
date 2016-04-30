@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using Realm.Library.Common.Objects;
 using Realm.Library.Common.Properties;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Common.Events
+
 {
     /// <summary>
     /// The BooleanSet class provides a mechanism for waiting for a series of things to
@@ -64,7 +64,7 @@ namespace Realm.Library.Common
         /// <summary>
         /// Gets if all of the items within the set are complete
         /// </summary>
-        public bool IsComplete { get { return _set.Count == 0; } }
+        public bool IsComplete => _set.Count == 0;
 
         /// <summary>
         /// Indicates to the boolean set that the given item is now complete.

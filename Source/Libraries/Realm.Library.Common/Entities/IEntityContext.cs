@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using Realm.Library.Common.Contexts;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Common.Entities
+
 {
     /// <summary>
     /// Public interface for a context that allows the managing of objects

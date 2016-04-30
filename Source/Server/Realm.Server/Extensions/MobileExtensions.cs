@@ -1,9 +1,9 @@
 ﻿//using Realm.Library.Common;
 //using Realm.Server.NPC;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server
-//// ReSharper restore CheckNamespace
+//
 //{
 //    /// <summary>
 //    /// Static class containing extension functions for Mobiles

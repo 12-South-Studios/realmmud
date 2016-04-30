@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Common.LinkedList
+
 {
     /// <summary>
     /// 
@@ -56,10 +52,7 @@ namespace Realm.Library.Common
         /// <summary>
         /// 
         /// </summary>
-        public SingleLinkedNode<T> First
-        {
-            get { return Head; }
-        }
+        public SingleLinkedNode<T> First => Head;
 
         /// <summary>
         /// 
@@ -78,10 +71,7 @@ namespace Realm.Library.Common
         /// <summary>
         /// 
         /// </summary>
-        public bool IsEmpty
-        {
-            get { return Count == 0; }
-        }
+        public bool IsEmpty => Count == 0;
 
         /// <summary>
         /// 

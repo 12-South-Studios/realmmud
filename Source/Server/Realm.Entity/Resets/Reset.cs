@@ -1,8 +1,9 @@
 ﻿using Realm.Data.Definitions;
 using Realm.Entity.Entities;
-using Realm.Event;
-using Realm.Library.Common;
+using Realm.Event.EventTypes.ZoneEvents;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Events;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Entity.Resets
 {
@@ -27,7 +28,7 @@ namespace Realm.Entity.Resets
         /// <summary>
         ///
         /// </summary>
-        public ResetDef ResetDef { get { return Definition.CastAs<ResetDef>(); } }
+        public ResetDef ResetDef => Definition.CastAs<ResetDef>();
 
         /// <summary>
         ///

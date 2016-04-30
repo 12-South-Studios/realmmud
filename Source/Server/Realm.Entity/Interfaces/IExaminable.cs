@@ -1,4 +1,4 @@
-﻿namespace Realm.Entity
+﻿namespace Realm.Entity.Interfaces
 {
     public interface IExaminable
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using Realm.Library.Common.Entities;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Common.Objects
+
 {
     /// <summary>
     /// Defines a generic disposable entity
@@ -36,7 +36,7 @@ namespace Realm.Library.Common
                 return false;
 
             var entity = obj.CastAs<Entity>();
-            return entity.IsNotNull() && (ID == entity.ID && Name.Equals(entity.Name, StringComparison.OrdinalIgnoreCase));
+            return entity.IsNotNull() && ID == entity.ID && Name.Equals(entity.Name, StringComparison.OrdinalIgnoreCase);
         }
 
         /// <summary>

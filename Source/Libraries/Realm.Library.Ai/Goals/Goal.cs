@@ -1,4 +1,5 @@
-﻿using Realm.Library.Common;
+﻿using Realm.Library.Common.Entities;
+using Realm.Library.Common.Events;
 
 namespace Realm.Library.Ai.Goals
 {
@@ -14,13 +15,13 @@ namespace Realm.Library.Ai.Goals
 
         public GoalState Status { get; set; }
 
-        public bool IsActive { get { return Status == GoalState.Active; } }
+        public bool IsActive => Status == GoalState.Active;
 
-        public bool IsInactive { get { return Status == GoalState.Inactive; } }
+        public bool IsInactive => Status == GoalState.Inactive;
 
-        public bool IsCompleted { get { return Status == GoalState.Completed; } }
+        public bool IsCompleted => Status == GoalState.Completed;
 
-        public bool HasFailed { get { return Status == GoalState.Failed; } }
+        public bool HasFailed => Status == GoalState.Failed;
 
         public abstract void Activate();
 

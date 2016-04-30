@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Realm.Library.Controls
+﻿namespace Realm.Library.Controls
 {
     /// <summary>
     ///

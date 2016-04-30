@@ -1,11 +1,14 @@
 using System.Linq;
 using Realm.Ai.Properties;
+using Realm.Data;
 using Realm.Entity;
 using Realm.Entity.Entities;
 using Realm.Library.Ai;
 using Realm.Library.Common;
 using Realm.Library.Common.Data;
 using Realm.Data.Definitions;
+using Realm.Entity.Entities.Interfaces;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Ai.States
 {
@@ -21,7 +24,7 @@ namespace Realm.Ai.States
             var owner = Parent.Owner.CastAs<IRegularMob>();
             Validation.Validate(owner.IsNotNull(), Resources.ERR_AISTATE_NO_OWNER, ID, Name);
 
-            if (owner.AiBrain.Behavior.Bits.HasBit(Globals.Globals.BehaviorBits.Sentinel))
+            if (owner.AiBrain.Behavior.Bits.HasBit(Globals.BehaviorBits.Sentinel))
             {
                 Parent.Messages.Add(Resources.MSG_AI_STATIONARY_CANNOT_WANDER);
                 Parent.PopState();

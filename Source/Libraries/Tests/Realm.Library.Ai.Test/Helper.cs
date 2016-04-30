@@ -1,4 +1,6 @@
-﻿namespace Realm.Library.Ai.Test
+﻿using Realm.Library.Ai.Test.Fakes;
+
+namespace Realm.Library.Ai.Test
 {
     public static class Helper
     {

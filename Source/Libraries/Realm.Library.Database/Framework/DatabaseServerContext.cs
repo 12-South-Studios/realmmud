@@ -5,6 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Realm.Library.Common;
 using Realm.Library.Common.Logging;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Library.Database.Framework
 {
@@ -49,7 +50,7 @@ namespace Realm.Library.Database.Framework
         /// <summary>
         /// Gets the number of servers on the queue
         /// </summary>
-        public int ServerCount { get { return _dbServers.Count; } }
+        public int ServerCount => _dbServers.Count;
 
         /// <summary>
         /// Gets the next server on the queue and then re-enqueues the chosen server.

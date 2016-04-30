@@ -8,12 +8,14 @@
 // </summary>
 // ------------------------------------------------------------------------
 
+using Realm.Data;
+
 namespace Realm.Server.Item
 {
     public class ResourceToolType
     {
         public long ResourceId { get; set; }
-        public Globals.Globals.ToolTypes ToolType { get; set; }
+        public Globals.ToolTypes ToolType { get; set; }
         public int GatherAmount { get; set; }
         public int MinimumSkill { get; set; }
     }

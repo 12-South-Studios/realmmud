@@ -1,10 +1,9 @@
 using System;
 using System.Windows.Forms;
-using Realm.Library.Common;
+using Realm.Library.Common.Objects;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Controls
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Controls.Calendar
+
 {
     /// <summary>
     ///
@@ -40,16 +39,16 @@ namespace Realm.Library.Controls
         /// <summary>
         /// Gets type of the editing control that CalendarCell uses.
         /// </summary>
-        public override Type EditType { get { return typeof(CalendarEditingControl); } }
+        public override Type EditType => typeof(CalendarEditingControl);
 
         /// <summary>
         /// Gets the type of the value that CalendarCell contains.
         /// </summary>
-        public override Type ValueType { get { return typeof(DateTime); } }
+        public override Type ValueType => typeof(DateTime);
 
         /// <summary>
         /// Use the current date and time as the default value.
         /// </summary>
-        public override object DefaultNewRowValue { get { return DateTime.Now; } }
+        public override object DefaultNewRowValue => DateTime.Now;
     }
 }

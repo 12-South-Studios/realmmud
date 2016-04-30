@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using Realm.DAL.Enumerations;
-using Realm.DAL.Models;
 using Realm.Edit.Builders;
 using Realm.Edit.CustomControls;
 using Realm.Edit.Editor;
@@ -181,15 +179,9 @@ namespace Realm.Edit.EditorControls
             }
         }
 
-        public EditorBrowseInfo BrowseInfo
-        {
-            get { return new EditorBrowseInfo(SystemType, Name, ClassId, Id); }
-        }
+        public EditorBrowseInfo BrowseInfo => new EditorBrowseInfo(SystemType, Name, ClassId, Id);
 
-        public bool IsDirty
-        {
-            get { return Dirty; }
-        }
+        public bool IsDirty => Dirty;
 
         public void MakeDirty()
         {
@@ -390,7 +382,7 @@ namespace Realm.Edit.EditorControls
         //=====================================================================
         public static int SetContentLinkId(DataRowView aRow, string aCol, LinkLabel aLinkLabel)
         {
-            var browseInfo = (aLinkLabel.Tag as EditorBrowseInfo);
+            var browseInfo = aLinkLabel.Tag as EditorBrowseInfo;
             if (browseInfo != null && browseInfo.Id > 0)
             {
                 aRow[aCol] = browseInfo.Id;

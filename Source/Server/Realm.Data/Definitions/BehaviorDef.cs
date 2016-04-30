@@ -1,5 +1,5 @@
-﻿using Realm.Library.Common;
-using Realm.Library.Common.Data;
+﻿using Realm.Library.Common.Data;
+using Realm.Library.Common.Extensions;
 
 namespace Realm.Data.Definitions
 {
@@ -16,54 +16,24 @@ namespace Realm.Data.Definitions
         {
         }
 
-        public int TagSet
-        {
-            get { return Def.GetInt("TagSetID"); }
-        }
+        public int TagSet => Def.GetInt("TagSetID");
 
-        public bool Aggressive
-        {
-            get { return Globals.Globals.BehaviorBits.Aggressive.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool Aggressive => Globals.BehaviorBits.Aggressive.HasBit(Def.GetInt("Bits"));
 
-        public bool Berserker
-        {
-            get { return Globals.Globals.BehaviorBits.Berserker.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool Berserker => Globals.BehaviorBits.Berserker.HasBit(Def.GetInt("Bits"));
 
-        public bool Grazer
-        {
-            get { return Globals.Globals.BehaviorBits.Grazer.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool Grazer => Globals.BehaviorBits.Grazer.HasBit(Def.GetInt("Bits"));
 
-        public bool Guard
-        {
-            get { return Globals.Globals.BehaviorBits.Guard.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool Guard => Globals.BehaviorBits.Guard.HasBit(Def.GetInt("Bits"));
 
-        public bool NonCombatant
-        {
-            get { return Globals.Globals.BehaviorBits.NonCombatant.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool NonCombatant => Globals.BehaviorBits.NonCombatant.HasBit(Def.GetInt("Bits"));
 
-        public bool Scavenger
-        {
-            get { return Globals.Globals.BehaviorBits.Scavenger.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool Scavenger => Globals.BehaviorBits.Scavenger.HasBit(Def.GetInt("Bits"));
 
-        public bool Sentinel
-        {
-            get { return Globals.Globals.BehaviorBits.Sentinel.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool Sentinel => Globals.BehaviorBits.Sentinel.HasBit(Def.GetInt("Bits"));
 
-        public bool StayArea
-        {
-            get { return Globals.Globals.BehaviorBits.StayArea.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool StayArea => Globals.BehaviorBits.StayArea.HasBit(Def.GetInt("Bits"));
 
-        public bool Wimpy
-        {
-            get { return Globals.Globals.BehaviorBits.Wimpy.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool Wimpy => Globals.BehaviorBits.Wimpy.HasBit(Def.GetInt("Bits"));
     }
 }

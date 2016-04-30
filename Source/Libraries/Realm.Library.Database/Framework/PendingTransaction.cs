@@ -2,6 +2,7 @@
 using System.Linq;
 using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Events;
 
 namespace Realm.Library.Database.Framework
 {
@@ -59,7 +60,7 @@ namespace Realm.Library.Database.Framework
         /// <summary>
         ///
         /// </summary>
-        public IList<PendingCommand> PendingCommands { get { return _pendingCommands.ToList(); } }
+        public IList<PendingCommand> PendingCommands => _pendingCommands.ToList();
 
         /// <summary>
         ///

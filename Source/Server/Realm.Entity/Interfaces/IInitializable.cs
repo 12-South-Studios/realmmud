@@ -1,6 +1,6 @@
 ﻿using Realm.Library.Common.Data;
 
-namespace Realm.Entity
+namespace Realm.Entity.Interfaces
 {
     /// <summary>
     ///

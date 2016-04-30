@@ -2,8 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
 
 namespace Realm.Library.Database.Test.Fakes
 {
@@ -26,8 +24,8 @@ namespace Realm.Library.Database.Test.Fakes
             throw new NotImplementedException();
         }
 
-        public int Count { get { return _parameters.Count; } }
-        public object SyncRoot { get; private set; }
+        public int Count => _parameters.Count;
+       public object SyncRoot { get; private set; }
         public bool IsSynchronized { get; private set; }
         public int Add(object value)
         {

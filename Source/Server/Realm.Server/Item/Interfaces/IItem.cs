@@ -1,9 +1,9 @@
 ﻿//using System.Collections.Generic;
 //using Realm.Server.NPC;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server.Item
-//// ReSharper restore CheckNamespace
+//
 //{
 //    public interface IItem
 //    {

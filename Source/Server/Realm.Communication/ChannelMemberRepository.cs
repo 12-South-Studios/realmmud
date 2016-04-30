@@ -1,4 +1,4 @@
-﻿using Realm.Entity.Entities;
+﻿using Realm.Entity.Entities.Interfaces;
 using Realm.Library.Patterns.Repository;
 
 namespace Realm.Communication

@@ -31,9 +31,9 @@ namespace Realm.Library.Common.Logging
         public virtual ILog Log { get; private set; }
 
         [ExcludeFromCodeCoverage]
-        public virtual ILogger Logger { get { return Log.Logger; } }
+        public virtual ILogger Logger => Log.Logger;
 
-        public virtual int MinLoggingLevel { get { return _minLoggingLevel; } }
+        public virtual int MinLoggingLevel => _minLoggingLevel;
 
         public virtual bool LogThis(LogLevel logLevel)
         {
@@ -275,7 +275,7 @@ namespace Realm.Library.Common.Logging
             Validation.IsNotNull(exception, "exception");
 
             if (LogThis(LogLevel.Error))
-                ThrowLogEvent(LogLevel.Error, exception.Message, String.Format("{0}//{1}", exception, exception.StackTrace));
+                ThrowLogEvent(LogLevel.Error, exception.Message, $"{exception}//{exception.StackTrace}");
             Log.Error(message, exception);
         }
 

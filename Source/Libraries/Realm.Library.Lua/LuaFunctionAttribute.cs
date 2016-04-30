@@ -48,9 +48,6 @@ namespace Realm.Library.Lua
         /// <summary>
         /// Gets the parameters for the function
         /// </summary>
-        public ICollection<string> Parameters
-        {
-            get { return _parameters; }
-        }
+        public ICollection<string> Parameters => _parameters;
     }
 }

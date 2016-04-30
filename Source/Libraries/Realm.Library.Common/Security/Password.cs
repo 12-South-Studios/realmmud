@@ -35,7 +35,7 @@ namespace Realm.Library.Common.Security
             Validation.IsNotNull(request, "request");
 
             var hashSalt = GenerateRandomToken();
-            return String.Format("{0}:{1}", ComputeHashV0(request), hashSalt);
+            return $"{ComputeHashV0(request)}:{hashSalt}";
         }
 
         #endregion Version 0
@@ -104,7 +104,7 @@ namespace Realm.Library.Common.Security
                 hash = GeneratePasswordHashV0(new PasswordRequestv0 { PlainPassword = plainPassword });
             else if (version.Equals("v1"))
                 hash = GeneratePasswordHashV1(new PasswordRequestv1 { PlainPassword = plainPassword });
-            return String.Format("{0}:{1}", version, hash);
+            return $"{version}:{hash}";
         }
 
         /// <summary>

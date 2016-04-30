@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Realm.Library.Common;
+using Realm.Library.Common.Objects;
 using Realm.Library.Patterns.Repository;
 
 namespace Realm.Communication

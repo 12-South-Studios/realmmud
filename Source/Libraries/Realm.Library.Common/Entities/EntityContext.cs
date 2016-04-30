@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Realm.Library.Common.Contexts;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Common.Entities
+
 {
     /// <summary>
     ///
@@ -77,10 +77,7 @@ namespace Realm.Library.Common
         /// <summary>
         ///
         /// </summary>
-        public virtual IList<T> Entities
-        {
-            get { return _contents; }
-        }
+        public virtual IList<T> Entities => _contents;
 
         /// <summary>
         ///
@@ -95,9 +92,6 @@ namespace Realm.Library.Common
         /// <summary>
         ///
         /// </summary>
-        public virtual int Count
-        {
-            get { return _contents.Count; }
-        }
+        public virtual int Count => _contents.Count;
     }
 }

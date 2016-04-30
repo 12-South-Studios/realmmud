@@ -1,5 +1,5 @@
-﻿using Realm.Library.Common;
-using Realm.Library.Common.Data;
+﻿using Realm.Library.Common.Data;
+using Realm.Library.Common.Extensions;
 
 namespace Realm.Data.Definitions
 {
@@ -22,45 +22,32 @@ namespace Realm.Data.Definitions
         /// <summary>
         ///
         /// </summary>
-        public Globals.Globals.ResetTypes ResetType
-        {
-            get { return EnumerationExtensions.GetEnum<Globals.Globals.ResetTypes>(Def.GetInt("ResetTypeID")); }
-        }
+        public Globals.ResetTypes ResetType => EnumerationExtensions.GetEnum<Globals.ResetTypes>(Def.GetInt("ResetTypeID"));
 
         /// <summary>
         ///
         /// </summary>
-        public Globals.Globals.ResetLocTypes ResetLocationType
-        {
-            get { return EnumerationExtensions.GetEnum<Globals.Globals.ResetLocTypes>(Def.GetInt("ResetLocationTypeID")); }
-        }
+        public Globals.ResetLocTypes ResetLocationType => EnumerationExtensions.GetEnum<Globals.ResetLocTypes>(Def.GetInt("ResetLocationTypeID"));
 
         /// <summary>
         ///
         /// </summary>
-        public SpaceDef Space
-        {
-            get
-            {
-                return
-                    (SpaceDef)
-                    StaticDataManager.GetStaticData(Globals.Globals.SystemTypes.Space, Def.GetString("SpaceID"));
-            }
-        }
+        public SpaceDef Space => (SpaceDef)
+            StaticDataManager.GetStaticData(Globals.SystemTypes.Space, Def.GetString("SpaceID"));
 
         /// <summary>
         ///
         /// </summary>
-        public int Limit { get { return Def.GetInt("Limit"); } }
+        public int Limit => Def.GetInt("Limit");
 
         /// <summary>
         ///
         /// </summary>
-        public int Quantity { get { return Def.GetInt("Quantity"); } }
+        public int Quantity => Def.GetInt("Quantity");
 
         /// <summary>
         ///
         /// </summary>
-        public int ObjectID { get { return Def.GetInt("ObjectID"); } }
+        public int ObjectID => Def.GetInt("ObjectID");
     }
 }

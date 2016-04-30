@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using Realm.Library.Common.Extensions;
 
 namespace Realm.Library.Common.Test.Extensions
 {
@@ -78,7 +79,7 @@ namespace Realm.Library.Common.Test.Extensions
         [Test]
         public void ConvertHour_ThrowsException_WhenHourIsTooHigh()
         {
-            Assert.Throws<ArgumentException>(() => (25).ConvertHour());
+            Assert.Throws<ArgumentException>(() => 25.ConvertHour());
         }
 
         [TestCase(21, "21st")]

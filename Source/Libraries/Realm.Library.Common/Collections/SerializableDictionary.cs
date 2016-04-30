@@ -89,7 +89,7 @@ namespace Realm.Library.Common.Collections
             int itemCount = info.GetInt32("ItemCount");
             for (int i = 0; i < itemCount; i++)
             {
-                KeyValuePair<TKey, TVal> kvp = (KeyValuePair<TKey, TVal>)info.GetValue(String.Format("Item{0}", i), typeof(KeyValuePair<TKey, TVal>));
+                KeyValuePair<TKey, TVal> kvp = (KeyValuePair<TKey, TVal>)info.GetValue($"Item{i}", typeof(KeyValuePair<TKey, TVal>));
                 Add(kvp.Key, kvp.Value);
             }
         }
@@ -100,7 +100,7 @@ namespace Realm.Library.Common.Collections
             int itemIdx = 0;
             foreach (KeyValuePair<TKey, TVal> kvp in this)
             {
-                info.AddValue(String.Format("Item{0}", itemIdx), kvp, typeof(KeyValuePair<TKey, TVal>));
+                info.AddValue($"Item{itemIdx}", kvp, typeof(KeyValuePair<TKey, TVal>));
                 itemIdx++;
             }
         }
@@ -161,15 +161,9 @@ namespace Realm.Library.Common.Collections
         /// <summary>
         /// 
         /// </summary>
-        private XmlSerializer ValueSerializer
-        {
-            get { return _valueSerializer ?? (_valueSerializer = new XmlSerializer(typeof (TVal))); }
-        }
+        private XmlSerializer ValueSerializer => _valueSerializer ?? (_valueSerializer = new XmlSerializer(typeof (TVal)));
 
-        private XmlSerializer KeySerializer
-        {
-            get { return _keySerializer ?? (_keySerializer = new XmlSerializer(typeof (TKey))); }
-        }
+        private XmlSerializer KeySerializer => _keySerializer ?? (_keySerializer = new XmlSerializer(typeof (TKey)));
 
         #endregion
 

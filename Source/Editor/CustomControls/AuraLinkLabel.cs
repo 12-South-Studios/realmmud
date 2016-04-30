@@ -52,11 +52,11 @@ namespace Realm.Edit.CustomControls
         protected override void OnLinkClicked(LinkLabelLinkClickedEventArgs e)
         {
             if (e == null)
-                throw new ArgumentNullException("e", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(e), Resources.NullParameterErrorMessage);
 
             base.OnLinkClicked(e);
 
-            var browseInfo = (Tag as EditorBrowseInfo);
+            var browseInfo = Tag as EditorBrowseInfo;
             if (browseInfo != null && browseInfo.Id > 0)
                 Program.MainForm.OpenTab(browseInfo, false, false);
         }
@@ -64,7 +64,7 @@ namespace Realm.Edit.CustomControls
         protected override void OnDoubleClick(EventArgs e)
         {
             if (e == null)
-                throw new ArgumentNullException("e", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(e), Resources.NullParameterErrorMessage);
 
             Tag = new EditorBrowseInfo(_systemType, string.Empty, 0, 0);
             Text = string.Empty;
@@ -74,7 +74,7 @@ namespace Realm.Edit.CustomControls
         protected override void OnDragOver(DragEventArgs e)
         {
             if (e == null)
-                throw new ArgumentNullException("e", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(e), Resources.NullParameterErrorMessage);
 
             this.ProcessLinkDrag(e, false);
             base.OnDragOver(e);
@@ -83,7 +83,7 @@ namespace Realm.Edit.CustomControls
         protected override void OnDragDrop(DragEventArgs e)
         {
             if (e == null)
-                throw new ArgumentNullException("e", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(e), Resources.NullParameterErrorMessage);
 
             this.ProcessLinkDrag(e, true);
             base.OnDragDrop(e);
@@ -92,7 +92,7 @@ namespace Realm.Edit.CustomControls
         protected override void OnPaint(PaintEventArgs e)
         {
             if (e == null)
-                throw new ArgumentNullException("e", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(e), Resources.NullParameterErrorMessage);
 
             base.OnPaint(e);
 

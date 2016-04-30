@@ -1,8 +1,7 @@
 ﻿using System;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Common.Attributes
+
 {
     /// <summary>
     /// Class definining an attribute

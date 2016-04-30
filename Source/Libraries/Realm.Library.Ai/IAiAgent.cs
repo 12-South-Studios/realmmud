@@ -1,9 +1,9 @@
 ﻿using System;
-using Realm.Library.Common;
+using Realm.Library.Common.Entities;
 
-// ReSharper disable CheckNamespace
+
 namespace Realm.Library.Ai
-// ReSharper restore CheckNamespace
+
 {
     /// <summary>
     /// Defines the contract for an AiBrain

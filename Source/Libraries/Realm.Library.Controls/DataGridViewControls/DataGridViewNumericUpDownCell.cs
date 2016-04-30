@@ -3,12 +3,11 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
-using Realm.Library.Common;
+using Realm.Library.Common.Objects;
 using Realm.Library.Controls.Properties;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Controls
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Controls.DataGridViewControls
+
 {
     /// <summary>
     /// Defines a NumericUpDown cell type for the System.Windows.Forms.DataGridView control
@@ -110,7 +109,7 @@ namespace Realm.Library.Controls
             set
             {
                 if (value < 0 || value > 99)
-                    throw new ArgumentOutOfRangeException("value", Resources.ERR_DECIMAL_OUT_OF_RANGE);
+                    throw new ArgumentOutOfRangeException(nameof(value), Resources.ERR_DECIMAL_OUT_OF_RANGE);
 
                 if (decimalPlaces != value)
                 {
@@ -123,15 +122,12 @@ namespace Realm.Library.Controls
         /// <summary>
         /// Returns the current DataGridView EditingControl as a DataGridViewNumericUpDownEditingControl control
         /// </summary>
-        private DataGridViewNumericUpDownEditingControl EditingNumericUpDown
-        {
-            get { return DataGridView.EditingControl as DataGridViewNumericUpDownEditingControl; }
-        }
+        private DataGridViewNumericUpDownEditingControl EditingNumericUpDown => DataGridView.EditingControl as DataGridViewNumericUpDownEditingControl;
 
         /// <summary>
         /// Define the type of the cell's editing control
         /// </summary>
-        public override Type EditType { get { return DefaultEditType; } }
+        public override Type EditType => DefaultEditType;
 
         /// <summary>
         /// The Increment property replicates the one from the NumericUpDown control
@@ -142,7 +138,7 @@ namespace Realm.Library.Controls
             set
             {
                 if (value < (Decimal)0.0)
-                    throw new ArgumentOutOfRangeException("value", Resources.ERR_VALUE_LESS_THAN_ZERO);
+                    throw new ArgumentOutOfRangeException(nameof(value), Resources.ERR_VALUE_LESS_THAN_ZERO);
 
                 SetIncrement(RowIndex, value);
             }
@@ -417,13 +413,13 @@ namespace Realm.Library.Controls
             var negativeSignStr = numberFormatInfo.NegativeSign;
 
             if (!string.IsNullOrEmpty(negativeSignStr) && negativeSignStr.Length == 1)
-                negativeSignKey = (Keys)(VkKeyScan(negativeSignStr[0]));
+                negativeSignKey = (Keys)VkKeyScan(negativeSignStr[0]);
 
-            return ((char.IsDigit((char)e.KeyCode) ||
-                 (e.KeyCode >= Keys.NumPad0 && e.KeyCode <= Keys.NumPad9) ||
-                 negativeSignKey == e.KeyCode ||
-                 Keys.Subtract == e.KeyCode) &&
-                !e.Shift && !e.Alt && !e.Control);
+            return (char.IsDigit((char)e.KeyCode) ||
+                    (e.KeyCode >= Keys.NumPad0 && e.KeyCode <= Keys.NumPad9) ||
+                    negativeSignKey == e.KeyCode ||
+                    Keys.Subtract == e.KeyCode) &&
+                   !e.Shift && !e.Alt && !e.Control;
         }
 
         /// <summary>
@@ -710,8 +706,8 @@ namespace Realm.Library.Controls
         /// </summary>
         public override string ToString()
         {
-            return string.Format("DataGridViewNumericUpDownCell [ ColumnIndex={0}, RowIndex={1} ]",
-                 ColumnIndex.ToString(CultureInfo.CurrentCulture), RowIndex.ToString(CultureInfo.CurrentCulture));
+            return
+                $"DataGridViewNumericUpDownCell [ ColumnIndex={ColumnIndex.ToString(CultureInfo.CurrentCulture)}, RowIndex={RowIndex.ToString(CultureInfo.CurrentCulture)} ]";
         }
 
         /// <summary>

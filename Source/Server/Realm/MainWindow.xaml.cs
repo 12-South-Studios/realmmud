@@ -12,6 +12,7 @@ using Realm.Library.Common.Logging;
 using Realm.Library.Network;
 using Realm.Server;
 using Ninject;
+using Realm.Library.Common.Objects;
 
 namespace Realm
 {
@@ -114,9 +115,8 @@ namespace Realm
         private void SetupLabels()
         {
             TitleLabel.Content = ConfigurationManager.AppSettings["gameTitle"];
-            PortHostLabel.Content = String.Format("{0}:{1}",
-                ConfigurationManager.AppSettings["hostAddress"],
-                ConfigurationManager.AppSettings["listenPort"]);
+            PortHostLabel.Content =
+                $"{ConfigurationManager.AppSettings["hostAddress"]}:{ConfigurationManager.AppSettings["listenPort"]}";
             ServerUpTime.Content = "Up-Time: 00:00:00";
             UsersConnectedLabel.Content = "0 Users Connected";
         }
@@ -170,8 +170,7 @@ namespace Realm
 
         private void UpdateLogList(LogLevel logLevel, string eventName, string eventLog)
         {
-            txtLogs.AppendText(string.Format("[{0}][{1}] {2}:{3}{4}", DateTime.Now,
-                logLevel, eventName, eventLog, Environment.NewLine));
+            txtLogs.AppendText($"[{DateTime.Now}][{logLevel}] {eventName}:{eventLog}{Environment.NewLine}");
             _numberCallstacks++;
             lblCallstackCount.Content = _numberCallstacks + " callstacks.";
         }
@@ -179,7 +178,7 @@ namespace Realm
         private void _logWrapper_OnLoggingEvent(object sender, LogEventArgs e)
         {
             var del = new LogUpdate(UpdateLogList);
-            Dispatcher.Invoke(del, new object[] { e.Level, e.Name, e.Text });
+            Dispatcher.Invoke(del, e.Level, e.Name, e.Text);
         }
 
         #endregion
@@ -225,12 +224,12 @@ namespace Realm
             if (e.ServerStatus == TcpServerStatus.Starting || e.ServerStatus == TcpServerStatus.Listening)
             {
                 var del = new ServerStartDelegate(ServerStartup);
-                Dispatcher.Invoke(del, new object[] { e.ServerStatus });
+                Dispatcher.Invoke(del, e.ServerStatus);
             }
             else
             {
                 var del = new ServerStopDelegate(ServerShutdown);
-                Dispatcher.Invoke(del, new object[] { e.ServerStatus });
+                Dispatcher.Invoke(del, e.ServerStatus);
             }
         }
 

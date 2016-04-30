@@ -6,17 +6,20 @@ using Realm.Data;
 using Realm.Data.Definitions;
 using Realm.Data.Interfaces;
 using Realm.Entity.Contexts;
+using Realm.Entity.Interfaces;
 using Realm.Event;
-using Realm.Library.Common;
+using Realm.Library.Common.Contexts;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Extensions;
 using Realm.Library.Common.Logging;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Entity
 {
     /// <summary>
     ///
     /// </summary>
-    public abstract class GameEntity : Library.Common.Entity, IGameEntity, IExaminable, IWizardExaminable
+    public abstract class GameEntity : Library.Common.Objects.Entity, IGameEntity, IExaminable, IWizardExaminable
     {
         /// <summary>
         ///

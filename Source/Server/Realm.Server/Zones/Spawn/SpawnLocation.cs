@@ -9,15 +9,16 @@
 // ------------------------------------------------------------------------
 
 using System;
-using Realm.Library.Common;
+using Realm.Data;
+using Realm.Library.Common.Extensions;
+using Realm.Library.Common.Objects;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Server.Zones
-// ReSharper restore CheckNamespace
+namespace Realm.Server.Zones.Spawn
+
 {
     public class SpawnLocation : Cell
     {
-        public SpawnLocation(int id, string name, Globals.Globals.SpawnTypes type, long value, int density)
+        public SpawnLocation(int id, string name, Globals.SpawnTypes type, long value, int density)
         {
             ID = id;
             Name = name;
@@ -27,18 +28,18 @@ namespace Realm.Server.Zones
         }
 
         public long Value { get; set; }
-        public Globals.Globals.SpawnTypes Type { get; set; }
+        public Globals.SpawnTypes Type { get; set; }
         public int Density { get; set; }
 
         public void SetType(string type)
         {
             try
             {
-                Type = EnumerationExtensions.GetEnum<Globals.Globals.SpawnTypes>(type);
+                Type = EnumerationExtensions.GetEnum<Globals.SpawnTypes>(type);
             }
             catch (ArgumentException)
             {
-                Type = Globals.Globals.SpawnTypes.None;
+                Type = Globals.SpawnTypes.None;
             }
         }
     }

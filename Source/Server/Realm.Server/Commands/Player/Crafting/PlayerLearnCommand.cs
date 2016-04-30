@@ -4,9 +4,9 @@
 //using Realm.Library.Patterns.Command;
 //using Realm.Server.Item;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server.Commands
-//// ReSharper restore CheckNamespace
+//
 //{
 //    /// <summary>
 //    /// Learn command

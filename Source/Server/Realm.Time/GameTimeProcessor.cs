@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Realm.Data;
 using Realm.Event;
-using Realm.Library.Common;
+using Realm.Event.EventTypes.GameEvents;
+using Realm.Library.Common.Events;
 using Realm.Time.Events;
 
 namespace Realm.Time
@@ -79,22 +81,22 @@ namespace Realm.Time
 
         private bool IsLastMonthOfYear(long monthId)
         {
-            return _months.Count == (_months.FindIndex(x => x == monthId) + 1);
+            return _months.Count == _months.FindIndex(x => x == monthId) + 1;
         }
 
-        private Globals.Globals.DayStateTypes GameStateToDayState()
+        private Globals.DayStateTypes GameStateToDayState()
         {
-            Globals.Globals.DayStateTypes returnVal = Globals.Globals.DayStateTypes.Daylight;
-            if (_gameState.IsDawn) returnVal = Globals.Globals.DayStateTypes.Dawn;
-            else if (_gameState.IsSunrise) returnVal = Globals.Globals.DayStateTypes.Daylight;
-            else if (_gameState.IsDusk) returnVal = Globals.Globals.DayStateTypes.Dusk;
-            else if (_gameState.IsSunset) returnVal = Globals.Globals.DayStateTypes.Night;
+            Globals.DayStateTypes returnVal = Globals.DayStateTypes.Daylight;
+            if (_gameState.IsDawn) returnVal = Globals.DayStateTypes.Dawn;
+            else if (_gameState.IsSunrise) returnVal = Globals.DayStateTypes.Daylight;
+            else if (_gameState.IsDusk) returnVal = Globals.DayStateTypes.Dusk;
+            else if (_gameState.IsSunset) returnVal = Globals.DayStateTypes.Night;
             return returnVal;
         }
 
         private void CheckTimeOfDayEvents()
         {
-            Func<Globals.Globals.DayStateTypes> stateFunc = GameStateToDayState;
+            Func<Globals.DayStateTypes> stateFunc = GameStateToDayState;
             ThrowTimeChangeEvent(stateFunc.Invoke());
 
             if (_gameState.IsDawn)
@@ -108,7 +110,7 @@ namespace Realm.Time
             }
         }
 
-        private void ThrowTimeChangeEvent(Globals.Globals.DayStateTypes state)
+        private void ThrowTimeChangeEvent(Globals.DayStateTypes state)
         {
             _eventManager.ThrowEvent<OnTimeChange>(this, new EventTable {{"daystate", state}});
         }

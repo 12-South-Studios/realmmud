@@ -6,13 +6,18 @@ using Realm.Entity.Events;
 using Realm.Entity.Properties;
 using Realm.Event;
 using Realm.Library.Common;
+using Realm.Library.Common.Entities;
+using Realm.Library.Common.Events;
+using Realm.Library.Common.Exceptions;
+using Realm.Library.Common.Extensions;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Entity
 {
     /// <summary>
     ///
     /// </summary>
-    public sealed class EntityFactory : Library.Common.Entity, IEntityFactory
+    public sealed class EntityFactory : Library.Common.Objects.Entity, IEntityFactory
     {
         private readonly List<Type> _types = new List<Type>();
         private readonly IEventManager _eventManager;

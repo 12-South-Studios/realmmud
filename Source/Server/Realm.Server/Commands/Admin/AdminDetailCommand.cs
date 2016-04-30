@@ -2,9 +2,9 @@
 //using Realm.Data.Definitions;
 //using Realm.Server.Properties;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server.Commands
-//// ReSharper restore CheckNamespace
+//
 //{
 //    /// <summary>
 //    /// Admin Detail command

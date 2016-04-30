@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Realm.Entity.Entities;
+using Realm.Entity.Entities.Interfaces;
 using Realm.Library.Common.Data;
 
 namespace Realm.Network.User

@@ -23,12 +23,12 @@ namespace Realm.Library.NCalcExt
         /// <summary>
         /// Gets an enumerable list of the Dictionary keys
         /// </summary>
-        public IEnumerable<string> Keys { get { return _expressionMap.Keys; } }
+        public IEnumerable<string> Keys => _expressionMap.Keys;
 
         /// <summary>
         /// Gets an enumerable list of the Dictionary values
         /// </summary>
-        public IEnumerable<CustomExpression> Values { get { return _expressionMap.Values; } }
+        public IEnumerable<CustomExpression> Values => _expressionMap.Values;
 
         /// <summary>
         /// Attempts to add a custom expression to the expression table.  Checks for 
@@ -44,13 +44,11 @@ namespace Realm.Library.NCalcExt
             Validation.IsNotNull(expression.ReplacementFunction, "expression.ReplacementFunction");
 
             if (_expressionMap.ContainsKey(expression.Name.ToLower()))
-                throw new ArgumentException(string.Format("Function Name '{0}' is already present in the collection.",
-                                                          expression.Name));
+                throw new ArgumentException($"Function Name '{expression.Name}' is already present in the collection.");
 
             if (_expressionMap.Values.Any(expr => expr.RegexPattern.Equals(expression.RegexPattern)))
                 throw new ArgumentException(
-                    string.Format("Regular Expression '{0}' is already present in the collection.",
-                                  expression.RegexPattern));
+                    $"Regular Expression '{expression.RegexPattern}' is already present in the collection.");
 
             _expressionMap.Add(expression.Name.ToLower(), expression);
         }
@@ -66,7 +64,7 @@ namespace Realm.Library.NCalcExt
             if (string.IsNullOrEmpty(value))
                 return null;
 
-            return (_expressionMap.ContainsKey(value.ToLower()))
+            return _expressionMap.ContainsKey(value.ToLower())
                        ? _expressionMap[value.ToLower()]
                        : _expressionMap.Values.ToList()
                                        .FirstOrDefault(x => x.RegexPattern.Equals(value));

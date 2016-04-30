@@ -27,7 +27,7 @@ namespace Realm.Library.Network.Mxp
             {
                 if (bInTag)
                 {
-                    sb.Append((c == '\x04') ? '>' : c);
+                    sb.Append(c == '\x04' ? '>' : c);
                     if (c == '\x04')
                         bInTag = false;
                 }

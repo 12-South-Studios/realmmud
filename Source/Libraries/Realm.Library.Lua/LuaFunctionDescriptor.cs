@@ -29,7 +29,7 @@ namespace Realm.Library.Lua
             Parameters = parameters;
             Info = info;
 
-            var strFunctionHeader = String.Format("{0}(%params%) - {1}", name, description);
+            var strFunctionHeader = $"{name}(%params%) - {description}";
             var strFunctionBody = "\n\n";
             var strFunctionParams = string.Empty;
 
@@ -40,7 +40,7 @@ namespace Realm.Library.Lua
                     strFunctionParams += ", ";
 
                 strFunctionParams += entry.Key;
-                strFunctionBody += String.Format("\t{0}\t\t{1}\n", entry.Key, entry.Value);
+                strFunctionBody += $"\t{entry.Key}\t\t{entry.Value}\n";
                 first = false;
             }
 
@@ -74,15 +74,9 @@ namespace Realm.Library.Lua
         /// <summary>
         /// Gets the header of the function
         /// </summary>
-        public string Header
-        {
-            get
-            {
-                return FullDescription.IndexOf("\n", StringComparison.Ordinal) == -1
-                    ? FullDescription
-                    : FullDescription.Substring(0, FullDescription.IndexOf("\n", StringComparison.Ordinal));
-            }
-        }
+        public string Header => FullDescription.IndexOf("\n", StringComparison.Ordinal) == -1
+            ? FullDescription
+            : FullDescription.Substring(0, FullDescription.IndexOf("\n", StringComparison.Ordinal));
 
         /// <summary>
         /// Gets the full description

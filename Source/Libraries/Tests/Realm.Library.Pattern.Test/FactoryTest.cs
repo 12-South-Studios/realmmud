@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Realm.Library.Pattern.Tests
+﻿namespace Realm.Library.Pattern.Test
 {
     /*[TestClass]
     public class FactoryTest

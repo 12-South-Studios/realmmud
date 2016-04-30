@@ -11,9 +11,9 @@
 //using Realm.Server.Properties;
 //using Realm.Library.Common;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server
-//// ReSharper restore CheckNamespace
+//
 //{
 //    /// <summary>
 //    /// Extension class that handles functions for Biota

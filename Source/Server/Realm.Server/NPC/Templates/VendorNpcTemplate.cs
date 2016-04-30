@@ -7,12 +7,12 @@
 ////
 //// </summary>
 //// ------------------------------------------------------------------------
-//// ReSharper disable CheckNamespace
+//
 
 //using Realm.Library.Common;
 
 //namespace Realm.Server.NPC
-//// ReSharper restore CheckNamespace
+//
 //{
 //    public class VendorNpcTemplate : MobTemplate
 //    {

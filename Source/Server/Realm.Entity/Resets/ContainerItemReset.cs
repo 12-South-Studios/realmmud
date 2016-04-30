@@ -1,5 +1,5 @@
 ﻿using Realm.Data.Definitions;
-using Realm.Library.Common;
+using Realm.Library.Common.Events;
 
 namespace Realm.Entity.Resets
 {

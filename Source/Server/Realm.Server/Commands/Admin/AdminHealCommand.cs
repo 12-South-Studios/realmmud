@@ -1,6 +1,6 @@
-﻿// ReSharper disable CheckNamespace
-namespace Realm.Server.Commands
-// ReSharper restore CheckNamespace
+﻿
+namespace Realm.Server.Commands.Admin
+
 {
     /// <summary>
     /// Admin Heal command

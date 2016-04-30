@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using NUnit.Framework;
+using Realm.Library.Common.Contexts;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Library.Common.Test
 {

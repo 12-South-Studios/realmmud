@@ -13,9 +13,9 @@
 //using Realm.Server.Factories;
 //using Realm.Server.Properties;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server.NPC
-//// ReSharper restore CheckNamespace
+//
 //{
 //    public class VendorNpcInstance : MobInstance, IVendorNpc, IConversationalist
 //    {

@@ -1,4 +1,6 @@
-﻿namespace Realm.Pathing.Core
+﻿using Realm.Data;
+
+namespace Realm.Pathing.Core
 {
     public class Edge
     {
@@ -6,6 +8,6 @@
 
         public int Cost { get; set; }
 
-        public Globals.Globals.Directions Direction { get; set; }
+        public Globals.Directions Direction { get; set; }
     }
 }

@@ -29,10 +29,7 @@
         /// This is necessary for the DataGridView
         /// http://mikehadlow.blogspot.com/2006/09/problems-with-datagridviewcomboboxcolu.html
         /// </summary>
-        public TagInfo This
-        {
-            get { return this; }
-        }
+        public TagInfo This => this;
 
         public override string ToString()
         {

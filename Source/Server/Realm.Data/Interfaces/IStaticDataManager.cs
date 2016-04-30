@@ -13,7 +13,7 @@ namespace Realm.Data.Interfaces
         /// </summary>
         /// <param name="category"></param>
         /// <returns></returns>
-        Dictionary<string, Definition> GetStaticData(Globals.Globals.SystemTypes category);
+        Dictionary<string, Definition> GetStaticData(Globals.SystemTypes category);
 
         /// <summary>
         ///
@@ -28,7 +28,7 @@ namespace Realm.Data.Interfaces
         /// <param name="category"></param>
         /// <param name="dataId"></param>
         /// <returns></returns>
-        Definition GetStaticData(Globals.Globals.SystemTypes category, string dataId);
+        Definition GetStaticData(Globals.SystemTypes category, string dataId);
 
         /// <summary>
         ///

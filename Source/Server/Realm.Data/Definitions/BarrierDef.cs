@@ -1,5 +1,5 @@
-﻿using Realm.Library.Common;
-using Realm.Library.Common.Data;
+﻿using Realm.Library.Common.Data;
+using Realm.Library.Common.Extensions;
 
 namespace Realm.Data.Definitions
 {
@@ -16,114 +16,48 @@ namespace Realm.Data.Definitions
         {
         }
 
-        public string DisplayName { get { return Def.GetString("DisplayName"); } }
+        public string DisplayName => Def.GetString("DisplayName");
 
-        public int TagSet
-        {
-            get { return Def.GetInt("TagSetID"); }
-        }
+        public int TagSet => Def.GetInt("TagSetID");
 
-        public Globals.Globals.MaterialTypes MaterialType
-        {
-            get { return EnumerationExtensions.GetEnum<Globals.Globals.MaterialTypes>(Def.GetInt("MaterialTypeID")); }
-        }
+        public Globals.MaterialTypes MaterialType => EnumerationExtensions.GetEnum<Globals.MaterialTypes>(Def.GetInt("MaterialTypeID"));
 
-        public ItemDef KeyItem
-        {
-            get
-            {
-                return
-                    (ItemDef)
-                    StaticDataManager.GetStaticData(Globals.Globals.SystemTypes.Item,
-                                                             Def.GetString("KeyItemID"));
-            }
-        }
+        public ItemDef KeyItem => (ItemDef)
+            StaticDataManager.GetStaticData(Globals.SystemTypes.Item,
+                Def.GetString("KeyItemID"));
 
-        public ItemDef LockItem
-        {
-            get
-            {
-                return
-                    (ItemDef)
-                    StaticDataManager.GetStaticData(Globals.Globals.SystemTypes.Item,
-                                                             Def.GetString("LockItemID"));
-            }
-        }
+        public ItemDef LockItem => (ItemDef)
+            StaticDataManager.GetStaticData(Globals.SystemTypes.Item,
+                Def.GetString("LockItemID"));
 
-        public ItemDef TrapItem
-        {
-            get
-            {
-                return
-                    (ItemDef)
-                    StaticDataManager.GetStaticData(Globals.Globals.SystemTypes.Item,
-                                                             Def.GetString("TrapItemID"));
-            }
-        }
+        public ItemDef TrapItem => (ItemDef)
+            StaticDataManager.GetStaticData(Globals.SystemTypes.Item,
+                Def.GetString("TrapItemID"));
 
-        public bool IsCloseable
-        {
-            get { return Globals.Globals.BarrierBits.IsCloseable.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsCloseable => Globals.BarrierBits.IsCloseable.HasBit(Def.GetInt("Bits"));
 
-        public bool IsClosed
-        {
-            get { return Globals.Globals.BarrierBits.IsClosed.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsClosed => Globals.BarrierBits.IsClosed.HasBit(Def.GetInt("Bits"));
 
-        public bool IsOneWay
-        {
-            get { return Globals.Globals.BarrierBits.IsOneWay.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsOneWay => Globals.BarrierBits.IsOneWay.HasBit(Def.GetInt("Bits"));
 
-        public bool IsTransparent
-        {
-            get { return Globals.Globals.BarrierBits.IsTransparent.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsTransparent => Globals.BarrierBits.IsTransparent.HasBit(Def.GetInt("Bits"));
 
-        public bool IsDestroyable
-        {
-            get { return Globals.Globals.BarrierBits.IsDestroyable.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsDestroyable => Globals.BarrierBits.IsDestroyable.HasBit(Def.GetInt("Bits"));
 
-        public bool IsDispellable
-        {
-            get { return Globals.Globals.BarrierBits.IsDispellable.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsDispellable => Globals.BarrierBits.IsDispellable.HasBit(Def.GetInt("Bits"));
 
-        public bool IsLockable
-        {
-            get { return Globals.Globals.BarrierBits.IsLockable.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsLockable => Globals.BarrierBits.IsLockable.HasBit(Def.GetInt("Bits"));
 
-        public bool IsJumpable
-        {
-            get { return Globals.Globals.BarrierBits.IsJumpable.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsJumpable => Globals.BarrierBits.IsJumpable.HasBit(Def.GetInt("Bits"));
 
-        public bool IsClimbable
-        {
-            get { return Globals.Globals.BarrierBits.IsClimbable.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsClimbable => Globals.BarrierBits.IsClimbable.HasBit(Def.GetInt("Bits"));
 
-        public bool IsSwimmable
-        {
-            get { return Globals.Globals.BarrierBits.IsSwimmable.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsSwimmable => Globals.BarrierBits.IsSwimmable.HasBit(Def.GetInt("Bits"));
 
-        public bool IsDestroyed
-        {
-            get { return Globals.Globals.BarrierBits.IsDestroyed.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsDestroyed => Globals.BarrierBits.IsDestroyed.HasBit(Def.GetInt("Bits"));
 
-        public bool IsTrapable
-        {
-            get { return Globals.Globals.BarrierBits.IsTrapable.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsTrapable => Globals.BarrierBits.IsTrapable.HasBit(Def.GetInt("Bits"));
 
-        public bool IsLocked
-        {
-            get { return Globals.Globals.BarrierBits.IsLocked.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsLocked => Globals.BarrierBits.IsLocked.HasBit(Def.GetInt("Bits"));
     }
 }

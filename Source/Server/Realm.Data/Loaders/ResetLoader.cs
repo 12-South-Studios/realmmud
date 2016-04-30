@@ -2,7 +2,8 @@
 using Ninject;
 using Realm.Data.Definitions;
 using Realm.Data.Interfaces;
-using Realm.Library.Common;
+using Realm.Library.Common.Entities;
+using Realm.Library.Common.Events;
 using Realm.Library.Common.Logging;
 using Realm.Library.Database.Framework;
 
@@ -22,7 +23,7 @@ namespace Realm.Data.Loaders
         /// <param name="log"> </param>
         public ResetLoader([Named("StaticDataLoader")]IEntity owner,  IDatabaseLoadBalancer loadBalancer,
             IStaticDataRepository staticDataRepository, string schema, ILogWrapper log)
-            : base(owner, loadBalancer, staticDataRepository, log, schema, Globals.Globals.SystemTypes.Reset)
+            : base(owner, loadBalancer, staticDataRepository, log, schema, Globals.SystemTypes.Reset)
         {
         }
 

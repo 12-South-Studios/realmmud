@@ -1,9 +1,9 @@
 ﻿//using Realm.Library.Common;
 //using Realm.Server.Events;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server.NPC
-//// ReSharper restore CheckNamespace
+//
 //{
 //    public class StaticNpcInstance : MobInstance, IStaticNpc
 //    {

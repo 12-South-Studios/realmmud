@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Ninject;
-using Realm.Data.Interfaces;
-using Realm.Library.Common;
+using Realm.Data.Definitions.Ability;
+using Realm.Data.Definitions.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Extensions;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Data.Definitions
 {
@@ -20,105 +21,45 @@ namespace Realm.Data.Definitions
         {
         }
 
-        public string DisplayName { get { return Def.GetString("DisplayName"); } }
+        public string DisplayName => Def.GetString("DisplayName");
 
-        public string DisplayDescription { get { return Def.GetString("DisplayDescription"); } }
+        public string DisplayDescription => Def.GetString("DisplayDescription");
 
-        public int ManaCost
-        {
-            get { return Def.GetInt("ManaCost"); }
-        }
+        public int ManaCost => Def.GetInt("ManaCost");
 
-        public int StaminaCost
-        {
-            get { return Def.GetInt("StaminaCost"); }
-        }
+        public int StaminaCost => Def.GetInt("StaminaCost");
 
-        public double PreDelay
-        {
-            get { return Def.GetReal("PreDelay"); }
-        }
+        public double PreDelay => Def.GetReal("PreDelay");
 
-        public double PostDelay
-        {
-            get { return Def.GetReal("PostDelay"); }
-        }
+        public double PostDelay => Def.GetReal("PostDelay");
 
-        public Globals.Globals.Statistics OffensiveStat
-        {
-            get { return EnumerationExtensions.GetEnum<Globals.Globals.Statistics>(Def.GetInt("OffensiveStatID")); }
-        }
+        public Globals.Statistics OffensiveStat => EnumerationExtensions.GetEnum<Globals.Statistics>(Def.GetInt("OffensiveStatID"));
 
-        public Globals.Globals.Statistics DefensiveStat
-        {
-            get { return EnumerationExtensions.GetEnum<Globals.Globals.Statistics>(Def.GetInt("DefensiveStatID")); }
-        }
+        public Globals.Statistics DefensiveStat => EnumerationExtensions.GetEnum<Globals.Statistics>(Def.GetInt("DefensiveStatID"));
 
-        public TerrainDef Terrain
-        {
-            get
-            {
-                
-                return (TerrainDef)StaticDataManager.GetStaticData(Globals.Globals.SystemTypes.Terrain, Def.GetString("TerrainID"));
-            }
-        }
+        public TerrainDef Terrain => (TerrainDef)StaticDataManager.GetStaticData(Globals.SystemTypes.Terrain, Def.GetString("TerrainID"));
 
-        public int TagSetID
-        {
-            get { return Def.GetInt("TagSetID"); }
-        }
+        public int TagSetID => Def.GetInt("TagSetID");
 
-        public SkillDef InterruptionResistSkill
-        {
-            get
-            {
-                return
-                    (SkillDef)
-                    StaticDataManager.GetStaticData(Globals.Globals.SystemTypes.Skill,
-                                                             Def.GetString("InterruptionResistSkillID"));
-            }
-        }
+        public SkillDef InterruptionResistSkill => (SkillDef)
+            StaticDataManager.GetStaticData(Globals.SystemTypes.Skill,
+                Def.GetString("InterruptionResistSkillID"));
 
-        public EffectDef InterruptionEffect
-        {
-            get
-            {
-                return
-                    (EffectDef)
-                    StaticDataManager.GetStaticData(Globals.Globals.SystemTypes.Effect,
-                                                             Def.GetString("InterruptionEffectID"));
-            }
-        }
+        public EffectDef InterruptionEffect => (EffectDef)
+            StaticDataManager.GetStaticData(Globals.SystemTypes.Effect,
+                Def.GetString("InterruptionEffectID"));
 
-        public int RechargeRate
-        {
-            get { return Def.GetInt("RechargeRate"); }
-        }
+        public int RechargeRate => Def.GetInt("RechargeRate");
 
-        public Globals.Globals.TargetClassTypes TargetClass
-        {
-            get { return EnumerationExtensions.GetEnum<Globals.Globals.TargetClassTypes>(Def.GetInt("TargetClassTypeID")); }
-        }
+        public Globals.TargetClassTypes TargetClass => EnumerationExtensions.GetEnum<Globals.TargetClassTypes>(Def.GetInt("TargetClassTypeID"));
 
-        public string PluralName
-        {
-            get { return Def.GetString("PluralName"); }
-        }
+        public string PluralName => Def.GetString("PluralName");
 
-        public string VerbalText
-        {
-            get { return Def.GetString("VerbalText"); }
-        }
+        public string VerbalText => Def.GetString("VerbalText");
 
-        public string BeginUseText
-        {
-            get { return Def.GetString("BeginUseText"); }
-        }
+        public string BeginUseText => Def.GetString("BeginUseText");
 
-        public string UseText
-        {
-            get { return Def.GetString("UseText"); }
-        }
+        public string UseText => Def.GetString("UseText");
 
         private List<AbilityEffectDef> _effects;
 

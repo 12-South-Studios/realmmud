@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Text;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Common.Extensions
+
 {
     /// <summary>
     /// Static class used to extend the <see cref="StringBuilder"/> class
@@ -56,7 +55,7 @@ namespace Realm.Library.Common
             Validation.Validate(sb.Length > 0);
             Validation.Validate<ArgumentOutOfRangeException>(startIndex >= 0 && startIndex < int.MaxValue);
             Validation.Validate<ArgumentOutOfRangeException>(length > 0 && length < int.MaxValue);
-            Validation.Validate(length < sb.Length && startIndex < sb.Length && (length + startIndex) < sb.Length);
+            Validation.Validate(length < sb.Length && startIndex < sb.Length && length + startIndex < sb.Length);
 
             return sb.ToString(startIndex, length);
         }
@@ -145,8 +144,8 @@ namespace Realm.Library.Common
             while ((sb[num2] == ' ') && (num2 > -1))
                 num2--;
 
-            if (num2 < (length - 1))
-                sb.Remove(num2 + 1, (length - num2) - 1);
+            if (num2 < length - 1)
+                sb.Remove(num2 + 1, length - num2 - 1);
 
             return sb;
         }
@@ -175,8 +174,8 @@ namespace Realm.Library.Common
             while ((sb[length] == ' ') && (length > -1))
                 length--;
 
-            if (length < (num2 - 1))
-                sb.Remove(length + 1, (num2 - length) - 1);
+            if (length < num2 - 1)
+                sb.Remove(length + 1, num2 - length - 1);
 
             return sb;
         }

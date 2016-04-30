@@ -137,7 +137,7 @@ namespace Realm.Edit
 
             var saveIndex = listTags.SelectedIndex;
             listTags.Items.RemoveAt(listTags.SelectedIndex);
-            listTags.SelectedIndex = (saveIndex < listTags.Items.Count) ? saveIndex : listTags.Items.Count - 1;
+            listTags.SelectedIndex = saveIndex < listTags.Items.Count ? saveIndex : listTags.Items.Count - 1;
         }
 
         private void BtnUpdateClick(object sender, EventArgs e)
@@ -174,7 +174,7 @@ namespace Realm.Edit
 
         private void ListTagsSelectedIndexChanged(object sender, EventArgs e)
         {
-            var enabled = (listTags.SelectedIndex >= 0);
+            var enabled = listTags.SelectedIndex >= 0;
             btnRemove.Enabled = enabled;
             txtTag.Text = enabled ? listTags.SelectedItem.ToString() : string.Empty;
         }

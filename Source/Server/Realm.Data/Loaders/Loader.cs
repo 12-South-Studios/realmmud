@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
-using Ninject;
 using Realm.Data.Definitions;
 using Realm.Data.Interfaces;
 using Realm.Data.Properties;
 using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Entities;
+using Realm.Library.Common.Events;
+using Realm.Library.Common.Extensions;
 using Realm.Library.Common.Logging;
+using Realm.Library.Common.Objects;
 using Realm.Library.Database.Framework;
 
 namespace Realm.Data.Loaders
@@ -32,7 +35,7 @@ namespace Realm.Data.Loaders
         /// <param name="systemType"></param>
         protected Loader(IEntity owner,  IDatabaseLoadBalancer loadBalancer,
             IStaticDataRepository staticDataRepository, ILogWrapper log, string schema,
-            Globals.Globals.SystemTypes systemType)
+            Globals.SystemTypes systemType)
             : base(owner, loadBalancer)
         {
             Repository = (StaticDataRepository)staticDataRepository;
@@ -62,7 +65,7 @@ namespace Realm.Data.Loaders
         /// <summary>
         ///
         /// </summary>
-        private Globals.Globals.SystemTypes SystemType { get; set; }
+        private Globals.SystemTypes SystemType { get; set; }
 
         /// <summary>
         ///
@@ -188,8 +191,7 @@ namespace Realm.Data.Loaders
             {
                 var result = itResult.Current.CastAs<DictionaryAtom>();
                 var defType = typeof(T);
-                var def = (T)Activator.CreateInstance(defType,
-                                                   new object[] { result.GetInt(IdColumn), result.GetString(NameColumn), result });
+                var def = (T)Activator.CreateInstance(defType, result.GetInt(IdColumn), result.GetString(NameColumn), result);
                 Repository.AddSubtype(SystemType.GetValue(), result.GetInt(IdColumn).ToString(CultureInfo.InvariantCulture), def);
             }
         }

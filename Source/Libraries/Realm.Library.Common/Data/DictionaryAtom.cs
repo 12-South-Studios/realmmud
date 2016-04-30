@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Realm.Library.Common.Logging;
+using Realm.Library.Common.Objects;
 using Realm.Library.Common.Properties;
 
 namespace Realm.Library.Common.Data
@@ -55,7 +56,7 @@ namespace Realm.Library.Common.Data
         /// <summary>
         /// Gets the number of objects in the dictionary
         /// </summary>
-        public int Count { get { return _map.Count; } }
+        public int Count => _map.Count;
 
         /// <summary>
         /// Gets if the dictionary contains a string key
@@ -249,18 +250,12 @@ namespace Realm.Library.Common.Data
         /// <summary>
         /// Gets an enumerable list of keys
         /// </summary>
-        public IEnumerable<Atom> Keys
-        {
-            get { return _map.Keys; }
-        }
+        public IEnumerable<Atom> Keys => _map.Keys;
 
         /// <summary>
         /// Gets an enumerable collection of values
         /// </summary>
-        public ICollection<Atom> Values
-        {
-            get { return _map.Values; }
-        }
+        public ICollection<Atom> Values => _map.Values;
 
         /// <summary>
         /// Dumps the contents of the Atom with the given prefix

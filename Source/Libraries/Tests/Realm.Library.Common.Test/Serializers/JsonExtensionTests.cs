@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using Realm.Library.Common.Serializers;
 
 namespace Realm.Library.Common.Test.Serializers
 {

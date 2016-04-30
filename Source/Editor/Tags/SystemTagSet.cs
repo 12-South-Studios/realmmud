@@ -4,6 +4,7 @@ using Ninject;
 using Realm.DAL;
 using Realm.DAL.Enumerations;
 using Realm.Library.Common;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Edit.Tags
 {

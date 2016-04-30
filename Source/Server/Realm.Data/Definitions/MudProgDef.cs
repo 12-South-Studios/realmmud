@@ -15,6 +15,6 @@ namespace Realm.Data.Definitions
         {
         }
 
-        public string Data { get { return Def.GetString("Data"); } }
+        public string Data => Def.GetString("Data");
     }
 }

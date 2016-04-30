@@ -36,8 +36,8 @@ namespace Realm.Library.Database.Framework
         /// <returns></returns>
         public bool IsEqual(string schema, string name)
         {
-            return (Schema.Equals(schema, StringComparison.OrdinalIgnoreCase)
-                    && Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+            return Schema.Equals(schema, StringComparison.OrdinalIgnoreCase)
+                   && Name.Equals(name, StringComparison.OrdinalIgnoreCase);
         }
     }
 }

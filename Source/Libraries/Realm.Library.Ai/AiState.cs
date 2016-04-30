@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using Realm.Library.Common;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Library.Ai
 {
@@ -26,7 +27,7 @@ namespace Realm.Library.Ai
         /// <summary>
         /// Reference to the AiBrain that controls this AiState
         /// </summary>
-        public IAiAgent Parent { get; private set; }
+        public IAiAgent Parent { get; }
 
         /// <summary>
         /// Gets if this AiState is paused

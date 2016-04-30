@@ -1,10 +1,11 @@
 using Ninject;
-using Realm.Data;
-using Realm.Entity;
+using Realm.Data.Interfaces;
+using Realm.Entity.Interfaces;
 using Realm.Event;
-using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Events;
 using Realm.Library.Common.Logging;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Communication
 {

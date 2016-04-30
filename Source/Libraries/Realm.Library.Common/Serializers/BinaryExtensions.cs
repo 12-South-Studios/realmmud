@@ -1,9 +1,8 @@
 ﻿using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Common.Serializers
+
 {
     /// <summary>
     ///

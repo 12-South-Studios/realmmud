@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Text;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Common.Events
+
 {
     /// <summary>
     /// A listener class that defines what is being listened to, for and who is doing the listening

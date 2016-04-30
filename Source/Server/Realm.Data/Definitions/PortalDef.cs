@@ -1,5 +1,5 @@
-﻿using Realm.Library.Common;
-using Realm.Library.Common.Data;
+﻿using Realm.Library.Common.Data;
+using Realm.Library.Common.Extensions;
 
 namespace Realm.Data.Definitions
 {
@@ -22,88 +22,52 @@ namespace Realm.Data.Definitions
         /// <summary>
         ///
         /// </summary>
-        public Globals.Globals.Directions Direction
-        {
-            get { return EnumerationExtensions.GetEnum<Globals.Globals.Directions>(Def.GetInt("DirectionID")); }
-        }
+        public Globals.Directions Direction => EnumerationExtensions.GetEnum<Globals.Directions>(Def.GetInt("DirectionID"));
 
         /// <summary>
         ///
         /// </summary>
-        public SpaceDef SourceSpace
-        {
-            get
-            {
-                return
-                    (SpaceDef)
-                    StaticDataManager.GetStaticData(Globals.Globals.SystemTypes.Space,
-                                                             Def.GetString("SourceSpaceID"));
-            }
-        }
+        public SpaceDef SourceSpace => (SpaceDef)
+            StaticDataManager.GetStaticData(Globals.SystemTypes.Space,
+                Def.GetString("SourceSpaceID"));
 
         /// <summary>
         ///
         /// </summary>
-        public SpaceDef TargetSpace
-        {
-            get
-            {
-                return
-                    (SpaceDef)
-                    StaticDataManager.GetStaticData(Globals.Globals.SystemTypes.Space,
-                                                             Def.GetString("TargetSpaceID"));
-            }
-        }
+        public SpaceDef TargetSpace => (SpaceDef)
+            StaticDataManager.GetStaticData(Globals.SystemTypes.Space,
+                Def.GetString("TargetSpaceID"));
 
         /// <summary>
         ///
         /// </summary>
-        public string Keywords { get { return Def.GetString("Keywords"); } }
+        public string Keywords => Def.GetString("Keywords");
 
         /// <summary>
         ///
         /// </summary>
-        public BarrierDef Barrier
-        {
-            get
-            {
-                return
-                    (BarrierDef)
-                    StaticDataManager.GetStaticData(Globals.Globals.SystemTypes.Barrier,
-                                                             Def.GetString("BarrierID"));
-            }
-        }
+        public BarrierDef Barrier => (BarrierDef)
+            StaticDataManager.GetStaticData(Globals.SystemTypes.Barrier,
+                Def.GetString("BarrierID"));
 
         /// <summary>
         ///
         /// </summary>
-        public bool IsHidden
-        {
-            get { return Globals.Globals.PortalBits.IsHidden.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsHidden => Globals.PortalBits.IsHidden.HasBit(Def.GetInt("Bits"));
 
         /// <summary>
         ///
         /// </summary>
-        public bool IsOneWay
-        {
-            get { return Globals.Globals.PortalBits.IsOneWay.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsOneWay => Globals.PortalBits.IsOneWay.HasBit(Def.GetInt("Bits"));
 
         /// <summary>
         ///
         /// </summary>
-        public bool IsTransparent
-        {
-            get { return Globals.Globals.PortalBits.IsTransparent.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsTransparent => Globals.PortalBits.IsTransparent.HasBit(Def.GetInt("Bits"));
 
         /// <summary>
         ///
         /// </summary>
-        public bool IsDynamic
-        {
-            get { return Globals.Globals.PortalBits.IsDynamic.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsDynamic => Globals.PortalBits.IsDynamic.HasBit(Def.GetInt("Bits"));
     }
 }

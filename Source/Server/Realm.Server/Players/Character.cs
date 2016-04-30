@@ -3,11 +3,11 @@ using System.Linq;
 using Realm.Communication;
 using Realm.Data;
 using Realm.Data.Definitions;
-using Realm.Entity;
 using Realm.Entity.Entities;
-using Realm.Library.Common;
+using Realm.Entity.Entities.Interfaces;
 using Realm.Library.Common.Data;
-using Realm.Network.User;
+using Realm.Library.Common.Events;
+using Realm.Library.Common.Objects;
 using Realm.Server.Attributes;
 
 namespace Realm.Server.Players
@@ -48,13 +48,13 @@ namespace Realm.Server.Players
         /// </summary>
         public IGameUser User { get; private set; }
 
-        public override Globals.Globals.PositionTypes Position
+        public override Globals.PositionTypes Position
         {
             get { throw new System.NotImplementedException(); }
             set { throw new System.NotImplementedException(); }
         }
 
-        public override Globals.Globals.GenderTypes Gender
+        public override Globals.GenderTypes Gender
         {
             get { throw new System.NotImplementedException(); }
         }
@@ -64,7 +64,7 @@ namespace Realm.Server.Players
             get { throw new System.NotImplementedException(); }
         }
 
-        public override Globals.Globals.MovementModeTypes Movement
+        public override Globals.MovementModeTypes Movement
         {
             get { throw new System.NotImplementedException(); }
             set { throw new System.NotImplementedException(); }
@@ -104,10 +104,10 @@ namespace Realm.Server.Players
             foreach (var result in results.Select(atom => atom.CastAs<DictionaryAtom>()))
             {
                 var abilityId = result.GetInt("AbilityID");
-                var abilityDef = StaticDataManager.GetStaticData(Globals.Globals.SystemTypes.Ability,
+                var abilityDef = StaticDataManager.GetStaticData(Globals.SystemTypes.Ability,
                                                                  abilityId.ToString());
 
-                Abilities.Add(EntityManager.Create<Ability>(new object[] { abilityId, abilityDef.Name, abilityDef }));
+                Abilities.Add(EntityManager.Create<Ability>(abilityId, abilityDef.Name, abilityDef));
             }
         }
 

@@ -1,9 +1,9 @@
-﻿using Realm.Library.Common;
+﻿using Realm.Data.Definitions.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Extensions;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Data.Definitions
-// ReSharper restore CheckNamespace
+namespace Realm.Data.Definitions.Ability
+
 {
     public class AbilityEffectDef : SubDefinition
     {
@@ -12,18 +12,11 @@ namespace Realm.Data.Definitions
         {
         }
 
-        public int EffectID { get { return Def.GetInt("EffectID"); } }
+        public int EffectID => Def.GetInt("EffectID");
 
-        public Globals.Globals.TargetClassTypes TargetClass
-        {
-            get
-            {
-                return
-                    EnumerationExtensions.GetEnum<Globals.Globals.TargetClassTypes>(
-                        Def.GetInt("TargetClassTypeID"));
-            }
-        }
+        public Globals.TargetClassTypes TargetClass => EnumerationExtensions.GetEnum<Globals.TargetClassTypes>(
+            Def.GetInt("TargetClassTypeID"));
 
-        public int MaxNumber { get { return Def.GetInt("MaxNumber"); } }
+        public int MaxNumber => Def.GetInt("MaxNumber");
     }
 }

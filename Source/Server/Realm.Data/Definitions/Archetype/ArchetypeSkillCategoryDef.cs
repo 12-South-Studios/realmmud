@@ -1,8 +1,8 @@
-﻿using Realm.Library.Common.Data;
+﻿using Realm.Data.Definitions.Common;
+using Realm.Library.Common.Data;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Data.Definitions
-// ReSharper restore CheckNamespace
+namespace Realm.Data.Definitions.Archetype
+
 {
     public class ArchetypeSkillCategoryDef : SubDefinition
     {
@@ -11,10 +11,10 @@ namespace Realm.Data.Definitions
         {
         }
 
-        public int SkillCategoryID { get { return Def.GetInt("SkillCategoryID"); } }
+        public int SkillCategoryID => Def.GetInt("SkillCategoryID");
 
-        public bool IsPreferred { get { return Def.GetBool("IsPreferred"); } }
+        public bool IsPreferred => Def.GetBool("IsPreferred");
 
-        public bool IsRestricted { get { return Def.GetBool("IsRestricted"); } }
+        public bool IsRestricted => Def.GetBool("IsRestricted");
     }
 }

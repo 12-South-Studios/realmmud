@@ -1,9 +1,9 @@
-﻿using Realm.Library.Common;
+﻿using Realm.Data.Definitions.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Extensions;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Data.Definitions
-// ReSharper restore CheckNamespace
+namespace Realm.Data.Definitions.Archetype
+
 {
     public class ArchetypeStatisticDef : SubDefinition
     {
@@ -12,15 +12,12 @@ namespace Realm.Data.Definitions
         {
         }
 
-        public Globals.Globals.Statistics Statistic
-        {
-            get { return EnumerationExtensions.GetEnum<Globals.Globals.Statistics>(Def.GetInt("StatisticID")); }
-        }
+        public Globals.Statistics Statistic => EnumerationExtensions.GetEnum<Globals.Statistics>(Def.GetInt("StatisticID"));
 
-        public int SkillID { get { return Def.GetInt("SkillID"); } }
+        public int SkillID => Def.GetInt("SkillID");
 
-        public int ModValue { get { return Def.GetInt("ModValue"); } }
+        public int ModValue => Def.GetInt("ModValue");
 
-        public bool IsExempt { get { return Def.GetBool("IsExempt"); } }
+        public bool IsExempt => Def.GetBool("IsExempt");
     }
 }

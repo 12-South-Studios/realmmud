@@ -13,9 +13,9 @@ namespace Realm.Edit.Extensions
         public static bool DefaultDragCompare(this EditorBrowseInfo value, EditorBrowseInfo dragInfo)
         {
             if (value == null)
-                throw new ArgumentNullException("value", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(value), Resources.NullParameterErrorMessage);
             if (dragInfo == null)
-                throw new ArgumentNullException("dragInfo", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(dragInfo), Resources.NullParameterErrorMessage);
 
             return dragInfo.SystemType == value.SystemType && dragInfo.Id > 0;
         }
@@ -23,9 +23,9 @@ namespace Realm.Edit.Extensions
         public static bool ProcessLinkDrag(this LinkLabel value, DragEventArgs eventArgs, bool setValue)
         {
             if (value == null)
-                throw new ArgumentNullException("value", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(value), Resources.NullParameterErrorMessage);
             if (eventArgs == null)
-                throw new ArgumentNullException("eventArgs", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(eventArgs), Resources.NullParameterErrorMessage);
 
             return ProcessLinkDrag(value, eventArgs, setValue, DefaultDragCompare);
         }
@@ -35,11 +35,11 @@ namespace Realm.Edit.Extensions
             bool setValue, LinkDragCompareDelegate customPredicate)
         {
             if (value == null)
-                throw new ArgumentNullException("value", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(value), Resources.NullParameterErrorMessage);
             if (eventArgs == null)
-                throw new ArgumentNullException("eventArgs", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(eventArgs), Resources.NullParameterErrorMessage);
             if (customPredicate == null)
-                throw new ArgumentNullException("customPredicate", Resources.NullParameterErrorMessage);
+                throw new ArgumentNullException(nameof(customPredicate), Resources.NullParameterErrorMessage);
 
             var treeNode = eventArgs.Data.GetData("System.Windows.Forms.TreeNode", true) as TreeNode;
             if (treeNode == null) return false;
@@ -47,7 +47,7 @@ namespace Realm.Edit.Extensions
             var browseInfo = treeNode.Tag as EditorBrowseInfo;
             if (browseInfo == null) return false;
 
-            var existingInfo = (value.Tag as EditorBrowseInfo);
+            var existingInfo = value.Tag as EditorBrowseInfo;
             if (existingInfo == null) return false;
 
             if (!customPredicate(existingInfo, browseInfo)) return false;

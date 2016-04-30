@@ -1,5 +1,5 @@
 ﻿using Realm.Data.Definitions;
-using Realm.Library.Common;
+using Realm.Library.Common.Objects;
 
 namespace Realm.Entity.Entities
 {
@@ -22,9 +22,6 @@ namespace Realm.Entity.Entities
         /// <summary>
         ///
         /// </summary>
-        public ItemDef ItemDef
-        {
-            get { return Definition.CastAs<ItemDef>(); }
-        }
+        public ItemDef ItemDef => Definition.CastAs<ItemDef>();
     }
 }

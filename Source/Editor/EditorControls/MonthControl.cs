@@ -8,7 +8,7 @@ using Realm.DAL.Enumerations;
 using Realm.DAL.Models;
 using Realm.Edit.Editor;
 using Realm.Edit.Extensions;
-using Realm.Library.Controls;
+using Realm.Library.Controls.DataGridViewControls;
 
 namespace Realm.Edit.EditorControls
 {
@@ -122,7 +122,7 @@ namespace Realm.Edit.EditorControls
             }
             catch (DataException ex)
             {
-                Program.Log.Error(string.Format("Error saving {0}", ControlName), ex);
+                Program.Log.Error($"Error saving {ControlName}", ex);
                 return false;
             }
             catch (Exception ex)

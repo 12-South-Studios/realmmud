@@ -1,5 +1,5 @@
-﻿using Realm.Library.Common;
-using Realm.Library.Common.Data;
+﻿using Realm.Library.Common.Data;
+using Realm.Library.Common.Extensions;
 
 namespace Realm.Data.Definitions
 {
@@ -16,21 +16,12 @@ namespace Realm.Data.Definitions
         {
         }
 
-        public string DisplayName { get { return Def.GetString("DisplayName"); } }
+        public string DisplayName => Def.GetString("DisplayName");
 
-        public Globals.Globals.ChannelTypes ChannelType
-        {
-            get { return EnumerationExtensions.GetEnum<Globals.Globals.ChannelTypes>(Def.GetInt("ChannelTypeID")); }
-        }
+        public Globals.ChannelTypes ChannelType => EnumerationExtensions.GetEnum<Globals.ChannelTypes>(Def.GetInt("ChannelTypeID"));
 
-        public bool ReadOnly
-        {
-            get { return Globals.Globals.ChannelBits.ReadOnly.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool ReadOnly => Globals.ChannelBits.ReadOnly.HasBit(Def.GetInt("Bits"));
 
-        public bool Admin
-        {
-            get { return Globals.Globals.ChannelBits.Admin.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool Admin => Globals.ChannelBits.Admin.HasBit(Def.GetInt("Bits"));
     }
 }

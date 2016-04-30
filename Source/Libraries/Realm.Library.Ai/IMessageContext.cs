@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Realm.Library.Common.Logging;
 
-// ReSharper disable CheckNamespace
+
 namespace Realm.Library.Ai
-// ReSharper restore CheckNamespace
+
 {
     /// <summary>
     /// Declares the contract for a message handler

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Realm.Library.Common;
 using Realm.Library.Common.Data;
+using Realm.Library.Common.Extensions;
 
 namespace Realm.Data.Definitions
 {
@@ -20,19 +20,16 @@ namespace Realm.Data.Definitions
         {
         }
 
-        public string DisplayName { get { return Def.GetString("DisplayName"); } }
+        public string DisplayName => Def.GetString("DisplayName");
 
-        public string DisplayDescription { get { return Def.GetString("DisplayDescription"); } }
+        public string DisplayDescription => Def.GetString("DisplayDescription");
 
-        public int MovementCost { get { return Def.GetInt("MovementCost"); } }
+        public int MovementCost => Def.GetInt("MovementCost");
 
-        public int SkillID { get { return Def.GetInt("SkillID"); } }
+        public int SkillID => Def.GetInt("SkillID");
 
-        public bool IsLitBySun
-        {
-            get { return Globals.Globals.TerrainBits.IsLitBySun.HasBit(Def.GetInt("Bits")); }
-        }
+        public bool IsLitBySun => Globals.TerrainBits.IsLitBySun.HasBit(Def.GetInt("Bits"));
 
-        public IEnumerable<Atom> Restrictions { get { return Def.GetAtom<ListAtom>("Restrictions"); } }
+        public IEnumerable<Atom> Restrictions => Def.GetAtom<ListAtom>("Restrictions");
     }
 }

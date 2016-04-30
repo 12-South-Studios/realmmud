@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Runtime.Caching;
+using Realm.Library.Common.Objects;
 
-// ReSharper disable CheckNamespace
-namespace Realm.Library.Common
-// ReSharper restore CheckNamespace
+namespace Realm.Library.Common.Caching
+
 {
     /// <summary>
     ///
@@ -46,31 +46,22 @@ namespace Realm.Library.Common
         /// <summary>
         ///
         /// </summary>
-        public string Name { get { return _memoryCache.Name; } }
+        public string Name => _memoryCache.Name;
 
         /// <summary>
         ///
         /// </summary>
-        public long CacheMemoryLimitInBytes
-        {
-            get { return _memoryCache.CacheMemoryLimit; }
-        }
+        public long CacheMemoryLimitInBytes => _memoryCache.CacheMemoryLimit;
 
         /// <summary>
         ///
         /// </summary>
-        public long PhysicalMemoryLimit
-        {
-            get { return _memoryCache.PhysicalMemoryLimit; }
-        }
+        public long PhysicalMemoryLimit => _memoryCache.PhysicalMemoryLimit;
 
         /// <summary>
         ///
         /// </summary>
-        public TimeSpan PollingInterval
-        {
-            get { return _memoryCache.PollingInterval; }
-        }
+        public TimeSpan PollingInterval => _memoryCache.PollingInterval;
 
         /// <summary>
         ///
@@ -151,10 +142,7 @@ namespace Realm.Library.Common
         /// <summary>
         ///
         /// </summary>
-        public long Count
-        {
-            get { return _memoryCache.GetCount(); }
-        }
+        public long Count => _memoryCache.GetCount();
 
         #region region Implement IDisposable
 

@@ -56,8 +56,8 @@ namespace Realm.Library.SmallDb
             {
                 dbConnection.CleanupConnection();
                 _log.Error(string.IsNullOrEmpty(errorMessage)
-                               ? string.Format("{0} threw an Exception: {1}", storedProcedureName, ex.Message)
-                               : errorMessage, ex);
+                               ? $"{storedProcedureName} threw an Exception: {ex.Message}"
+                    : errorMessage, ex);
 
                 if (throwException)
                     throw;
@@ -91,8 +91,8 @@ namespace Realm.Library.SmallDb
             {
                 dbConnection.CleanupConnection();
                 _log.Error(string.IsNullOrEmpty(errorMessage)
-                               ? string.Format("{0} threw an Exception: {1}", storedProcedureName, ex.Message)
-                               : errorMessage, ex);
+                               ? $"{storedProcedureName} threw an Exception: {ex.Message}"
+                    : errorMessage, ex);
 
                 if (throwException)
                     throw;
@@ -130,8 +130,8 @@ namespace Realm.Library.SmallDb
             {
                 dbConnection.CleanupConnection();
                 _log.Error(string.IsNullOrEmpty(errorMessage)
-                               ? string.Format("{0} threw an Exception: {1}", storedProcedureName, ex.Message)
-                               : errorMessage, ex);
+                               ? $"{storedProcedureName} threw an Exception: {ex.Message}"
+                    : errorMessage, ex);
 
                 if (throwException)
                     throw;
@@ -150,7 +150,7 @@ namespace Realm.Library.SmallDb
                                  string errorMessage = "", bool throwException = true) where T : class, new()
         {
             ValidateArguments(dbConnection, storedProcedureName);
-            if (translateFunction == null) throw new ArgumentNullException("translateFunction");
+            if (translateFunction == null) throw new ArgumentNullException(nameof(translateFunction));
 
             try
             {
@@ -172,8 +172,8 @@ namespace Realm.Library.SmallDb
             {
                 dbConnection.CleanupConnection();
                 _log.Error(string.IsNullOrEmpty(errorMessage)
-                               ? string.Format("{0} threw an Exception: {1}", storedProcedureName, ex.Message)
-                               : errorMessage, ex);
+                               ? $"{storedProcedureName} threw an Exception: {ex.Message}"
+                    : errorMessage, ex);
 
                 if (throwException)
                     throw;
@@ -202,8 +202,8 @@ namespace Realm.Library.SmallDb
         /// </summary>
         internal static void ValidateArguments(IDbConnection dbConnection, string storedProcedureName)
         {
-            if (dbConnection == null) throw new ArgumentNullException("dbConnection");
-            if (string.IsNullOrWhiteSpace(storedProcedureName)) throw new ArgumentNullException("storedProcedureName");
+            if (dbConnection == null) throw new ArgumentNullException(nameof(dbConnection));
+            if (string.IsNullOrWhiteSpace(storedProcedureName)) throw new ArgumentNullException(nameof(storedProcedureName));
         }
 
         /// <summary>
@@ -214,7 +214,7 @@ namespace Realm.Library.SmallDb
         internal static bool IsInternalSql(string sqlString)
         {
             string[] words = sqlString.ToUpper().Split(' ');
-            return (SqlCommands.Contains(words[0]) && !DisallowedCommands.Contains(words[0]));
+            return SqlCommands.Contains(words[0]) && !DisallowedCommands.Contains(words[0]);
         }
     }
 }

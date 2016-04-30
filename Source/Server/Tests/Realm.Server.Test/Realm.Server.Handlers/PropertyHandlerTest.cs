@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Realm.Library.Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Realm.Library.Common.Contexts;
 
 namespace Realm.Server.Test.Realm.Server.Handlers
 {
@@ -55,7 +56,7 @@ namespace Realm.Server.Test.Realm.Server.Handlers
         {
             var target = new PropertyContext(null);
 
-            target.SetProperty(EnumTest.Test, new object(), PropertyTypeOptions.None);
+            target.SetProperty(EnumTest.Test, new object());
 
             const bool expected = true;
             var actual = target.HasProperty("Test");

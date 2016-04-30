@@ -13,9 +13,9 @@
 //using Realm.Server.Zones;
 //using Realm.Library.Network.Mxp;
 
-//// ReSharper disable CheckNamespace
+//
 //namespace Realm.Server.Commands
-//// ReSharper restore CheckNamespace
+//
 //{
 //    /// <summary>
 //    /// Look command

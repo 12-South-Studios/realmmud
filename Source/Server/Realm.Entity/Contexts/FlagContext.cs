@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Realm.Library.Common;
+using Realm.Library.Common.Contexts;
+using Realm.Library.Common.Entities;
 
 namespace Realm.Entity.Contexts
 {

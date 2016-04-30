@@ -36,7 +36,7 @@ namespace Realm.Edit.Builders
             {
                 var obj = RealmContext.Abilities.SingleOrDefault(x => x.Id == aId);
                 if (obj == null)
-                    throw new ObjectNotFoundException(string.Format("Ability {0} was not found", aId));
+                    throw new ObjectNotFoundException($"Ability {aId} was not found");
 
                 RealmContext.Abilities.Remove(obj);
 
