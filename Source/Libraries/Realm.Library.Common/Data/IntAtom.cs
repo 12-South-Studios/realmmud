@@ -31,7 +31,7 @@ namespace Realm.Library.Common.Data
         /// <summary>
         /// Gets the value of the atom
         /// </summary>
-        public int Value { get; private set; }
+        public int Value { get; }
 
         /// <summary>
         /// Dumps the contents of the Atom with the given prefix

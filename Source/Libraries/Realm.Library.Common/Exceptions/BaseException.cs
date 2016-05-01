@@ -14,7 +14,7 @@ namespace Realm.Library.Common.Exceptions
         /// <summary>
         /// 
         /// </summary>
-        public string ResourceReferenceProperty { get; set; }
+        public string ResourceReferenceProperty { get; }
  
         /// <summary>
         /// 

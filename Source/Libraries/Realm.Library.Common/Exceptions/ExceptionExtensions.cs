@@ -31,7 +31,7 @@ namespace Realm.Library.Common.Exceptions
                 if (string.IsNullOrEmpty(msg))
                     logger.Error(exception);
                 else
-                    logger.Error(String.Format(msg, parameters), exception);
+                    logger.Error(string.Format(msg, parameters), exception);
             }
 
             if (exceptionBehavior == ExceptionHandlingOptions.RecordAndThrow || exceptionBehavior == ExceptionHandlingOptions.ThrowOnly)
@@ -57,7 +57,7 @@ namespace Realm.Library.Common.Exceptions
                 if (string.IsNullOrEmpty(msg))
                     logger.Error(exception);
                 else
-                    logger.Error(String.Format(msg, parameters), exception);
+                    logger.Error(string.Format(msg, parameters), exception);
             }
 
             if (exceptionBehavior == ExceptionHandlingOptions.RecordAndThrow ||
@@ -72,10 +72,7 @@ namespace Realm.Library.Common.Exceptions
         private static string GetCaller(int level = 2)
         {
             var method = new StackTrace().GetFrame(level).GetMethod();
-            if (method == null || method.DeclaringType == null)
-                return string.Empty;
-
-            return $"{method.DeclaringType.FullName}:{method.Name}";
+            return method?.DeclaringType == null ? string.Empty : $"{method.DeclaringType.FullName}:{method.Name}";
         }
     }
 }

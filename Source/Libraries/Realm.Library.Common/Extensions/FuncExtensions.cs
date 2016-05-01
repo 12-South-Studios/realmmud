@@ -2,7 +2,6 @@
 using System.Diagnostics.CodeAnalysis;
 
 namespace Realm.Library.Common.Extensions
-
 {
     /// <summary>
     ///
@@ -106,8 +105,7 @@ namespace Realm.Library.Common.Extensions
             }
             catch (Exception ex)
             {
-                if (errorAction != null)
-                    errorAction.Invoke(ex);
+                errorAction?.Invoke(ex);
             }
         }
 
@@ -169,8 +167,7 @@ namespace Realm.Library.Common.Extensions
             }
             finally
             {
-                if (finalAction != null)
-                    finalAction.Invoke(args);
+                finalAction?.Invoke(args);
             }
             throw new ArgumentException("No return value specified");
         }

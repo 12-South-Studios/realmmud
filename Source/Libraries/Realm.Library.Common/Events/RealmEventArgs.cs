@@ -17,7 +17,7 @@ namespace Realm.Library.Common.Events
         /// <summary>
         /// A dictionary table of key-value data
         /// </summary>
-        public EventTable Data { get; private set; }
+        public EventTable Data { get; }
 
         /// <summary>
         /// The object that sent the event

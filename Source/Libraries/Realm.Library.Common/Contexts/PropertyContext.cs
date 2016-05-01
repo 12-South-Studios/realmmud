@@ -40,7 +40,7 @@ namespace Realm.Library.Common.Contexts
         /// <param name="name"></param>
         /// <param name="value"></param>
         /// <param name="bits"></param>
-        public void SetProperty(String name, object value, PropertyTypeOptions bits = 0)
+        public void SetProperty(string name, object value, PropertyTypeOptions bits = 0)
         {
             if (_properties.ContainsKey(name))
             {

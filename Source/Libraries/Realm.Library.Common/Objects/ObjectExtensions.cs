@@ -86,9 +86,7 @@ namespace Realm.Library.Common.Objects
         /// <returns></returns>
         public static bool IsNull<T>(this T obj)
         {
-            // ReSharper disable CompareNonConstrainedGenericWithNull
             return obj == null;
-            // ReSharper restore CompareNonConstrainedGenericWithNull
         }
 
         /// <summary>

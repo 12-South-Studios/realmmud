@@ -12,8 +12,8 @@ namespace Realm.Library.Common.Caching
     /// <typeparam name="T"></typeparam>
     public class CachedObjectRepository<TKey, T> : IRepository<TKey, T> where T : class
     {
-        private ObjectCache Cache { get; set; }
-        private CacheItemPolicy Policy { get; set; }
+        private ObjectCache Cache { get; }
+        private CacheItemPolicy Policy { get; }
 
         /// <summary>
         /// 
@@ -27,7 +27,7 @@ namespace Realm.Library.Common.Caching
 
         private string GetCacheKey(TKey key)
         {
-            return $"CacheItem_{key.ToString()}";
+            return $"CacheItem_{key}";
         }
 
         /// <summary>

@@ -11,27 +11,29 @@ namespace Realm.Library.Common.Extensions
     /// </summary>
     public static class NumberExtensions
     {
-        private static readonly string[] UnitsMap = {
-                Resources.MSG_ZERO, Resources.MSG_ONE, Resources.MSG_TWO, Resources.MSG_THREE,
-                Resources.MSG_FOUR, Resources.MSG_FIVE, Resources.MSG_SIX, Resources.MSG_SEVEN, Resources.MSG_EIGHT,
-                Resources.MSG_NINE, Resources.MSG_TEN, Resources.MSG_ELEVEN, Resources.MSG_TWELVE,
-                Resources.MSG_THIRTEEN,
-                Resources.MSG_FOURTEEN, Resources.MSG_FIFTEEN, Resources.MSG_SIXTEEN, Resources.MSG_SEVENTEEN,
-                Resources.MSG_EIGHTEEN, Resources.MSG_NINETEEN
-            };
+        private static readonly string[] UnitsMap =
+        {
+            Resources.MSG_ZERO, Resources.MSG_ONE, Resources.MSG_TWO, Resources.MSG_THREE,
+            Resources.MSG_FOUR, Resources.MSG_FIVE, Resources.MSG_SIX, Resources.MSG_SEVEN, Resources.MSG_EIGHT,
+            Resources.MSG_NINE, Resources.MSG_TEN, Resources.MSG_ELEVEN, Resources.MSG_TWELVE,
+            Resources.MSG_THIRTEEN, Resources.MSG_FOURTEEN, Resources.MSG_FIFTEEN, Resources.MSG_SIXTEEN,
+            Resources.MSG_SEVENTEEN, Resources.MSG_EIGHTEEN, Resources.MSG_NINETEEN
+        };
 
-        private static readonly string[] TensMap = {
-                Resources.MSG_ZERO, Resources.MSG_TEN, Resources.MSG_TWENTY, Resources.MSG_THIRTY,
-                Resources.MSG_FORTY, Resources.MSG_FIFTY, Resources.MSG_SIXTY, Resources.MSG_SEVENTY,
-                Resources.MSG_EIGHTY, Resources.MSG_NINETY
-            };
+        private static readonly string[] TensMap =
+        {
+            Resources.MSG_ZERO, Resources.MSG_TEN, Resources.MSG_TWENTY, Resources.MSG_THIRTY,
+            Resources.MSG_FORTY, Resources.MSG_FIFTY, Resources.MSG_SIXTY, Resources.MSG_SEVENTY,
+            Resources.MSG_EIGHTY, Resources.MSG_NINETY
+        };
 
-        private static readonly string[] HourMap = {
-                Resources.MSG_ZERO, Resources.MSG_ONE, Resources.MSG_TWO, Resources.MSG_THREE,
-                Resources.MSG_FOUR, Resources.MSG_FIVE, Resources.MSG_SIX, Resources.MSG_SEVEN,
-                Resources.MSG_EIGHT, Resources.MSG_NINE, Resources.MSG_TEN, Resources.MSG_ELEVEN,
-                Resources.MSG_TWELVE
-            };
+        private static readonly string[] HourMap =
+        {
+            Resources.MSG_ZERO, Resources.MSG_ONE, Resources.MSG_TWO, Resources.MSG_THREE,
+            Resources.MSG_FOUR, Resources.MSG_FIVE, Resources.MSG_SIX, Resources.MSG_SEVEN,
+            Resources.MSG_EIGHT, Resources.MSG_NINE, Resources.MSG_TEN, Resources.MSG_ELEVEN,
+            Resources.MSG_TWELVE
+        };
 
         /// <summary>
         /// Verifies if the given string is an integer
@@ -189,6 +191,13 @@ namespace Realm.Library.Common.Extensions
             return inclusive ? value >= min && value <= max : value > min && value < max;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <param name="comparison"></param>
+        /// <returns></returns>
         public static bool IsEquivalent(this double left, double right,
             DoublePrecisionComparisonTypes comparison = DoublePrecisionComparisonTypes.ThreeDigits)
         {

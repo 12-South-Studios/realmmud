@@ -46,9 +46,7 @@ namespace Realm.Library.Common.Serializers
 
                 // Reallocate buffer as needed
                 if (memoryStream.Length > buffer.Length)
-                    // ReSharper disable RedundantAssignment
                     buffer = new byte[memoryStream.Length];
-                // ReSharper restore RedundantAssignment
 
                 buffer = memoryStream.ToArray();
             }

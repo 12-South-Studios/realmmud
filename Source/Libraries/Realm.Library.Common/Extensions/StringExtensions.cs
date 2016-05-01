@@ -29,7 +29,7 @@ namespace Realm.Library.Common.Extensions
         /// <returns></returns>
         public static bool IsNullOrEmpty(this string value)
         {
-            return String.IsNullOrEmpty(value);
+            return string.IsNullOrEmpty(value);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace Realm.Library.Common.Extensions
         /// <returns></returns>
         public static bool IsNullOrWhitespace(this string value)
         {
-            return String.IsNullOrWhiteSpace(value);
+            return string.IsNullOrWhiteSpace(value);
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Realm.Library.Common.Extensions
             try
             {
                 int val;
-                return Int32.TryParse(value, out val);
+                return int.TryParse(value, out val);
             }
             catch (Exception)
             {
@@ -252,8 +252,8 @@ namespace Realm.Library.Common.Extensions
         public static bool IsAlphaNum(this string str)
         {
             return !string.IsNullOrEmpty(str)
-                && str.ToCharArray().All(c => Char.IsLetter(c)
-                                              || Char.IsNumber(c));
+                && str.ToCharArray().All(c => char.IsLetter(c)
+                                              || char.IsNumber(c));
         }
 
         /// <summary>

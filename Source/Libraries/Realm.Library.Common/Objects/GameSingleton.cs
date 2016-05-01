@@ -12,6 +12,10 @@ namespace Realm.Library.Common.Objects
     /// </summary>
     public abstract class GameSingleton : Singleton, IGameSingleton
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
         public virtual void Instance_OnGameInitialize(RealmEventArgs args)
         {
             var booleanSet = args.GetValue("BooleanSet") as BooleanSet;

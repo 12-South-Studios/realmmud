@@ -8,7 +8,6 @@ using Realm.Library.Common.Objects;
 using Realm.Library.Common.Properties;
 
 namespace Realm.Library.Common.Extensions
-
 {
     /// <summary>
     /// Static class used to extend <see cref="System.Enum"/>
@@ -39,7 +38,7 @@ namespace Realm.Library.Common.Extensions
 
             var field = value.GetType().GetField(value.ToString());
             var attribute = Attribute.GetCustomAttribute(field, typeof (RangeAttribute)) as RangeAttribute;
-            return attribute == null ? Int32.MinValue : attribute.Minimum;
+            return attribute?.Minimum ?? int.MinValue;
         }
 
         /// <summary>
@@ -53,7 +52,7 @@ namespace Realm.Library.Common.Extensions
 
             var field = value.GetType().GetField(value.ToString());
             var attribute = Attribute.GetCustomAttribute(field, typeof(RangeAttribute)) as RangeAttribute;
-            return attribute == null ? Int32.MaxValue : attribute.Maximum;
+            return attribute?.Maximum ?? int.MaxValue;
         }
 
         /// <summary>
@@ -68,7 +67,7 @@ namespace Realm.Library.Common.Extensions
             var enumAttrib = Attribute.GetCustomAttribute(field, typeof(EnumAttribute)) as EnumAttribute;
             if (enumAttrib != null) return enumAttrib.Value;
             var valueAttrib = Attribute.GetCustomAttribute(field, typeof (ValueAttribute)) as ValueAttribute;
-            return valueAttrib == null ? 0 : valueAttrib.Value;
+            return valueAttrib?.Value ?? 0;
         }
 
         /// <summary>
@@ -143,7 +142,7 @@ namespace Realm.Library.Common.Extensions
                 int min = GetMinimum(convertedValue);
                 int max = GetMaximum(convertedValue);
 
-                if ((value >= min || min == Int32.MinValue) && (value <= max || max == Int32.MaxValue))
+                if ((value >= min || min == int.MinValue) && (value <= max || max == int.MaxValue))
                     return val;
             }
 
@@ -220,6 +219,13 @@ namespace Realm.Library.Common.Extensions
             return (bits & value.GetValue()) != 0;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="propertyName"></param>
+        /// <returns></returns>
         public static object GetAttributeValue<T>(this Enum value, string propertyName) where T : Attribute
         {
             var field = value.GetType().GetField(value.ToString());

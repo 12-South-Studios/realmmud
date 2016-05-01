@@ -10,7 +10,7 @@ namespace Realm.Library.Common.Events
         /// <summary>
         /// The name of the event
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; protected set; }
 
         /// <summary>
         /// The object that sent this event

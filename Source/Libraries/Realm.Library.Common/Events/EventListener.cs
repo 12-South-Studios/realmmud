@@ -27,22 +27,22 @@ namespace Realm.Library.Common.Events
         /// <summary>
         /// Who is the doing the listening
         /// </summary>
-        public object Listener { get; private set; }
+        public object Listener { get; }
 
         /// <summary>
         /// Who is being listened to
         /// </summary>
-        public object ListenTo { get; private set; }
+        public object ListenTo { get; }
 
         /// <summary>
         /// Type of event to listen for
         /// </summary>
-        public Type EventType { get; private set; }
+        public Type EventType { get; }
 
         /// <summary>
         /// Function to call when the event is triggered
         /// </summary>
-        public EventCallback<RealmEventArgs> CallbackFunction { get; private set; }
+        public EventCallback<RealmEventArgs> CallbackFunction { get; }
 
         /// <summary>
         /// Override of the ToString function

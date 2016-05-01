@@ -178,6 +178,7 @@
     <Compile Include="Events\OnGameInitialize.cs" />
     <Compile Include="Collections\SerializableDictionary.cs" />
     <Compile Include="LinkedList\SingleLinkedList.cs" />
+    <Compile Include="LinkedList\SingleLinkedNode.cs" />
     <Compile Include="Logging\ILogWrapper.cs" />
     <Compile Include="Logging\LogEventArgs.cs" />
     <Compile Include="Logging\LogLevel.cs" />

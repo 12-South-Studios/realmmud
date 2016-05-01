@@ -2,8 +2,10 @@
 using System.Linq;
 
 namespace Realm.Library.Common.Extensions
-
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class EnumerableExtensions
     {
         /// <summary>
@@ -48,7 +50,7 @@ namespace Realm.Library.Common.Extensions
             var found = obj
                 .Select((a, i) => new { a, i })
                 .FirstOrDefault(x => comparer.Equals(x.a, value));
-            return found == null ? -1 : found.i;
+            return found?.i ?? -1;
         }
 
         /// <summary>
@@ -66,7 +68,7 @@ namespace Realm.Library.Common.Extensions
             int index = objList.IndexOf(currentObject);
             if (index == -1)
                 return objList.First();
-            return index >= objList.Count() - 1 ? objList.Last() : objList.ElementAt(index + 1);
+            return index >= objList.Count - 1 ? objList.Last() : objList.ElementAt(index + 1);
         }
 
         /// <summary>

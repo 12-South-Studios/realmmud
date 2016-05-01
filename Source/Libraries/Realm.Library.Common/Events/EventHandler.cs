@@ -19,8 +19,8 @@ namespace Realm.Library.Common.Events
     /// </summary>
     public class EventHandler : IEventHandler
     {
-        private ITimer Timer { get; set; }
-        private ILogWrapper Log { get; set; }
+        private ITimer Timer { get; }
+        private ILogWrapper Log { get; }
 
         // EventType => List of EventListeners (see EventListener.cs)
         private readonly ConcurrentDictionary<Type, IList<EventListener>> _events;

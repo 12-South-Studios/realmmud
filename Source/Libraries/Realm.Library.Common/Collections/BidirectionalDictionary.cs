@@ -12,8 +12,8 @@ namespace Realm.Library.Common.Collections
     /// <typeparam name="TSecond"></typeparam>
     public class BidirectionalDictionary<TFirst, TSecond>
     {
-        private IDictionary<TFirst, IEnumerable<TSecond>> Forward { get; set; }
-        private IDictionary<TSecond, IEnumerable<TFirst>> Backward { get; set; }
+        private IDictionary<TFirst, IEnumerable<TSecond>> Forward { get; }
+        private IDictionary<TSecond, IEnumerable<TFirst>> Backward { get; }
 
         private static readonly IEnumerable<TFirst> EmptyFirstList = new List<TFirst>();
         private static readonly IEnumerable<TSecond> EmptySecondList = new List<TSecond>();

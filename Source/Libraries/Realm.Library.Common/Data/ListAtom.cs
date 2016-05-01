@@ -95,7 +95,7 @@ namespace Realm.Library.Common.Data
         public int GetInt(int i)
         {
             var atom = Get(i);
-            return atom is IntAtom ? (atom as IntAtom).Value : 0;
+            return (atom as IntAtom)?.Value ?? 0;
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace Realm.Library.Common.Data
         public object GetObject(int i)
         {
             var atom = Get(i);
-            return atom is ObjectAtom ? (atom as ObjectAtom).Value : null;
+            return (atom as ObjectAtom)?.Value;
         }
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace Realm.Library.Common.Data
         public ListAtom GetList(int i)
         {
             var atom = Get(i);
-            return atom is ListAtom ? atom as ListAtom : null;
+            return atom as ListAtom;
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace Realm.Library.Common.Data
         public DictionaryAtom GetDictionary(int i)
         {
             var atom = Get(i);
-            return atom is DictionaryAtom ? atom as DictionaryAtom : null;
+            return atom as DictionaryAtom;
         }
 
         /// <summary>
@@ -150,7 +150,7 @@ namespace Realm.Library.Common.Data
         public double GetReal(int i)
         {
             var atom = Get(i);
-            return atom is RealAtom ? (atom as RealAtom).Value : 0.0f;
+            return (atom as RealAtom)?.Value ?? 0.0f;
         }
 
         #endregion Get Functions

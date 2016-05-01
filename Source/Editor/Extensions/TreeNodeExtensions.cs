@@ -56,7 +56,7 @@ namespace Realm.Edit.Extensions
             {
                 elementCount += builder.PopulateBrowseNode(value, browseInfo.ClassId,
                     Program.MainForm.BrowseFolder, filter);
-                if (String.IsNullOrEmpty(filter) && elementCount > 0)
+                if (string.IsNullOrEmpty(filter) && elementCount > 0)
                     value.Expand();
             }
 

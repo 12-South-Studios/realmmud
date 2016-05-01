@@ -28,7 +28,7 @@ namespace Realm.Library.Common.Logging
             IsWarnEnabled = true;
         }
 
-        public virtual ILog Log { get; private set; }
+        public virtual ILog Log { get; }
 
         [ExcludeFromCodeCoverage]
         public virtual ILogger Logger => Log.Logger;
@@ -42,14 +42,12 @@ namespace Realm.Library.Common.Logging
 
         private void ThrowLogEvent(LogLevel logLevel, string eventName, string eventLog)
         {
-            if (OnLoggingEvent == null)
-                return;
-            OnLoggingEvent.Invoke(this, new LogEventArgs
-                                            {
-                                                Level = logLevel,
-                                                Name = eventName,
-                                                Text = eventLog
-                                            });
+            OnLoggingEvent?.Invoke(this, new LogEventArgs
+            {
+                Level = logLevel,
+                Name = eventName,
+                Text = eventLog
+            });
         }
 
         #region Debug

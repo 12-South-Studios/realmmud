@@ -90,10 +90,10 @@ namespace Realm.Library.Common.Comparers
         {
             int x, y;
             if (!int.TryParse(left, out x))
-                return String.Compare(left, right, StringComparison.Ordinal);
+                return string.Compare(left, right, StringComparison.Ordinal);
 
             return !int.TryParse(right, out y)
-                ? String.Compare(left, right, StringComparison.Ordinal)
+                ? string.Compare(left, right, StringComparison.Ordinal)
                 : x.CompareTo(y);
         }
 
