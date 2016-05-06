@@ -3,26 +3,26 @@
     public class TagInfo
     {
         public string Name { get; set; }
-        public int Id { get; set; }
+        public int Id { get; private set; }
         public int Value { get; set; }
         public int Value2 { get; set; }
 
-        public TagInfo(string aName, int aId, int aValue)
+        public TagInfo(string name, int id, int value)
         {
-            Init(aName, aId, aValue, 0);
+            Init(name, id, value, 0);
         }
 
-        public TagInfo(string aName, int aId, int aValue, int aValue2)
+        public TagInfo(string name, int id, int value, int value2)
         {
-            Init(aName, aId, aValue, aValue2);
+            Init(name, id, value, value2);
         }
 
-        private void Init(string aName, int aId, int aValue, int aValue2)
+        private void Init(string name, int id, int value, int value2)
         {
-            Name = aName;
-            Id = aId;
-            Value = aValue;
-            Value2 = aValue2;
+            Name = name;
+            Id = id;
+            Value = value;
+            Value2 = value2;
         }
 
         /// <summary>

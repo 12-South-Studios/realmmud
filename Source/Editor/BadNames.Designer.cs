@@ -74,7 +74,6 @@ namespace Realm.Edit
             this.gridBadNames.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridBadNames.Size = new System.Drawing.Size(775, 413);
             this.gridBadNames.TabIndex = 3;
-            this.gridBadNames.ValidateRow = ((Realm.Edit.CustomControls.ValidateRowDelegate)(resources.GetObject("gridBadNames.ValidateRow")));
             // 
             // pbStatus
             // 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Ninject;
 using Realm.DAL;
+using Realm.DAL.Common;
 using Realm.DAL.Enumerations;
 using Realm.DAL.Models;
 using Realm.Edit.Extensions;
@@ -21,8 +22,8 @@ namespace Realm.Edit.EditorControls
             Id = 0;
         }
 
-        public RaceControl(int aClassId)
-            : base(SystemTypes.Race, aClassId)
+        public RaceControl(int classId)
+            : base(SystemTypes.Race, classId)
         {
             InitializeComponent();
             InitControls();
@@ -59,7 +60,7 @@ namespace Realm.Edit.EditorControls
                 DataGridViewColumn column = gridAbilities.CreateDataGridControls<DataGridViewColumn, DataGridViewTypedLinkCell>(
                     "Ability", "Ability", 100);
                 if (column.CellTemplate is DataGridViewTypedLinkCell)
-                    ((DataGridViewTypedLinkCell)column.CellTemplate).SystemType = (short)SystemTypes.Ability;
+                    ((DataGridViewTypedLinkCell)column.CellTemplate).SystemType = SystemTypes.Ability;
             }
         }
 
@@ -69,7 +70,7 @@ namespace Realm.Edit.EditorControls
                 DataGridViewColumn column = gridHitLocations.CreateDataGridControls<DataGridViewColumn, DataGridViewTypedLinkCell>(
                     "HitLocation", "Hit Location", 100);
                 if (column.CellTemplate is DataGridViewTypedLinkCell)
-                    ((DataGridViewTypedLinkCell)column.CellTemplate).SystemType = (short)SystemTypes.WearLocation;
+                    ((DataGridViewTypedLinkCell)column.CellTemplate).SystemType = SystemTypes.WearLocation;
             }
         }
 
@@ -84,10 +85,10 @@ namespace Realm.Edit.EditorControls
             Id = 0;
         }
 
-        public override void InitContentImpl(int aId)
+        public override void InitContentImpl(int id)
         {
-            IRealmDbContext dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
-            var obj = (Race)dbContext.GetPrimitive(SystemTypes.Race, aId);
+            var dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
+            var obj = (Race)dbContext.GetPrimitive(SystemTypes.Race, id);
 
             txtSystemName.Text = obj.SystemName;
             txtDisplayName.Text = obj.DisplayName;
@@ -108,7 +109,7 @@ namespace Realm.Edit.EditorControls
         {
             try
             {
-                IRealmDbContext dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
+                var dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
                 var race = (Race) (Id == 0 ? new Race() : dbContext.GetPrimitive(SystemTypes.Race, Id));
 
                 if (Id == 0)
@@ -149,7 +150,7 @@ namespace Realm.Edit.EditorControls
             }
         }
 
-        public override bool IsSaveValid(bool aGiveFeedback)
+        public override bool IsSaveValid(bool giveFeedback)
         {
             int errors = txtDisplayName.ValidateField(() => txtDisplayName.Text.Length == 0, "Missing Display Name") ? 1 : 0;
             errors += txtSystemName.ValidateField(() => txtSystemName.Text.Length == 0, "Missing System Name") ? 1 : 0;

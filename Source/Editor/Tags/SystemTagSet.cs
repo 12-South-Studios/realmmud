@@ -10,11 +10,11 @@ namespace Realm.Edit.Tags
 {
     public class SystemTagSet
     {
-        public string Name { get; private set; }
-        public TagCategoryTypes Category { get; private set; }
+        public string Name { get; }
+        public TagCategoryTypes Category { get; }
 
-        public Dictionary<string, SystemTag> Tags { get; private set; }
-        private Dictionary<int, SystemTag> TagsById { get; set; }
+        public Dictionary<string, SystemTag> Tags { get; }
+        private Dictionary<int, SystemTag> TagsById { get; }
 
         public SystemTagSet(string name, TagCategoryTypes category)
         {

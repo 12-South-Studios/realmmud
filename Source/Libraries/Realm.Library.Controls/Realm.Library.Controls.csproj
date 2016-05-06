@@ -134,6 +134,10 @@
     <Compile Include="SyntaxSettings.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Database\Realm.DAL.Common\Realm.DAL.Common.csproj">
+      <Project>{383E6B8F-8EBA-4DC3-8C16-6A8940B46002}</Project>
+      <Name>Realm.DAL.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Realm.Library.Common\Realm.Library.Common.csproj">
       <Project>{1fdee5bd-a724-4478-bca3-4c49daea291d}</Project>
       <Name>Realm.Library.Common</Name>

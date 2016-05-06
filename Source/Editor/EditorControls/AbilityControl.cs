@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Ninject;
 using Realm.DAL;
+using Realm.DAL.Common;
 using Realm.DAL.Enumerations;
 using Realm.DAL.Models;
 using Realm.Edit.Extensions;
@@ -24,8 +25,8 @@ namespace Realm.Edit.EditorControls
             Initializing = false;
         }
 
-        public AbilityControl(int aClassId)
-            : base(SystemTypes.Ability, aClassId)
+        public AbilityControl(int classId)
+            : base(SystemTypes.Ability, classId)
         {
             InitializeComponent();
             InitControls();
@@ -60,7 +61,7 @@ namespace Realm.Edit.EditorControls
                 column = gridEffects.CreateDataGridControls<DataGridViewColumn, DataGridViewTypedLinkCell>("Effect",
                     "Effect", 100);
                 if (column.CellTemplate is DataGridViewTypedLinkCell)
-                    ((DataGridViewTypedLinkCell) column.CellTemplate).SystemType = (short)SystemTypes.Effect;
+                    ((DataGridViewTypedLinkCell) column.CellTemplate).SystemType = SystemTypes.Effect;
             }
 
             {
@@ -87,14 +88,14 @@ namespace Realm.Edit.EditorControls
                 column = gridPrerequisites.CreateDataGridControls<DataGridViewColumn, DataGridViewTypedLinkCell>(
                     "Race", "Race", 100);
                 if (column.CellTemplate is DataGridViewTypedLinkCell)
-                    ((DataGridViewTypedLinkCell)column.CellTemplate).SystemType = (short)SystemTypes.Race;
+                    ((DataGridViewTypedLinkCell)column.CellTemplate).SystemType = SystemTypes.Race;
             }
 
             {
                 column = gridPrerequisites.CreateDataGridControls<DataGridViewColumn, DataGridViewTypedLinkCell>(
                     "Faction", "Faction", 100);
                 if (column.CellTemplate is DataGridViewTypedLinkCell)
-                    ((DataGridViewTypedLinkCell)column.CellTemplate).SystemType = (short)SystemTypes.Faction;
+                    ((DataGridViewTypedLinkCell)column.CellTemplate).SystemType = SystemTypes.Faction;
             }
 
             gridPrerequisites.CreateDataGridControls<DataGridViewColumn, DataGridViewNumericTextCell>(
@@ -114,7 +115,7 @@ namespace Realm.Edit.EditorControls
                 column = gridPrerequisites.CreateDataGridControls<DataGridViewColumn, DataGridViewTypedLinkCell>(
                     "Skill", "Skill", 100);
                 if (column.CellTemplate is DataGridViewTypedLinkCell)
-                    ((DataGridViewTypedLinkCell) column.CellTemplate).SystemType = (short) SystemTypes.Skill;
+                    ((DataGridViewTypedLinkCell) column.CellTemplate).SystemType = SystemTypes.Skill;
             }
 
             gridPrerequisites.CreateDataGridControls<DataGridViewColumn, DataGridViewNumericTextCell>(
@@ -136,10 +137,10 @@ namespace Realm.Edit.EditorControls
             Id = 0;
         }
 
-        public override void InitContentImpl(int aId)
+        public override void InitContentImpl(int id)
         {
             IRealmDbContext dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
-            var obj = (Ability)dbContext.GetPrimitive(SystemTypes.Ability, aId);
+            var obj = (Ability)dbContext.GetPrimitive(SystemTypes.Ability, id);
 
             txtSystemName.Text = obj.SystemName;
             txtDisplayName.Text = obj.DisplayName;
@@ -162,7 +163,7 @@ namespace Realm.Edit.EditorControls
 
             PopulateCheckboxes(dbContext, obj);
 
-            _tagSetId = obj.TagSet == null ? 0 : obj.TagSet.Id;
+            _tagSetId = obj.TagSet?.Id ?? 0;
             if (_tagSetId > 0)
                 lstAbilityTags.Fill("AbilityTags", _tagSetId);
             else 
@@ -267,7 +268,7 @@ namespace Realm.Edit.EditorControls
             }
         }
 
-        public override bool IsSaveValid(bool aGiveFeedback)
+        public override bool IsSaveValid(bool giveFeedback)
         {
             int errors = txtDisplayName.ValidateField(() => txtDisplayName.Text.Length == 0, "Missing Display Name") ? 1 : 0;
             errors += txtSystemName.ValidateField(() => txtSystemName.Text.Length == 0, "Missing System Name") ? 1 : 0;

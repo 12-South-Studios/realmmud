@@ -8,7 +8,7 @@ namespace Realm.Edit.Tags
 {
     public static class SystemTags
     {
-        private static Dictionary<string, SystemTagSet> TagSets { get; set; }
+        private static Dictionary<string, SystemTagSet> TagSets { get; }
 
         static SystemTags()
         {
@@ -26,7 +26,7 @@ namespace Realm.Edit.Tags
                 Program.MainForm.ProgressStatus.Value = 0;
             }
 
-            foreach (TagCategoryTypes category in EnumerationFunctions.GetAllEnumValues<TagCategoryTypes>())
+            foreach (var category in EnumerationFunctions.GetAllEnumValues<TagCategoryTypes>())
             {
                 var tagSet = new SystemTagSet(category.ToString(), category);
                 tagSet.AddTags(category);
@@ -36,28 +36,28 @@ namespace Realm.Edit.Tags
                 if (Program.MainForm == null) continue;
 
                 Program.MainForm.ProgressStatus.Value++;
-                Program.MainForm.SetStatusMessage("Loading Tag Category [" + category + "]");
+                Program.MainForm.SetStatusMessage($"Loading Tag Category [{category}]");
             }
 
-            Program.Log.InfoFormat("{0} tag categories loaded.", Enum.GetValues(typeof (TagCategoryTypes)).Length);
+            Program.Log.InfoFormat($"{Enum.GetValues(typeof(TagCategoryTypes)).Length} tag categories loaded.");
         }
 
-        public static SystemTagSet GetTagSet(string aSetName)
+        public static SystemTagSet GetTagSet(string setName)
         {
             SystemTagSet value;
-            return TagSets.TryGetValue(aSetName, out value) ? value : null;
+            return TagSets.TryGetValue(setName, out value) ? value : null;
         }
 
-        public static SystemTag GetTag(string aSetName, string aTagName)
+        public static SystemTag GetTag(string setName, string tagName)
         {
-            var tagSet = GetTagSet(aSetName);
-            return tagSet == null ? null : tagSet.GetTag(aTagName);
+            var tagSet = GetTagSet(setName);
+            return tagSet?.GetTag(tagName);
         }
 
-        public static SystemTag GetTag(string aSetName, int aTagId)
+        public static SystemTag GetTag(string setName, int tagId)
         {
-            var tagSet = GetTagSet(aSetName);
-            return tagSet == null ? null : tagSet.GetTag(aTagId);
+            var tagSet = GetTagSet(setName);
+            return tagSet?.GetTag(tagId);
         }
 
         public static IEnumerable<SystemTagSet> TagSetValues => TagSets.Values;

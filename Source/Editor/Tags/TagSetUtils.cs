@@ -13,8 +13,7 @@ namespace Realm.Edit.Tags
         {
             try
             {
-                IRealmDbContext dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
-
+                var dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
                 var newTagSet = new TagSet();
                 dbContext.TagSets.Add(newTagSet);
                 dbContext.SaveChanges();
@@ -33,7 +32,7 @@ namespace Realm.Edit.Tags
         {
             try
             {
-                IRealmDbContext dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
+                var dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
                 var tagSet = dbContext.TagSets.Include(x => x.Tags).FirstOrDefault(x => x.Id == tagSetId);
                 if (tagSet == null) return;
 
@@ -50,8 +49,7 @@ namespace Realm.Edit.Tags
         {
             try
             {
-                IRealmDbContext dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
-
+                var dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
                 var tagSet = new TagSet();
                 dbContext.TagSets.Remove(tagSet);
                 dbContext.SaveChanges();

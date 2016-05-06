@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Realm.DAL;
+using Realm.DAL.Common;
 using Realm.DAL.Enumerations;
 using Realm.DAL.Models;
 using Realm.Edit.Editor;
@@ -15,7 +16,7 @@ namespace Realm.Edit.Extensions
                 dbContext.Bits.Where(x => x.BitType == bitType)
                     .FirstOrDefault(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
 
-            return bit == null ? 0 : bit.Value;
+            return bit?.Value ?? 0;
         }
 
         public static bool DoesPrimitiveHaveBit(this IRealmDbContext dbContext, BitTypes bitType, int bitField, string bitName)

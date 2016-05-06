@@ -10,7 +10,7 @@ using Realm.Library.Controls.DataGridViewControls;
 
 namespace Realm.Edit.CustomControls
 {
-    public delegate string ValidateRowDelegate(DataGridViewRow aRow);
+    public delegate string ValidateRowDelegate(DataGridViewRow row);
 
     public sealed class AuraDataGridView : DataGridView
     {
@@ -18,7 +18,7 @@ namespace Realm.Edit.CustomControls
         private int _dragDropSourceIndex;
         private int _dragDropTargetIndex;
         private int _dragDropCurrentIndex = -1;
-        private Boolean _draggingRow;
+        private bool _draggingRow;
 
         public AuraDataGridView()
         {
@@ -43,7 +43,7 @@ namespace Realm.Edit.CustomControls
 
         public bool AllowRowDeletion { get; set; }
 
-        public ICollection<DataGridViewRow> DeletedRows { get; private set; }
+        public ICollection<DataGridViewRow> DeletedRows { get; }
         #endregion
 
         public static string DefaultRowValidate(DataGridViewRow row)
@@ -162,9 +162,8 @@ namespace Realm.Edit.CustomControls
                 if (rowIndex < 0) continue;
 
                 var dataRow = value[rowIndex];
-                if (dataRow == null) continue;
 
-                dataRow.Delete();
+                dataRow?.Delete();
             }
 
             DeletedRows.Clear();
@@ -342,8 +341,7 @@ namespace Realm.Edit.CustomControls
             if (hitInfo.Type != DataGridViewHitTestType.Cell) return;
 
             var typedCell = aGrid[hitInfo.ColumnIndex, hitInfo.RowIndex] as DataGridViewTypedLinkCell;
-            if (typedCell != null)
-                typedCell.handleGridDrag(e, aSetValue);
+            typedCell?.HandleGridDrag(e, aSetValue);
         }
 
         private void OnUserDeletedRow(object sender, DataGridViewRowEventArgs e)

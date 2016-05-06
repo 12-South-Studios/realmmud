@@ -1,5 +1,6 @@
 using System.Drawing;
 using System.Windows.Forms;
+using Realm.DAL.Common;
 using Realm.Library.Common.Objects;
 
 namespace Realm.Library.Controls.DataGridViewControls
@@ -8,10 +9,10 @@ namespace Realm.Library.Controls.DataGridViewControls
     /// <summary>
     ///
     /// </summary>
-    /// <param name="aBrowseInfo"></param>
-    /// <param name="aLinkCell"></param>
+    /// <param name="browseInfo"></param>
+    /// <param name="linkCell"></param>
     /// <returns></returns>
-    public delegate bool ValidateDragDelegate(IBrowseInfo aBrowseInfo, DataGridViewTypedLinkCell aLinkCell);
+    public delegate bool ValidateDragDelegate(IBrowseInfo browseInfo, DataGridViewTypedLinkCell linkCell);
 
     /// <summary>
     ///
@@ -19,8 +20,8 @@ namespace Realm.Library.Controls.DataGridViewControls
     public class DataGridViewTypedLinkCell : DataGridViewLinkCell
     {
         private Icon _icon;
-        private short _systemType;
-        private readonly ValidateDragDelegate _dragValidateDelegate = defaultDragValidate;
+        private SystemTypes _systemType;
+        private readonly ValidateDragDelegate _dragValidateDelegate = DefaultDragValidate;
 
         /// <summary>
         ///
@@ -41,7 +42,7 @@ namespace Realm.Library.Controls.DataGridViewControls
         /// <summary>
         ///
         /// </summary>
-        public short SystemType
+        public SystemTypes SystemType
         {
             get { return _systemType; }
             set
@@ -59,21 +60,21 @@ namespace Realm.Library.Controls.DataGridViewControls
         /// <summary>
         ///
         /// </summary>
-        /// <param name="aBrowseInfo"></param>
-        /// <param name="aLinkCell"></param>
+        /// <param name="browseInfo"></param>
+        /// <param name="linkCell"></param>
         /// <returns></returns>
-        public static bool defaultDragValidate(IBrowseInfo aBrowseInfo, DataGridViewTypedLinkCell aLinkCell)
+        public static bool DefaultDragValidate(IBrowseInfo browseInfo, DataGridViewTypedLinkCell linkCell)
         {
-            return aBrowseInfo.IsNotNull() && aBrowseInfo.SystemType == aLinkCell.SystemType && aBrowseInfo.Id > 0;
+            return browseInfo.IsNotNull() && browseInfo.SystemType == linkCell.SystemType && browseInfo.Id > 0;
         }
 
         /// <summary>
         ///
         /// </summary>
         /// <param name="e"></param>
-        /// <param name="aSetValue"></param>
+        /// <param name="setValue"></param>
         // TODO: Override in derived class and call ValidateRow
-        public virtual void handleGridDrag(DragEventArgs e, bool aSetValue)
+        public virtual void HandleGridDrag(DragEventArgs e, bool setValue)
         {
             var treeNode = (TreeNode)e.Data.GetData("System.Windows.Forms.TreeNode", true);
             if (treeNode.IsNotNull())
@@ -83,7 +84,7 @@ namespace Realm.Library.Controls.DataGridViewControls
                 {
                     e.Effect = DragDropEffects.Link;
 
-                    if (aSetValue && Value != browseInfo)
+                    if (setValue && Value != browseInfo)
                     {
                         var row = DataGridView.Rows[RowIndex];
                         row.Selected = true;

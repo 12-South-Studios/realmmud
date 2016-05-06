@@ -1,7 +1,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Realm.DAL.Enumerations;
+using Realm.DAL.Common;
 using Realm.Edit.Builders;
 using Realm.Edit.Editor;
 using Realm.Edit.Extensions;

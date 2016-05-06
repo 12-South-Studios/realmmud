@@ -31,7 +31,7 @@ namespace Realm.Edit
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Log.InfoFormat("{0} starting...", Application.ProductName);
+            Log.InfoFormat($"{Application.ProductName} starting...");
 
             try
             {
