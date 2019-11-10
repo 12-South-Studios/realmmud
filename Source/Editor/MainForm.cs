@@ -10,7 +10,6 @@ using Realm.Admin.DAL;
 using Realm.DAL;
 using Realm.DAL.Enumerations;
 using Realm.DAL.Models;
-using Realm.Edit.Builders;
 using Realm.Edit.Editor;
 using Realm.Edit.EditorControls;
 using Realm.Edit.Extensions;
@@ -26,6 +25,7 @@ namespace Realm.Edit
         public bool Loading { get; private set; }
         public TreeNode DragNode { get; private set; }
         public TreeView BrowseTree => treeBrowse;
+
         public ContextMenuStrip BrowseFolder => contextBrowseFolder;
         public ToolStripProgressBar ProgressStatus => progressStatus;
 
@@ -70,19 +70,19 @@ namespace Realm.Edit
                 {
                     if (!builder.IsVisible) continue;
 
-                    IRealmDbContext dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
+                    var dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
                     var classList = dbContext.SystemClasses
                         .Where(x => x.SystemType == builder.SystemType)
                         .Where(x => x.ParentClassId == null)
                         .ToList();
 
-                    if (classList.Count() > 1)
+                    if (classList.Count > 1)
                         throw new EditorException("Multiple parent classes for system [" + builder.SystemType + "]");
 
                     if (!classList.Any())
                         throw new EditorException("No parent class for system [" + builder.SystemType + "]");
 
-                    int classId = classList.First().Id;
+                    var classId = classList.First().Id;
 
                     var rootNode = new TreeNode(builder.DisplayPlural);
                     var browseInfo = new EditorBrowseInfo(builder.SystemType, builder.DisplayName, classId, 0);
@@ -117,21 +117,21 @@ namespace Realm.Edit
         {
             Program.Log.Info(msg);
             lblStatus.Text = msg;
-            lblStatus.BackColor = !String.IsNullOrEmpty(msg.Trim()) ? Color.LightBlue : Color.Empty;
+            lblStatus.BackColor = !string.IsNullOrEmpty(msg.Trim()) ? Color.LightBlue : Color.Empty;
         }
 
         public void SetWarningMessage(string msg)
         {
             Program.Log.Warn(msg);
             lblStatus.Text = msg;
-            lblStatus.BackColor = !String.IsNullOrEmpty(msg.Trim()) ? Color.Yellow : Color.Empty;
+            lblStatus.BackColor = !string.IsNullOrEmpty(msg.Trim()) ? Color.Yellow : Color.Empty;
         }
 
         public void SetErrorMessage(string msg)
         {
             Program.Log.Error(msg);
             lblStatus.Text = msg;
-            lblStatus.BackColor = !String.IsNullOrEmpty(msg.Trim()) ? Color.Red : Color.Empty;
+            lblStatus.BackColor = !string.IsNullOrEmpty(msg.Trim()) ? Color.Red : Color.Empty;
         }
 
         public void OpenTab(EditorBrowseInfo browseInfo, bool openCopy, bool makeDirty)
@@ -150,31 +150,30 @@ namespace Realm.Edit
             else
             {
                 var builder = EditorFactory.Builders[EnumerationExtensions.GetEnum<SystemTypes>(browseInfo.SystemType)];
-                if (builder.HasEditor())
+                if (!builder.HasEditor()) return;
+
+                // Create a new edit control based on the selected node 
+                var editControl =
+                    EditorFactory.Create(EnumerationExtensions.GetEnum<SystemTypes>(browseInfo.SystemType),
+                        browseInfo.ClassId);
+
+                // Initialize the new control with the content that was dclicked
+                editControl.InitContent(browseInfo.Id);
+                var tabName = editControl.ControlName;
+                if (openCopy)
                 {
-                    // Create a new edit control based on the selected node 
-                    var editControl =
-                        EditorFactory.Create(EnumerationExtensions.GetEnum<SystemTypes>(browseInfo.SystemType),
-                            browseInfo.ClassId);
-
-                    // Initialize the new control with the content that was dclicked
-                    editControl.InitContent(browseInfo.Id);
-                    string tabName = editControl.ControlName;
-                    if (openCopy)
-                    {
-                        editControl.MakeCopy();
-                        tabName = "*" + editControl.ControlName + "*";
-                    }
-                    else if (makeDirty)
-                    {
-                        editControl.MakeDirty();
-                        tabName = "*" + editControl.ControlName + "*";
-                    }
-
-                    tabName = "[" + editControl.Id + "] " + tabName;
-
-                    CreateContentTab(tabName, editControl);
+                    editControl.MakeCopy();
+                    tabName = "*" + editControl.ControlName + "*";
                 }
+                else if (makeDirty)
+                {
+                    editControl.MakeDirty();
+                    tabName = "*" + editControl.ControlName + "*";
+                }
+
+                tabName = "[" + editControl.Id + "] " + tabName;
+
+                CreateContentTab(tabName, editControl);
             }
         }
 
@@ -185,10 +184,10 @@ namespace Realm.Edit
 
             // Prompt to save all of the dirty tabs first
             // If there are any cancels, nobody closes
-            bool closeAll = true;
+            var closeAll = true;
             if (promptSave)
             {
-                foreach (TabPage tabPage in tabPages.OfType<TabPage>()
+                foreach (var tabPage in tabPages.OfType<TabPage>()
                     .Where(x => x.Controls.Count > 0))
                 {
                     var editorControl = tabPage.Controls[0] as BaseEditorControl;
@@ -207,7 +206,7 @@ namespace Realm.Edit
                 {
                     tabContent.TabPages.Remove(tabPage);
                     var editorControl = tabPage.Controls[0] as BaseEditorControl;
-                    if (editorControl != null) editorControl.Dispose();
+                    editorControl?.Dispose();
                 }
             }
 
@@ -216,7 +215,7 @@ namespace Realm.Edit
 
         public TabPage FindTab(SystemTypes systemType, long id)
         {
-            foreach (TabPage page in tabContent.TabPages.OfType<TabPage>()
+            foreach (var page in tabContent.TabPages.OfType<TabPage>()
                 .Where(x => x.Controls.Count > 0))
             {
                 var editControl = page.Controls[0] as BaseEditorControl;
@@ -281,19 +280,19 @@ namespace Realm.Edit
 
         private void RefreshTreeView()
         {
-            IRealmDbContext dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
+            var dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
 
             treeBrowse.Nodes.Clear();
             treeBrowse.ImageList.Images.Clear();
 
-            string filterText = txtFilter.Text.Trim();
+            var filterText = txtFilter.Text.Trim();
             Program.MainForm.ProgressStatus.Minimum = 0;
             Program.MainForm.ProgressStatus.Maximum = EditorFactory.Builders.Count;
             Program.MainForm.ProgressStatus.Value = Program.MainForm.ProgressStatus.Minimum;
 
             // Initialize the interface with the registered editors
-            int iconIndex = 0;
-            foreach (EditorBuilder builder in EditorFactory.Builders.Values)
+            var iconIndex = 0;
+            foreach (var builder in EditorFactory.Builders.Values)
             {
                 if (!builder.IsVisible) continue;
 
@@ -309,7 +308,7 @@ namespace Realm.Edit
                 if (!classList.Any())
                     throw new EditorException("No parent class for system [" + builder.SystemType + "]");
 
-                int classId = classList.ToList().First().Id;
+                var classId = classList.ToList().First().Id;
 
                 var rootNode = new TreeNode(builder.DisplayPlural);
                 var browseInfo = new EditorBrowseInfo(builder.SystemType, builder.DisplayName, classId, 0);
@@ -317,7 +316,7 @@ namespace Realm.Edit
                 rootNode.ImageKey = "closedFolder";
                 rootNode.ContextMenuStrip = contextBrowseFolder;
 
-                rootNode.SetupBrowseTree(builder, !String.IsNullOrEmpty(filterText), filterText);
+                rootNode.SetupBrowseTree(builder, !string.IsNullOrEmpty(filterText), filterText);
                 if (!builder.HasDelete())
                 {
                     // This will disable for everything...?
@@ -363,8 +362,7 @@ namespace Realm.Edit
             foreach (TreeNode node in e.Node.Nodes)
             {
                 browseInfo = node.Tag as EditorBrowseInfo;
-                if (browseInfo == null) continue;
-                if (browseInfo.Id <= 0)
+                if (browseInfo?.Id <= 0)
                     builder.PopulateBrowseNode(node, browseInfo.ClassId, contextBrowseNode, txtFilter.Text.Trim());
             }
         }
@@ -376,7 +374,7 @@ namespace Realm.Edit
 
         private void MnuCloseClick(object sender, EventArgs e)
         {
-            int tabIndex = tabContent.SelectedIndex;
+            var tabIndex = tabContent.SelectedIndex;
             if (tabIndex < 0) return;
             CloseTab(tabContent.SelectedTab, true);
 
@@ -433,9 +431,8 @@ namespace Realm.Edit
         private void TreeBrowseMouseDown(object sender, MouseEventArgs e)
         {
             DragNode = treeBrowse.GetNodeAt(e.Location);
-            if (DragNode == null) return;
 
-            var browseInfo = DragNode.Tag as EditorBrowseInfo;
+            var browseInfo = DragNode?.Tag as EditorBrowseInfo;
             if (browseInfo != null && browseInfo.Id <= 0)
                 DragNode = null;
         }
@@ -452,9 +449,8 @@ namespace Realm.Edit
         private void ContextBrowseOpening(object sender, CancelEventArgs e)
         {
             var menuStrip = sender as ContextMenuStrip;
-            if (menuStrip == null) return;
 
-            var tv = menuStrip.SourceControl as TreeView;
+            var tv = menuStrip?.SourceControl as TreeView;
             if (tv == null || !tv.Equals(treeBrowse) || treeBrowse.SelectedNode == null) return;
 
             var browseInfo = treeBrowse.SelectedNode.Tag as EditorBrowseInfo;
@@ -473,10 +469,8 @@ namespace Realm.Edit
 
         private void MnuBrowseNewNodeClick(object sender, EventArgs e)
         {
-            if (treeBrowse.SelectedNode == null) return;
-
             // Create a new edit control based on the selected node 
-            var browseInfo = treeBrowse.SelectedNode.Tag as EditorBrowseInfo;
+            var browseInfo = treeBrowse.SelectedNode?.Tag as EditorBrowseInfo;
             if (browseInfo == null) return;
 
             var builder = EditorFactory.Builders[(SystemTypes)browseInfo.SystemType];
@@ -491,11 +485,10 @@ namespace Realm.Edit
 
         private void MnuBrowseNewClassClick(object sender, EventArgs e)
         {
-            if (treeBrowse.SelectedNode == null) return;
-            var browseInfo = treeBrowse.SelectedNode.Tag as EditorBrowseInfo;
+            var browseInfo = treeBrowse.SelectedNode?.Tag as EditorBrowseInfo;
             if (browseInfo == null) return;
 
-            IRealmDbContext dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
+            var dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
 
             var parentClass = dbContext.SystemClasses.FirstOrDefault(x => x.Id == browseInfo.ClassId);
             if (parentClass == null)
@@ -512,7 +505,7 @@ namespace Realm.Edit
             dbContext.SystemClasses.Add(newClass);
             dbContext.SaveChanges();
 
-            int classId = newClass.Id;
+            var classId = newClass.Id;
             if (classId <= 0)
             {
                 Program.Log.ErrorFormat("Unable to create new Class {0} for System Type {1}",
@@ -544,7 +537,7 @@ namespace Realm.Edit
             var browseInfo = treeBrowse.SelectedNode.Tag as EditorBrowseInfo;
             if (browseInfo == null) return;
 
-            IRealmDbContext dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
+            var dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
             var foundClass = dbContext.SystemClasses.FirstOrDefault(x => x.Id == browseInfo.ClassId);
             if (foundClass == null) return;
 
@@ -576,12 +569,10 @@ namespace Realm.Edit
 
         private void MnuBrowseDeleteClassClick(object sender, EventArgs e)
         {
-            if (treeBrowse.SelectedNode == null) return;
-
-            var browseInfo = treeBrowse.SelectedNode.Tag as EditorBrowseInfo;
+            var browseInfo = treeBrowse.SelectedNode?.Tag as EditorBrowseInfo;
             if (browseInfo == null) return;
 
-            IRealmDbContext dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
+            var dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
             var foundClass = dbContext.SystemClasses.FirstOrDefault(x => x.Id == browseInfo.ClassId);
             if (foundClass == null) return;
 
@@ -632,9 +623,8 @@ namespace Realm.Edit
         {
             var clientPt = treeBrowse.PointToClient(new Point(e.X, e.Y));  //screen coordinates
             var hitInfo = treeBrowse.HitTest(clientPt);
-            if (hitInfo.Node == null) return;
 
-            var targetBrowseInfo = hitInfo.Node.Tag as EditorBrowseInfo;
+            var targetBrowseInfo = hitInfo.Node?.Tag as EditorBrowseInfo;
             if (targetBrowseInfo == null) return;
 
             var targetClassNode = hitInfo.Node;
@@ -667,7 +657,7 @@ namespace Realm.Edit
                         else
                         {
                             TreeNode lowNode;
-                            int hiClassId = 0;
+                            var hiClassId = 0;
 
                             if (sourceClassNode.Level < targetClassNode.Level)
                             {
@@ -683,7 +673,7 @@ namespace Realm.Edit
                             }
 
                             // Find the root node of this system
-                            TreeNode rootNode = targetClassNode;
+                            var rootNode = targetClassNode;
                             while (rootNode.Parent != null)
                                 rootNode = rootNode.Parent;
 
@@ -692,7 +682,7 @@ namespace Realm.Edit
                             lowNode.Expand();
 
                             // Find the new node matches the deeper node
-                            TreeNode hiNode = rootNode.FindNodeByClass(hiClassId);
+                            var hiNode = rootNode.FindNodeByClass(hiClassId);
                             if (hiNode != null)
                             {
                                 hiNode.SetupBrowseTree(builder, true, txtFilter.Text.Trim());
@@ -704,7 +694,7 @@ namespace Realm.Edit
             }
 
             var targetBuilder = EditorFactory.Builders[(SystemTypes)targetBrowseInfo.SystemType];
-            bool handled = targetBuilder.HandleCustomDrag(e, targetBrowseInfo, aSetValue);
+            var handled = targetBuilder.HandleCustomDrag(e, targetBrowseInfo, aSetValue);
             if (!aSetValue || !handled) return;
 
             if (targetBrowseInfo.Id != 0)
@@ -768,8 +758,7 @@ namespace Realm.Edit
 
         private void CreateProductToolStripMenuItemClick(object sender, EventArgs e)
         {
-            if (treeBrowse.SelectedNode == null) return;
-            var browseInfo = treeBrowse.SelectedNode.Tag as EditorBrowseInfo;
+            var browseInfo = treeBrowse.SelectedNode?.Tag as EditorBrowseInfo;
             if (browseInfo == null || browseInfo.Id <= 0) return;
 
             var editControl = EditorFactory.Create((SystemTypes)browseInfo.SystemType, browseInfo.ClassId);
@@ -783,9 +772,7 @@ namespace Realm.Edit
 
         private void MnuBrowseMoveClassClick(object sender, EventArgs e)
         {
-            if (treeBrowse.SelectedNode == null) return;
-
-            var browseInfo = treeBrowse.SelectedNode.Tag as EditorBrowseInfo;
+            var browseInfo = treeBrowse.SelectedNode?.Tag as EditorBrowseInfo;
             if (browseInfo == null) return;
 
             using (var classWindow = new ClassListWindow(browseInfo.ClassId))

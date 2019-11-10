@@ -8,7 +8,7 @@
 //    [TestClass]
 //    public class SkillAttributeTest
 //    {
-//        [TestMethod]
+//        [Fact]
 //        public void SkillAttribute_Constructor_Test()
 //        {
 //            var skill = new Skill(1, "test", new SkillCategory(1, "test", Globals.Globals.Statistics.Fortitude),
@@ -20,7 +20,7 @@
 //            Assert.AreEqual("test", actual.Name);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void SkillAttribute_ConstructorOverload_Test()
 //        {
 //            var skill = new Skill(1, "test", new SkillCategory(1, "test", Globals.Globals.Statistics.Fortitude), 
@@ -36,7 +36,7 @@
 //            Assert.AreEqual(1, actual.Rating);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void SkillAttribute_GrossRating_Test()
 //        {
 //            // TODO: Fix this

@@ -8,6 +8,7 @@ using Realm.Entity;
 using Realm.Entity.Entities.Interfaces;
 using Realm.Entity.Interfaces;
 using Realm.Library.Ai;
+using Realm.Library.Common;
 using Realm.Library.Common.Contexts;
 using Realm.Library.Common.Data;
 using Realm.Library.Common.Objects;
@@ -16,11 +17,11 @@ namespace Realm.Ai
 {
     public class Behavior : Library.Common.Objects.Entity, IBehavior
     {
-        private List<IContext> Contexts { get; set; }
+        private List<IContext> Contexts { get; }
 
-        private EntityManager EntityManager { get; set; }
+        private EntityManager EntityManager { get; }
 
-        public Behavior(long id, string name, Definition def, IEntityManager entityManager)
+        public Behavior(long id, string name, ICell def, IEntityManager entityManager)
             : base(id, name)
         {
             BehaviorDef = def.CastAs<BehaviorDef>();
@@ -62,33 +63,27 @@ namespace Realm.Ai
         public IAiState NeedState()
         {
             var state = CheckFightCondition();
-            if (state.IsNotNull()) return state;
+            if (state != null) return state;
 
             state = CheckGuardCondition();
-            if (state.IsNotNull()) return state;
+            if (state != null) return state;
 
             state = CheckWanderCondition();
-            if (state.IsNotNull()) return state;
-
-            return EntityManager.GetDoNothingState(Owner);
+            return state ?? EntityManager.GetDoNothingState(Owner);
         }
 
         private IAiState CheckFightCondition()
         {
             //// If I am willing to fight and I don't already have a fight state
-            if (!Bits.HasBit(Globals.BehaviorBits.NonCombatant)
-                && Owner.AiBrain.CurrentState.IsNotNull()
-                && !Owner.AiBrain.HasState("fight"))
-            {
-                var newState = EntityManager.GetFightState(Owner);
-                var fightState = newState.CastAs<AiFightState>();
-                if (fightState.IsNotNull())
-                {
-                    fightState.Target = Owner.Fighting;
-                    return fightState;
-                }
-            }
-            return null;
+            if (Bits.HasBit(Globals.BehaviorBits.NonCombatant) || Owner.AiBrain.CurrentState == null ||
+                Owner.AiBrain.HasState("fight")) return null;
+
+            var newState = EntityManager.GetFightState(Owner);
+            var fightState = newState.CastAs<AiFightState>();
+            if (fightState == null) return null;
+
+            fightState.Target = Owner.Fighting;
+            return fightState;
         }
 
         private IAiState CheckGuardCondition()

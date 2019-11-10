@@ -1,10 +1,10 @@
 ﻿using System;
-using NUnit.Framework;
+using FluentAssertions;
 using Realm.Library.Common.Serializers;
+using Xunit;
 
 namespace Realm.Library.Common.Test.Serializers
 {
-    [TestFixture]
     public class XmlExtensionTests
     {
         [Serializable]
@@ -14,14 +14,14 @@ namespace Realm.Library.Common.Test.Serializers
             public string StringProp { get; set; }
         }
 
-        [Test]
+        [Fact]
         public void ToXmlNullObjectTest()
         {
-            Assert.Throws<ArgumentNullException>(() => XMLExtensions.ToXML<SerializableObjectFake>(null),
-                                                 "Unit test expected an ArgumentNullException to be thrown");
+            Action act = () => XMLExtensions.ToXML<SerializableObjectFake>(null);
+            act.Should().Throw<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void ToXmlTest()
         {
             var obj = new SerializableObjectFake
@@ -34,23 +34,25 @@ namespace Realm.Library.Common.Test.Serializers
 
             const string header = "<?xml version=\"1.0\" encoding=\"utf-16\"?>";
 
-            Assert.That(string.IsNullOrEmpty(result), Is.False);
-            Assert.That(result.Substring(0, header.Length), Is.EqualTo(header));
+            string.IsNullOrEmpty(result).Should().BeFalse();
+
+            var sub = result.Substring(0, header.Length);
+            sub.Should().Be(header);
         }
 
-        [Test]
+        [Fact]
         public void FromXmlNullStringTest()
         {
-            Assert.Throws<ArgumentNullException>(() => XMLExtensions.FromXML<SerializableObjectFake>(""),
-                                                 "Unit test expected an ArgumentNullException to be thrown");
+            Action act = () => XMLExtensions.FromXML<SerializableObjectFake>("");
+            act.Should().Throw<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void FromXmlTest()
         {
             const string xml = "<?xml version=\"1.0\" encoding=\"utf-16\"?><SerializableObjectFake xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><IntegerProp>5</IntegerProp><StringProp>Test</StringProp></SerializableObjectFake>";
 
-            Assert.That(xml.FromXML<SerializableObjectFake>(), Is.Not.Null);
-        }
+            var result = xml.FromXML<SerializableObjectFake>();
+            result.Should().NotBeNull();        }
     }
 }

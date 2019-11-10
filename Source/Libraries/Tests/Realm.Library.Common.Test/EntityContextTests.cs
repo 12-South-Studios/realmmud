@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using NUnit.Framework;
+using FluentAssertions;
 using Realm.Library.Common.Entities;
 using Realm.Library.Common.Objects;
+using Xunit;
 
-namespace Realm.Library.Common.Test
+namespace Realm.Library.Common.Fact
 {
-    [TestFixture]
-    public class EntityContextTests
+    public class EntityContextFacts
     {
         private class FakeObject : Entity 
         {
@@ -22,8 +22,8 @@ namespace Realm.Library.Common.Test
             }
         }
 
-        [Test]
-        public void Contains_Object_Test()
+        [Fact]
+        public void Contains_Object_Fact()
         {
             var parent = new FakeObject(1, "Parent");
 
@@ -32,11 +32,11 @@ namespace Realm.Library.Common.Test
             var ctx = new FakeContext(parent);
             ctx.AddEntity(child);
 
-            Assert.That(ctx.Contains(child), Is.True);
+            ctx.Contains(child).Should().BeTrue();
         }
 
-        [Test]
-        public void Contains_Id_Test()
+        [Fact]
+        public void Contains_Id_Fact()
         {
             var parent = new FakeObject(1, "Parent");
 
@@ -45,11 +45,11 @@ namespace Realm.Library.Common.Test
             var ctx = new FakeContext(parent);
             ctx.AddEntity(child);
 
-            Assert.That(ctx.Contains(2), Is.True);
+            ctx.Contains(2).Should().BeTrue();
         }
 
-        [Test]
-        public void Remove_Object_Test()
+        [Fact]
+        public void Remove_Object_Fact()
         {
             var parent = new FakeObject(1, "Parent");
 
@@ -58,15 +58,15 @@ namespace Realm.Library.Common.Test
             var ctx = new FakeContext(parent);
             ctx.AddEntity(child);
 
-            Assert.That(ctx.Contains(2), Is.True);
+            ctx.Contains(2).Should().BeTrue();
 
             ctx.RemoveEntity(child);
 
-            Assert.That(ctx.Contains(2), Is.False);
+            ctx.Contains(2).Should().BeFalse();
         }
 
-        [Test]
-        public void GetEntity_Test()
+        [Fact]
+        public void GetEntity_Fact()
         {
             var parent = new FakeObject(1, "Parent");
 
@@ -76,12 +76,11 @@ namespace Realm.Library.Common.Test
             ctx.AddEntity(child);
 
             var result = ctx.GetEntity(2);
-
-            Assert.That(result, Is.EqualTo(child));
+            result.Should().Be(child);
         }
 
-        [Test]
-        public void Count_Test()
+        [Fact]
+        public void Count_Fact()
         {
             var parent = new FakeObject(1, "Parent");
 
@@ -90,11 +89,11 @@ namespace Realm.Library.Common.Test
             var ctx = new FakeContext(parent);
             ctx.AddEntity(child);
 
-            Assert.That(ctx.Count, Is.EqualTo(1));
+            ctx.Count.Should().Be(1);
         }
 
-        [Test]
-        public void AddEntities_Test()
+        [Fact]
+        public void AddEntities_Fact()
         {
             var parent = new FakeObject(1, "Parent");
 
@@ -107,11 +106,11 @@ namespace Realm.Library.Common.Test
             var ctx = new FakeContext(parent);
             ctx.AddEntities(list);
 
-            Assert.That(ctx.Count, Is.EqualTo(3));
+            ctx.Count.Should().Be(3);
         }
 
-        [Test]
-        public void Entities_Test()
+        [Fact]
+        public void Entities_Fact()
         {
             var parent = new FakeObject(1, "Parent");
 
@@ -126,7 +125,7 @@ namespace Realm.Library.Common.Test
 
             var results = ctx.Entities;
 
-            CollectionAssert.AreEquivalent(list, results);
+            list.Should().BeEquivalentTo(results);
         }
     }
 }

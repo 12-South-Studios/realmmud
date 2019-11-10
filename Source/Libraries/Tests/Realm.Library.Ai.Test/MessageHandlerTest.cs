@@ -1,83 +1,84 @@
 ﻿using System;
 using System.Collections.Generic;
-using Moq;
-using NUnit.Framework;
+using FakeItEasy;
+using FluentAssertions;
 using Realm.Library.Common.Logging;
+using Xunit;
+using Xunit.Sdk;
 
-namespace Realm.Library.Ai.Test
+namespace Realm.Library.Ai.Fact
 {
-    [TestFixture]
-    public class MessageHandlerTest
+    public class MessageHandlerFact
     {
-        [Test]
+        [Fact]
         public void Add_ProperlyAddsMessagesToList()
         {
             var target = new MessageContext();
-            target.Add("test");
+            target.Add("Fact");
 
             var messageList = target.Get() as IList<string>;
             if (messageList == null)
-                Assert.Fail("Message list was null.");
+                throw new XunitException("Message list was null.");
 
-            Assert.That(messageList.Count, Is.EqualTo(1));
+            messageList.Count.Should().Be(1);
         }
 
-        [Test]
+        [Fact]
         public void Clear_RemovesMessages()
         {
             var target = new MessageContext();
-            target.Add("test");
+            target.Add("Fact");
             target.Clear();
 
             var messageList = target.Get() as IList<string>;
             if (messageList == null)
-                Assert.Fail("Message list was null.");
+                throw new XunitException("Message list was null.");
 
-            Assert.That(messageList.Count, Is.EqualTo(0));
+            messageList.Count.Should().Be(0);
         }
 
-        [Test]
+        [Fact]
         public void Get_ReturnsValidMessageList()
         {
             var target = new MessageContext();
-            target.Add("test");
+            target.Add("Fact");
 
             var messageList = target.Get() as IList<string>;
             if (messageList == null)
-                Assert.Fail("Message list was null.");
+                throw new XunitException("Message list was null.");
 
-            Assert.That(messageList, Is.Not.Null);
+            messageList.Should().NotBeNull();
         }
 
-        [Test]
+        [Fact]
         public void Dump_GetsMessageList_OutputsCorrectNumberOfEntries()
         {
             var target = new MessageContext();
-            target.Add("test");
+            target.Add("Fact");
 
             var callbackTimes = 0;
 
-            var mockLogger = new Mock<ILogWrapper>();
-            mockLogger.Setup(x => x.Info(It.IsAny<object>())).Callback(() => callbackTimes++);
+            var logger = A.Fake<ILogWrapper>();
+            A.CallTo(() => logger.Info(A<object>.Ignored)).Invokes(() => callbackTimes++);
 
-            target.Dump(mockLogger.Object);
+            target.Dump(logger);
 
             var messageList = target.Get() as IList<string>;
             if (messageList == null)
-                Assert.Fail("Message list was null.");
+                throw new XunitException("Message list was null.");
 
-            Assert.That(messageList.Count, Is.EqualTo(0));
-            Assert.That(callbackTimes, Is.EqualTo(1));
+            messageList.Count.Should().Be(0);
+            callbackTimes.Should().Be(1);
         }
 
-        [Test]
+        [Fact]
         public void Dump_GetsNullParameter_ThrowsException()
         {
             var target = new MessageContext();
-            target.Add("test");
+            target.Add("Fact");
 
-            Assert.Throws<ArgumentNullException>(() => target.Dump(null), 
-                "Unit Test expected an ArgumentNullException to be thrown");
+            Action act = () => target.Dump(null);
+            act.Should().Throw<ArgumentNullException>();
         }
     }
 }

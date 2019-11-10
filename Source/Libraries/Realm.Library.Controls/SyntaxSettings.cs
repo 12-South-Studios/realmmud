@@ -9,15 +9,6 @@ namespace Realm.Library.Controls
     public class SyntaxSettings
     {
         private readonly SyntaxList _rgKeywords = new SyntaxList();
-        private string _strComment = "";
-        private Color _colorComment = Color.Green;
-        private Color _colorString = Color.Gray;
-        private Color _colorInteger = Color.Red;
-        private bool _enableComments = true;
-        private bool _enableIntegers = true;
-        private bool _enableStrings = true;
-
-        #region Properties
 
         /// <summary>
         /// A list containing all keywords.
@@ -36,66 +27,36 @@ namespace Realm.Library.Controls
         /// <summary>
         /// A string containing the comment identifier.
         /// </summary>
-        public string Comment
-        {
-            get { return _strComment; }
-            set { _strComment = value; }
-        }
+        public string Comment { get; set; } = "";
 
         /// <summary>
         /// The color of comments.
         /// </summary>
-        public Color CommentColor
-        {
-            get { return _colorComment; }
-            set { _colorComment = value; }
-        }
+        public Color CommentColor { get; set; } = Color.Green;
 
         /// <summary>
         /// Enables processing of comments if set to true.
         /// </summary>
-        public bool EnableComments
-        {
-            get { return _enableComments; }
-            set { _enableComments = value; }
-        }
+        public bool EnableComments { get; set; } = true;
 
         /// <summary>
         /// Enables processing of integers if set to true.
         /// </summary>
-        public bool EnableIntegers
-        {
-            get { return _enableIntegers; }
-            set { _enableIntegers = value; }
-        }
+        public bool EnableIntegers { get; set; } = true;
 
         /// <summary>
         /// Enables processing of strings if set to true.
         /// </summary>
-        public bool EnableStrings
-        {
-            get { return _enableStrings; }
-            set { _enableStrings = value; }
-        }
+        public bool EnableStrings { get; set; } = true;
 
         /// <summary>
         /// The color of strings.
         /// </summary>
-        public Color StringColor
-        {
-            get { return _colorString; }
-            set { _colorString = value; }
-        }
+        public Color StringColor { get; set; } = Color.Gray;
 
         /// <summary>
         /// The color of integers.
         /// </summary>
-        public Color IntegerColor
-        {
-            get { return _colorInteger; }
-            set { _colorInteger = value; }
-        }
-
-        #endregion Properties
+        public Color IntegerColor { get; set; } = Color.Red;
     }
 }

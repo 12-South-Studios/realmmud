@@ -16,10 +16,10 @@ namespace Realm.Edit.Builders
     {
         public string DisplayName { get; private set; }
         public string DisplayPlural { get; private set; }
-        public SystemTypes SystemType { get; private set; }
+        public SystemTypes SystemType { get;  }
         public bool IsVisible { get; private set; }
         public Icon Icon { get; protected set; }
-        public IRealmDbContext RealmContext { get; private set; }
+        public IRealmDbContext RealmContext { get; }
         public IRealmAdminDbContext RealmAdminContext { get; private set; }
 
         protected EditorBuilder(SystemTypes aSystemType, string aDisplayName, string aDisplayPlural, 
@@ -59,7 +59,7 @@ namespace Realm.Edit.Builders
             var objectList = RealmContext.GetPrimitives(systemType, classId);
             foreach (var obj in objectList)
             {
-                if (!String.IsNullOrEmpty(filter) &&
+                if (!string.IsNullOrEmpty(filter) &&
                     obj.SystemName.IndexOf(filter, StringComparison.InvariantCultureIgnoreCase) == -1) continue;
 
                 var node = parentNode.Nodes.Add("node_" + obj.Id, obj.SystemName);
@@ -84,7 +84,7 @@ namespace Realm.Edit.Builders
         {
             try
             {
-                IRealmDbContext dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
+                var dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
                 var obj = dbContext.GetPrimitive(systemType, id);
                 if (obj == null)
                     throw new Exception();

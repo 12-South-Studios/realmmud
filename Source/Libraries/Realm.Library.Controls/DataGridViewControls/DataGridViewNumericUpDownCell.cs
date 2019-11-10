@@ -3,11 +3,9 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
-using Realm.Library.Common.Objects;
 using Realm.Library.Controls.Properties;
 
 namespace Realm.Library.Controls.DataGridViewControls
-
 {
     /// <summary>
     /// Defines a NumericUpDown cell type for the System.Windows.Forms.DataGridView control
@@ -42,13 +40,13 @@ namespace Realm.Library.Controls.DataGridViewControls
         internal const int DatagridviewnumericupdowncellDefaultDecimalPlaces = 0;
 
         // Default value of the Increment property
-        internal const Decimal DatagridviewnumericupdowncellDefaultIncrement = Decimal.One;
+        internal const decimal DatagridviewnumericupdowncellDefaultIncrement = decimal.One;
 
         // Default value of the Maximum property
-        internal const Decimal DatagridviewnumericupdowncellDefaultMaximum = (Decimal)100.0;
+        internal const decimal DatagridviewnumericupdowncellDefaultMaximum = (decimal)100.0;
 
         // Default value of the Minimum property
-        internal const Decimal DatagridviewnumericupdowncellDefaultMinimum = Decimal.Zero;
+        internal const decimal DatagridviewnumericupdowncellDefaultMinimum = decimal.Zero;
 
         // Default value of the ThousandsSeparator property
         internal const bool DatagridviewnumericupdowncellDefaultThousandsSeparator = false;
@@ -57,19 +55,19 @@ namespace Realm.Library.Controls.DataGridViewControls
         private static readonly Type DefaultEditType = typeof(DataGridViewNumericUpDownEditingControl);
 
         // Type of this cell's value. The formatted value type is string, the same as the base class DataGridViewTextBoxCell
-        private static readonly Type DefaultValueType = typeof(Decimal);
+        private static readonly Type DefaultValueType = typeof(decimal);
 
         // The bitmap used to paint the non-edited cells via a call to NumericUpDown.DrawToBitmap
         private Bitmap _renderingBitmap;
 
         // The NumericUpDown control used to paint the non-edited cells via a call to NumericUpDown.DrawToBitmap
-        private readonly NumericUpDown paintingNumericUpDown;
+        private readonly NumericUpDown _paintingNumericUpDown;
 
-        private int decimalPlaces;       // Caches the value of the DecimalPlaces property
-        private Decimal increment;       // Caches the value of the Increment property
-        private Decimal minimum;         // Caches the value of the Minimum property
-        private Decimal maximum;         // Caches the value of the Maximum property
-        private bool thousandsSeparator; // Caches the value of the ThousandsSeparator property
+        private int _decimalPlaces;       // Caches the value of the DecimalPlaces property
+        private decimal _increment;       // Caches the value of the Increment property
+        private decimal _minimum;         // Caches the value of the Minimum property
+        private decimal _maximum;         // Caches the value of the Maximum property
+        private bool _thousandsSeparator; // Caches the value of the ThousandsSeparator property
 
         /// <summary>
         /// Constructor for the DataGridViewNumericUpDownCell cell type
@@ -77,26 +75,26 @@ namespace Realm.Library.Controls.DataGridViewControls
         public DataGridViewNumericUpDownCell()
         {
             // Create a thread specific bitmap used for the painting of the non-edited cells
-            if (_renderingBitmap.IsNull())
+            if (_renderingBitmap == null)
                 _renderingBitmap = new Bitmap(DatagridviewnumericupdowncellDefaultRenderingBitmapWidth, DatagridviewnumericupdowncellDefaultRenderingBitmapHeight);
 
             // Create a thread specific NumericUpDown control used for the painting of the non-edited cells
-            if (paintingNumericUpDown.IsNull())
+            if (_paintingNumericUpDown == null)
             {
-                paintingNumericUpDown = new NumericUpDown
+                _paintingNumericUpDown = new NumericUpDown
                 {
                     BorderStyle = BorderStyle.None,
-                    Maximum = Decimal.MaxValue / 10,
-                    Minimum = Decimal.MinValue / 10
+                    Maximum = decimal.MaxValue / 10,
+                    Minimum = decimal.MinValue / 10
                 };
             }
 
             // Set the default values of the properties:
-            decimalPlaces = DatagridviewnumericupdowncellDefaultDecimalPlaces;
-            increment = DatagridviewnumericupdowncellDefaultIncrement;
-            minimum = DatagridviewnumericupdowncellDefaultMinimum;
-            maximum = DatagridviewnumericupdowncellDefaultMaximum;
-            thousandsSeparator = DatagridviewnumericupdowncellDefaultThousandsSeparator;
+            _decimalPlaces = DatagridviewnumericupdowncellDefaultDecimalPlaces;
+            _increment = DatagridviewnumericupdowncellDefaultIncrement;
+            _minimum = DatagridviewnumericupdowncellDefaultMinimum;
+            _maximum = DatagridviewnumericupdowncellDefaultMaximum;
+            _thousandsSeparator = DatagridviewnumericupdowncellDefaultThousandsSeparator;
         }
 
         /// <summary>
@@ -105,17 +103,16 @@ namespace Realm.Library.Controls.DataGridViewControls
         [DefaultValue(DatagridviewnumericupdowncellDefaultDecimalPlaces)]
         public int DecimalPlaces
         {
-            get { return decimalPlaces; }
+            get { return _decimalPlaces; }
             set
             {
                 if (value < 0 || value > 99)
                     throw new ArgumentOutOfRangeException(nameof(value), Resources.ERR_DECIMAL_OUT_OF_RANGE);
 
-                if (decimalPlaces != value)
-                {
-                    SetDecimalPlaces(RowIndex, value);
-                    OnCommonChange();
-                }
+                if (_decimalPlaces == value) return;
+
+                SetDecimalPlaces(RowIndex, value);
+                OnCommonChange();
             }
         }
 
@@ -132,12 +129,12 @@ namespace Realm.Library.Controls.DataGridViewControls
         /// <summary>
         /// The Increment property replicates the one from the NumericUpDown control
         /// </summary>
-        public Decimal Increment
+        public decimal Increment
         {
-            get { return increment; }
+            get { return _increment; }
             set
             {
-                if (value < (Decimal)0.0)
+                if (value < (decimal)0.0)
                     throw new ArgumentOutOfRangeException(nameof(value), Resources.ERR_VALUE_LESS_THAN_ZERO);
 
                 SetIncrement(RowIndex, value);
@@ -147,32 +144,28 @@ namespace Realm.Library.Controls.DataGridViewControls
         /// <summary>
         /// The Maximum property replicates the one from the NumericUpDown control
         /// </summary>
-        public Decimal Maximum
+        public decimal Maximum
         {
-            get { return maximum; }
+            get { return _maximum; }
             set
             {
-                if (maximum != value)
-                {
-                    SetMaximum(RowIndex, value);
-                    OnCommonChange();
-                }
+                if (_maximum == value) return;
+                SetMaximum(RowIndex, value);
+                OnCommonChange();
             }
         }
 
         /// <summary>
         /// The Minimum property replicates the one from the NumericUpDown control
         /// </summary>
-        public Decimal Minimum
+        public decimal Minimum
         {
-            get { return minimum; }
+            get { return _minimum; }
             set
             {
-                if (minimum != value)
-                {
-                    SetMinimum(RowIndex, value);
-                    OnCommonChange();
-                }
+                if (_minimum == value) return;
+                SetMinimum(RowIndex, value);
+                OnCommonChange();
             }
         }
 
@@ -182,14 +175,12 @@ namespace Realm.Library.Controls.DataGridViewControls
         [DefaultValue(DatagridviewnumericupdowncellDefaultThousandsSeparator)]
         public bool ThousandsSeparator
         {
-            get { return thousandsSeparator; }
+            get { return _thousandsSeparator; }
             set
             {
-                if (thousandsSeparator != value)
-                {
-                    SetThousandsSeparator(RowIndex, value);
-                    OnCommonChange();
-                }
+                if (_thousandsSeparator == value) return;
+                SetThousandsSeparator(RowIndex, value);
+                OnCommonChange();
             }
         }
 
@@ -200,8 +191,8 @@ namespace Realm.Library.Controls.DataGridViewControls
         {
             get
             {
-                Type valueType = base.ValueType;
-                return valueType.IsNotNull() ? valueType : DefaultValueType;
+                var valueType = base.ValueType;
+                return valueType != null ? valueType : DefaultValueType;
             }
         }
 
@@ -210,32 +201,27 @@ namespace Realm.Library.Controls.DataGridViewControls
         /// </summary>
         public override object Clone()
         {
-            DataGridViewNumericUpDownCell dataGridViewCell = base.Clone() as DataGridViewNumericUpDownCell;
-            if (dataGridViewCell.IsNotNull())
-            {
-                // ReSharper disable PossibleNullReferenceException
-                dataGridViewCell.DecimalPlaces = DecimalPlaces;
-                // ReSharper restore PossibleNullReferenceException
-                dataGridViewCell.Increment = Increment;
-                dataGridViewCell.Maximum = Maximum;
-                dataGridViewCell.Minimum = Minimum;
-                dataGridViewCell.ThousandsSeparator = ThousandsSeparator;
-            }
-            // ReSharper disable AssignNullToNotNullAttribute
+            var dataGridViewCell = base.Clone() as DataGridViewNumericUpDownCell;
+            if (dataGridViewCell == null) return dataGridViewCell;
+
+            dataGridViewCell.DecimalPlaces = DecimalPlaces;
+            dataGridViewCell.Increment = Increment;
+            dataGridViewCell.Maximum = Maximum;
+            dataGridViewCell.Minimum = Minimum;
+            dataGridViewCell.ThousandsSeparator = ThousandsSeparator;
             return dataGridViewCell;
-            // ReSharper restore AssignNullToNotNullAttribute
         }
 
         /// <summary>
         /// Returns the provided value constrained to be within the min and max.
         /// </summary>
-        private Decimal Constrain(Decimal value)
+        private decimal Constrain(decimal value)
         {
-            if (value < minimum)
-                value = minimum;
+            if (value < _minimum)
+                value = _minimum;
 
-            if (value > maximum)
-                value = maximum;
+            if (value > _maximum)
+                value = _maximum;
 
             return value;
         }
@@ -249,25 +235,18 @@ namespace Realm.Library.Controls.DataGridViewControls
         public override void DetachEditingControl()
         {
             var dataGridView = DataGridView;
-            if (dataGridView.IsNull() || dataGridView.EditingControl.IsNull())
+            if (dataGridView?.EditingControl == null)
                 throw new InvalidOperationException(Resources.ERR_INVALID_GRID);
 
             var numericUpDown = dataGridView.EditingControl as NumericUpDown;
-            if (numericUpDown.IsNotNull())
-            {
-                // Editing controls get recycled. Indeed, when a DataGridViewNumericUpDownCell cell gets edited
-                // after another DataGridViewNumericUpDownCell cell, the same editing control gets reused for
-                // performance reasons (to avoid an unnecessary control destruction and creation).
-                // Here the undo buffer of the TextBox inside the NumericUpDown control gets cleared to avoid
-                // interferences between the editing sessions.
-                // ReSharper disable PossibleNullReferenceException
-                var textBox = numericUpDown.Controls[1] as TextBox;
-                // ReSharper restore PossibleNullReferenceException
-                if (textBox.IsNotNull())
-                    // ReSharper disable PossibleNullReferenceException
-                    textBox.ClearUndo();
-                // ReSharper restore PossibleNullReferenceException
-            }
+            // Editing controls get recycled. Indeed, when a DataGridViewNumericUpDownCell cell gets edited
+            // after another DataGridViewNumericUpDownCell cell, the same editing control gets reused for
+            // performance reasons (to avoid an unnecessary control destruction and creation).
+            // Here the undo buffer of the TextBox inside the NumericUpDown control gets cleared to avoid
+            // interferences between the editing sessions.
+            // ReSharper disable PossibleNullReferenceException
+            var textBox = numericUpDown?.Controls[1] as TextBox;
+            textBox?.ClearUndo();
 
             base.DetachEditingControl();
         }
@@ -283,22 +262,21 @@ namespace Realm.Library.Controls.DataGridViewControls
 
             // Adjust the vertical location of the editing control:
             var preferredHeight = cellStyle.Font.Height + 3;
-            if (preferredHeight < editingControlBounds.Height)
-            {
-                switch (cellStyle.Alignment)
-                {
-                    case DataGridViewContentAlignment.MiddleLeft:
-                    case DataGridViewContentAlignment.MiddleCenter:
-                    case DataGridViewContentAlignment.MiddleRight:
-                        editingControlBounds.Y += (editingControlBounds.Height - preferredHeight) / 2;
-                        break;
+            if (preferredHeight >= editingControlBounds.Height) return editingControlBounds;
 
-                    case DataGridViewContentAlignment.BottomLeft:
-                    case DataGridViewContentAlignment.BottomCenter:
-                    case DataGridViewContentAlignment.BottomRight:
-                        editingControlBounds.Y += editingControlBounds.Height - preferredHeight;
-                        break;
-                }
+            switch (cellStyle.Alignment)
+            {
+                case DataGridViewContentAlignment.MiddleLeft:
+                case DataGridViewContentAlignment.MiddleCenter:
+                case DataGridViewContentAlignment.MiddleRight:
+                    editingControlBounds.Y += (editingControlBounds.Height - preferredHeight) / 2;
+                    break;
+
+                case DataGridViewContentAlignment.BottomLeft:
+                case DataGridViewContentAlignment.BottomCenter:
+                case DataGridViewContentAlignment.BottomRight:
+                    editingControlBounds.Y += editingControlBounds.Height - preferredHeight;
+                    break;
             }
 
             return editingControlBounds;
@@ -310,13 +288,13 @@ namespace Realm.Library.Controls.DataGridViewControls
         /// </summary>
         protected override Rectangle GetErrorIconBounds(Graphics graphics, DataGridViewCellStyle cellStyle, int rowIndex)
         {
-            const int ButtonsWidth = 16;
+            const int buttonsWidth = 16;
 
             var errorIconBounds = base.GetErrorIconBounds(graphics, cellStyle, rowIndex);
             if (DataGridView.RightToLeft == RightToLeft.Yes)
-                errorIconBounds.X = errorIconBounds.Left + ButtonsWidth;
+                errorIconBounds.X = errorIconBounds.Left + buttonsWidth;
             else
-                errorIconBounds.X = errorIconBounds.Left - ButtonsWidth;
+                errorIconBounds.X = errorIconBounds.Left - buttonsWidth;
 
             return errorIconBounds;
         }
@@ -336,23 +314,18 @@ namespace Realm.Library.Controls.DataGridViewControls
             var formattedValue = base.GetFormattedValue(value, rowIndex, ref cellStyle,
                 valueTypeConverter, formattedValueTypeConverter, context);
 
-            if (formattedValue != null)
-            {
-                var formattedNumber = formattedValue.ToString();
-                if (!string.IsNullOrEmpty(formattedNumber) && value.IsNotNull())
-                {
-                    Decimal unformattedDecimal = Convert.ToDecimal(value);
-                    Decimal formattedDecimal = Convert.ToDecimal(formattedNumber);
-                    if (unformattedDecimal == formattedDecimal)
-                    {
-                        // The base implementation of GetFormattedValue (which triggers the CellFormatting event) did nothing else than
-                        // the typical 1234.5 to "1234.5" conversion. But depending on the values of ThousandsSeparator and DecimalPlaces,
-                        // this may not be the actual string displayed. The real formatted value may be "1,234.500"
-                        return formattedDecimal.ToString((ThousandsSeparator ? "N" : "F") + DecimalPlaces);
-                    }
-                }
-            }
-            return formattedValue;
+            var formattedNumber = formattedValue?.ToString();
+            if (string.IsNullOrEmpty(formattedNumber) || value == null) return formattedValue;
+
+            var unformattedDecimal = Convert.ToDecimal(value);
+            var formattedDecimal = Convert.ToDecimal(formattedNumber);
+
+            // The base implementation of GetFormattedValue (which triggers the CellFormatting event) did nothing else than
+            // the typical 1234.5 to "1234.5" conversion. But depending on the values of ThousandsSeparator and DecimalPlaces,
+            // this may not be the actual string displayed. The real formatted value may be "1,234.500"
+            return unformattedDecimal == formattedDecimal
+                ? formattedDecimal.ToString((ThousandsSeparator ? "N" : "F") + DecimalPlaces)
+                : formattedValue;
         }
 
         /// <summary>
@@ -361,16 +334,15 @@ namespace Realm.Library.Controls.DataGridViewControls
         /// </summary>
         protected override Size GetPreferredSize(Graphics graphics, DataGridViewCellStyle cellStyle, int rowIndex, Size constraintSize)
         {
-            if (DataGridView.IsNull())
+            if (DataGridView == null)
                 return new Size(-1, -1);
 
             var preferredSize = base.GetPreferredSize(graphics, cellStyle, rowIndex, constraintSize);
-            if (constraintSize.Width == 0)
-            {
-                const int ButtonsWidth = 16; // Account for the width of the up/down buttons.
-                const int ButtonMargin = 8;  // Account for some blank pixels between the text and buttons.
-                preferredSize.Width += ButtonsWidth + ButtonMargin;
-            }
+            if (constraintSize.Width != 0) return preferredSize;
+
+            const int buttonsWidth = 16; // Account for the width of the up/down buttons.
+            const int buttonMargin = 8;  // Account for some blank pixels between the text and buttons.
+            preferredSize.Width += buttonsWidth + buttonMargin;
             return preferredSize;
         }
 
@@ -385,20 +357,15 @@ namespace Realm.Library.Controls.DataGridViewControls
             base.InitializeEditingControl(rowIndex, initialFormattedValue, dataGridViewCellStyle);
 
             var numericUpDown = DataGridView.EditingControl as NumericUpDown;
-            if (numericUpDown.IsNotNull())
-            {
-                // ReSharper disable PossibleNullReferenceException
-                numericUpDown.BorderStyle = BorderStyle.None;
-                // ReSharper restore PossibleNullReferenceException
-                numericUpDown.DecimalPlaces = DecimalPlaces;
-                numericUpDown.Increment = Increment;
-                numericUpDown.Maximum = Maximum;
-                numericUpDown.Minimum = Minimum;
-                numericUpDown.ThousandsSeparator = ThousandsSeparator;
-                var initialFormattedValueStr = initialFormattedValue.ToString();
+            if (numericUpDown == null) return;
 
-                numericUpDown.Text = initialFormattedValueStr.IsNull() ? string.Empty : initialFormattedValueStr;
-            }
+            numericUpDown.BorderStyle = BorderStyle.None;
+            numericUpDown.DecimalPlaces = DecimalPlaces;
+            numericUpDown.Increment = Increment;
+            numericUpDown.Maximum = Maximum;
+            numericUpDown.Minimum = Minimum;
+            numericUpDown.ThousandsSeparator = ThousandsSeparator;
+            numericUpDown.Text = initialFormattedValue.ToString();
         }
 
         /// <summary>
@@ -429,25 +396,24 @@ namespace Realm.Library.Controls.DataGridViewControls
         /// </summary>
         private void OnCommonChange()
         {
-            if (DataGridView.IsNotNull() && !DataGridView.IsDisposed && !DataGridView.Disposing)
-            {
-                if (RowIndex == -1)
-                {
-                    // Invalidate and auto-size column
-                    DataGridView.InvalidateColumn(ColumnIndex);
+            if (DataGridView == null || DataGridView.IsDisposed || DataGridView.Disposing) return;
 
-                    // TODO: Add code to auto-size the cell's column, the rows, the column headers
-                    // and the row headers depending on their auto-size settings.
-                    // The DataGridView control does not expose a public method that takes care of
-                }
-                else
-                {
-                    // The DataGridView control exposes a public method called UpdateCellValue
-                    // that invalidates the cell so that it gets repainted and also triggers all
-                    // the necessary auto-sizing: the cell's column and/or row, the column headers
-                    // and the row headers are auto-sized depending on their auto-size settings.
-                    DataGridView.UpdateCellValue(ColumnIndex, RowIndex);
-                }
+            if (RowIndex == -1)
+            {
+                // Invalidate and auto-size column
+                DataGridView.InvalidateColumn(ColumnIndex);
+
+                // TODO: Add code to auto-size the cell's column, the rows, the column headers
+                // and the row headers depending on their auto-size settings.
+                // The DataGridView control does not expose a public method that takes care of
+            }
+            else
+            {
+                // The DataGridView control exposes a public method called UpdateCellValue
+                // that invalidates the cell so that it gets repainted and also triggers all
+                // the necessary auto-sizing: the cell's column and/or row, the column headers
+                // and the row headers are auto-sized depending on their auto-size settings.
+                DataGridView.UpdateCellValue(ColumnIndex, RowIndex);
             }
         }
 
@@ -457,14 +423,12 @@ namespace Realm.Library.Controls.DataGridViewControls
         /// </summary>
         private bool OwnsEditingNumericUpDown(int rowIndex)
         {
-            if (rowIndex == -1 || DataGridView.IsNull())
+            if (rowIndex == -1 || DataGridView == null)
                 return false;
 
             var numericUpDownEditingControl = DataGridView.EditingControl as DataGridViewNumericUpDownEditingControl;
-            return numericUpDownEditingControl.IsNotNull()
-                // ReSharper disable PossibleNullReferenceException
+            return numericUpDownEditingControl != null
                 && rowIndex == ((IDataGridViewEditingControl)numericUpDownEditingControl).EditingControlRowIndex;
-            // ReSharper restore PossibleNullReferenceException
         }
 
         /// <summary>
@@ -479,7 +443,7 @@ namespace Realm.Library.Controls.DataGridViewControls
             string errorText, DataGridViewCellStyle cellStyle, DataGridViewAdvancedBorderStyle advancedBorderStyle,
             DataGridViewPaintParts paintParts)
         {
-            if (DataGridView.IsNull()) return;
+            if (DataGridView == null) return;
 
             // First paint the borders and background of the cell.
             base.Paint(graphics, clipBounds, cellBounds, rowIndex, cellState, value, formattedValue,
@@ -488,90 +452,89 @@ namespace Realm.Library.Controls.DataGridViewControls
 
             var ptCurrentCell = DataGridView.CurrentCellAddress;
             var cellCurrent = ptCurrentCell.X == ColumnIndex && ptCurrentCell.Y == rowIndex;
-            var cellEdited = cellCurrent && DataGridView.EditingControl.IsNotNull();
+            var cellEdited = cellCurrent && DataGridView.EditingControl != null;
 
             // If the cell is in editing mode, there is nothing else to paint
-            if (!cellEdited)
+            if (cellEdited) return;
+
+            if (PartPainted(paintParts, DataGridViewPaintParts.ContentForeground))
             {
-                if (PartPainted(paintParts, DataGridViewPaintParts.ContentForeground))
+                // Paint a NumericUpDown control
+                // Take the borders into account
+                var borderWidths = BorderWidths(advancedBorderStyle);
+                var valBounds = cellBounds;
+                valBounds.Offset(borderWidths.X, borderWidths.Y);
+                valBounds.Width -= borderWidths.Right;
+                valBounds.Height -= borderWidths.Bottom;
+
+                // Also take the padding into account
+                if (cellStyle.Padding != Padding.Empty)
                 {
-                    // Paint a NumericUpDown control
-                    // Take the borders into account
-                    var borderWidths = BorderWidths(advancedBorderStyle);
-                    var valBounds = cellBounds;
-                    valBounds.Offset(borderWidths.X, borderWidths.Y);
-                    valBounds.Width -= borderWidths.Right;
-                    valBounds.Height -= borderWidths.Bottom;
+                    valBounds.Offset(
+                        DataGridView.RightToLeft == RightToLeft.Yes
+                            ? cellStyle.Padding.Right
+                            : cellStyle.Padding.Left, cellStyle.Padding.Top);
 
-                    // Also take the padding into account
-                    if (cellStyle.Padding != Padding.Empty)
-                    {
-                        valBounds.Offset(
-                            DataGridView.RightToLeft == RightToLeft.Yes
-                                ? cellStyle.Padding.Right
-                                : cellStyle.Padding.Left, cellStyle.Padding.Top);
-
-                        valBounds.Width -= cellStyle.Padding.Horizontal;
-                        valBounds.Height -= cellStyle.Padding.Vertical;
-                    }
-                    // Determine the NumericUpDown control location
-                    valBounds = GetAdjustedEditingControlBounds(valBounds, cellStyle);
-
-                    var cellSelected = (cellState & DataGridViewElementStates.Selected) != 0;
-
-                    if (_renderingBitmap.Width < valBounds.Width ||
-                        _renderingBitmap.Height < valBounds.Height)
-                    {
-                        // The static bitmap is too small, a bigger one needs to be allocated.
-                        _renderingBitmap.Dispose();
-                        _renderingBitmap = new Bitmap(valBounds.Width, valBounds.Height);
-                    }
-                    // Make sure the NumericUpDown control is parented to a visible control
-                    if (paintingNumericUpDown.Parent.IsNull() || !paintingNumericUpDown.Parent.Visible)
-                        paintingNumericUpDown.Parent = DataGridView;
-
-                    // Set all the relevant properties
-                    paintingNumericUpDown.TextAlign = TranslateAlignment(cellStyle.Alignment);
-                    paintingNumericUpDown.DecimalPlaces = DecimalPlaces;
-                    paintingNumericUpDown.ThousandsSeparator = ThousandsSeparator;
-                    paintingNumericUpDown.Font = cellStyle.Font;
-                    paintingNumericUpDown.Width = valBounds.Width;
-                    paintingNumericUpDown.Height = valBounds.Height;
-                    paintingNumericUpDown.RightToLeft = DataGridView.RightToLeft;
-                    paintingNumericUpDown.Location = new Point(0, -paintingNumericUpDown.Height - 100);
-                    paintingNumericUpDown.Text = formattedValue as string;
-
-                    Color backColor;
-                    if (PartPainted(paintParts, DataGridViewPaintParts.SelectionBackground) && cellSelected)
-                        backColor = cellStyle.SelectionBackColor;
-                    else
-                        backColor = cellStyle.BackColor;
-
-                    if (PartPainted(paintParts, DataGridViewPaintParts.Background))
-                    {
-                        if (backColor.A < 255)
-                        {
-                            // The NumericUpDown control does not support transparent back colors
-                            backColor = Color.FromArgb(255, backColor);
-                        }
-                        paintingNumericUpDown.BackColor = backColor;
-                    }
-
-                    // Finally paint the NumericUpDown control
-                    var srcRect = new Rectangle(0, 0, valBounds.Width, valBounds.Height);
-                    if (srcRect.Width > 0 && srcRect.Height > 0)
-                    {
-                        paintingNumericUpDown.DrawToBitmap(_renderingBitmap, srcRect);
-                        graphics.DrawImage(_renderingBitmap, new Rectangle(valBounds.Location, valBounds.Size),
-                                           srcRect, GraphicsUnit.Pixel);
-                    }
+                    valBounds.Width -= cellStyle.Padding.Horizontal;
+                    valBounds.Height -= cellStyle.Padding.Vertical;
                 }
-                if (PartPainted(paintParts, DataGridViewPaintParts.ErrorIcon))
+                // Determine the NumericUpDown control location
+                valBounds = GetAdjustedEditingControlBounds(valBounds, cellStyle);
+
+                var cellSelected = (cellState & DataGridViewElementStates.Selected) != 0;
+
+                if (_renderingBitmap.Width < valBounds.Width ||
+                    _renderingBitmap.Height < valBounds.Height)
                 {
-                    // Paint the potential error icon on top of the NumericUpDown control
-                    base.Paint(graphics, clipBounds, cellBounds, rowIndex, cellState, value, formattedValue, errorText,
-                               cellStyle, advancedBorderStyle, DataGridViewPaintParts.ErrorIcon);
+                    // The static bitmap is too small, a bigger one needs to be allocated.
+                    _renderingBitmap.Dispose();
+                    _renderingBitmap = new Bitmap(valBounds.Width, valBounds.Height);
                 }
+                // Make sure the NumericUpDown control is parented to a visible control
+                if (_paintingNumericUpDown.Parent == null || !_paintingNumericUpDown.Parent.Visible)
+                    _paintingNumericUpDown.Parent = DataGridView;
+
+                // Set all the relevant properties
+                _paintingNumericUpDown.TextAlign = TranslateAlignment(cellStyle.Alignment);
+                _paintingNumericUpDown.DecimalPlaces = DecimalPlaces;
+                _paintingNumericUpDown.ThousandsSeparator = ThousandsSeparator;
+                _paintingNumericUpDown.Font = cellStyle.Font;
+                _paintingNumericUpDown.Width = valBounds.Width;
+                _paintingNumericUpDown.Height = valBounds.Height;
+                _paintingNumericUpDown.RightToLeft = DataGridView.RightToLeft;
+                _paintingNumericUpDown.Location = new Point(0, -_paintingNumericUpDown.Height - 100);
+                _paintingNumericUpDown.Text = formattedValue as string;
+
+                Color backColor;
+                if (PartPainted(paintParts, DataGridViewPaintParts.SelectionBackground) && cellSelected)
+                    backColor = cellStyle.SelectionBackColor;
+                else
+                    backColor = cellStyle.BackColor;
+
+                if (PartPainted(paintParts, DataGridViewPaintParts.Background))
+                {
+                    if (backColor.A < 255)
+                    {
+                        // The NumericUpDown control does not support transparent back colors
+                        backColor = Color.FromArgb(255, backColor);
+                    }
+                    _paintingNumericUpDown.BackColor = backColor;
+                }
+
+                // Finally paint the NumericUpDown control
+                var srcRect = new Rectangle(0, 0, valBounds.Width, valBounds.Height);
+                if (srcRect.Width > 0 && srcRect.Height > 0)
+                {
+                    _paintingNumericUpDown.DrawToBitmap(_renderingBitmap, srcRect);
+                    graphics.DrawImage(_renderingBitmap, new Rectangle(valBounds.Location, valBounds.Size),
+                        srcRect, GraphicsUnit.Pixel);
+                }
+            }
+            if (PartPainted(paintParts, DataGridViewPaintParts.ErrorIcon))
+            {
+                // Paint the potential error icon on top of the NumericUpDown control
+                base.Paint(graphics, clipBounds, cellBounds, rowIndex, cellState, value, formattedValue, errorText,
+                    cellStyle, advancedBorderStyle, DataGridViewPaintParts.ErrorIcon);
             }
         }
 
@@ -618,7 +581,7 @@ namespace Realm.Library.Controls.DataGridViewControls
         /// </summary>
         internal void SetDecimalPlaces(int rowIndex, int value)
         {
-            decimalPlaces = value;
+            _decimalPlaces = value;
             if (OwnsEditingNumericUpDown(rowIndex))
                 EditingNumericUpDown.DecimalPlaces = value;
         }
@@ -628,9 +591,9 @@ namespace Realm.Library.Controls.DataGridViewControls
         /// the cell and column Increment property. A row index needs to be provided as a parameter because
         /// this cell may be shared among multiple rows.
         /// </summary>
-        internal void SetIncrement(int rowIndex, Decimal value)
+        internal void SetIncrement(int rowIndex, decimal value)
         {
-            increment = value;
+            _increment = value;
             if (OwnsEditingNumericUpDown(rowIndex))
                 EditingNumericUpDown.Increment = value;
         }
@@ -642,17 +605,17 @@ namespace Realm.Library.Controls.DataGridViewControls
         /// invalidating each cell of the column individually. A row index needs to be provided as a parameter because
         /// this cell may be shared among multiple rows.
         /// </summary>
-        internal void SetMaximum(int rowIndex, Decimal value)
+        internal void SetMaximum(int rowIndex, decimal value)
         {
-            maximum = value;
-            if (minimum > maximum)
-                minimum = maximum;
+            _maximum = value;
+            if (_minimum > _maximum)
+                _minimum = _maximum;
 
-            object cellValue = GetValue(rowIndex);
-            if (cellValue.IsNotNull())
+            var cellValue = GetValue(rowIndex);
+            if (cellValue != null)
             {
-                Decimal currentValue = Convert.ToDecimal(cellValue);
-                Decimal constrainedValue = Constrain(currentValue);
+                var currentValue = Convert.ToDecimal(cellValue);
+                var constrainedValue = Constrain(currentValue);
                 if (constrainedValue != currentValue)
                     SetValue(rowIndex, constrainedValue);
             }
@@ -668,17 +631,17 @@ namespace Realm.Library.Controls.DataGridViewControls
         /// invalidating each cell of the column individually. A row index needs to be provided as a parameter because
         /// this cell may be shared among multiple rows.
         /// </summary>
-        internal void SetMinimum(int rowIndex, Decimal value)
+        internal void SetMinimum(int rowIndex, decimal value)
         {
-            minimum = value;
-            if (minimum > maximum)
-                maximum = value;
+            _minimum = value;
+            if (_minimum > _maximum)
+                _maximum = value;
 
-            object cellValue = GetValue(rowIndex);
-            if (cellValue.IsNotNull())
+            var cellValue = GetValue(rowIndex);
+            if (cellValue != null)
             {
-                Decimal currentValue = Convert.ToDecimal(cellValue);
-                Decimal constrainedValue = Constrain(currentValue);
+                var currentValue = Convert.ToDecimal(cellValue);
+                var constrainedValue = Constrain(currentValue);
                 if (constrainedValue != currentValue)
                     SetValue(rowIndex, constrainedValue);
             }
@@ -696,7 +659,7 @@ namespace Realm.Library.Controls.DataGridViewControls
         /// </summary>
         internal void SetThousandsSeparator(int rowIndex, bool value)
         {
-            thousandsSeparator = value;
+            _thousandsSeparator = value;
             if (OwnsEditingNumericUpDown(rowIndex))
                 EditingNumericUpDown.ThousandsSeparator = value;
         }

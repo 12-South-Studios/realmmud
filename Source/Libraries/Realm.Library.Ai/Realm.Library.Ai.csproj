@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Realm.Library.Ai</RootNamespace>
     <AssemblyName>Realm.Library.Ai</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
@@ -117,6 +117,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Globalization" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AiAgent.cs" />
@@ -127,6 +129,8 @@
     <Compile Include="Goals\AtomicGoal.cs" />
     <Compile Include="Goals\Goal.cs" />
     <Compile Include="Goals\GoalState.cs" />
+    <Compile Include="Goap\GoapAction.cs" />
+    <Compile Include="Goap\IGoap.cs" />
     <Compile Include="IAiAgentContext.cs" />
     <Compile Include="IBehavior.cs" />
     <Compile Include="IMessageContext.cs" />
@@ -147,13 +151,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Patterns\Realm.Library.Patterns.Repository\Realm.Library.Patterns.Repository.csproj">
-      <Project>{222cce38-b286-44f0-b7f1-6af8ba525fb6}</Project>
-      <Name>Realm.Library.Patterns.Repository</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Realm.Library.Common\Realm.Library.Common.csproj">
       <Project>{1FDEE5BD-A724-4478-BCA3-4C49DAEA291D}</Project>
       <Name>Realm.Library.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Realm.Standard.Patterns.Repository\Realm.Standard.Patterns.Repository.csproj">
+      <Project>{aa0867a2-ab09-4a2f-af2a-89c4da2fdf69}</Project>
+      <Name>Realm.Standard.Patterns.Repository</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

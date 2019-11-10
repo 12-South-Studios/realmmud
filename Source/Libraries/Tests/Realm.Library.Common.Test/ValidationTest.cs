@@ -2,86 +2,86 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using NUnit.Framework;
+using FluentAssertions;
+using Xunit;
 
 namespace Realm.Library.Common.Test
 {
-    [TestFixture]
     public class ValidationTest
     {
-        [TestCase(25, "number")]
+        [Theory]
+        [InlineData(25, "number")]
         public void IsNotNullTest(object obj, string param)
         {
             Validation.IsNotNull(obj, param);
         }
 
-        [Test]
+        [Fact]
         public void IsNotNull_ThrowsException_WhenObjectIsNull()
         {
             Assert.Throws<ArgumentNullException>(() => Validation.IsNotNull(null, "null"));
         }
 
-        [TestCase(25, typeof(int))]
-        [TestCase("test", typeof(string))]
+        [Theory]
+        [InlineData(25, typeof(int))]
+        [InlineData("test", typeof(string))]
         public void IsInstanceOfTest(object obj, Type type)
         {
             Validation.IsInstanceOfType(obj, type);
         }
-        
-        [TestCase("test", "number")]
+
+        [Theory]
+        [InlineData("test", "number")]
         public void IsNotNullOrEmptyTest(string obj, string param)
         {
             Validation.IsNotNullOrEmpty(obj, param);
         }
 
-        [Test]
+        [Fact]
         public void IsNotNullOrEmpty_ThrowsException_WhenNull()
         {
             Assert.Throws<ArgumentNullException>(() => Validation.IsNotNullOrEmpty("", null));
         }
-        
-        [TestCase(new object[] { 25, 15 }, "value")]
+
+        [Theory]
+        [InlineData(new object[] { 25, 15 }, "value")]
         public void IsNotEmpty(ICollection value, string param)
         {
             Validation.IsNotEmpty(value, param);
         }
 
-        [Test]
+        [Fact]
         public void IsNotEmpty_THrowsException_WhenNull()
         {
             Assert.Throws<ArgumentNullException>(() => Validation.IsNotEmpty(null, "null"));
         }
 
-        [Test]
+        [Fact]
         public void IsNotEmptyByTypeTest()
         {
             ICollection<string> list = new Collection<string>();
             list.Add("Test1");
             list.Add("Test2");
 
-            Assert.DoesNotThrow(() => Validation.IsNotEmpty(list, "list"));
+            Action act = () => Validation.IsNotEmpty(list, "list");
+            act.Should().NotThrow();
         }
 
-        [TestCase(true, "test")]
+        [Theory]
+        [InlineData(true, "test")]
         public void Validate(bool test, string message)
         {
             Validation.Validate(test, message);
         }
 
-        [TestCase(true, "test")]
-        public void ValidateCustomException(bool test, string message)
-        {
-            Validation.Validate<InconclusiveException>(test, message);
-        }
-
-        [Test]
+        [Fact]
         public void ValidateAction()
         {
             var callback = false;
 
             Validation.Validate(() => { callback = true; });
 
-            Assert.That(callback, Is.True);
+            callback.Should().BeTrue();
         }
     }
 }

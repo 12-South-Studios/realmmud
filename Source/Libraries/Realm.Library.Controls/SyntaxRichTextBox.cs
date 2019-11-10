@@ -10,7 +10,6 @@ namespace Realm.Library.Controls
     /// </summary>
     public class SyntaxRichTextBox : System.Windows.Forms.RichTextBox
     {
-        private readonly SyntaxSettings _mSettings = new SyntaxSettings();
         private static bool _paint = true;
         private string _strLine = "";
         private int _lineLength;
@@ -21,7 +20,7 @@ namespace Realm.Library.Controls
         /// <summary>
         /// The settings.
         /// </summary>
-        public SyntaxSettings Settings => _mSettings;
+        public SyntaxSettings Settings { get; } = new SyntaxSettings();
 
         /// <summary>
         /// WndProc

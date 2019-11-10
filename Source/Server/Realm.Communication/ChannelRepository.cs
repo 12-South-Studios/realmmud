@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Realm.Library.Common.Objects;
-using Realm.Library.Patterns.Repository;
+using Realm.Standard.Patterns.Repository;
 
 namespace Realm.Communication
 {
@@ -11,20 +11,20 @@ namespace Realm.Communication
             return Values.FirstOrDefault(channel => channel.CompareName(aName));
         }
 
-        new public Channel Get(long aId)
+        public new Channel Get(long aId)
         {
             return Values.FirstOrDefault(channel => channel.ID == aId);
         }
 
-        new public void Add(long aId, Channel channel)
+        public new void Add(long aId, Channel channel)
         {
-            if (Get(aId).IsNull() && channel.IsNotNull())
+            if (Get(aId) == null && channel != null)
                 base.Add(aId, channel);
         }
 
-        new public void Delete(long aId)
+        public new void Delete(long aId)
         {
-            if (Get(aId).IsNotNull())
+            if (Get(aId) != null)
                 base.Delete(aId);
         }
     }

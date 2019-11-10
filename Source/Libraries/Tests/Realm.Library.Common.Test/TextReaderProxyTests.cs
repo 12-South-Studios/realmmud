@@ -1,46 +1,50 @@
-﻿using System.Collections.Generic;
+﻿using FluentAssertions;
+using System;
+using System.Collections.Generic;
 using System.IO;
-using NUnit.Framework;
+using Xunit;
 
 namespace Realm.Library.Common.Test
 {
-    [TestFixture]
     public class TextReaderProxyTests
     {
-        [Test]
+        [Fact]
         public void ReadNextLetter_ReturnsValidChar()
         {
             TextReaderProxy proxy = new TextReaderProxy(new StringReader("a word"));
 
-            Assert.That(proxy.ReadNextLetter(), Is.EqualTo('a'));
+            var result = proxy.ReadNextLetter();
+            result.Should().Be('a');
         }
 
-        [Test]
+        [Fact]
         public void ReadNextLetter_ThrowsExceptionAtEndOfStream()
         {
             TextReaderProxy proxy = new TextReaderProxy(new StringReader(""));
 
-            Assert.Throws<IOException>(() => proxy.ReadNextLetter(),
-                                       "Unit test expected an IOException to be thrown");
+            Action act = () => proxy.ReadNextLetter();
+            act.Should().Throw<IOException>();
         }
 
-        [Test]
+        [Fact]
         public void ReadNextWord_ReturnsValidString()
         {
             TextReaderProxy proxy = new TextReaderProxy(new StringReader("first word"));
 
-            Assert.That(proxy.ReadNextWord(), Is.EqualTo("first"));
+            var result = proxy.ReadNextWord();
+            result.Should().Be("first");
         }
 
-        [Test]
+        [Fact]
         public void ReadNumber_ReturnsValidValue()
         {
             TextReaderProxy proxy = new TextReaderProxy(new StringReader("100 words"));
-    
-            Assert.That(proxy.ReadNumber(), Is.EqualTo(100));
+
+            var result = proxy.ReadNumber();
+            result.Should().Be(100);
         }
 
-        [Test]
+        [Fact]
         public void ReadIntoList_ReturnsValidList()
         {
             TextReaderProxy proxy =
@@ -48,13 +52,13 @@ namespace Realm.Library.Common.Test
 
             List<string> results = proxy.ReadIntoList();
 
-            Assert.That(results, Is.Not.Null);
-            Assert.That(results.Count, Is.EqualTo(4));
-            Assert.That(results[0], Is.EqualTo("#common"));
-            Assert.That(results[3], Is.EqualTo("~"));
+            results.Should().NotBeNull();
+            results.Count.Should().Be(4);
+            results[0].Should().Be("#common");
+            results[3].Should().Be("~");
         }
 
-        [Test]
+        [Fact]
         public void ReadSections_HasInvalidSectionParameters()
         {
             TextReaderProxy proxy =
@@ -63,10 +67,10 @@ namespace Realm.Library.Common.Test
             List<TextSection> results = proxy.ReadSections(new List<string> {"#"}, new List<string> {"*"},
                                                            new List<string> {"#"}, "#end");
 
-            Assert.That(results.Count, Is.EqualTo(0));
+            results.Count.Should().Be(0);
         }
 
-        [Test]
+        [Fact]
         public void ReadSections_HasFooter()
         {
             TextReaderProxy proxy =
@@ -75,11 +79,11 @@ namespace Realm.Library.Common.Test
             List<TextSection> results = proxy.ReadSections(new List<string> { "#" }, new List<string> { "*" },
                                                            new List<string> { "^" }, "#end");
 
-            Assert.That(results, Is.Not.Null);
-            Assert.That(results[0].Footer, Is.EqualTo("end_common"));
+            results.Should().NotBeNull();
+            results[0].Footer.Should().Be("end_common");
         }
 
-        [Test]
+        [Fact]
         public void ReadSections_ReturnsValidList()
         {
             TextReaderProxy proxy =
@@ -87,21 +91,26 @@ namespace Realm.Library.Common.Test
 
             List<TextSection> results = proxy.ReadSections(new List<string> {"#"}, new List<string> {"*"}, null, "#end");
 
-            Assert.That(results, Is.Not.Null);
-            Assert.That(results.Count, Is.EqualTo(2));
-            Assert.That(results[0].Header, Is.EqualTo("common"));
-            Assert.That(results[0].Lines.Count, Is.EqualTo(3));
+            results.Should().NotBeNull();
+            results.Count.Should().Be(2);
+            results[0].Header.Should().Be("common");
+            results[0].Lines.Count.Should().Be(3);
         }
 
-        [Test]
+        [Fact]
         public void ReadEndOfLine_DoesntReadNextLine()
         {
             TextReaderProxy proxy =
                    new TextReaderProxy(new StringReader("This is a test\n\rwith two lines."));
 
-            Assert.That(proxy.ReadNextLetter(), Is.EqualTo('T'));
-            Assert.That(proxy.ReadToEndOfLine(true), Is.EqualTo("his is a test"));
-            Assert.That(proxy.ReadLine(), Is.EqualTo("with two lines."));
+            var result1 = proxy.ReadNextLetter();
+            result1.Should().Be('T');
+
+            var result2 = proxy.ReadToEndOfLine(true);
+            result2.Should().Be("his is a test");
+
+            var result3 = proxy.ReadLine();
+            result3.Should().Be("with two lines.");
         }
     }
 }

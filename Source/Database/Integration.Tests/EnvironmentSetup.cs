@@ -2,33 +2,30 @@
 using System.Data.Entity;
 using System.Data.SqlClient;
 using Ninject;
-using NUnit.Framework;
 using Realm.Admin.DAL;
 using Realm.DAL;
 using Realm.Live.DAL;
+using Xunit;
 
 namespace Integration.Tests
 {
-    [TestFixture]
     public class EnvironmentSetup
     {
         private static IKernel _kernel;
 
-        [SetUp]
-        public static void Initialize()
+        public EnvironmentSetup()
         {
             _kernel = new StandardKernel(new RealmDbContextModule(), 
                 new RealmAdminDbContextModule(), new RealmLiveDbContextModule());
         }
 
-        [TearDown]
-        public static void CleanUp()
+        ~EnvironmentSetup()
         {
             _kernel.Dispose();
         }
 
-        [Test]
-        [Category("Integration")]
+        [Fact]
+        [Trait("Category", "Integration")]
         public void CreateAndInitializeDatabase_RealmAdmin()
         {
            // DropDatabase("AdminDbContext");
@@ -38,8 +35,8 @@ namespace Integration.Tests
             AdminDatabaseSeeder.Seed();
         }
 
-        [Test]
-        [Category("Integration")]
+        [Fact]
+        [Trait("Category", "Integration")]
         public void CreateAndInitializeDatabase_Realm()
         {
            // DropDatabase("RealmDbContext");
@@ -49,8 +46,8 @@ namespace Integration.Tests
             RealmDatabaseSeeder.Seed();
         }
 
-        [Test]
-        [Category("Integration")]
+        [Fact]
+        [Trait("Category", "Integration")]
         public void CreateAndInitializeDatabase_RealmLive()
         {
            // DropDatabase("LiveDbContext");

@@ -11,7 +11,7 @@
 //    {
 //        internal class FakeAbilityTemplate : FakeGameTemplate { }
 
-//        [TestMethod]
+//        [Fact]
 //        public void AbilityRepository_AddAbility_AlreadyExists_Test()
 //        {
 //            var repository = new AbilityRepository(TestHelper.MockGame.Object, TestHelper.MockEntityManager.Object);
@@ -21,7 +21,7 @@
 //            Assert.AreEqual(expected, actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void AbilityRepository_AddAbility_NullTemplate_Test()
 //        {
 //            var mockEntity = TestHelper.MockEntityManager;

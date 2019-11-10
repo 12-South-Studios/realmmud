@@ -1,42 +1,44 @@
-﻿using System;
-using NUnit.Framework;
+﻿using FluentAssertions;
+using Realm.Library.Ai.Test;
 using Realm.Library.Ai.Test.Fakes;
+using System;
+using Xunit;
 
-namespace Realm.Library.Ai.Test
+namespace Realm.Library.Ai.Fact
 {
-    [TestFixture]
-    public class AiBrainTests
+    public class AiBrainFacts
     {
-        [Test]
+        [Fact]
         public void Constructor_GetsNullOwner_ThrowsException()
         {
-            Assert.Throws<ArgumentNullException>(() => new FakeAiBrain(null, null, null), 
-                "Unit Test expected an ArgumentNullException to be thrown");
+            Action act = () => new FakeAiBrain(null, null, null);
+            act.Should().Throw<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void Constructor_GetsNullMessageHandler_ThrowsException()
         {
-            Assert.Throws<ArgumentNullException>(() => new FakeAiBrain(new FakeEntity(1, "test"), null, null), 
-                "Unit Test expected an ArgumentNullException to be thrown");
+            Action act = () => new FakeAiBrain(new FakeEntity(1, "Fact"), null, null);
+            act.Should().Throw<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void Constructor_GetsNullBehavior_ThrowsException()
         {
-            Assert.Throws<ArgumentNullException>(() => new FakeAiBrain(new FakeEntity(1, "test"), 
-                new MessageContext(), null), "Unit Test expected an ArgumentNullException to be thrown");
+            Action act = () => new FakeAiBrain(new FakeEntity(1, "Fact"), new MessageContext(), null);
+            act.Should().Throw<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void PushState_GetsNullParameter_ThrowsException()
         {
             var target = Helper.GetBrain();
-            Assert.Throws<ArgumentNullException>(() => target.PushState(null), 
-                "Unit Test expected an ArgumentNullException to be thrown");
+
+            Action act = () => target.PushState(null);
+            act.Should().Throw<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void PushState_GetsValidState_IsNowOnTopOfStack()
         {
             var target = Helper.GetBrain();
@@ -46,10 +48,10 @@ namespace Realm.Library.Ai.Test
             var expected = state;
             var actual = target.PopState();
 
-            Assert.That(expected, Is.EqualTo(actual));
+            actual.Should().Be(expected);
         }
 
-        [Test]
+        [Fact]
         public void PopState_PopsStateFromStack_IsValidState()
         {
             var target = Helper.GetBrain();
@@ -59,52 +61,52 @@ namespace Realm.Library.Ai.Test
             var expected = state;
             var actual = target.PopState();
 
-            Assert.That(expected, Is.EqualTo(actual));
+            actual.Should().Be(expected);
         }
 
-        [Test]
+        [Fact]
         public void HasState_GetsStringParameterEmpty_ThrowsException()
         {
             var target = Helper.GetBrain();
             var state = target.NeedState();
             target.PushState(state);
 
-            Assert.Throws<ArgumentNullException>(() => target.HasState(string.Empty), 
-                "Unit Test expected an ArgumentNullException to be thrown");
+            Action act = () => target.HasState(string.Empty);
+            act.Should().Throw<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void HasState_GetsStateParameterNull_ThrowsException()
         {
             var target = Helper.GetBrain();
             var state = target.NeedState();
             target.PushState(state);
 
-            Assert.Throws<ArgumentNullException>(() => target.HasState((IAiState)null), 
-                "Unit Test expected an ArgumentNullException to be thrown");
+            Action act = () => target.HasState((IAiState)null);
+            act.Should().Throw<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void HasState_VerifiesStateIsOnStack()
         {
             var target = Helper.GetBrain();
             var state = target.NeedState();
             target.PushState(state);
 
-            Assert.That(target.HasState(state), Is.True);
+            target.HasState(state).Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void HasState_CheckByNameIfOnStack()
         {
             var target = Helper.GetBrain();
             var state = target.NeedState();
             target.PushState(state);
 
-            Assert.That(target.HasState("Test"), Is.True);
+            target.HasState("test").Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void Wake_WhenCalled_IsNoLongerAsleep()
         {
             var target = Helper.GetBrain();
@@ -113,10 +115,10 @@ namespace Realm.Library.Ai.Test
 
             target.Wake();
 
-            Assert.That(target.IsAsleep, Is.False);
+            target.IsAsleep.Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void Wake_WhenCalled_AfterSleep_IsNowAwake()
         {
             var target = Helper.GetBrain();
@@ -126,10 +128,10 @@ namespace Realm.Library.Ai.Test
 
             target.Wake();
 
-            Assert.That(target.IsAsleep, Is.False);
+            target.IsAsleep.Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void Wake_WHenCalled_MakesTopStateActive()
         {
             var target = Helper.GetBrain();
@@ -138,10 +140,10 @@ namespace Realm.Library.Ai.Test
 
             target.Wake();
 
-            Assert.That(target.CurrentState.IsPaused, Is.False);
+            target.CurrentState.IsPaused.Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void Sleep_WhenCalled_IsNowAsleep()
         {
             var target = Helper.GetBrain();
@@ -150,10 +152,10 @@ namespace Realm.Library.Ai.Test
 
             target.Sleep();
 
-            Assert.That(target.IsAsleep, Is.True); 
+            target.IsAsleep.Should().BeTrue(); 
         }
 
-        [Test]
+        [Fact]
         public void Sleep_WhenCalled_MakesTopStateInactive()
         {
             var target = Helper.GetBrain();
@@ -162,7 +164,7 @@ namespace Realm.Library.Ai.Test
 
             target.Sleep();
 
-            Assert.That(target.CurrentState.IsPaused, Is.True);  
+            target.CurrentState.IsPaused.Should().BeTrue();  
         }
     }
 }

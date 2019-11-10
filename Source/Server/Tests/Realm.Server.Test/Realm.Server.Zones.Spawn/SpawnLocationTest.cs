@@ -6,7 +6,7 @@
 //    [TestClass]
 //    public class SpawnLocationTest
 //    {
-//        [TestMethod]
+//        [Fact]
 //        public void SpawnLocation_Constructor_Test()
 //        {
 //            var loc = new SpawnLocation(1, "test", Globals.Globals.SpawnTypes.None, 1000, 50);
@@ -19,7 +19,7 @@
 //            Assert.AreEqual(50, loc.Density);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void SpawnLocation_SetTypeDefault_Test()
 //        {
 //            var loc = new SpawnLocation(1, "test", Globals.Globals.SpawnTypes.Space, 1000, 50);
@@ -28,7 +28,7 @@
 //            Assert.AreEqual(Globals.Globals.SpawnTypes.None, loc.Type);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void SpawnLocation_SetTypeSpace_Test()
 //        {
 //            var loc = new SpawnLocation(1, "test", Globals.Globals.SpawnTypes.None, 1000, 50);
@@ -37,7 +37,7 @@
 //            Assert.AreEqual(Globals.Globals.SpawnTypes.Space, loc.Type);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void SpawnLocation_SetTypeAccess_Test()
 //        {
 //            var loc = new SpawnLocation(1, "test", Globals.Globals.SpawnTypes.None, 1000, 50);

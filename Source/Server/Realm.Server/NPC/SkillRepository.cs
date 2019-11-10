@@ -1,5 +1,5 @@
-﻿using Realm.Library.Patterns.Repository;
-using Realm.Server.Attributes;
+﻿using Realm.Server.Attributes;
+using Realm.Standard.Patterns.Repository;
 
 namespace Realm.Server.NPC
 {

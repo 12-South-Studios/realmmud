@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
-using NUnit.Framework;
+using FluentAssertions;
 using Realm.Library.Common.Contexts;
 using Realm.Library.Common.Objects;
+using Xunit;
 
-namespace Realm.Library.Common.Test
+namespace Realm.Library.Common.Fact
 {
-    [TestFixture]
-    public class PropertyContextTests
+    public class PropertyContextFacts
     {
         private class FakeEntity : Entity
         {
@@ -17,182 +17,197 @@ namespace Realm.Library.Common.Test
         }
 
         [Flags]
-        private enum TestEnum
+        private enum FactEnum
         {
-            Test1,
-            Test2
+            Fact1,
+            Fact2
         };
 
-        [Test]
-        public void SetProperty_StringName_NoOptions_Test()
+        [Fact]
+        public void SetProperty_StringName_NoOptions_Fact()
         {
-            var fake = new FakeEntity(1, "Test");
+            var fake = new FakeEntity(1, "Fact");
 
             var ctx = new PropertyContext(fake);
             ctx.SetProperty("NullProperty", "Nothing");
 
-            Assert.That(ctx.GetProperty<string>("NullProperty"), Is.EqualTo("Nothing"));
+            var result = ctx.GetProperty<string>("NullProperty");
+            result.Should().Be("Nothing");
         }
 
-        [Test]
-        public void SetProperty_StringName_Volatile_SetExisting_Test()
+        [Fact]
+        public void SetProperty_StringName_Volatile_SetExisting_Fact()
         {
-            var fake = new FakeEntity(1, "Test");
+            var fake = new FakeEntity(1, "Fact");
 
             var ctx = new PropertyContext(fake);
             ctx.SetProperty("NullProperty", "Nothing", PropertyTypeOptions.Volatile);
 
-            Assert.That(ctx.GetProperty<string>("NullProperty"), Is.EqualTo("Nothing"));
+            var result = ctx.GetProperty<string>("NullProperty");
+            result.Should().Be("Nothing");
 
             ctx.SetProperty("NullProperty", "Still Nothing");
 
-            Assert.That(ctx.GetProperty<string>("NullProperty"), Is.EqualTo("Still Nothing"));
+            result = ctx.GetProperty<string>("NullProperty");
+            result.Should().Be("Still Nothing");
         }
 
-        [Test]
-        public void SetProperty_Enum_NoOptions_Test()
+        [Fact]
+        public void SetProperty_Enum_NoOptions_Fact()
         {
-            var fake = new FakeEntity(1, "Test");
+            var fake = new FakeEntity(1, "Fact");
 
             var ctx = new PropertyContext(fake);
-            ctx.SetProperty(TestEnum.Test1, "Nothing");
+            ctx.SetProperty(FactEnum.Fact1, "Nothing");
 
-            Assert.That(ctx.GetProperty<string>("Test1"), Is.EqualTo("Nothing"));
+            var result = ctx.GetProperty<string>("Fact1");
+            result.Should().Be("Nothing");
         }
 
-        [Test]
-        public void HasProperty_Test()
+        [Fact]
+        public void HasProperty_Fact()
         {
-            var fake = new FakeEntity(1, "Test");
+            var fake = new FakeEntity(1, "Fact");
 
             var ctx = new PropertyContext(fake);
-            ctx.SetProperty(TestEnum.Test1, "Nothing");
+            ctx.SetProperty(FactEnum.Fact1, "Nothing");
 
-            Assert.That(ctx.HasProperty("Test1"), Is.True);
+            var result = ctx.HasProperty("Fact1");
+            result.Should().BeTrue();
         }
 
-        [Test]
-        public void IsPersistable_True_Test()
+        [Fact]
+        public void IsPersistable_True_Fact()
         {
-            var fake = new FakeEntity(1, "Test");
+            var fake = new FakeEntity(1, "Fact");
 
             var ctx = new PropertyContext(fake);
-            ctx.SetProperty(TestEnum.Test1, "Nothing", PropertyTypeOptions.Persistable);
+            ctx.SetProperty(FactEnum.Fact1, "Nothing", PropertyTypeOptions.Persistable);
 
-            Assert.That(ctx.IsPersistable("Test1"), Is.True);
+            var result = ctx.IsPersistable("Fact1");
+            result.Should().BeTrue();
         }
 
-        [Test]
-        public void IsPersistable_False_Test()
+        [Fact]
+        public void IsPersistable_False_Fact()
         {
-            var fake = new FakeEntity(1, "Test");
+            var fake = new FakeEntity(1, "Fact");
 
             var ctx = new PropertyContext(fake);
-            ctx.SetProperty(TestEnum.Test1, "Nothing");
+            ctx.SetProperty(FactEnum.Fact1, "Nothing");
 
-            Assert.That(ctx.IsPersistable("Test1"), Is.False);
+            var result = ctx.IsPersistable("Fact1");
+            result.Should().BeFalse();
         }
 
-        [Test]
-        public void IsVisible_True_Test()
+        [Fact]
+        public void IsVisible_True_Fact()
         {
-            var fake = new FakeEntity(1, "Test");
+            var fake = new FakeEntity(1, "Fact");
 
             var ctx = new PropertyContext(fake);
-            ctx.SetProperty(TestEnum.Test1, "Nothing", PropertyTypeOptions.Visible);
+            ctx.SetProperty(FactEnum.Fact1, "Nothing", PropertyTypeOptions.Visible);
 
-            Assert.That(ctx.IsVisible("Test1"), Is.True);
+            var result = ctx.IsVisible("Fact1");
+            result.Should().BeTrue();
         }
 
-        [Test]
-        public void IsVisible_False_Test()
+        [Fact]
+        public void IsVisible_False_Fact()
         {
-            var fake = new FakeEntity(1, "Test");
+            var fake = new FakeEntity(1, "Fact");
 
             var ctx = new PropertyContext(fake);
-            ctx.SetProperty(TestEnum.Test1, "Nothing");
+            ctx.SetProperty(FactEnum.Fact1, "Nothing");
 
-            Assert.That(ctx.IsVisible("Test1"), Is.False);
+            var result = ctx.IsVisible("Fact1");
+            result.Should().BeFalse();
         }
 
-        [Test]
-        public void IsVolatile_True_Test()
+        [Fact]
+        public void IsVolatile_True_Fact()
         {
-            var fake = new FakeEntity(1, "Test");
+            var fake = new FakeEntity(1, "Fact");
 
             var ctx = new PropertyContext(fake);
-            ctx.SetProperty(TestEnum.Test1, "Nothing", PropertyTypeOptions.Volatile);
+            ctx.SetProperty(FactEnum.Fact1, "Nothing", PropertyTypeOptions.Volatile);
 
-            Assert.That(ctx.IsVolatile("Test1"), Is.True);
+            var result = ctx.IsVolatile("Fact1");
+            result.Should().BeTrue();
         }
 
-        [Test]
-        public void IsVolatile_False_Test()
+        [Fact]
+        public void IsVolatile_False_Fact()
         {
-            var fake = new FakeEntity(1, "Test");
+            var fake = new FakeEntity(1, "Fact");
 
             var ctx = new PropertyContext(fake);
-            ctx.SetProperty(TestEnum.Test1, "Nothing");
+            ctx.SetProperty(FactEnum.Fact1, "Nothing");
 
-            Assert.That(ctx.IsVolatile("Test1"), Is.False);
+            var result = ctx.IsVolatile("Fact1");
+            result.Should().BeFalse();
         }
 
-        [Test]
-        public void RemoveProperty_Test()
+        [Fact]
+        public void RemoveProperty_Fact()
         {
-            var fake = new FakeEntity(1, "Test");
+            var fake = new FakeEntity(1, "Fact");
 
             var ctx = new PropertyContext(fake);
-            ctx.SetProperty(TestEnum.Test1, "Nothing");
+            ctx.SetProperty(FactEnum.Fact1, "Nothing");
 
-            Assert.That(ctx.HasProperty("Test1"), Is.True);
+            var result = ctx.HasProperty("Fact1");
+            result.Should().BeTrue();
 
-            ctx.RemoveProperty("Test1");
+            ctx.RemoveProperty("Fact1");
 
-            Assert.That(ctx.HasProperty("Test1"), Is.False);
+            result = ctx.HasProperty("Fact1");
+            result.Should().BeFalse();
         }
 
-        [TestCase(PropertyTypeOptions.None, "")]
-        [TestCase(PropertyTypeOptions.Persistable, "p")]
-        [TestCase(PropertyTypeOptions.Persistable | PropertyTypeOptions.Visible, "pi")]
-        [TestCase(PropertyTypeOptions.Persistable | PropertyTypeOptions.Visible | PropertyTypeOptions.Volatile, "pvi")]
-        public void GetPropertyBits_Test(PropertyTypeOptions options, string expectedValue)
+        [Theory]
+        [InlineData(PropertyTypeOptions.None, "")]
+        [InlineData(PropertyTypeOptions.Persistable, "p")]
+        [InlineData(PropertyTypeOptions.Persistable | PropertyTypeOptions.Visible, "pi")]
+        [InlineData(PropertyTypeOptions.Persistable | PropertyTypeOptions.Visible | PropertyTypeOptions.Volatile, "pvi")]
+        public void GetPropertyBits_Fact(PropertyTypeOptions options, string expectedValue)
         {
-            var fake = new FakeEntity(1, "Test");
+            var fake = new FakeEntity(1, "Fact");
 
             var ctx = new PropertyContext(fake);
-            ctx.SetProperty(TestEnum.Test1, "Nothing", options);
+            ctx.SetProperty(FactEnum.Fact1, "Nothing", options);
 
-            Assert.That(ctx.GetPropertyBits("Test1"), Is.EqualTo(expectedValue));
+            var result = ctx.GetPropertyBits("Fact1");
+            result.Should().Be(expectedValue);
         }
 
-        [Test]
-        public void Count_Test()
+        [Fact]
+        public void Count_Fact()
         {
-            var fake = new FakeEntity(1, "Test");
+            var fake = new FakeEntity(1, "Fact");
 
             var ctx = new PropertyContext(fake);
-            ctx.SetProperty(TestEnum.Test1, "Test #1");
-            ctx.SetProperty(TestEnum.Test2, "Test #2");
+            ctx.SetProperty(FactEnum.Fact1, "Fact #1");
+            ctx.SetProperty(FactEnum.Fact2, "Fact #2");
             
-            Assert.That(ctx.Count, Is.EqualTo(2));
+            ctx.Count.Should().Be(2);
         }
 
-        [Test]
-        public void PropertyKeys_Test()
+        [Fact]
+        public void PropertyKeys_Fact()
         {
-            var fake = new FakeEntity(1, "Test");
+            var fake = new FakeEntity(1, "Fact");
 
             var ctx = new PropertyContext(fake);
-            ctx.SetProperty(TestEnum.Test1, "Test #1");
-            ctx.SetProperty(TestEnum.Test2, "Test #2");
+            ctx.SetProperty(FactEnum.Fact1, "Fact #1");
+            ctx.SetProperty(FactEnum.Fact2, "Fact #2");
 
             var keys = ctx.PropertyKeys;
 
-            Assert.That(keys, Is.Not.Null);
-            Assert.That(keys.Count(), Is.EqualTo(2));
-            Assert.That(keys.Contains("Test1"), Is.True);
-            Assert.That(keys.Contains("Test2"), Is.True);
+            keys.Should().NotBeNull();
+            keys.Count().Should().Be(2);
+            keys.Contains("Fact1").Should().BeTrue();
+            keys.Contains("Fact2").Should().BeTrue();
         }
     }
 }

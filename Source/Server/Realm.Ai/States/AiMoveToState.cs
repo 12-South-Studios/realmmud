@@ -22,7 +22,7 @@ namespace Realm.Ai.States
 
         public override void Execute()
         {
-            if (MoveTo.IsNull())
+            if (MoveTo == null)
             {
                 Parent.Messages.Add(Resources.MSG_AI_INVALID_DESTINATION);
                 Parent.PopState();
@@ -38,7 +38,7 @@ namespace Realm.Ai.States
             }
 
             var exit = Location.Portals.Single(x => x.TargetSpace == MoveTo.SpaceDef);
-            if (exit.IsNull())
+            if (exit == null)
             {
                 Parent.Messages.Add(Resources.MSG_AI_NO_PORTAL_TO_DESTINATION);
                 Parent.PopState();
@@ -55,10 +55,10 @@ namespace Realm.Ai.States
             base.OnResume();
 
             var owner = Parent.Owner.CastAs<IBiota>();
-            Validation.Validate(owner.IsNotNull(), Resources.ERR_AISTATE_NO_OWNER, ID, Name);
+            Validation.Validate(owner != null, Resources.ERR_AISTATE_NO_OWNER, ID, Name);
 
             Location = owner.Location.CastAs<Space>();
-            Validation.Validate(Location.IsNotNull(), Resources.ERR_MOBILE_NO_LOCATION, owner.ID, owner.Name);
+            Validation.Validate(Location != null, Resources.ERR_MOBILE_NO_LOCATION, owner.ID, owner.Name);
 
             if (Location.Equals(MoveTo))
             {
@@ -68,7 +68,7 @@ namespace Realm.Ai.States
             }
 
             var exit = Location.Portals.Single(x => x.TargetSpace == MoveTo.SpaceDef);
-            if (exit.IsNull())
+            if (exit == null)
             {
                 Parent.Messages.Add(Resources.MSG_AI_NO_PORTAL_TO_DESTINATION);
                 Parent.PopState();

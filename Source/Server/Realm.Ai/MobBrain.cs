@@ -4,7 +4,6 @@ using Realm.Entity.Interfaces;
 using Realm.Library.Ai;
 using Realm.Library.Common.Entities;
 using Realm.Library.Common.Logging;
-using Realm.Library.Common.Objects;
 
 namespace Realm.Ai
 {
@@ -32,16 +31,15 @@ namespace Realm.Ai
 
             _loggingDumpCounter++;
 
-            if (CurrentState.IsNull())
+            if (CurrentState == null)
                 PushState(NeedState());
             else
                 CurrentState.Execute();
 
-            if (_loggingDumpCounter > 60)
-            {
-                Messages.Dump(_log);
-                _loggingDumpCounter = 0;
-            }
+            if (_loggingDumpCounter <= 60) return;
+
+            Messages.Dump(_log);
+            _loggingDumpCounter = 0;
         }
 
         /// <summary>
@@ -50,7 +48,7 @@ namespace Realm.Ai
         public override IAiState NeedState()
         {
             var mob = CheckMobAndReturn();
-            if (mob.IsNull()) return null;
+            if (mob == null) return null;
 
             if (mob.IsDead)
             {
@@ -60,15 +58,12 @@ namespace Realm.Ai
 
             // Let the behavior determine what state is needed
             // then go below and let the rest of the code execute
-            if (Behavior.IsNotNull())
+            var newState = Behavior?.NeedState();
+            if (newState != null)
             {
-                var newState = Behavior.NeedState();
-                if (newState.IsNotNull())
-                {
-                    Messages.Add(string.Format(Resources.MSG_AI_NEEDSTATE_STATE,
-                        Owner.ID, Owner.Name, newState.ID, newState.Name));
-                    return newState;
-                }
+                Messages.Add(string.Format(Resources.MSG_AI_NEEDSTATE_STATE,
+                    Owner.ID, Owner.Name, newState.ID, newState.Name));
+                return newState;
             }
 
             Messages.Add(string.Format(Resources.MSG_AI_NEEDSTATE_NOTHING, Owner.ID, Owner.Name));
@@ -81,12 +76,10 @@ namespace Realm.Ai
         private IRegularMob CheckMobAndReturn()
         {
             var mob = Owner as IRegularMob;
-            if (mob.IsNull())
-            {
-                _log.ErrorFormat(Resources.ERR_AI_OWNER_NOT_MOBILE, Owner.ID, Owner.Name);
-                return null;
-            }
-            return mob;
+            if (mob != null) return mob;
+
+            _log.ErrorFormat(Resources.ERR_AI_OWNER_NOT_MOBILE, Owner.ID, Owner.Name);
+            return null;
         }
     }
 }

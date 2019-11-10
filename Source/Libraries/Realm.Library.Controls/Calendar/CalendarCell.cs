@@ -1,9 +1,7 @@
 using System;
 using System.Windows.Forms;
-using Realm.Library.Common.Objects;
 
 namespace Realm.Library.Controls.Calendar
-
 {
     /// <summary>
     ///
@@ -30,10 +28,8 @@ namespace Realm.Library.Controls.Calendar
             base.InitializeEditingControl(rowIndex, initialFormattedValue, dataGridViewCellStyle);
 
             var ctl = DataGridView.EditingControl as CalendarEditingControl;
-            if (ctl.IsNotNull())
-                // ReSharper disable PossibleNullReferenceException
+            if (ctl != null)
                 ctl.Value = (DateTime)Value;
-            // ReSharper restore PossibleNullReferenceException
         }
 
         /// <summary>

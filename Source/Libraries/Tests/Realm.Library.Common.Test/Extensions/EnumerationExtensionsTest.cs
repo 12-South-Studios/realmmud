@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using NUnit.Framework;
+using FluentAssertions;
 using Realm.Library.Common.Attributes;
 using Realm.Library.Common.Extensions;
+using Xunit;
 
 namespace Realm.Library.Common.Test.Extensions
 {
-    [TestFixture]
     public class EnumerationExtensionsTest
     {
         public enum EnumTest
@@ -43,148 +43,152 @@ namespace Realm.Library.Common.Test.Extensions
             Test3
         }
 
-        [Test]
+        [Fact]
         public void GetValueInRangeMatchTest()
         {
             var value = EnumerationExtensions.GetValueInRange(18, RangeTest.Test2);
-            Assert.That(value, Is.EqualTo(RangeTest.Test3));
+            value.Should().Be(RangeTest.Test3);
         }
 
-        [Test]
+        [Fact]
         public void GetValueInRangeNoMatchTest()
         {
             var value = EnumerationExtensions.GetValueInRange(-2, RangeTest.Test2);
-            Assert.That(value, Is.EqualTo(RangeTest.Test2)); 
+            value.Should().Be(RangeTest.Test2);
         }
 
-        [Test]
+        [Fact]
         public void GetMinimumRangeTest()
         {
             var value = RangeTest.Test1.GetMinimum();
-            Assert.That(value, Is.EqualTo(5));
+            value.Should().Be(5);
         }
 
-        [Test]
+        [Fact]
         public void GetMaximumRangeTest()
         {
             var value = RangeTest.Test1.GetMaximum();
-            Assert.That(value, Is.EqualTo(10));
+            value.Should().Be(10);
         }
 
-        [Test]
+        [Fact]
         public void GetMinimumRangeWhenNotSpecifiedTest()
         {
             var value = RangeTest.Test2.GetMinimum();
-            Assert.That(value, Is.EqualTo(Int32.MinValue));
+            value.Should().Be(int.MinValue);
         }
 
-        [Test]
+        [Fact]
         public void GetEnumIgnoreCaseTest()
         {
             var value = EnumerationExtensions.GetEnumIgnoreCase<EnumTest>("test");
-
-            Assert.That(value, Is.EqualTo(EnumTest.Test));
+            value.Should().Be(EnumTest.Test);
         }
 
-        [Test]
+        [Fact]
         public void GetEnumIgnoreCaseInvalidTest()
         {
-            Assert.Throws<InvalidEnumArgumentException>(
-                () => EnumerationExtensions.GetEnumIgnoreCase<EnumTest>("tester"),
-                "Unit test expected an InvalidEnumArgumentException to be thrown");
+            Action act = () => EnumerationExtensions.GetEnumIgnoreCase<EnumTest>("tester");
+            act.Should().Throw<InvalidEnumArgumentException>();
         }
 
-        [Test]
+        [Fact]
         public void GetEnumTest()
         {
-            Assert.That(EnumerationExtensions.GetEnum<EnumTest>("Test"), Is.EqualTo(EnumTest.Test));
-            Assert.That(EnumTest.Test.GetName(), Is.EqualTo("Test"));
-            Assert.That(EnumTest.Test.GetValue(), Is.EqualTo(1));
-            Assert.That(EnumTest.Test.GetShortName(), Is.EqualTo("Testing"));
-            Assert.That(NameTest.Test.GetName(), Is.EqualTo("Test"));
+            var result = EnumerationExtensions.GetEnum<EnumTest>("Test");
+            result.Should().Be(EnumTest.Test);
+
+            EnumTest.Test.GetName().Should().Be("Test");
+            EnumTest.Test.GetValue().Should().Be(1);
+            EnumTest.Test.GetShortName().Should().Be("Testing");
+            EnumTest.Test.GetName().Should().Be("Test");
         }
 
-        [TestCase(EnumTest.Test, 2, false)]
-        [TestCase(EnumTest.Test, 3, true)]
+        [Theory]
+        [InlineData(EnumTest.Test, 2, false)]
+        [InlineData(EnumTest.Test, 3, true)]
         public void HasBitTest(EnumTest value, int bit, bool expected)
         {
-            Assert.That(value.HasBit(bit), Is.EqualTo(expected));
+            value.HasBit(bit).Should().Be(expected);
         }
 
-        [Test]
+        [Fact]
         public void GetExtraDataTest()
         {
-            Assert.That(EnumTest.Test.GetExtraData(), Is.EqualTo("Extra,Data"));
+            var result = EnumTest.Test.GetExtraData();
+            result.Should().Be("Extra,Data");
         }
 
-        [Test]
+        [Fact]
         public void ParseExtraDataTest()
         {
             var list = EnumTest.Test.ParseExtraData(",").ToList();
 
-            Assert.That(list.Count, Is.EqualTo(2));
-            Assert.That(list[0], Is.EqualTo("Extra"));
-            Assert.That(list[1], Is.EqualTo("Data"));
+            list.Count.Should().Be(2);
+            list[0].Should().Be("Extra");
+            list[1].Should().Be("Data");
         }
 
-        [Test]
+        [Fact]
         public void GetEnumIntTest()
         {
-            Assert.That(EnumerationExtensions.GetEnum<EnumTest>(1024), Is.EqualTo(EnumTest.Test1));
+            var result = EnumerationExtensions.GetEnum<EnumTest>(1024);
+            result.Should().Be(EnumTest.Test1);
         }
 
-        [Test]
+        [Fact]
         public void GetEnumIntInvalidTest()
         {
-            Assert.Throws<ArgumentException>(() => EnumerationExtensions.GetEnum<EnumTest>(111),
-                                             "Unit test expected an ArgumentException to be thrown");
+            Action act = () => EnumerationExtensions.GetEnum<EnumTest>(111);
+            act.Should().Throw<ArgumentException>();
         }
 
-        [Test]
+        [Fact]
         public void GetEnumStringTest()
         {
-            Assert.That(EnumerationExtensions.GetEnum<EnumTest>("Test1"), Is.EqualTo(EnumTest.Test1));
+            var result = EnumerationExtensions.GetEnum<EnumTest>("Test1");
+            result.Should().Be(EnumTest.Test1);
         }
 
-        [Test]
+        [Fact]
         public void GetEnumStringInvalidTest()
         {
-            Assert.Throws<ArgumentException>(() => EnumerationExtensions.GetEnum<EnumTest>("Blah"),
-                                             "Unit test expected an ArgumentException to be thrown");
+            Action act = () => EnumerationExtensions.GetEnum<EnumTest>("Blah");
+            act.Should().Throw<ArgumentException>();
         }
 
-        [TestCase(1024, true)]
-        [TestCase(111, false)]
+        [Theory]
+        [InlineData(1024, true)]
+        [InlineData(111, false)]
         public void HasBitsTest(int bit, bool expected)
         {
-            Assert.That(EnumTest.All.HasBit(bit), Is.EqualTo(expected));
+            EnumTest.All.HasBit(bit).Should().Be(expected);
         }
 
-        [Test]
+        [Fact]
         public void GetValuesTest()
         {
             var expectedList = new List<EnumTest> { EnumTest.All, EnumTest.Test, EnumTest.Test1, EnumTest.Test2 };
 
             var values = EnumerationExtensions.GetValues<EnumTest>().ToList();
 
-            Assert.That(values.Count(), Is.EqualTo(4));
-            CollectionAssert.AreEquivalent(values, expectedList);
+            values.Count().Should().Be(4);
+            values.Should().BeEquivalentTo(expectedList);
         }
 
-        [Test]
+        [Fact]
         public void GetEnumByNameTest()
         {
             var value = EnumerationExtensions.GetEnumByName<EnumTest>("Test Two");
 
-            Assert.That(value, Is.EqualTo(EnumTest.Test2));
+            value.Should().Be(EnumTest.Test2);
         }
 
-        [Test]
+        [Fact]
         public void GetEnumByNameInvalidTest()
         {
-            Assert.Throws<InvalidEnumArgumentException>(
-                () => EnumerationExtensions.GetEnumByName<EnumTest>("Invalid Name"),
-                "Unit test expected an InvalidEnumArgumentException to be thrown");
+            Action act = () => EnumerationExtensions.GetEnumByName<EnumTest>("Invalid Name");
+            act.Should().Throw<InvalidEnumArgumentException>();
         }
     }
 }

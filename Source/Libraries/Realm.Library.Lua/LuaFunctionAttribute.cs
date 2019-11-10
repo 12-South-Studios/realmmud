@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Realm.Library.Lua
 {
+    /// <inheritdoc />
     /// <summary>
     /// Defines an attribute for a Lua Function
     /// </summary>
@@ -11,6 +12,7 @@ namespace Realm.Library.Lua
     {
         private readonly IList<string> _parameters;
 
+        /// <inheritdoc />
         /// <summary>
         /// Initializes a new instance of the LuaFunctionAttribute class.
         /// </summary>
@@ -24,6 +26,7 @@ namespace Realm.Library.Lua
             _parameters = parameters;
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// Initializes a new instance of the LuaFunctionAttribute class.
         /// </summary>
@@ -38,12 +41,12 @@ namespace Realm.Library.Lua
         /// <summary>
         /// Gets the name of the function
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the documentation for the function
         /// </summary>
-        public string Description { get; private set; }
+        public string Description { get; }
 
         /// <summary>
         /// Gets the parameters for the function

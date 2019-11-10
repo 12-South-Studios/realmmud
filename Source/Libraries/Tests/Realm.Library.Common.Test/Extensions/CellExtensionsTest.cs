@@ -1,6 +1,7 @@
 ﻿using System;
-using NUnit.Framework;
+using FluentAssertions;
 using Realm.Library.Common.Objects;
+using Xunit;
 
 namespace Realm.Library.Common.Test.Extensions
 {
@@ -12,30 +13,30 @@ namespace Realm.Library.Common.Test.Extensions
             Name = name;
         }
     }
-
-    [TestFixture]
+    
     public class CellExtensionsTest
     {
         private static TestCell GetTestCell() { return new TestCell(1, "test"); }
 
-        [TestCase("test", true)]
-        [TestCase("tester", false)]
-        [TestCase("1", true)]
-        [TestCase("2", false)]
-        [TestCase("te", true)]
+        [Theory]
+        [InlineData("test", true)]
+        [InlineData("tester", false)]
+        [InlineData("1", true)]
+        [InlineData("2", false)]
+        [InlineData("te", true)]
         public void CompareNameTest(string value, bool expected)
         {
             var cell = GetTestCell();
-            Assert.That(cell.CompareName(value), Is.EqualTo(expected));
+            cell.CompareName(value).Should().Be(expected);
         }
 
-        [Test]
+        [Fact]
         public void CompareNameNameNullEmptyTest()
         {
             var value = new TestCell(1, "");
 
-            Assert.Throws<ArgumentNullException>(() => value.CompareName(string.Empty),
-                                                 "Unit Test expected an ArgumentNullException to be thrown");
+            Action act = () => value.CompareName(string.Empty);
+            act.Should().Throw<ArgumentNullException>();
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Realm.Edit.Extensions
                 if (CompareNodeToBrowse(node, browseInfo))
                     return node;
 
-                TreeNode foundNode = FindTreeNodeImpl(node.Nodes, browseInfo);
+                var foundNode = FindTreeNodeImpl(node.Nodes, browseInfo);
                 if (foundNode != null)
                     return foundNode;
             }

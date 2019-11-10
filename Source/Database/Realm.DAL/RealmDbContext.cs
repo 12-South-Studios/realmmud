@@ -15,8 +15,8 @@ namespace Realm.DAL
 {
     public class RealmDbContext : DbContext, IRealmDbContext
     {
-        private ILogWrapper Logger { get; set; }
-        public ObjectContext ObjectContext { get; private set; }
+        private ILogWrapper Logger { get; }
+        public ObjectContext ObjectContext { get; }
 
         private DateTime _lastSaveTimeUtc;
 

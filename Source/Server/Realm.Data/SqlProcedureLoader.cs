@@ -8,7 +8,6 @@ using Realm.Data.Properties;
 using Realm.Library.Common.Exceptions;
 using Realm.Library.Common.Extensions;
 using Realm.Library.Common.Logging;
-using Realm.Library.Common.Objects;
 using Realm.Library.Database;
 using Realm.Library.Database.Framework;
 
@@ -79,7 +78,7 @@ namespace Realm.Data
                 }
                 finally
                 {
-                    if (Connection.IsNotNull() && Connection.State != ConnectionState.Closed)
+                    if (Connection != null && Connection.State != ConnectionState.Closed)
                         Connection.Close();
                 }
 
@@ -100,30 +99,7 @@ namespace Realm.Data
             try
             {
                 Connection.TryOpen();
-
-                procedureList.ToList().ForEach(proc =>
-                                                   {
-                                                       var procedure = new StoredProcedure<SqlParameter>(_schema, proc);
-                                                       using (var command = Connection.CreateCommand())
-                                                       {
-                                                           var sb = new StringBuilder(Resources.SQL_PARAMETER_QUERY);
-                                                           sb = sb.Replace("@Catalog", _catalog);
-                                                           sb = sb.Replace("@Schema", _schema);
-                                                           sb = sb.Replace("@ProcName", proc);
-                                                           command.CommandText = sb.ToString();
-                                                           command.CommandType = CommandType.Text;
-
-
-                                                           var reader = command.ExecuteReader();
-                                                           while (reader.Read())
-                                                           {
-                                                               procedure.AddParameter(CreateParameter(reader));
-                                                           }
-                                                           reader.Dispose();
-                                                       }
-
-                                                       procedureRepo.Add(new ProcedureKey(_schema, proc), procedure);
-                                                   });
+                procedureList.ToList().ForEach(proc => ProcessProcedure(proc, procedureRepo));
             }
             catch (SqlException ex)
             {
@@ -131,10 +107,34 @@ namespace Realm.Data
             }
             finally
             {
-                if (Connection.IsNotNull() && Connection.State != ConnectionState.Closed)
+                if (Connection != null && Connection.State != ConnectionState.Closed)
                     Connection.Close();
             }
             return procedureRepo;
+        }
+
+        private void ProcessProcedure(string proc, IProcedureRepository procedureRepo)
+        {
+            var procedure = new StoredProcedure<SqlParameter>(_schema, proc);
+            using (var command = Connection.CreateCommand())
+            {
+                var sb = new StringBuilder(Resources.SQL_PARAMETER_QUERY);
+                sb = sb.Replace("@Catalog", _catalog);
+                sb = sb.Replace("@Schema", _schema);
+                sb = sb.Replace("@ProcName", proc);
+                command.CommandText = sb.ToString();
+                command.CommandType = CommandType.Text;
+
+
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    procedure.AddParameter(CreateParameter(reader));
+                }
+                reader.Dispose();
+            }
+
+            procedureRepo.Add(new ProcedureKey(_schema, proc), procedure);
         }
 
         /// <summary>

@@ -96,11 +96,11 @@ namespace Realm.Entity
                     obj = ctors[0].Invoke(new object[] { id, definition });
                 }
 
-                if (obj.IsNull())
+                if (obj == null)
                     throw new InstantiationException(Resources.ERR_FAIL_INSTANTIATE_OBJECT, type, id);
 
                 entity = Convert.ChangeType(obj, type);
-                if (entity.IsNull())
+                if (entity == null)
                     throw new InvalidCastException(string.Format(Resources.ERR_REPOSITORY_INVALID_TYPE, type));
 
                 _repository.Add(id, entity as IEntity);
@@ -111,10 +111,10 @@ namespace Realm.Entity
             }
 
             _eventManager.ThrowEvent<OnEntityCreated>(this, new EventTable
-                                                                {
-                                                                    {"EntityID", id },
-                                                                    {"Entity", entity}
-                                                                });
+            {
+                {"EntityID", id},
+                {"Entity", entity}
+            });
             return entity;
         }
 

@@ -1,31 +1,29 @@
-﻿using System;
-using NUnit.Framework;
+﻿using FluentAssertions;
 using Realm.Library.Common.Events;
+using Xunit;
 
 namespace Realm.Library.Common.Test.Events
 {
-    [TestFixture]
     public class EventListenerTest
     {
         private EventCallback<RealmEventArgs> _eventCallback;
 
-        [SetUp]
-        public void Setup()
+        public EventListenerTest()
         {
             _eventCallback = args => { };
         }
 
-        [Test]
+        [Fact]
         public void ToStringTest()
         {
-            var listener = new EventListener("tester", "testee", typeof(String), _eventCallback);
+            var listener = new EventListener("tester", "testee", typeof(string), _eventCallback);
 
-            Assert.That(listener, Is.Not.Null);
+            listener.Should().NotBeNull();
 
             const string expected = "Listener tester, ListenTo testee, EventType System.String, " +
-                "CallbackFunction Realm.Library.Common.EventCallback`1[Realm.Library.Common.RealmEventArgs]";
+                "CallbackFunction Realm.Library.Common.Events.EventCallback`1[Realm.Library.Common.Events.RealmEventArgs]";
 
-            Assert.That(listener.ToString(), Is.EqualTo(expected));
+            listener.ToString().Should().Be(expected);
         }
     }
 }

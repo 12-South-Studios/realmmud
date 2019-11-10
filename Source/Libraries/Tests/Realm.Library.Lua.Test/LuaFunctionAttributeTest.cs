@@ -1,24 +1,24 @@
-﻿using NUnit.Framework;
+﻿using FluentAssertions;
+using Xunit;
 
 namespace Realm.Library.Lua.Test
 {
-    [TestFixture]
     public class LuaFunctionAttributeTest
     {
-        [Test]
+        [Fact]
         public void LuaFunctionAttribute_Constructor1_Test()
         {
             const string name = "test";
             const string desc = "description";
 
             var actual = new LuaFunctionAttribute(name, desc);
-            
-            Assert.That(actual, Is.Not.Null);
-            Assert.That(actual.Name, Is.EqualTo(name));
-            Assert.That(actual.Description, Is.EqualTo(desc));
+
+            actual.Should().NotBeNull();
+            actual.Name.Should().Be(name);
+            actual.Description.Should().Be(desc);
         }
 
-        [Test]
+        [Fact]
         public void LuaFunctionAttribute_Constructor2_Test()
         {
             const string name = "test";
@@ -27,10 +27,10 @@ namespace Realm.Library.Lua.Test
 
             var actual = new LuaFunctionAttribute(name, desc, parameters);
 
-            Assert.That(actual, Is.Not.Null);
-            Assert.That(actual.Name, Is.EqualTo(name));
-            Assert.That(actual.Description, Is.EqualTo(desc));
-            Assert.That(actual.Parameters, Is.EqualTo(parameters));
+            actual.Should().NotBeNull();
+            actual.Name.Should().Be(name);
+            actual.Description.Should().Be(desc);
+            actual.Parameters.Should().BeEquivalentTo(parameters);
         }
     }
 }

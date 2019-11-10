@@ -1,10 +1,10 @@
 ﻿using System;
-using NUnit.Framework;
+using FluentAssertions;
 using Realm.Library.Common.Serializers;
+using Xunit;
 
 namespace Realm.Library.Common.Test.Serializers
 {
-    [TestFixture]
     public class JsonExtensionTests
     {
         [Serializable]
@@ -14,14 +14,14 @@ namespace Realm.Library.Common.Test.Serializers
             public string StringProp { get; set; }
         }
 
-        [Test]
+        [Fact]
         public void ToJsonNullObjectTest()
         {
-            Assert.Throws<ArgumentNullException>(() => JSONExtensions.ToJSON<SerializableObjectFake>(null),
-                                                 "Unit test expected an ArgumentNullException to be thrown");
+            Action act = () => JSONExtensions.ToJSON<SerializableObjectFake>(null);
+            act.Should().Throw<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void ToJsonTest()
         {
             var obj = new SerializableObjectFake
@@ -34,23 +34,24 @@ namespace Realm.Library.Common.Test.Serializers
 
             const string value = "{\"<IntegerProp>k__BackingField\":5,\"<StringProp>k__BackingField\":\"Test\"}";
 
-            Assert.That(string.IsNullOrEmpty(result), Is.False);
-            Assert.That(result, Is.EqualTo(value));
+            string.IsNullOrEmpty(result).Should().BeFalse();
+            result.Should().Be(value);
         }
 
-        [Test]
+        [Fact]
         public void FromJsonNullStringTest()
         {
-            Assert.Throws<ArgumentNullException>(() => JSONExtensions.FromJSON<SerializableObjectFake>(""),
-                                                 "Unit test expected an ArgumentNullException to be thrown");
+            Action act = () => JSONExtensions.FromJSON<SerializableObjectFake>("");
+            act.Should().Throw<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void FromJsonTest()
         {
             const string json = "{\"<IntegerProp>k__BackingField\":5,\"<StringProp>k__BackingField\":\"Test\"}";
 
-            Assert.That(json.FromJSON<SerializableObjectFake>(), Is.Not.Null);
+            var result = json.FromJSON<SerializableObjectFake>();
+            result.Should().NotBeNull();
         }
     }
 }

@@ -1,13 +1,13 @@
 ﻿using System;
-using NUnit.Framework;
+using FluentAssertions;
 using Realm.Library.Common.Attributes;
 using Realm.Library.Common.Contexts;
 using Realm.Library.Common.Objects;
+using Xunit;
 
-namespace Realm.Library.Common.Test
+namespace Realm.Library.Common.Fact
 {
-    [TestFixture]
-    public class BitContextTests
+    public class BitContextFacts
     {
         private class FakeEntity : Entity
         {
@@ -18,112 +18,111 @@ namespace Realm.Library.Common.Test
         }
 
         [Flags]
-        private enum TestEnum
+        private enum FactEnum
         {
             [Value(1)]
-            Test1,
+            Fact1,
 
             [Value(2)]
-            Test2 = 2
+            Fact2 = 2
         };
 
-        [Test]
-        public void HasBitTest()
+        [Fact]
+        public void HasBitFact()
         {
-            var fake = new FakeEntity(1, "Test");
+            var fake = new FakeEntity(1, "Fact");
 
             var ctx = new BitContext(fake);
 
             ctx.SetBit(1);
 
-            Assert.That(ctx.HasBit(1), Is.True);
+            ctx.HasBit(1).Should().BeTrue();
         }
 
-        [Test]
-        public void HasBit_SetByEnum_Test()
+        [Fact]
+        public void HasBit_SetByEnum_Fact()
         {
-            var fake = new FakeEntity(1, "Test");
+            var fake = new FakeEntity(1, "Fact");
 
             var ctx = new BitContext(fake);
 
-            ctx.SetBit(TestEnum.Test2);
+            ctx.SetBit(FactEnum.Fact2);
 
-            Assert.That(ctx.HasBit(2), Is.True);
+            ctx.HasBit(2).Should().BeTrue();
         }
 
-        [Test]
-        public void HasBit_Enum_Test()
+        [Fact]
+        public void HasBit_Enum_Fact()
         {
-            var fake = new FakeEntity(1, "Test");
+            var fake = new FakeEntity(1, "Fact");
 
             var ctx = new BitContext(fake);
 
-            ctx.SetBit(TestEnum.Test2);
+            ctx.SetBit(FactEnum.Fact2);
 
-            Assert.That(ctx.HasBit(TestEnum.Test2), Is.True);
+            ctx.HasBit(FactEnum.Fact2).Should().BeTrue();
         }
 
-        [Test]
-        public void GetBits_Test()
+        [Fact]
+        public void GetBits_Fact()
         {
-            var fake = new FakeEntity(1, "Test");
+            var fake = new FakeEntity(1, "Fact");
 
             var ctx = new BitContext(fake);
 
-            ctx.SetBit(TestEnum.Test1);
-            ctx.SetBit(TestEnum.Test2);
+            ctx.SetBit(FactEnum.Fact1);
+            ctx.SetBit(FactEnum.Fact2);
 
-            Assert.That(ctx.GetBits, Is.EqualTo(3));
+            ctx.GetBits.Should().Be(3);
         }
 
-        [Test]
-        public void SetBits_Test()
+        [Fact]
+        public void SetBits_Fact()
         {
-            var fake = new FakeEntity(1, "Test");
+            var fake = new FakeEntity(1, "Fact");
 
             var ctx = new BitContext(fake);
 
-            const int val = (int)(TestEnum.Test1 | TestEnum.Test2);
+            const int val = (int)(FactEnum.Fact1 | FactEnum.Fact2);
 
             ctx.SetBits(val);
 
-            Assert.That(ctx.GetBits, Is.EqualTo(val));
+            ctx.GetBits.Should().Be(val);
         }
 
-        [Test]
-        public void UnsetBit_Integer_Test()
+        [Fact]
+        public void UnsetBit_Integer_Fact()
         {
-            var fake = new FakeEntity(1, "Test");
+            var fake = new FakeEntity(1, "Fact");
 
             var ctx = new BitContext(fake);
 
             ctx.SetBit(4);
             ctx.SetBit(2);
 
-            Assert.That(ctx.HasBit(4), Is.True);
+            ctx.HasBit(4).Should().BeTrue();
 
             ctx.UnsetBit(2);
-
-            Assert.That(ctx.HasBit(4), Is.True);
-            Assert.That(ctx.HasBit(2), Is.False);
+            ctx.HasBit(4).Should().BeTrue();
+            ctx.HasBit(2).Should().BeFalse();
         }
 
-        [Test]
-        public void UnsetBit_Enum_Test()
+        [Fact]
+        public void UnsetBit_Enum_Fact()
         {
-            var fake = new FakeEntity(1, "Test");
+            var fake = new FakeEntity(1, "Fact");
 
             var ctx = new BitContext(fake);
 
-            ctx.SetBit(TestEnum.Test1);
-            ctx.SetBit(TestEnum.Test2);
+            ctx.SetBit(FactEnum.Fact1);
+            ctx.SetBit(FactEnum.Fact2);
 
-            Assert.That(ctx.HasBit(TestEnum.Test2), Is.True);
+            ctx.HasBit(FactEnum.Fact2).Should().BeTrue();
 
-            ctx.UnsetBit(TestEnum.Test1);
+            ctx.UnsetBit(FactEnum.Fact1);
 
-            Assert.That(ctx.HasBit(TestEnum.Test2), Is.True);
-            Assert.That(ctx.HasBit(TestEnum.Test1), Is.False);
+            ctx.HasBit(FactEnum.Fact2).Should().BeTrue();
+            ctx.HasBit(FactEnum.Fact1).Should().BeFalse();
         }
     }
 }

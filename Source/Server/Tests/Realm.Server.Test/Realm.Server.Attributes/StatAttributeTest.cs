@@ -6,7 +6,7 @@
 //    [TestClass]
 //    public class StatAttributeTest
 //    {
-//        [TestMethod]
+//        [Fact]
 //        public void StatAttribute_Constructor_Test()
 //        {
 //            var actual = new StatAttribute(1, "test", Globals.Globals.Statistics.Fortitude);

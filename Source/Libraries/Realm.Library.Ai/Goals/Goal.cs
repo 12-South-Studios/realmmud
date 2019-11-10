@@ -11,7 +11,7 @@ namespace Realm.Library.Ai.Goals
             Status = GoalState.Active;
         }
 
-        public IEntity Owner { get; private set; }
+        public IEntity Owner { get; }
 
         public GoalState Status { get; set; }
 

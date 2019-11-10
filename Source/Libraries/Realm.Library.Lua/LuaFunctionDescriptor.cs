@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Reflection;
-using Realm.Library.Common;
 
 namespace Realm.Library.Lua
 {
@@ -19,10 +18,8 @@ namespace Realm.Library.Lua
         /// <param name="info"></param>
         public LuaFunctionDescriptor(string name, string description, IDictionary parameters, MethodInfo info)
         {
-            Validation.IsNotNullOrEmpty(name, "name");
-            Validation.IsNotNullOrEmpty(description, "description");
-            Validation.IsNotNull(parameters, "parameters");
-            Validation.IsNotNull(info, "info");
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
+            if (string.IsNullOrEmpty(description)) throw new ArgumentNullException(nameof(description));
 
             Name = name;
             Description = description;
@@ -54,22 +51,22 @@ namespace Realm.Library.Lua
         /// <summary>
         /// Gets the name of the function
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the description of the function
         /// </summary>
-        public string Description { get; private set; }
+        public string Description { get; }
 
         /// <summary>
         /// Gets the parameter list of the function
         /// </summary>
-        public IDictionary Parameters { get; private set; }
+        public IDictionary Parameters { get; }
 
         /// <summary>
         ///
         /// </summary>
-        public MethodInfo Info { get; private set; }
+        public MethodInfo Info { get; }
 
         /// <summary>
         /// Gets the header of the function
@@ -81,6 +78,6 @@ namespace Realm.Library.Lua
         /// <summary>
         /// Gets the full description
         /// </summary>
-        public string FullDescription { get; private set; }
+        public string FullDescription { get; }
     }
 }

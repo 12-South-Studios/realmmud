@@ -1,12 +1,11 @@
 ﻿using System.IO;
-using NUnit.Framework;
+using Xunit;
 
 namespace Realm.Library.Common.Test
 {
-    [TestFixture]
     public class TextWriterProxyTests
     {
-        [Test]
+        [Fact]
         public void WriteTest()
         {
             TextWriterProxy proxy = new TextWriterProxy(new StringWriter());
@@ -14,7 +13,7 @@ namespace Realm.Library.Common.Test
             proxy.Write("test");
         }
 
-        [Test]
+        [Fact]
         public void Write_1Arg_Test()
         {
             TextWriterProxy proxy = new TextWriterProxy(new StringWriter());
@@ -22,7 +21,7 @@ namespace Realm.Library.Common.Test
             proxy.Write("{0} test", 1);
         }
 
-        [Test]
+        [Fact]
         public void Write_2Args_Test()
         {
             TextWriterProxy proxy = new TextWriterProxy(new StringWriter());
@@ -30,7 +29,7 @@ namespace Realm.Library.Common.Test
             proxy.Write("{0} {1} tests", 2, "big");
         }
 
-        [Test]
+        [Fact]
         public void Write_3Args_Test()
         {
             TextWriterProxy proxy = new TextWriterProxy(new StringWriter());
@@ -38,7 +37,7 @@ namespace Realm.Library.Common.Test
             proxy.Write("{0} {1} {2} tests", 3, "super", "huge");
         }
 
-        [Test]
+        [Fact]
         public void Write_ArrayArgs_Test()
         {
             TextWriterProxy proxy = new TextWriterProxy(new StringWriter());

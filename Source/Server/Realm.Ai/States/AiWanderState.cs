@@ -6,7 +6,6 @@ using Realm.Entity.Entities;
 using Realm.Library.Ai;
 using Realm.Library.Common;
 using Realm.Library.Common.Data;
-using Realm.Data.Definitions;
 using Realm.Entity.Entities.Interfaces;
 using Realm.Library.Common.Objects;
 
@@ -22,7 +21,7 @@ namespace Realm.Ai.States
         public override void Execute()
         {
             var owner = Parent.Owner.CastAs<IRegularMob>();
-            Validation.Validate(owner.IsNotNull(), Resources.ERR_AISTATE_NO_OWNER, ID, Name);
+            Validation.Validate(owner != null, Resources.ERR_AISTATE_NO_OWNER, ID, Name);
 
             if (owner.AiBrain.Behavior.Bits.HasBit(Globals.BehaviorBits.Sentinel))
             {
@@ -61,10 +60,10 @@ namespace Realm.Ai.States
         private string GetRandomSpace()
         {
             var owner = Parent.Owner.CastAs<IRegularMob>();
-            Validation.Validate(owner.IsNotNull(), Resources.ERR_AISTATE_NO_OWNER, ID, Name);
+            Validation.Validate(owner != null, Resources.ERR_AISTATE_NO_OWNER, ID, Name);
 
             var currentSpace = owner.Location.CastAs<Space>();
-            if (currentSpace.IsNull())
+            if (currentSpace == null)
             {
                 Log.ErrorFormat(Resources.ERR_MOBILE_NO_LOCATION, owner.ID, owner.Name);
                 return string.Empty;
@@ -73,11 +72,11 @@ namespace Realm.Ai.States
             var result = Random.Roll(currentSpace.Count(), 1);
             var count = 1;
 
-            foreach (PortalDef portalDef in currentSpace.Portals)
+            foreach (var portalDef in currentSpace.Portals)
             {
                 var portal = currentSpace.Portals.Single(x => x.Direction == portalDef.Direction);
                 if (count == result)
-                    return portal.Barrier.IsNotNull() ? string.Empty : portalDef.Direction.ToString().ToLower();
+                    return portal.Barrier != null ? string.Empty : portalDef.Direction.ToString().ToLower();
                 count++;
             }
             return string.Empty;

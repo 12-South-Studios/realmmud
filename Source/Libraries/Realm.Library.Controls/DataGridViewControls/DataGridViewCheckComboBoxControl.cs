@@ -2,7 +2,6 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
-using Realm.Library.Common.Objects;
 
 namespace Realm.Library.Controls.DataGridViewControls
 
@@ -38,7 +37,7 @@ namespace Realm.Library.Controls.DataGridViewControls
                 return;
             }
 
-            var box = Items[e.Index].CastAs<CheckComboBoxItem>();
+            var box = (CheckComboBoxItem) Items[e.Index];
 
             CheckBoxRenderer.RenderMatchingApplicationState = true;
             CheckBoxRenderer.DrawCheckBox(
@@ -59,7 +58,7 @@ namespace Realm.Library.Controls.DataGridViewControls
         /// <param name="e"></param>
         private void CheckComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            var item = SelectedItem.CastAs<CheckComboBoxItem>();
+            var item = SelectedItem as CheckComboBoxItem;
             item.CheckState = !item.CheckState;
         }
 

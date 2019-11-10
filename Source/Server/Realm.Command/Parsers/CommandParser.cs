@@ -13,10 +13,10 @@ namespace Realm.Command.Parsers
 {
     public class CommandParser : Parser
     {
-        private IVariableHelper Helper { get; set; }
+        private IVariableHelper Helper { get; }
 
         private readonly Dictionary<string, Func<string, IGameEntity, string>> _functionMap = new Dictionary
-            <string, Func<string, IGameEntity, string>>()
+            <string, Func<string, IGameEntity, string>>
             {
                 {"timestamp", GetTimestamp},
                 {"datestamp", GetDatestamp},
@@ -69,10 +69,10 @@ namespace Realm.Command.Parsers
         {
             Validation.IsNotNull(data, "data");
 
-            string returnVal = string.Empty;
+            var returnVal = string.Empty;
 
-            Delegate func = Helper.GetDelegate(var);
-            if (func.IsNotNull())
+            var func = Helper.GetDelegate(var);
+            if (func != null)
                 returnVal = (string)func.DynamicInvoke(data);
 
             return returnVal;
@@ -91,7 +91,7 @@ namespace Realm.Command.Parsers
                 var match = Regex.Match(newText, pattern, RegexOptions.IgnoreCase);
                 var foundString = newText.Substring(match.Index, match.Length);
 
-                Func<string, IGameEntity, string> func = GetFunction(foundString);
+                var func = GetFunction(foundString);
                 newText = newText.Replace("#" + foundString + "#", func.Invoke(foundString, entity));
             }
             return newText;
@@ -107,9 +107,7 @@ namespace Realm.Command.Parsers
             Func<string, IGameEntity, string> func;
             try
             {
-                func = _functionMap[function];
-                if (func.IsNull())
-                    func = _functionMap["property"];
+                func = _functionMap[function] ?? _functionMap["property"];
             }
             catch
             {
@@ -127,13 +125,13 @@ namespace Realm.Command.Parsers
         }
         private static string GetProperty(string text, IGameEntity entity)
         {
-            string returnVal = string.Empty;
+            var returnVal = string.Empty;
 
-            if (!entity.IsNotNull()) return returnVal;
+            if (entity == null) return returnVal;
             var ctx = entity.GetContext("PropertyContext");
-            if (!ctx.IsNotNull()) return returnVal;
+            if (ctx == null) return returnVal;
             var obj = ctx.CastAs<PropertyContext>().GetProperty<object>(text);
-            if (obj.IsNotNull())
+            if (obj != null)
                 returnVal = obj.ToString();
 
             return returnVal;

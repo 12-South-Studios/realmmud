@@ -20,12 +20,11 @@ namespace Realm.Network.User
         ///  </summary>
         ///  <param name="ipAddress"></param>
         ///  <param name="tcpClient"></param>
-        ///  <param name="tcpServer"></param>
         /// <param name="initAtom"></param>
         public GameUser(string ipAddress, ITcpUser tcpClient, DictionaryAtom initAtom)
             : base(0, "NewUser")
         {
-            IKernel kernel = (IKernel)initAtom.GetObject("Ninject.Kernel");
+            var kernel = (IKernel)initAtom.GetObject("Ninject.Kernel");
 
             IpAddress = ipAddress;
             TcpClient = tcpClient;
@@ -37,11 +36,11 @@ namespace Realm.Network.User
             TcpServer.OnNetworkMessageReceived += Server_OnNetworkMessageReceived;
         }
 
-        private MenuHandlerRepository MenuRepository { get; set; }
+        private MenuHandlerRepository MenuRepository { get; }
 
-        private ITcpServer TcpServer { get; set; }
+        private ITcpServer TcpServer { get; }
 
-        public new long ID { get; set; }
+        public new long ID { get; private set; }
 
         public void SendText(string text)
         {
@@ -57,9 +56,9 @@ namespace Realm.Network.User
 
         public string Username { get; private set; }
 
-        public int PreHashID { get; private set; }
+        public int PreHashId { get; private set; }
 
-        public int PostHashID { get; private set; }
+        public int PostHashId { get; private set; }
 
         public ITcpUser TcpClient { get; private set; }
 
@@ -67,8 +66,8 @@ namespace Realm.Network.User
         {
             Username = data.GetString("Username");
             ID = data.GetInt("UserID");
-            PreHashID = data.GetInt("PreHashID");
-            PostHashID = data.GetInt("PostHashID");
+            PreHashId = data.GetInt("PreHashID");
+            PostHashId = data.GetInt("PostHashID");
         }
 
         /// <summary>

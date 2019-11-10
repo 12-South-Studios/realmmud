@@ -7,7 +7,7 @@
 //    [TestClass]
 //    public class EffectsHandlerTest
 //    {
-//        [TestMethod]
+//        [Fact]
 //        public void EffectsHandler_Constructor_Test()
 //        {
 //            var gameEntity = new FakeGameEntity();

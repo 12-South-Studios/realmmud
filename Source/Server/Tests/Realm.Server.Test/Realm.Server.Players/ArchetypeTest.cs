@@ -16,7 +16,7 @@
 //            return new Archetype(1, "test", null);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void Archetype_AddAbility_NotPresent_Test()
 //        {
 //            var archetype = GetArchetype();
@@ -29,7 +29,7 @@
 //            Assert.AreEqual(1, abilityList.Count);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void Archetype_AddAbility_Present_Test()
 //        {
 //            var archetype = GetArchetype();
@@ -43,7 +43,7 @@
 //            Assert.AreEqual(1, abilityList.Count);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void Archetype_AddSkill_NotPresent_Test()
 //        {
 //            var archetype = GetArchetype();
@@ -59,7 +59,7 @@
 //            Assert.AreEqual(1, skillList.Count);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void Archetype_AddSkill_Present_Test()
 //        {
 //            var archetype = GetArchetype();
@@ -76,7 +76,7 @@
 //            Assert.AreEqual(1, skillList.Count);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void Archetype_AddPreferredSkillsCategory_NotPresent_Test()
 //        {
 //            var archetype = GetArchetype();
@@ -93,7 +93,7 @@
 //            Assert.AreEqual(1, skillList.Count);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void Archetype_AddPreferredSkillsCategory_Present_Test()
 //        {
 //            var archetype = GetArchetype();
@@ -112,7 +112,7 @@
 //            Assert.AreEqual(1, skillList.Count);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void Archetype_AddRestrictedSkillsCategory_NotPresent_Test()
 //        {
 //            var archetype = GetArchetype();
@@ -129,7 +129,7 @@
 //            Assert.AreEqual(1, skillList.Count);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void Archetype_AddRestrictedSkillsCategory_Present_Test()
 //        {
 //            var archetype = GetArchetype();

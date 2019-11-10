@@ -21,7 +21,7 @@ namespace Realm.Pathing
                     space.Portals.ToList().ForEach(portal =>
                         {
                             var targetSpace = GetSpace(entityManager, portal.TargetSpace.ID);
-                            if (targetSpace.IsNotNull())
+                            if (targetSpace != null)
                             {
                                 graphData.Edges.Add(new Edge
                                     {
@@ -38,7 +38,7 @@ namespace Realm.Pathing
         private static Space GetSpace(IEntityManager entityManager, long spaceDefinitionId)
         {
             var targetSpaces = ((EntityManager)entityManager).GetEntityByDefinitionId(spaceDefinitionId).ToList();
-            if (targetSpaces.IsNull() || targetSpaces.Count() > 1)
+            if (targetSpaces.Count > 1)
             {
                 // TODO: Log and continue
                 return null;
@@ -46,14 +46,14 @@ namespace Realm.Pathing
             return targetSpaces.ElementAt(0).CastAs<Space>();
         }
 
-        private static int CalculateCost(Space Space, IPathManager pathManager)
+        private static int CalculateCost(Space space, IPathManager pathManager)
         {
-            if (Space.IsNull()) return 0;
+            if (space == null) return 0;
 
-            int mobs = Space.GetContentsContext().Entities.OfType<IRegularMob>().Count();
-            int maxCost = pathManager.MaxMobileMovementCost;
+            var mobs = space.GetContentsContext().Entities.OfType<IRegularMob>().Count();
+            var maxCost = pathManager.MaxMobileMovementCost;
 
-            return Space.SpaceDef.Terrain.MovementCost + (mobs > maxCost ? maxCost : mobs);
+            return space.SpaceDef.Terrain.MovementCost + (mobs > maxCost ? maxCost : mobs);
         }
     }
 }

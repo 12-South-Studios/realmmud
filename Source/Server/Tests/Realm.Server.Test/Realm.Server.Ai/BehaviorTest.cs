@@ -6,7 +6,7 @@
 //    [TestClass]
 //    public class BehaviorTest
 //    {
-//        [TestMethod]
+//        [Fact]
 //        public void Behavior_Constructor_Test()
 //        {
 //            const int id = 1;

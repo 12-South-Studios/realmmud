@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Realm</RootNamespace>
     <AssemblyName>Realm</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -100,13 +100,11 @@
     <OutputPath>bin\Work\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -194,10 +192,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\Patterns\Realm.Library.Patterns.Singleton\Realm.Library.Patterns.Singleton.csproj">
-      <Project>{b459e90b-793a-48b1-b672-50d162edc662}</Project>
-      <Name>Realm.Library.Patterns.Singleton</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Libraries\Realm.Library.Common\Realm.Library.Common.csproj">
       <Project>{1fdee5bd-a724-4478-bca3-4c49daea291d}</Project>
       <Name>Realm.Library.Common</Name>
@@ -205,6 +199,10 @@
     <ProjectReference Include="..\..\Libraries\Realm.Library.Network\Realm.Library.Network.csproj">
       <Project>{551f2b16-cec5-4e16-8f30-290005c04e16}</Project>
       <Name>Realm.Library.Network</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\Realm.Standard.Patterns.Singleton\Realm.Standard.Patterns.Singleton.csproj">
+      <Project>{79354a85-381d-4382-9019-b8f785c98ab4}</Project>
+      <Name>Realm.Standard.Patterns.Singleton</Name>
     </ProjectReference>
     <ProjectReference Include="..\Realm.Entity\Realm.Entity.csproj">
       <Project>{139f42ec-7788-4e83-b47b-43fdd8d1a7e9}</Project>

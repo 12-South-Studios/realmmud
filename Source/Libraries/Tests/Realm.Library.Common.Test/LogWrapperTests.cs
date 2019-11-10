@@ -1,64 +1,48 @@
 ﻿using System;
-using Moq;
-using NUnit.Framework;
 using Realm.Library.Common.Logging;
 using log4net;
+using FakeItEasy;
+using Xunit;
+using FluentAssertions;
 
-namespace Realm.Library.Common.Test
+namespace Realm.Library.Common.Fact
 {
-    [TestFixture]
-    public class LogWrapperTests
+    public class LogWrapperFacts
     {
         private static LogEventArgs _eventArgs;
-        private static Mock<ILog> _mockLog;
+        private static ILog _mockLog;
         private static LogWrapper _wrapper;
 
-        [SetUp]
-        public void OnSetup()
+        public LogWrapperFacts()
         {
             _eventArgs = null;
 
-            _mockLog = new Mock<ILog>();
-            _mockLog.Setup(x => x.Debug(It.IsAny<object>()));
-            _mockLog.Setup(x => x.Debug(It.IsAny<object>(), It.IsAny<Exception>()));
-            _mockLog.Setup(x => x.DebugFormat(It.IsAny<string>(), It.IsAny<object>()));
-
-            _mockLog.Setup(x => x.Info(It.IsAny<object>()));
-            _mockLog.Setup(x => x.Info(It.IsAny<object>(), It.IsAny<Exception>()));
-
-            _mockLog.Setup(x => x.Warn(It.IsAny<object>()));
-            _mockLog.Setup(x => x.Warn(It.IsAny<object>(), It.IsAny<Exception>()));
-
-            _mockLog.Setup(x => x.Error(It.IsAny<object>()));
-            _mockLog.Setup(x => x.Error(It.IsAny<object>(), It.IsAny<Exception>()));
-
-            _mockLog.Setup(x => x.Fatal(It.IsAny<object>()));
-            _mockLog.Setup(x => x.Fatal(It.IsAny<object>(), It.IsAny<Exception>()));
-
-
-            _wrapper = new LogWrapper(_mockLog.Object, LogLevel.Info);
+            _mockLog = A.Fake<ILog>();
+            _wrapper = new LogWrapper(_mockLog, LogLevel.Info);
             _wrapper.OnLoggingEvent += WrapperOnOnLoggingEvent;
         }
 
-        [Test]
-        public void ThrowLoggingEvent_NotSubscribed_Test()
+        [Fact]
+        public void ThrowLoggingEvent_NotSubscribed_Fact()
         {
             _wrapper.OnLoggingEvent -= WrapperOnOnLoggingEvent;
 
-            _wrapper.Debug("This is a test");
+            _wrapper.Debug("This is a Fact");
 
-            Assert.That(_eventArgs, Is.Null.After(100));
+            _eventArgs.Should().BeNull();
+            //Assert.That(_eventArgs, Is.Null.After(100));
         }
 
-        [TestCase(LogLevel.Info, true)]
-        [TestCase(LogLevel.Debug, true)]
-        [TestCase(LogLevel.Warn, true)]
-        [TestCase(LogLevel.Error, true)]
-        [TestCase(LogLevel.Fatal, true)]
-        [TestCase(LogLevel.None, false)]
-        public void LogThisTest(LogLevel level, bool expectedValue)
+        [Theory]
+        [InlineData(LogLevel.Info, true)]
+        [InlineData(LogLevel.Debug, true)]
+        [InlineData(LogLevel.Warn, true)]
+        [InlineData(LogLevel.Error, true)]
+        [InlineData(LogLevel.Fatal, true)]
+        [InlineData(LogLevel.None, false)]
+        public void LogThisFact(LogLevel level, bool expectedValue)
         {
-            Assert.That(_wrapper.LogThis(level), Is.EqualTo(expectedValue));
+            _wrapper.LogThis(level).Should().Be(expectedValue);
         }
 
         private static void WrapperOnOnLoggingEvent(object sender, LogEventArgs logEventArgs)
@@ -66,113 +50,114 @@ namespace Realm.Library.Common.Test
             _eventArgs = logEventArgs;
         }
 
-        [Test]
-        public void Debug_Valid_Test()
+        [Fact]
+        public void Debug_Valid_Fact()
         {
-            _wrapper.Debug("This is a test");
+            _wrapper.Debug("This is a Fact");
 
-            Assert.That(_eventArgs, Is.Not.Null);
-            Assert.That(_eventArgs.Name, Is.EqualTo("This is a test"));
-            Assert.That(_eventArgs.Level, Is.EqualTo(LogLevel.Debug));
+            _eventArgs.Should().NotBeNull();
+            _eventArgs.Name.Should().Be("This is a Fact");
+            _eventArgs.Level.Should().Be(LogLevel.Debug);
         }
 
-        [Test]
-        public void Debug_Exception_Test()
+        [Fact]
+        public void Debug_Exception_Fact()
         {
-            _wrapper.Debug(new Exception("Test Exception"));
+            _wrapper.Debug(new Exception("Fact Exception"));
 
-            Assert.That(_eventArgs, Is.Not.Null);
-            Assert.That(_eventArgs.Name, Is.EqualTo("Test Exception"));
-            Assert.That(_eventArgs.Level, Is.EqualTo(LogLevel.Debug));
+            _eventArgs.Should().NotBeNull();
+            _eventArgs.Name.Should().Be("Fact Exception");
+            _eventArgs.Level.Should().Be(LogLevel.Debug);
         }
 
-        [Test]
-        public void Debug_1Arg_Test()
+        [Fact]
+        public void Debug_1Arg_Fact()
         {
-            _wrapper.DebugFormat("This is a {0}", "test");
+            _wrapper.DebugFormat("This is a {0}", "Fact");
 
-            Assert.That(_eventArgs, Is.Not.Null);
-            Assert.That(_eventArgs.Name, Is.EqualTo("This is a test"));
-            Assert.That(_eventArgs.Level, Is.EqualTo(LogLevel.Debug));
+            _eventArgs.Should().NotBeNull();
+            _eventArgs.Name.Should().Be("This is a Fact");
+            _eventArgs.Level.Should().Be(LogLevel.Debug);
         }
 
-        [Test]
-        public void Info_Valid_Test()
+        [Fact]
+        public void Info_Valid_Fact()
         {
-            _wrapper.Info("This is a test");
+            _wrapper.Info("This is a Fact");
 
-            Assert.That(_eventArgs, Is.Not.Null);
-            Assert.That(_eventArgs.Name, Is.EqualTo("This is a test"));
-            Assert.That(_eventArgs.Level, Is.EqualTo(LogLevel.Info));
+            _eventArgs.Should().NotBeNull();
+            _eventArgs.Name.Should().Be("This is a Fact");
+            _eventArgs.Level.Should().Be(LogLevel.Info);
         }
 
-        [Test]
-        public void Info_Exception_Test()
+        [Fact]
+        public void Info_Exception_Fact()
         {
-            _wrapper.Info(new Exception("Test Exception"));
+            _wrapper.Info(new Exception("Fact Exception"));
 
-            Assert.That(_eventArgs, Is.Not.Null);
-            Assert.That(_eventArgs.Name, Is.EqualTo("Test Exception"));
-            Assert.That(_eventArgs.Level, Is.EqualTo(LogLevel.Info));
+            _eventArgs.Should().NotBeNull();
+            _eventArgs.Name.Should().Be("Fact Exception");
+            _eventArgs.Level.Should().Be(LogLevel.Info);
         }
 
-        [Test]
-        public void Warn_Valid_Test()
+        [Fact]
+        public void Warn_Valid_Fact()
         {
-            _wrapper.Warn("This is a test");
+            _wrapper.Warn("This is a Fact");
 
-            Assert.That(_eventArgs, Is.Not.Null);
-            Assert.That(_eventArgs.Name, Is.EqualTo("This is a test"));
-            Assert.That(_eventArgs.Level, Is.EqualTo(LogLevel.Warn));
+            _eventArgs.Should().NotBeNull();
+            _eventArgs.Name.Should().Be("This is a Fact");
+            _eventArgs.Level.Should().Be(LogLevel.Warn);
         }
 
-        [Test]
-        public void Warn_Exception_Test()
+        [Fact]
+        public void Warn_Exception_Fact()
         {
-            _wrapper.Warn(new Exception("Test Exception"));
+            _wrapper.Warn(new Exception("Fact Exception"));
 
-            Assert.That(_eventArgs, Is.Not.Null);
-            Assert.That(_eventArgs.Name, Is.EqualTo("Test Exception"));
-            Assert.That(_eventArgs.Level, Is.EqualTo(LogLevel.Warn));
-        }
-        [Test]
-        public void Error_Valid_Test()
-        {
-            _wrapper.Error("This is a test");
-
-            Assert.That(_eventArgs, Is.Not.Null);
-            Assert.That(_eventArgs.Name, Is.EqualTo("This is a test"));
-            Assert.That(_eventArgs.Level, Is.EqualTo(LogLevel.Error));
+            _eventArgs.Should().NotBeNull();
+            _eventArgs.Name.Should().Be("Fact Exception");
+            _eventArgs.Level.Should().Be(LogLevel.Warn);
         }
 
-        [Test]
-        public void Error_Exception_Test()
+        [Fact]
+        public void Error_Valid_Fact()
         {
-            _wrapper.Error(new Exception("Test Exception"));
+            _wrapper.Error("This is a Fact");
 
-            Assert.That(_eventArgs, Is.Not.Null);
-            Assert.That(_eventArgs.Name, Is.EqualTo("Test Exception"));
-            Assert.That(_eventArgs.Level, Is.EqualTo(LogLevel.Error));
+            _eventArgs.Should().NotBeNull();
+            _eventArgs.Name.Should().Be("This is a Fact");
+            _eventArgs.Level.Should().Be(LogLevel.Error);
         }
 
-        [Test]
-        public void Fatal_Valid_Test()
+        [Fact]
+        public void Error_Exception_Fact()
         {
-            _wrapper.Fatal("This is a test");
+            _wrapper.Error(new Exception("Fact Exception"));
 
-            Assert.That(_eventArgs, Is.Not.Null);
-            Assert.That(_eventArgs.Name, Is.EqualTo("This is a test"));
-            Assert.That(_eventArgs.Level, Is.EqualTo(LogLevel.Fatal));
+            _eventArgs.Should().NotBeNull();
+            _eventArgs.Name.Should().Be("Fact Exception");
+            _eventArgs.Level.Should().Be(LogLevel.Error);
         }
 
-        [Test]
-        public void Fatal_Exception_Test()
+        [Fact]
+        public void Fatal_Valid_Fact()
         {
-            _wrapper.Fatal(new Exception("Test Exception"));
+            _wrapper.Fatal("This is a Fact");
 
-            Assert.That(_eventArgs, Is.Not.Null);
-            Assert.That(_eventArgs.Name, Is.EqualTo("Test Exception"));
-            Assert.That(_eventArgs.Level, Is.EqualTo(LogLevel.Fatal));
+            _eventArgs.Should().NotBeNull();
+            _eventArgs.Name.Should().Be("This is a Fact");
+            _eventArgs.Level.Should().Be(LogLevel.Fatal);
+        }
+
+        [Fact]
+        public void Fatal_Exception_Fact()
+        {
+            _wrapper.Fatal(new Exception("Fact Exception"));
+
+            _eventArgs.Should().NotBeNull();
+            _eventArgs.Name.Should().Be("Fact Exception");
+            _eventArgs.Level.Should().Be(LogLevel.Fatal);
         }
     }
 }

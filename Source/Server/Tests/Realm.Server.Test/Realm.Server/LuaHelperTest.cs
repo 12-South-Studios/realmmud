@@ -1,11 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Realm.Server.Test.Realm.Server
 {
-    [TestClass]
     public class LuaHelperTest
     {
-        [TestMethod]
+        [Fact]
         public void LuaHelper_LuaMxpTag_Test()
         {
             const string value = "test";

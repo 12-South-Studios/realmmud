@@ -42,7 +42,7 @@ namespace Realm.Command.Parsers
 
             IGameEntity ent = null;
             // TODO: Get the entity from the phrase somehow
-            if (ent.IsNull())
+            if (ent == null)
             {
                 if (biote is ICharacter)
                     executor.Report(Globals.MessageScopeTypes.Character, Resources.MSG_NOTHING_HERE, biote);
@@ -57,7 +57,7 @@ namespace Realm.Command.Parsers
             }
 
             var oTargetBiote = ent as IBiota;
-            if (oTargetBiote.IsNull()) return;
+            if (oTargetBiote == null) return;
 
             if (oTargetBiote == biote)
             {

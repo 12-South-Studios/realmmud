@@ -1,29 +1,29 @@
 ﻿using System;
-using NUnit.Framework;
+using FluentAssertions;
 using Realm.Library.Common.Data;
+using Xunit;
 
 namespace Realm.Library.Common.Test.Data
 {
-    [TestFixture]
     public class DictionaryAtomTest
     {
-        [Test]
+        [Fact]
         public void ConstructorTest()
         {
             var atom = new DictionaryAtom();
 
-            Assert.That(atom, Is.Not.Null);
-            Assert.That(atom.Type, Is.EqualTo(AtomType.Dictionary));
+            atom.Should().NotBeNull();
+            atom.Type.Should().Be(AtomType.Dictionary);
         }
 
-        [Test]
+        [Fact]
         public void CopyConstructorNullParameterTest()
         {
-            Assert.Throws<ArgumentNullException>(() => new DictionaryAtom(null),
-                                                 "Unit test expected an ArgumentNullException to be thrown");
+            Action act = () => new DictionaryAtom(null);
+            act.Should().Throw<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void CopyConstructorTest()
         {
             const string key = "test";
@@ -34,19 +34,19 @@ namespace Realm.Library.Common.Test.Data
 
             var newAtom = new DictionaryAtom(atom);
 
-            Assert.That(newAtom.Count, Is.EqualTo(1));
-            Assert.That(newAtom.GetInt(key), Is.EqualTo(value));
+            newAtom.Count.Should().Be(1);
+            newAtom.GetInt(key).Should().Be(value);
         }
 
-        [Test]
+        [Fact]
         public void IsEmptyTest()
         {
             var atom = new DictionaryAtom();
 
-            Assert.That(atom.IsEmpty(), Is.True);
+            atom.IsEmpty().Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void CountTest()
         {
             const string key = "test";
@@ -55,10 +55,10 @@ namespace Realm.Library.Common.Test.Data
             var atom = new DictionaryAtom();
             atom.Set(key, value);
 
-            Assert.That(atom.Count, Is.EqualTo(1));
+            atom.Count.Should().Be(1);
         }
 
-        [Test]
+        [Fact]
         public void ContainsKeyTest()
         {
             const string key = "test";
@@ -67,10 +67,10 @@ namespace Realm.Library.Common.Test.Data
             var atom = new DictionaryAtom();
             atom.Set(key, value);
 
-            Assert.That(atom.ContainsKey(key), Is.True);
+            atom.ContainsKey(key).Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void GetValueTest()
         {
             const string key = "test";
@@ -81,25 +81,26 @@ namespace Realm.Library.Common.Test.Data
 
             var actual = atom.GetAtom<IntAtom>("test");
 
-            Assert.That(actual, Is.Not.Null);
-            Assert.That(actual.Value, Is.EqualTo(value));
+            actual.Should().NotBeNull();
+            actual.Value.Should().Be(value);
         }
 
-        [TestCase("BoolKey", true)]
-        [TestCase("IntKey", 25)]
-        [TestCase("DoubleKey", 25.05D)]
-        [TestCase("StringKey", "Testing 1 2 3")]
-        [TestCase("LongKey", 9223372036854775806)]
-        [TestCase("FloatKey", 25.05f)]
+        [Theory]
+        [InlineData("BoolKey", true)]
+        [InlineData("IntKey", 25)]
+        [InlineData("DoubleKey", 25.05D)]
+        [InlineData("StringKey", "Testing 1 2 3")]
+        [InlineData("LongKey", 9223372036854775806)]
+        [InlineData("FloatKey", 25.05f)]
         public void SetTest<T>(string key, T value)
         {
             var atom = new DictionaryAtom();
             atom.Set(key, value);
 
-            Assert.That(atom.ContainsKey(key), Is.True);
+            atom.ContainsKey(key).Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void SetDictionaryAtom()
         {
             var setAtom = new DictionaryAtom();
@@ -108,16 +109,16 @@ namespace Realm.Library.Common.Test.Data
             var atom = new DictionaryAtom();
             atom.Set("TestDictionary", setAtom);
 
-            Assert.That(atom.ContainsKey("TestDictionary"), Is.True);
+            atom.ContainsKey("TestDictionary").Should().BeTrue();
 
             var foundAtom = atom.GetAtom<DictionaryAtom>("TestDictionary");
-            
-            Assert.That(foundAtom, Is.Not.Null);
-            Assert.That(foundAtom, Is.InstanceOf<DictionaryAtom>());
-            Assert.That(foundAtom.ContainsKey("Test"), Is.True);
+
+            foundAtom.Should().NotBeNull();
+            foundAtom.Should().BeAssignableTo<DictionaryAtom>();
+            foundAtom.ContainsKey("Test").Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void SetListAtom()
         {
             var listAtom = new ListAtom {"1 2 3 4 5"};
@@ -125,13 +126,13 @@ namespace Realm.Library.Common.Test.Data
             var atom = new DictionaryAtom();
             atom.Set("TestList", listAtom);
 
-            Assert.That(atom.ContainsKey("TestList"), Is.True);
+            atom.ContainsKey("TestList").Should().BeTrue();
 
             var foundAtom = atom.GetAtom<ListAtom>("TestList");
 
-            Assert.That(foundAtom, Is.Not.Null);
-            Assert.That(foundAtom, Is.InstanceOf<ListAtom>());
-            Assert.That(foundAtom.GetString(0), Is.EqualTo("1 2 3 4 5"));
+            foundAtom.Should().NotBeNull();
+            foundAtom.Should().BeAssignableTo<ListAtom>();
+            foundAtom.GetString(0).Should().Be("1 2 3 4 5");
         }
     }
 }

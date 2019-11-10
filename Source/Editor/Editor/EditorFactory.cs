@@ -16,7 +16,7 @@ namespace Realm.Edit.Editor
             Builders = new Dictionary<SystemTypes, EditorBuilder>();
         }
 
-        public static Dictionary<SystemTypes, EditorBuilder> Builders { get; private set; }
+        public static Dictionary<SystemTypes, EditorBuilder> Builders { get; }
 
         public static void RegisterEditor(EditorBuilder value)
         {
@@ -41,7 +41,7 @@ namespace Realm.Edit.Editor
 
         public static EditorBrowseInfo GetSimpleBrowseInfo(SystemTypes systemType, int id)
         {
-            IRealmDbContext dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
+            var dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
             var obj = dbContext.GetPrimitive(systemType, id);
             return obj != null
                 ? new EditorBrowseInfo(systemType, "[" + obj.SystemName + "]", obj.SystemClass.Id, obj.Id)

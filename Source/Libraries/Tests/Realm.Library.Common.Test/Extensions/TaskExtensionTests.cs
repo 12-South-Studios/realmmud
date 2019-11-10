@@ -1,11 +1,10 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 
 namespace Realm.Library.Common.Test.Extensions
 {
-    [TestFixture]
     public class TaskExtensionTests
     {
-        [Test]
+        [Fact]
         public void CancelTest()
         {
         }

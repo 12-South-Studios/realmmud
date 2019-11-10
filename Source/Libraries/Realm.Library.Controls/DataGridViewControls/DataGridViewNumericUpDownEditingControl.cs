@@ -1,10 +1,8 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Realm.Library.Common.Objects;
 
 namespace Realm.Library.Controls.DataGridViewControls
-
 {
     /// <summary>
     /// Defines the editing control for the DataGridViewNumericUpDownCell custom cell type.
@@ -16,10 +14,10 @@ namespace Realm.Library.Controls.DataGridViewControls
         private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
 
         // The grid that owns this editing control
-        private DataGridView dataGridView;
+        private DataGridView _dataGridView;
 
         // Stores whether the editing control's value has changed or not
-        private bool valueChanged;
+        private bool _valueChanged;
 
         // Stores the row index in which the editing control resides
 
@@ -39,14 +37,8 @@ namespace Realm.Library.Controls.DataGridViewControls
         /// </summary>
         public virtual DataGridView EditingControlDataGridView
         {
-            get
-            {
-                return dataGridView;
-            }
-            set
-            {
-                dataGridView = value;
-            }
+            get { return _dataGridView; }
+            set { _dataGridView = value; }
         }
 
         /// <summary>
@@ -54,14 +46,8 @@ namespace Realm.Library.Controls.DataGridViewControls
         /// </summary>
         public virtual object EditingControlFormattedValue
         {
-            get
-            {
-                return GetEditingControlFormattedValue(DataGridViewDataErrorContexts.Formatting);
-            }
-            set
-            {
-                Text = (string)value;
-            }
+            get { return GetEditingControlFormattedValue(DataGridViewDataErrorContexts.Formatting); }
+            set { Text = (string) value; }
         }
 
         /// <summary>
@@ -74,14 +60,8 @@ namespace Realm.Library.Controls.DataGridViewControls
         /// </summary>
         public virtual bool EditingControlValueChanged
         {
-            get
-            {
-                return valueChanged;
-            }
-            set
-            {
-                valueChanged = value;
-            }
+            get { return _valueChanged; }
+            set { _valueChanged = value; }
         }
 
         /// <summary>
@@ -106,9 +86,9 @@ namespace Realm.Library.Controls.DataGridViewControls
             if (dataGridViewCellStyle.BackColor.A < 255)
             {
                 // The NumericUpDown control does not support transparent back colors
-                Color opaqueBackColor = Color.FromArgb(255, dataGridViewCellStyle.BackColor);
+                var opaqueBackColor = Color.FromArgb(255, dataGridViewCellStyle.BackColor);
                 BackColor = opaqueBackColor;
-                dataGridView.EditingPanel.BackColor = opaqueBackColor;
+                _dataGridView.EditingPanel.BackColor = opaqueBackColor;
             }
             else
             {
@@ -125,16 +105,16 @@ namespace Realm.Library.Controls.DataGridViewControls
 
         private bool HandleRightKey(TextBox textBox)
         {
-            return textBox.IsNotNull() &&
-                             (CheckTextBoxSelection(textBox, RightToLeft.No, 0, textBox.Text.Length)
-                              || CheckTextBoxSelection(textBox, RightToLeft.Yes, 0, 0));
+            return textBox != null &&
+                   (CheckTextBoxSelection(textBox, RightToLeft.No, 0, textBox.Text.Length)
+                    || CheckTextBoxSelection(textBox, RightToLeft.Yes, 0, 0));
         }
 
         private bool HandleLeftKey(TextBox textBox)
         {
-            return textBox.IsNotNull() &&
-                             (CheckTextBoxSelection(textBox, RightToLeft.No, 0, 0)
-                              || CheckTextBoxSelection(textBox, RightToLeft.Yes, 0, textBox.Text.Length));
+            return textBox != null &&
+                   (CheckTextBoxSelection(textBox, RightToLeft.No, 0, 0)
+                    || CheckTextBoxSelection(textBox, RightToLeft.Yes, 0, textBox.Text.Length));
         }
 
         /// <summary>
@@ -179,19 +159,15 @@ namespace Realm.Library.Controls.DataGridViewControls
                 case Keys.End:
                     // Let the grid handle the key if the entire text is selected.
                     textBox = Controls[1] as TextBox;
-                    // ReSharper disable PossibleNullReferenceException
-                    if (textBox.IsNotNull() && textBox.SelectionLength != textBox.Text.Length)
-                        // ReSharper restore PossibleNullReferenceException
+                    if (textBox != null && textBox.SelectionLength != textBox.Text.Length)
                         return true;
                     break;
 
                 case Keys.Delete:
                     // Let the grid handle the key we're at the end of the text.
                     textBox = Controls[1] as TextBox;
-                    // ReSharper disable PossibleNullReferenceException
-                    if (textBox.IsNotNull() && (textBox.SelectionLength > 0 ||
-                        // ReSharper restore PossibleNullReferenceException
-                        textBox.SelectionStart < textBox.Text.Length))
+                    if (textBox != null && (textBox.SelectionLength > 0 ||
+                                            textBox.SelectionStart < textBox.Text.Length))
                         return true;
                     break;
             }
@@ -203,7 +179,7 @@ namespace Realm.Library.Controls.DataGridViewControls
         /// </summary>
         public virtual object GetEditingControlFormattedValue(DataGridViewDataErrorContexts context)
         {
-            bool userEdit = UserEdit;
+            var userEdit = UserEdit;
             try
             {
                 // Prevent the Value from being set to Maximum or Minimum when the cell is being painted.
@@ -222,19 +198,17 @@ namespace Realm.Library.Controls.DataGridViewControls
         /// </summary>
         public virtual void PrepareEditingControlForEdit(bool selectAll)
         {
-            TextBox textBox = Controls[1] as TextBox;
-            if (textBox != null)
+            var textBox = Controls[1] as TextBox;
+            if (textBox == null) return;
+            if (selectAll)
             {
-                if (selectAll)
-                {
-                    textBox.SelectAll();
-                }
-                else
-                {
-                    // Do not select all the text, but
-                    // position the caret at the end of the text
-                    textBox.SelectionStart = textBox.Text.Length;
-                }
+                textBox.SelectAll();
+            }
+            else
+            {
+                // Do not select all the text, but
+                // position the caret at the end of the text
+                textBox.SelectionStart = textBox.Text.Length;
             }
         }
 
@@ -246,11 +220,9 @@ namespace Realm.Library.Controls.DataGridViewControls
         /// </summary>
         private void NotifyDataGridViewOfValueChange()
         {
-            if (!valueChanged)
-            {
-                valueChanged = true;
-                dataGridView.NotifyCurrentCellDirty(true);
-            }
+            if (_valueChanged) return;
+            _valueChanged = true;
+            _dataGridView.NotifyCurrentCellDirty(true);
         }
 
         /// <summary>
@@ -263,17 +235,17 @@ namespace Realm.Library.Controls.DataGridViewControls
 
             // The value changes when a digit, the decimal separator, the group separator or
             // the negative sign is pressed.
-            bool notifyValueChange = false;
+            var notifyValueChange = false;
             if (char.IsDigit(e.KeyChar))
             {
                 notifyValueChange = true;
             }
             else
             {
-                System.Globalization.NumberFormatInfo numberFormatInfo = System.Globalization.CultureInfo.CurrentCulture.NumberFormat;
-                string decimalSeparatorStr = numberFormatInfo.NumberDecimalSeparator;
-                string groupSeparatorStr = numberFormatInfo.NumberGroupSeparator;
-                string negativeSignStr = numberFormatInfo.NegativeSign;
+                var numberFormatInfo = System.Globalization.CultureInfo.CurrentCulture.NumberFormat;
+                var decimalSeparatorStr = numberFormatInfo.NumberDecimalSeparator;
+                var groupSeparatorStr = numberFormatInfo.NumberGroupSeparator;
+                var negativeSignStr = numberFormatInfo.NegativeSign;
                 if (!string.IsNullOrEmpty(decimalSeparatorStr) && decimalSeparatorStr.Length == 1)
                 {
                     notifyValueChange = decimalSeparatorStr[0] == e.KeyChar;
@@ -314,13 +286,10 @@ namespace Realm.Library.Controls.DataGridViewControls
         /// </summary>
         protected override bool ProcessKeyEventArgs(ref Message m)
         {
-            TextBox textBox = Controls[1] as TextBox;
-            if (textBox != null)
-            {
-                SendMessage(textBox.Handle, m.Msg, m.WParam, m.LParam);
-                return true;
-            }
-            return base.ProcessKeyEventArgs(ref m);
+            var textBox = Controls[1] as TextBox;
+            if (textBox == null) return base.ProcessKeyEventArgs(ref m);
+            SendMessage(textBox.Handle, m.Msg, m.WParam, m.LParam);
+            return true;
         }
     }
 }

@@ -1,57 +1,60 @@
 ﻿using System.Linq;
-using NUnit.Framework;
+using FluentAssertions;
 using Realm.Library.Common.Collections;
+using Xunit;
 
-namespace Realm.Library.Common.Test
+namespace Realm.Library.Common.Fact
 {
-    [TestFixture]
-    public class BidirectionalDictionaryTests
+    public class BidirectionalDictionaryFacts
     {
         private static BidirectionalDictionary<string, string> _dictionary;
             
-        [SetUp]
-        private void OnSetup()
+        public BidirectionalDictionaryFacts()
         {
             _dictionary = new BidirectionalDictionary<string, string>();
-            _dictionary.Add("FirstValue", "FirstLookupValue"); 
+            _dictionary.Add("FirstValue", "FirstLookupValue");
+            _dictionary.Add("SecondValue", "SecondLookupValue");
         }
 
-        [TearDown]
-        private void OnTeardown()
+        ~BidirectionalDictionaryFacts()
         {
             _dictionary = null;
         }
 
-        [TestCase("FirstValue", "FirstLookupValue", true)]
-        [TestCase("SecondValue", "FirstLookupValue", false)]
-        public void GetByFirstTest(string firstValue, string secondValue, bool expectedResult)
+        [Theory]
+        [InlineData("FirstValue", "FirstLookupValue", true)]
+        [InlineData("SecondValue", "FirstLookupValue", false)]
+        public void GetByFirstFact(string firstValue, string secondValue, bool expectedResult)
         {
             var results = _dictionary.GetByFirst(firstValue);
 
-            Assert.That(results.ToList().Contains(secondValue), Is.EqualTo(expectedResult));
+            var result = results.ToList().Contains(secondValue);
+            result.Should().Be(expectedResult);
         }
 
-        [TestCase("SecondValue", "FirstLookupValue", true)]
-        [TestCase("SecondLookupValue", "FirstLookupValue", false)]
-        public void GetBySecondTest(string secondValue, string firstValue, bool expectedResult)
+        [Theory]
+        [InlineData("SecondValue", "FirstLookupValue", true)]
+        [InlineData("SecondLookupValue", "FirstLookupValue", false)]
+        public void GetBySecondFact(string secondValue, string firstValue, bool expectedResult)
         {
             var results = _dictionary.GetBySecond(secondValue);
 
-            Assert.That(results.ToList().Contains(firstValue), Is.EqualTo(expectedResult));
+            var result = results.ToList().Contains(firstValue);
+            result.Should().Be(expectedResult);
         }
 
-        [Test]
-        public void Remove_Test()
+        [Fact]
+        public void Remove_Fact()
         {
             _dictionary.Remove("FirstValue", "FirstLookupValue");
 
             var results = _dictionary.GetByFirst("FirstValue");
-
-            Assert.That(results.ToList().Contains("FirstValue"), Is.False);
+            var result = results.ToList().Contains("FirstValue");
+            result.Should().BeFalse();
 
             results = _dictionary.GetBySecond("FirstLookupValue");
-
-            Assert.That(results.ToList().Contains("FirstLookupValue"), Is.False);
+            result = results.ToList().Contains("FirstLookupValue");
+            result.Should().BeFalse();
         }
     }
 }

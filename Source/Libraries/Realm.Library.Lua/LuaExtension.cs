@@ -1,6 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using LuaInterface;
-using Realm.Library.Common;
 
 namespace Realm.Library.Lua
 {
@@ -20,8 +20,7 @@ namespace Realm.Library.Lua
         [ExcludeFromCodeCoverage]
         public static LuaTable GetTable(this LuaInterface.Lua lua, string tableName)
         {
-            Validation.IsNotNull(lua, "lua");
-            Validation.IsNotNullOrEmpty(tableName, "tableName");
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
 
             return lua[tableName] as LuaTable;
         }
@@ -35,8 +34,7 @@ namespace Realm.Library.Lua
         [ExcludeFromCodeCoverage]
         public static LuaTable CreateTable(this LuaInterface.Lua lua, string tableName)
         {
-            Validation.IsNotNull(lua, "lua");
-            Validation.IsNotNullOrEmpty(tableName, "tableName");
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
 
             lua.NewTable(tableName);
             return lua.GetTable(tableName);
@@ -50,8 +48,6 @@ namespace Realm.Library.Lua
         [ExcludeFromCodeCoverage]
         public static LuaTable CreateTable(this LuaInterface.Lua lua)
         {
-            Validation.IsNotNull(lua, "lua");
-
             lua.NewTable("my");
             return lua.GetTable("my");
         }

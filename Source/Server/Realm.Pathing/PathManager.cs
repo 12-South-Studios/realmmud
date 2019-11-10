@@ -90,11 +90,8 @@ namespace Realm.Pathing
 
         public Path GetPath(long sourceId, long targetId)
         {
-            Path path = GetCachedPath(sourceId, targetId);
-            if (path.IsNotNull())
-                return path;
-
-            return _pathBuilder.GeneratePath(sourceId, targetId);
+            var path = GetCachedPath(sourceId, targetId);
+            return path ?? _pathBuilder.GeneratePath(sourceId, targetId);
         }
 
         private Path GetCachedPath(long sourceId, long targetId)

@@ -62,14 +62,16 @@ namespace Realm.Library.Database.Framework
         {
             if (disposing)
             {
-                if (_connection.IsNotNull() && _connection.State != ConnectionState.Closed)
+                if (_connection != null && _connection.State != ConnectionState.Closed)
                     _connection.Dispose();
 
-                var it = _tasks.GetEnumerator();
-                while (it.MoveNext())
+                using (var it = _tasks.GetEnumerator())
                 {
-                    _tasks.Remove(it.Current.Key);
-                    it.Current.Key.Cancel(it.Current.Value);
+                    while (it.MoveNext())
+                    {
+                        _tasks.Remove(it.Current.Key);
+                        it.Current.Key.Cancel(it.Current.Value);
+                    }
                 }
             }
             base.Dispose(disposing);
@@ -95,8 +97,6 @@ namespace Realm.Library.Database.Framework
             {
                 tokenSource = new CancellationTokenSource();
                 task = Task.Factory.StartNew(() => ExecuteNextTransaction(tokenSource.Token, transaction), tokenSource.Token);
-                if (task.IsNull())
-                    throw new ObjectDisposedException("task");
 
                 _tasks.Add(task, tokenSource);
                 task.Wait(tokenSource.Token);
@@ -143,16 +143,18 @@ namespace Realm.Library.Database.Framework
 
             try
             {
-                var it = transaction.DbCommands.GetEnumerator();
-                while (it.MoveNext())
+                using (var it = transaction.DbCommands.GetEnumerator())
                 {
-                    var dbCommand = it.Current.CastAs<DictionaryAtom>();
-                    if (!success) continue;
-                    var resultSet = ExecuteProcedure(dbCommand);
-                    if (resultSet.IsNull() || (resultSet.ContainsKey("success") && !resultSet.GetBool("success")))
-                        success = false;
+                    while (it.MoveNext())
+                    {
+                        var dbCommand = it.Current.CastAs<DictionaryAtom>();
+                        if (!success) continue;
+                        var resultSet = ExecuteProcedure(dbCommand);
+                        if (resultSet == null || (resultSet.ContainsKey("success") && !resultSet.GetBool("success")))
+                            success = false;
 
-                    commandResults.Add(resultSet ?? new DictionaryAtom());
+                        commandResults.Add(resultSet ?? new DictionaryAtom());
+                    }
                 }
             }
             catch (SqlException ex)
@@ -202,13 +204,13 @@ namespace Realm.Library.Database.Framework
             var dbSchema = dbCommand.GetString("schema");
             var dbCommandName = dbCommand.GetString("commandName");
             var proc = GetProcedure(dbSchema, dbCommandName);
-            if (proc.IsNull())
+            if (proc == null)
                 throw new ObjectNotFoundException(string.Format(Resources.ERR_DB_PROC_NOT_FOUND, dbSchema, dbCommandName));
 
             var dbParameterSet = dbCommand.GetAtom<DictionaryAtom>("parameters");
 
             var executor = new ProcedureExecutor<SqlCommand>(_connection, _log, proc);
-            var result = executor.ExecuteQuery(dbParameterSet.IsNotNull() ? dbParameterSet.ToDictionary() : null);
+            var result = executor.ExecuteQuery(dbParameterSet?.ToDictionary());
             var dataTable = result.Item2.CastAs<DataTable>();
 
             var resultSet = new DictionaryAtom();
@@ -263,7 +265,7 @@ namespace Realm.Library.Database.Framework
             Validation.IsNotNull(transaction, "transaction");
             Validation.IsNotNull(response, "response");
 
-            if (transaction.Callback.IsNull()) return;
+            if (transaction.Callback == null) return;
 
             transaction.State = TransactionState.Processing;
             transaction.TransactionCallback.Invoke(new DatabaseResponseEventArgs

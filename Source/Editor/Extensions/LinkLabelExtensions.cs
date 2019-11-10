@@ -3,7 +3,6 @@ using System.Windows.Forms;
 using Realm.DAL.Enumerations;
 using Realm.Edit.Editor;
 using Realm.Library.Common;
-using Realm.Library.Common.Objects;
 
 namespace Realm.Edit.Extensions
 {
@@ -33,7 +32,7 @@ namespace Realm.Edit.Extensions
             Validation.IsNotNull(value, "value");
 
             var browseInfo = value.Tag as EditorBrowseInfo;
-            return browseInfo.IsNotNull() && browseInfo.Id > 0 ? browseInfo.Id : 0;
+            return browseInfo != null && browseInfo.Id > 0 ? browseInfo.Id : 0;
         }
     }
 }

@@ -1,39 +1,39 @@
 ﻿using System;
-using Moq;
-using NUnit.Framework;
+using FakeItEasy;
+using FluentAssertions;
 using Realm.Library.Common.Data;
 using Realm.Library.Common.Logging;
+using Xunit;
 
 namespace Realm.Library.Common.Test.Data
 {
-    [TestFixture]
     public class IntAtomTest
     {
-        [Test]
+        [Fact]
         public void IntAtomIntegerTest()
         {
             const int value = 5;
 
             var atom = new IntAtom(value);
 
-            Assert.That(atom, Is.Not.Null);
-            Assert.That(atom.Type, Is.EqualTo(AtomType.Integer));
-            Assert.That(atom.Value, Is.EqualTo(value));
+            atom.Should().NotBeNull();
+            atom.Type.Should().Be(AtomType.Integer);
+            atom.Value.Should().Be(value);
         }
 
-        [Test]
+        [Fact]
         public void IntAtomLongTest()
         {
             const long value = 50001;
 
             var atom = new IntAtom(value);
 
-            Assert.That(atom, Is.Not.Null);
-            Assert.That(atom.Type, Is.EqualTo(AtomType.Integer));
-            Assert.That(atom.Value, Is.EqualTo(value));
+            atom.Should().NotBeNull();
+            atom.Type.Should().Be(AtomType.Integer);
+            atom.Value.Should().Be((int)value);
         }
 
-        [Test]
+        [Fact]
         public void IntAtomDumpNullParameterTest()
         {
             const int value = 5;
@@ -41,48 +41,49 @@ namespace Realm.Library.Common.Test.Data
 
             const string prefix = "Test";
 
-            Assert.Throws<ArgumentNullException>(() => atom.Dump(null, prefix),
-                                                 "Unit Test expected an ArgumentNullException to be thrown");
+            Action act = () => atom.Dump(null, prefix);
+            act.Should().Throw<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void IntAtomDumpTest()
         {
             var callback = false;
 
-            var mockLog = new Mock<ILogWrapper>();
-            mockLog.Setup(s => s.InfoFormat(It.IsAny<string>(), It.IsAny<object>(),
-                                            It.IsAny<object>())).Callback(() => { callback = true; });
+            var logger = A.Fake<ILogWrapper>();
+            A.CallTo(() => logger.InfoFormat(A<string>.Ignored, A<object>.Ignored, A<object>.Ignored))
+                .Invokes(() => callback = true);
 
             const int value = 5;
             var atom = new IntAtom(value);
 
             const string prefix = "Test";
 
-            atom.Dump(mockLog.Object, prefix);
+            atom.Dump(logger, prefix);
 
-            Assert.That(callback, Is.True);
+            callback.Should().BeTrue();
         }
 
-        [TestCase(5, 10, false)]
-        [TestCase(5, 5, true)]
-        [TestCase(5, null, false)]
+        [Theory]
+        [InlineData(5, 10, false)]
+        [InlineData(5, 5, true)]
+        [InlineData(5, null, false)]
         public void IntAtomEqualsTest(int firstValue, int secondValue, bool expected)
         {
             var atom = new IntAtom(firstValue);
             var compareAtom = new IntAtom(secondValue);
 
-            Assert.That(atom.Equals(compareAtom), Is.EqualTo(expected));
+            atom.Equals(compareAtom).Should().Be(expected);
 
         }
 
-        [Test]
+        [Fact]
         public void IntAtomGetHashCodeTest()
         {
             const int value = 5;
             var atom = new IntAtom(value);
 
-            Assert.That(atom.GetHashCode(), Is.EqualTo(value));
+            atom.GetHashCode().Should().Be(value);
         }
     }
 }

@@ -1,10 +1,11 @@
 ﻿using System;
-using NUnit.Framework;
+using FluentAssertions;
 using Realm.Library.Common.Extensions;
+using Xunit;
+using TypeExtensions = Realm.Library.Common.Extensions.TypeExtensions;
 
 namespace Realm.Library.Common.Test.Extensions
 {
-    [TestFixture]
     public static class TypeExtensionsTest
     {
         private class HelperObject
@@ -19,25 +20,25 @@ namespace Realm.Library.Common.Test.Extensions
             public string Arg1 { get; set; }
         }
 
-        [Test]
+        [Fact]
         public static void InstantiateNullTest()
         {
-            Assert.Throws<ArgumentNullException>(() => TypeExtensions.Instantiate<HelperObject>(null, null),
-                                                 "Unit test expected an ArgumentNullException to be thrown");
+            Action act = () => TypeExtensions.Instantiate<HelperObject>(null, null);
+            act.Should().Throw<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public static void InstantiateTest()
         {
             var type = typeof(HelperObject);
 
             var obj = type.Instantiate<HelperObject>();
 
-            Assert.That(obj, Is.Not.Null);
-            Assert.That(obj.GetType(), Is.EqualTo(type));
+            obj.Should().NotBeNull();
+            obj.GetType().Should().Be(type);
         }
 
-        [Test]
+        [Fact]
         public static void InstantiateWithArgumentsTest()
         {
             var type = typeof(HelperObject);
@@ -45,8 +46,8 @@ namespace Realm.Library.Common.Test.Extensions
 
             var obj = type.Instantiate<HelperObject>(arg1);
 
-            Assert.That(obj, Is.Not.Null);
-            Assert.That(obj.Arg1, Is.EqualTo(arg1));
+            obj.Should().NotBeNull();
+            obj.Arg1.Should().Be(arg1);
         }
     }
 }

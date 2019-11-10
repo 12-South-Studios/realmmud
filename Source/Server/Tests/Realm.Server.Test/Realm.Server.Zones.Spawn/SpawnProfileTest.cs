@@ -8,7 +8,7 @@
 //    [TestClass]
 //    public class SpawnProfileTest
 //    {
-//        [TestMethod]
+//        [Fact]
 //        public void SpawnProfile_Constructor_Test()
 //        {
 //            var profile = new SpawnProfile(1, "test", 1, 2, 100);
@@ -21,7 +21,7 @@
 //            Assert.AreEqual(100, profile.Chance);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void SpawnProfile_SetMinQuantity_Test()
 //        {
 //            var profile = new SpawnProfile(1, "test", 1, 10, 100);
@@ -32,7 +32,7 @@
 //            Assert.AreEqual(5, profile.MinQuantity);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void SpawnProfile_SetMinQuantityGreaterThanMax_Test()
 //        {
 //            var profile = new SpawnProfile(1, "test", 1, 10, 100);
@@ -43,7 +43,7 @@
 //            Assert.AreEqual(15, profile.MaxQuantity);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void SpawnProfile_AddEntity_Test()
 //        {
 //            var mockEntityManager = TestHelper.MockEntityManager;
@@ -56,7 +56,7 @@
 //            Assert.AreEqual(1, profile.EntityCount);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void SpawnProfile_AddEntityAlreadyExists_Test()
 //        {
 //            var mockEntityManager = TestHelper.MockEntityManager;
@@ -69,7 +69,7 @@
 //            Assert.AreEqual(1, profile.EntityCount);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void SpawnProfile_PickTemplateRandom_Test()
 //        {
 //            var mockEntityManager = TestHelper.MockEntityManager;
@@ -82,7 +82,7 @@
 //            Assert.IsNotNull(actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void SpawnProfile_PickTemplateRoundRobin_Test()
 //        {
 //            var mockEntityManager = TestHelper.MockEntityManager;

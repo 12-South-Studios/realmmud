@@ -25,7 +25,7 @@ namespace Realm.Library.Network.Mxp
         /// <summary>
         /// Gets the value of the entity string
         /// </summary>
-        public string Value { get; private set; }
+        public string Value { get; }
 
         /// <summary>
         /// Override ToString to create the actual mxp entity value

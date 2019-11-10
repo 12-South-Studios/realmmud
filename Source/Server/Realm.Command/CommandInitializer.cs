@@ -12,9 +12,9 @@ namespace Realm.Command
 {
     public class CommandInitializer : ICommandInitializer
     {
-        private IHelper<Action> Helper { get; set; }
+        private IHelper<Action> Helper { get; }
         private readonly IStaticDataManager _staticDataManager;
-        private CommandRepository Repository { get; set; }
+        private CommandRepository Repository { get; }
 
         public CommandInitializer(ICommandRepository repository, [Named("CommandHelper")] IHelper<Action> helper, 
             IStaticDataManager staticDataManager)

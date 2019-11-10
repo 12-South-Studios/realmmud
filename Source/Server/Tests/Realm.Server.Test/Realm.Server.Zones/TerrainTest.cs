@@ -8,7 +8,7 @@
 //    [TestClass]
 //    public class TerrainTest
 //    {
-//        [TestMethod]
+//        [Fact]
 //        public void Terrain_Cost_Test()
 //        {
 //            var terrain = new Terrain(1, "test", new PropertyContext(null));
@@ -18,7 +18,7 @@
 //            Assert.AreEqual(50, terrain.Cost);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void Terrain_IsLitBySun_Test()
 //        {
 //            var terrain = new Terrain(1, "test", new PropertyContext(null));
@@ -28,7 +28,7 @@
 //            Assert.AreEqual(true, terrain.IsLitBySun);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void Terrain_Description_Test()
 //        {
 //            var terrain = new Terrain(1, "test", new PropertyContext(null));
@@ -38,7 +38,7 @@
 //            Assert.AreEqual("This is a test", terrain.Description);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void Terrain_Skill_Test()
 //        {
 //            var terrain = new Terrain(1, "test", new PropertyContext(null));
@@ -48,7 +48,7 @@
 //            Assert.AreEqual("Testing", terrain.Skill);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void Terrain_AddRestrictedMovementModeTypes_Negative_Test()
 //        {
 //            var terrain = new Terrain(1, "Test", new PropertyContext(null));
@@ -58,7 +58,7 @@
 //            Assert.AreEqual(expected, actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void Terrain_AddRestricted_MovementModeTypes_Positive_Test()
 //        {
 //            var terrain = new Terrain(1, "Test", new PropertyContext(null));
@@ -69,7 +69,7 @@
 //            Assert.AreEqual(expected, actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void Terrain_Disallowed_MovementModeTypes_Test()
 //        {
 //            var terrain = new Terrain(1, "Test", new PropertyContext(null));

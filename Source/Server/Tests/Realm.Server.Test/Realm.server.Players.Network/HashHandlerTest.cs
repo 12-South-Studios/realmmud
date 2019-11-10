@@ -7,7 +7,7 @@
 //    [TestClass]
 //    public class HashHandlerTest
 //    {
-//        [TestMethod]
+//        [Fact]
 //        public void HashHandler_Constructor_NonNullRepository_Test()
 //        {
 //            var handler = new HashHandler(TestHelper.MockLogger.Object, new HashRepository());
@@ -15,7 +15,7 @@
 //            Assert.IsNotNull(handler.Hashes);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void HashHandler_Constructor_NullRepository_Test()
 //        {
 //            var handler = new HashHandler(TestHelper.MockLogger.Object, null);
@@ -23,7 +23,7 @@
 //            Assert.IsNotNull(handler.Hashes);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void HashHandler_GetHash_Valid_Test()
 //        {
 //            var repository = new HashRepository();
@@ -36,7 +36,7 @@
 //            Assert.AreEqual("test", actual.Name);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void HashHandler_GetHash_Invalid_Test()
 //        {
 //            var repository = new HashRepository();
@@ -47,7 +47,7 @@
 //            Assert.IsNull(actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void HashHandler_GetRandomHash_OneParam_NoHash_Test()
 //        {
 //            var handler = new HashHandler(TestHelper.MockLogger.Object, null);
@@ -56,7 +56,7 @@
 //            Assert.IsNull(actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void HashHandler_GetRandomHash_OneParam_OneHash_Test()
 //        {
 //            var repository = new HashRepository();
@@ -69,7 +69,7 @@
 //            Assert.AreEqual("test", actual.Name);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void HashHandler_GetRandomHash_OneParam_TwoHash_Test()
 //        {
 //            var repository = new HashRepository();
@@ -83,7 +83,7 @@
 //            Assert.AreEqual("test1", actual.Name);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void HashHandler_GetRandomHash_TwoParam_NoHash_Test()
 //        {
 //            var handler = new HashHandler(TestHelper.MockLogger.Object, null);
@@ -92,7 +92,7 @@
 //            Assert.IsNull(actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void HashHandler_GetRandomHash_TwoParam_OneHash_Test()
 //        {
 //            var repository = new HashRepository();
@@ -105,7 +105,7 @@
 //            Assert.AreEqual("test", actual.Name);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void HashHandler_GetRandomHash_TwoParam_TwoHash_LessThanMaxTries_Test()
 //        {
 //            var repository = new HashRepository();
@@ -119,7 +119,7 @@
 //            Assert.AreEqual("test2", actual.Name);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void HashHandler_GetRandomHash_TwoParam_TwoHash_GreaterThanMaxTries_Test()
 //        {
 //            var repository = new HashRepository();

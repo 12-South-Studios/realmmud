@@ -1,9 +1,7 @@
 using System;
 using System.Windows.Forms;
-using Realm.Library.Common.Objects;
 
 namespace Realm.Library.Controls.Calendar
-
 {
     /// <summary>
     ///
@@ -27,7 +25,7 @@ namespace Realm.Library.Controls.Calendar
             set
             {
                 var s = value as string;
-                if (s.IsNotNull())
+                if (s != null)
                     Value = DateTime.Parse(s);
             }
         }
@@ -67,7 +65,7 @@ namespace Realm.Library.Controls.Calendar
         /// <returns></returns>
         public bool EditingControlWantsInputKey(Keys key, bool dataGridViewWantsInputKey)
         {
-            bool returnVal = false;
+            var returnVal = false;
 
             switch (key & Keys.KeyCode)
             {

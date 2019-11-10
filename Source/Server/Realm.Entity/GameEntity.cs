@@ -42,7 +42,7 @@ namespace Realm.Entity
         /// <summary>
         ///
         /// </summary>
-        public IList<IContext> Contexts { get; private set; }
+        public IList<IContext> Contexts { get; }
 
         /// <summary>
         ///

@@ -6,7 +6,7 @@
 //    [TestClass]
 //    public class DeityTest
 //    {
-//        [TestMethod]
+//        [Fact]
 //        public void Deity_Constructor_Test()
 //        {
 //            const int id = 1;

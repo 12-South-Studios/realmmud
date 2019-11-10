@@ -1,5 +1,7 @@
 TODO:
-- Database has been converted to use EntityFramework (there are no stored procs).  Need to find a way to convert existing database system in RealmMUD core solution to use that.  Currently uses Realm.Library.Database as well so may need to alter it too.
+- Database has been converted to use EntityFramework (there are no stored procs).  
+Need to find a way to convert existing database system in RealmMUD core solution to use that.  
+Currently uses Realm.Library.Database as well so may need to alter it too.
 
 Consider: http://blogs.msdn.com/b/mrtechnocal/archive/2014/03/16/asynchronous-repositories.aspx
 
@@ -120,9 +122,6 @@ Consider ways of handling Transactions in Realm.Edit.Data
    Options:
    - Delete the objects entirely (how to ensure integrity with links in other mapping tables?)
    - Flag them as deleted (would require retrieval in all tables to check the IDs table and create a way to re-constitute them)
-
-Unit Tests with both MSTest and NUnit
-http://www.codeproject.com/Articles/292902/How-to-run-NUnit-tests-in-Visual-Studio-2010-MSTes
 
 
 =========================== REALM.BUILD.TOOL ======================

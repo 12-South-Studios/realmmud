@@ -1,145 +1,148 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using NUnit.Framework;
+using FluentAssertions;
 using Realm.Library.Common.Data;
+using Xunit;
 
 namespace Realm.Library.Common.Test.Data
 {
-    [TestFixture]
     [ExcludeFromCodeCoverage]
     public class AtomExtensionsTest
     {
-        [Test]
+        [Fact]
         public void AtomExtensionToBoolAtomTest()
         {
             const bool value = true;
 
             var actual = value.ToAtom<BoolAtom>();
 
-            Assert.That(actual, Is.Not.Null);
-            Assert.That(actual.Value, Is.EqualTo(value));
+            actual.Should().NotBeNull();
+            actual.Value.Should().Be(value);
         }
 
-        [Test]
+        [Fact]
         public void AtomExtensionToIntAtomTest()
         {
             const int value = 5;
 
             var actual = value.ToAtom<IntAtom>();
 
-            Assert.That(actual, Is.Not.Null);
-            Assert.That(actual.Value, Is.EqualTo(value));
+            actual.Should().NotBeNull();
+            actual.Value.Should().Be(value);
         }
 
-        [Test]
+        [Fact]
         public void AtomExtensionToRealAtomInt64Test()
         {
             const long value = 50;
 
             var actual = value.ToAtom<RealAtom>();
 
-            Assert.That(actual, Is.Not.Null);
-            Assert.That(actual.Value, Is.EqualTo(value));
+            actual.Should().NotBeNull();
+            actual.Value.Should().Be(value);
         }
 
-        [Test]
+        [Fact]
         public void AtomExtensionToRealAtomDoubleTest()
         {
             const double value = 5.5D;
 
             var actual = value.ToAtom<RealAtom>();
 
-            Assert.That(actual, Is.Not.Null);
-            Assert.That(actual.Value, Is.EqualTo(value));
+            actual.Should().NotBeNull();
+            actual.Value.Should().Be(value);
         }
 
-        [Test]
+        [Fact]
         public void AtomExtensionToRealAtomSingleTest()
         {
             const float value = 5.5f;
 
             var actual = value.ToAtom<RealAtom>();
 
-            Assert.That(actual, Is.Not.Null);
-            Assert.That(actual.Value, Is.EqualTo(value));
+            actual.Should().NotBeNull();
+            actual.Value.Should().Be(value);
         }
 
-        [Test]
+        [Fact]
         public void AtomExtensionToAtomNullStringTest()
         {
-            Assert.Throws<ArgumentNullException>(() => AtomExtensions.ToAtom<IntAtom>(string.Empty),
-                                                 "Unit Test expected an ArgumentNullException to be thrown");
+            Action act = () => AtomExtensions.ToAtom<IntAtom>(string.Empty);
+            act.Should().Throw<ArgumentNullException>();
         }
 
-        [TestCase("true", true)]
-        [TestCase("blah", false)]
+        [Theory]
+        [InlineData("true", true)]
+        [InlineData("blah", false)]
         public void AtomExtensionToAtomStringBoolAtomTest(string value, bool expected)
         {
             var actual = value.ToAtom<BoolAtom>();
 
-            Assert.That(actual, Is.Not.Null);
-            Assert.That(actual.Value, Is.EqualTo(expected));
+            actual.Should().NotBeNull();
+            actual.Value.Should().Be(expected);
         }
 
-        [TestCase("5", 5)]
-        [TestCase("ten", -1)]
+        [Theory]
+        [InlineData("5", 5)]
+        [InlineData("ten", -1)]
         public void AtomExtensionToAtomStringIntAtomTest(string value, int expected)
         {
             var actual = value.ToAtom<IntAtom>();
 
-            Assert.That(actual, Is.Not.Null);
-            Assert.That(actual.Value, Is.EqualTo(expected));
+            actual.Should().NotBeNull();
+            actual.Value.Should().Be(expected);
         }
 
-        [TestCase("25.5", 25.5f)]
-        [TestCase("twenty", 0.0f)]
+        [Theory]
+        [InlineData("25.5", 25.5f)]
+        [InlineData("twenty", 0.0f)]
         public void AtomExtensionToAtomStringRealAtomTest(string value, double expected)
         {
             var actual = value.ToAtom<RealAtom>();
 
-            Assert.That(actual, Is.Not.Null);
-            Assert.That(actual.Value, Is.EqualTo(expected));
+            actual.Should().NotBeNull();
+            actual.Value.Should().Be(expected);
         }
 
-        [Test]
+        [Fact]
         public void AtomExtensionToAtomStringStringAtomTest()
         {
             const string value = "test";
 
             var actual = value.ToAtom<StringAtom>();
 
-            Assert.That(actual, Is.Not.Null);
-            Assert.That(actual.Value, Is.EqualTo(value));
+            actual.Should().NotBeNull();
+            actual.Value.Should().Be(value);
         }
 
-        [Test]
+        [Fact]
         public void AtomExtensionToAtomStringObjectAtomTest()
         {
             const string value = "test";
 
             var actual = value.ToAtom<ObjectAtom>();
 
-            Assert.That(actual, Is.Not.Null);
-            Assert.That(actual.Value, Is.EqualTo(value));
+            actual.Should().NotBeNull();
+            actual.Value.Should().Be(value);
         }
 
-        [Test]
+        [Fact]
         public void AtomExtensionToAtomStringInvalidTypeTest()
         {
             const string value = "test";
 
             var actual = value.ToAtom<ListAtom>();
-
-            Assert.IsNull(actual);
+     
+            actual.Should().BeNull();
         }
 
-        [Test]
+        [Fact]
         public void ToAtomList_ThrowsException_WhenNullIsPassed()
         {
             Assert.Throws<ArgumentNullException>(() => AtomExtensions.ToAtom(null));
         }
 
-        /*[Test]
+        /*[Fact]
         public void AtomExtension_ToAtom_List_Test()
         {
             var list = new List<object> {25, "Testing", true, 1.52f};

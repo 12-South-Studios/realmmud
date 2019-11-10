@@ -1,104 +1,117 @@
 ﻿using System;
-using NUnit.Framework;
+using FluentAssertions;
 using Realm.Library.Common.Extensions;
+using Xunit;
 
 namespace Realm.Library.Common.Test.Extensions
 {
-    [TestFixture]
     public class NumberExtensionsTest
     {
-        [TestCase(5, 1, 10, true, true)]
-        [TestCase(5, 1, 4, true, false)]
-        [TestCase(5, 1, 10, false, true)]
-        [TestCase(5, 1, 5, false, false)]
-        public void InRangeInt32Test(Int32 value, Int32 min, Int32 max, bool inclusive, bool expected)
+        [Theory]
+        [InlineData(5, 1, 10, true, true)]
+        [InlineData(5, 1, 4, true, false)]
+        [InlineData(5, 1, 10, false, true)]
+        [InlineData(5, 1, 5, false, false)]
+        public void InRangeInt32Test(int value, int min, int max, bool inclusive, bool expected)
         {
-            Assert.That(value.InRange(min, max, inclusive), Is.EqualTo(expected));    
+            var result = value.InRange(min, max, inclusive);
+            result.Should().Be(expected);
         }
 
-        [TestCase(5, 1, 10, true, true)]
-        [TestCase(5, 1, 4, true, false)]
-        [TestCase(5, 1, 10, false, true)]
-        [TestCase(5, 1, 5, false, false)]
-        public void InRangeInt64Test(Int64 value, Int64 min, Int64 max, bool inclusive, bool expected)
+        [Theory]
+        [InlineData(5, 1, 10, true, true)]
+        [InlineData(5, 1, 4, true, false)]
+        [InlineData(5, 1, 10, false, true)]
+        [InlineData(5, 1, 5, false, false)]
+        public void InRangeInt64Test(long value, long min, long max, bool inclusive, bool expected)
         {
-            Assert.That(value.InRange(min, max, inclusive), Is.EqualTo(expected));
+            var result = value.InRange(min, max, inclusive);
+            result.Should().Be(expected);
         }
 
-        [TestCase(5.2, 1.5, 10.25, true, true)]
-        [TestCase(5.2, 1.5, 4.5, true, false)]
-        [TestCase(5.2, 1.5, 10.25, false, true)]
-        [TestCase(5.2, 1.5, 5.2, false, false)]
-        public void InRangeDoubleTest(Double value, Double min, Double max, bool inclusive, bool expected)
+        [Theory]
+        [InlineData(5.2, 1.5, 10.25, true, true)]
+        [InlineData(5.2, 1.5, 4.5, true, false)]
+        [InlineData(5.2, 1.5, 10.25, false, true)]
+        [InlineData(5.2, 1.5, 5.2, false, false)]
+        public void InRangeDoubleTest(double value, double min, double max, bool inclusive, bool expected)
         {
-            Assert.That(value.InRange(min, max, inclusive), Is.EqualTo(expected));
+            var result = value.InRange(min, max, inclusive);
+            result.Should().Be(expected);
         }
 
-        [TestCase("10", true)]
-        [TestCase("10.000", true)]
-        [TestCase("test", false)]
+        [Theory]
+        [InlineData("10", true)]
+        [InlineData("10.000", true)]
+        [InlineData("test", false)]
         public void IsNumericTest(string value, bool expected)
         {
-            Assert.That(value.IsNumeric(), Is.EqualTo(expected));
+            value.IsNumeric().Should().Be(expected);
         }
 
-        [TestCase(0, "zero")]
-        [TestCase(-5, "minus five")]
-        [TestCase(1000005, "one million and five")]
-        [TestCase(105, "one hundred and five")]
-        [TestCase(1024, "one thousand and twenty-four")]
+        [Theory]
+        [InlineData(0, "zero")]
+        [InlineData(-5, "minus five")]
+        [InlineData(1000005, "one million and five")]
+        [InlineData(105, "one hundred and five")]
+        [InlineData(1024, "one thousand and twenty-four")]
         public void ToWordsTest(int number, string expected)
         {
-            Assert.That(number.ToWords(), Is.EqualTo(expected));
+            number.ToWords().Should().Be(expected);
         }
 
-        [TestCase(1, "one")]
-        [TestCase(2, "two")]
-        [TestCase(3, "three")]
-        [TestCase(4, "four")]
-        [TestCase(5, "five")]
-        [TestCase(6, "six")]
-        [TestCase(7, "seven")]
-        [TestCase(8, "eight")]
-        [TestCase(9, "nine")]
-        [TestCase(10, "ten")]
-        [TestCase(11, "eleven")]
-        [TestCase(12, "twelve")]
-        [TestCase(15, "three")]
+        [Theory]
+        [InlineData(1, "one")]
+        [InlineData(2, "two")]
+        [InlineData(3, "three")]
+        [InlineData(4, "four")]
+        [InlineData(5, "five")]
+        [InlineData(6, "six")]
+        [InlineData(7, "seven")]
+        [InlineData(8, "eight")]
+        [InlineData(9, "nine")]
+        [InlineData(10, "ten")]
+        [InlineData(11, "eleven")]
+        [InlineData(12, "twelve")]
+        [InlineData(15, "three")]
         public void ConvertHourTest(int number, string expected)
         {
-            Assert.That(number.ConvertHour(), Is.EqualTo(expected));
+            number.ConvertHour().Should().Be(expected);
         }
 
-        [Test]
+        [Fact]
         public void ConvertHour_ThrowsException_WhenHourIsTooLow()
         {
-            Assert.Throws<ArgumentException>(() => (-1).ConvertHour());
+            Action act = () => (-1).ConvertHour();
+            act.Should().Throw<ArgumentException>();
         }
 
-        [Test]
+        [Fact]
         public void ConvertHour_ThrowsException_WhenHourIsTooHigh()
         {
-            Assert.Throws<ArgumentException>(() => 25.ConvertHour());
+            Action act = () => 25.ConvertHour();
+            act.Should().Throw<ArgumentException>();
         }
 
-        [TestCase(21, "21st")]
-        [TestCase(32, "32nd")]
-        [TestCase(103, "103rd")]
-        [TestCase(12, "12th")]
+        [Theory]
+        [InlineData(21, "21st")]
+        [InlineData(32, "32nd")]
+        [InlineData(103, "103rd")]
+        [InlineData(12, "12th")]
         public void GetOrdinalTest(int number, string expected)
         {
-            Assert.That(number.GetOrdinal(), Is.EqualTo(expected));
+            number.GetOrdinal().Should().Be(expected);
         }
 
-        [TestCase(22, "at night")]
-        [TestCase(3, "at night")]
-        [TestCase(9, "in the morning")]
-        [TestCase(15, "in the afternoon")]
-        [TestCase(19, "in the evening")]
+        [Theory]
+        [InlineData(22, "at night")]
+        [InlineData(3, "at night")]
+        [InlineData(9, "in the morning")]
+        [InlineData(15, "in the afternoon")]
+        [InlineData(19, "in the evening")]
         public void ToPeriodOfDayTest(int number, string expected)
         {
-            Assert.That(number.ToPeriodOfDay(), Is.EqualTo(expected));
+            number.ToPeriodOfDay().Should().Be(expected);
         }
     }
 }

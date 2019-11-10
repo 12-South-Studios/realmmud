@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using FluentAssertions;
 using Realm.Library.Common.Entities;
 using Realm.Server.Test.Helpers;
+using Xunit;
 
 namespace Realm.Server.Test.Realm.Server.Entities
 {
-    [TestClass]
     public class EntityContextTest
     {
         internal class FakeEntityContext : EntityContext<FakeEntity>
@@ -16,14 +16,14 @@ namespace Realm.Server.Test.Realm.Server.Entities
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void EntityContext_Constructor_Test()
         {
             var handler = new FakeEntityContext(new FakeEntity());
-            Assert.IsNotNull(handler);
+            handler.Should().NotBeNull();
         }
 
-        [TestMethod]
+        [Fact]
         public void EntityContext_AddEntity_Success_Test()
         {
             var handler = new FakeEntityContext(new FakeEntity());
@@ -31,10 +31,10 @@ namespace Realm.Server.Test.Realm.Server.Entities
             const bool expected = true;
             var actual = handler.AddEntity(new FakeEntity());
 
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void EntityContext_AddEntity_AlreadyExists_Test()
         {
             var entity = new FakeEntity();
@@ -43,10 +43,10 @@ namespace Realm.Server.Test.Realm.Server.Entities
 
             const bool expected = true;
             var actual = handler.Contains(entity);
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void EntityContext_AddEntities_Test()
         {
             var entityList = new List<FakeEntity> { new FakeEntity(), new FakeEntity() };
@@ -55,10 +55,10 @@ namespace Realm.Server.Test.Realm.Server.Entities
 
             const int expected = 2;
             var actual = handler.Count;
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void EntityContext_ContainsId_Success_Test()
         {
             const long id = 1;
@@ -69,10 +69,10 @@ namespace Realm.Server.Test.Realm.Server.Entities
 
             const bool expected = true;
             var actual = handler.Contains(id);
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void EntityContext_GetEntities_Test()
         {
             var entityList = new List<FakeEntity> { new FakeEntity(), new FakeEntity() };
@@ -81,7 +81,7 @@ namespace Realm.Server.Test.Realm.Server.Entities
 
             const int expected = 2;
             var actual = handler.Entities;
-            Assert.AreEqual(expected, actual.Count);
+            actual.Count.Should().Be(expected);
         }
     }
 }

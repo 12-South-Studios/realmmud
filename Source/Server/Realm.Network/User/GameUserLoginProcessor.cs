@@ -53,8 +53,8 @@ namespace Realm.Network.User
         {
             Validation.IsNotNull(callback, "callback");
 
-            EventTable table = new EventTable();
-            RealmEventArgs args = new RealmEventArgs(table);
+            var table = new EventTable();
+            var args = new RealmEventArgs(table);
 
             var errors = ValidateAndNotifyUsername(user, username, password);
             if (errors.Any())

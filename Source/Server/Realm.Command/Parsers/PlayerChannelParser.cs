@@ -23,7 +23,7 @@ namespace Realm.Command.Parsers
             Channel foundChannel = null;
             ctx.GetChannels().ForEach(pc =>
                 {
-                    var channel = _channelManager.GetChannel(pc.ID);
+                    var channel = _channelManager.GetChannel(pc.Id);
                     if (pc.Handle.Equals(verb, StringComparison.OrdinalIgnoreCase)
                         || channel.Name.Equals(verb, StringComparison.OrdinalIgnoreCase))
                         foundChannel = channel;

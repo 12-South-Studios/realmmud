@@ -43,7 +43,7 @@ namespace Realm.Edit.Builders
             }
             catch (Exception)
             {
-
+                // todo log it
             }
         }
 

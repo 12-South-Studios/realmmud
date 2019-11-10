@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using LuaInterface;
-using Realm.Library.Common;
 using Realm.Library.Common.Exceptions;
 using Realm.Library.Common.Extensions;
 using Realm.Library.Common.Logging;
@@ -13,9 +12,9 @@ using Realm.Library.Lua.Properties;
 
 namespace Realm.Library.Lua
 {
-    /// <summary>
-    ///
-    /// </summary>
+    /// <inheritdoc />
+    ///  <summary>
+    ///  </summary>
     public sealed class LuaVirtualMachine : Entity
     {
         private readonly Dictionary<Task, CancellationTokenSource> _tasks;
@@ -23,8 +22,8 @@ namespace Realm.Library.Lua
         private readonly LuaFunctionRepository _repository;
         private readonly LuaInterfaceProxy _luaProxy;
 
+        /// <inheritdoc />
         ///  <summary>
-        /// 
         ///  </summary>
         ///  <param name="id"></param>
         ///  <param name="log"></param>
@@ -33,10 +32,8 @@ namespace Realm.Library.Lua
         public LuaVirtualMachine(long id, ILogWrapper log, LuaFunctionRepository repository, LuaInterfaceProxy luaProxy)
             : base(id, "LuaVirtualMachine" + id)
         {
-            Validation.Validate<ArgumentOutOfRangeException>(id >= 1);
-            Validation.IsNotNull(log, "log");
-            Validation.IsNotNull(repository, "repository");
-
+            if (id < 1) throw new ArgumentOutOfRangeException();
+            
             _tasks = new Dictionary<Task, CancellationTokenSource>();
             _log = log;
             _repository = repository;
@@ -58,8 +55,6 @@ namespace Realm.Library.Lua
             {
                 tokenSource = new CancellationTokenSource();
                 task = Task.Factory.StartNew(() => ExecuteNextScript(tokenSource.Token, script), tokenSource.Token);
-                if (task.IsNull())
-                    throw new ObjectDisposedException("task");
 
                 _tasks.Add(task, tokenSource);
                 task.Wait(tokenSource.Token);
@@ -77,15 +72,13 @@ namespace Realm.Library.Lua
             }
             finally
             {
-                // ReSharper disable AssignNullToNotNullAttribute
-                if (task.IsNotNull())
+                if (task != null)
                 {
                     if (_tasks.ContainsKey(task))
 
                         _tasks.Remove(task);
                     task.Cancel(tokenSource);
                 }
-                // ReSharper restore AssignNullToNotNullAttribute
             }
         }
 
@@ -97,19 +90,21 @@ namespace Realm.Library.Lua
             _repository.Values.ToList().ForEach(x => _luaProxy.RegisterFunction(x.Name, null, x.Info));
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="disposing"></param>
+        /// <inheritdoc />
+        ///  <summary>
+        ///  </summary>
+        ///  <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                var it = _tasks.GetEnumerator();
-                while (it.MoveNext())
+                using (var it = _tasks.GetEnumerator())
                 {
-                    _tasks.Remove(it.Current.Key);
-                    it.Current.Key.Cancel(it.Current.Value);
+                    while (it.MoveNext())
+                    {
+                        _tasks.Remove(it.Current.Key);
+                        it.Current.Key.Cancel(it.Current.Value);
+                    }
                 }
             }
             base.Dispose(disposing);
@@ -125,12 +120,12 @@ namespace Realm.Library.Lua
         {
             token.ThrowIfCancellationRequested();
 
-            bool returnVal = false;
+            var returnVal = false;
             var responseList = new List<object>();
 
             try
             {
-                object[] responseData = script.IsFile
+                var responseData = script.IsFile
                                             ? _luaProxy.DoFile(script.Script)
                                             : _luaProxy.DoString(script.Script);
                 responseList = responseData.IsNotNull() ? responseData.ToList() : new List<object>();
@@ -138,11 +133,11 @@ namespace Realm.Library.Lua
                 if (!string.IsNullOrEmpty(script.Function))
                 {
                     var luaFunction = _luaProxy.GetFunction(script.Function);
-                    if (luaFunction.IsNull())
+                    if (luaFunction == null)
                         throw new LuaException(string.Format(Resources.ERR_FUNC_NOT_FOUND, script.Function, script.Name));
 
                     responseData = luaFunction.Call(script.Table);
-                    if (responseData.IsNotNull())
+                    if (responseData != null)
                         responseList.AddRange(responseData.ToList());
                 }
                 returnVal = true;
@@ -155,7 +150,7 @@ namespace Realm.Library.Lua
             return new LuaResponse
             {
                 Success = returnVal,
-                ResponseData = responseList.IsNotNull() ? responseList.ToList() : new List<object>()
+                ResponseData = responseList.ToList()
             };
         }
     }

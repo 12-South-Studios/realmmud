@@ -21,7 +21,7 @@
 //            }
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void MobBrain_Constructor_Test()
 //        {
 //            var fakeEntity = new FakeEntity();

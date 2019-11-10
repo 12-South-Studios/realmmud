@@ -56,7 +56,7 @@ namespace Realm.Server.Managers
             {
                 _luaVmContext = new LuaVirtualMachineContext(Log, _numberVMs, new LuaFunctionRepository());
                 RegisterLuaFunctions(this);
-                Log.InfoFormat("Initialized Lua VM Context with {0} VM objects.", _luaVmContext.VMCount);
+                Log.InfoFormat("Initialized Lua VM Context with {0} VM objects.", _luaVmContext.VirtualMachineCount);
 
                 base.Instance_OnGameInitialize(args);
             }
@@ -75,7 +75,7 @@ namespace Realm.Server.Managers
         {
             Validation.IsNotNull(script, "script");
 
-            var vm = _luaVmContext.NextVM;
+            var vm = _luaVmContext.NextVirtualMachine;
             if (vm.IsNull())
                 throw new GeneralException("Failed to find a Virtual Machine for Script {0}", script.Name);
 

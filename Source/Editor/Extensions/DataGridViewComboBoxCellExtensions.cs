@@ -16,7 +16,7 @@ namespace Realm.Edit.Extensions
             var values = Enum.GetValues(typeof (T));
             var names = Enum.GetNames(typeof (T));
 
-            for(int i=0; i<names.Length; i++)
+            for(var i=0; i<names.Length; i++)
             {
                 var newTag = new TagInfo(names[i], (int) values.GetValue(i), (int) values.GetValue(i));
                 cell.Items.Add(newTag);

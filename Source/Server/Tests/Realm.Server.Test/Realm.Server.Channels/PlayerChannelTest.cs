@@ -6,7 +6,7 @@
 //    [TestClass]
 //    public class PlayerChannelTest
 //    {
-//        [TestMethod]
+//        [Fact]
 //        public void PlayerChannel_Constructor_Test()
 //        {
 //            var actual = new PlayerChannel(1, true, "test");

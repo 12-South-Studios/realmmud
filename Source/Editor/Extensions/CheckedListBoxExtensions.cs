@@ -73,7 +73,7 @@ namespace Realm.Edit.Extensions
             value.Items.Clear();
             value.CheckOnClick = true;
 
-            IRealmDbContext dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
+            var dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
             var checkedTagSetList = dbContext.TagSets.Include(x => x.Tags).Where(x => x.Id == tagSetId);
             if (!checkedTagSetList.Any() || checkedTagSetList.Count() > 1)
             {
@@ -136,12 +136,10 @@ namespace Realm.Edit.Extensions
         {
             Validation.IsNotNull(value, "value");
 
-            int key = 0;
-            if (value.CheckedItems.Count > 0)
-            {
-                key = TagSetUtils.CreateTagSet();
-                value.Save(key);
-            }
+            var key = 0;
+            if (value.CheckedItems.Count <= 0) return key;
+            key = TagSetUtils.CreateTagSet();
+            value.Save(key);
             return key;
         }
 

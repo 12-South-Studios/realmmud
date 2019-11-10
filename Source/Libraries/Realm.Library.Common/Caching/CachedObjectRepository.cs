@@ -1,7 +1,7 @@
-﻿using Realm.Library.Patterns.Repository;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Caching;
+using Realm.Standard.Patterns.Repository;
 
 namespace Realm.Library.Common.Caching
 {

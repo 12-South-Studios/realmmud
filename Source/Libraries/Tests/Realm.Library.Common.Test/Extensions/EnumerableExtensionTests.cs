@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using NUnit.Framework;
+using FluentAssertions;
 using Realm.Library.Common.Extensions;
+using Xunit;
 
 namespace Realm.Library.Common.Test.Extensions
 {
-    [TestFixture]
     public class EnumerableExtensionTests
     {
         private static IEnumerable<int> GetEnumerableIntegerList()
@@ -53,29 +53,33 @@ namespace Realm.Library.Common.Test.Extensions
                        };
         }
 
-        [Test]
+        [Fact]
         public void IndexOfTest()
         {
             const int expected = 2;
 
-            Assert.That(GetEnumerableIntegerList().IndexOf(15), Is.EqualTo(expected));
+            var result = GetEnumerableIntegerList().IndexOf(15);
+            result.Should().Be(expected);
         }
 
-        [Test]
+        [Fact]
         public void IndexOfWithComparerTest()
         {
             const int expected = 1;
             var comparer = new GenericEqualityComparer<Fake>(Equals);
 
-            Assert.That(GetEnumerableFakeList().IndexOf(new Fake("Test2"), comparer), Is.EqualTo(expected));
+            var result = GetEnumerableFakeList().IndexOf(new Fake("Test2"), comparer);
+            result.Should().Be(expected);
         }
 
-        [TestCase(10, 15)]
-        [TestCase(50, 5)]
-        [TestCase(25, 25)]
+        [Theory]
+        [InlineData(10, 15)]
+        [InlineData(50, 5)]
+        [InlineData(25, 25)]
         public void PeekWithValidValueTest(int peekValue, int expectedValue)
         {
-            Assert.That(GetEnumerableIntegerList().Peek(peekValue), Is.EqualTo(expectedValue));
+            var result = GetEnumerableIntegerList().Peek(peekValue);
+            result.Should().Be(expectedValue);
         }
     }
 }

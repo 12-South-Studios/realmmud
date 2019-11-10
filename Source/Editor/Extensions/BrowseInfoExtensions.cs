@@ -42,9 +42,8 @@ namespace Realm.Edit.Extensions
                 throw new ArgumentNullException(nameof(customPredicate), Resources.NullParameterErrorMessage);
 
             var treeNode = eventArgs.Data.GetData("System.Windows.Forms.TreeNode", true) as TreeNode;
-            if (treeNode == null) return false;
 
-            var browseInfo = treeNode.Tag as EditorBrowseInfo;
+            var browseInfo = treeNode?.Tag as EditorBrowseInfo;
             if (browseInfo == null) return false;
 
             var existingInfo = value.Tag as EditorBrowseInfo;

@@ -1,10 +1,10 @@
 ﻿using System;
-using NUnit.Framework;
+using FluentAssertions;
 using Realm.Library.Common.Serializers;
+using Xunit;
 
 namespace Realm.Library.Common.Test.Serializers
 {
-    [TestFixture]
     public class BinaryExtensionTests
     {
         [Serializable]
@@ -14,14 +14,14 @@ namespace Realm.Library.Common.Test.Serializers
             public string StringProp { get; set; }
         }
 
-        [Test]
+        [Fact]
         public void ToBinaryNullObjectTest()
         {
-            Assert.Throws<ArgumentNullException>(() => BinaryExtensions.ToBinary<SerializableObjectFake>(null),
-                                                 "Unit test expected an ArgumentNullException to be thrown");
+            Action Act = () => BinaryExtensions.ToBinary<SerializableObjectFake>(null);
+            Act.Should().Throw<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void ToBinaryTest()
         {
             var obj = new SerializableObjectFake
@@ -30,17 +30,18 @@ namespace Realm.Library.Common.Test.Serializers
                               StringProp = "Test"
                           };
 
-            Assert.That(obj.ToBinary(), Is.Not.Null);
+            var result = obj.ToBinary();
+            result.Should().NotBeNull();
         }
 
-        [Test]
+        [Fact]
         public void FromBinaryNullStringTest()
         {
-            Assert.Throws<ArgumentNullException>(() => BinaryExtensions.FromBinary<SerializableObjectFake>(null),
-                                                 "Unit test expected an ArgumentNullException to be thrown");
+            Action act = () => BinaryExtensions.FromBinary<SerializableObjectFake>(null);
+            act.Should().Throw<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void FromBinaryTest()
         {
             var obj = new SerializableObjectFake
@@ -53,9 +54,9 @@ namespace Realm.Library.Common.Test.Serializers
 
             var result = encoded.FromBinary<SerializableObjectFake>();
 
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.IntegerProp, Is.EqualTo(obj.IntegerProp));
-            Assert.That(result.StringProp, Is.EqualTo(obj.StringProp));
+            result.Should().NotBeNull();
+            result.IntegerProp.Should().Be(obj.IntegerProp);
+            result.StringProp.Should().Be(obj.StringProp);
         }
     }
 }

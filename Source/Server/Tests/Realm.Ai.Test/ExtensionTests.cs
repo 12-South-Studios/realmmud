@@ -1,25 +1,25 @@
 ﻿using System;
-using NUnit.Framework;
-using Moq;
+using FakeItEasy;
 using Realm.Ai.Test.Fakes;
 using Realm.Entity.Interfaces;
 using Realm.Library.Common.Entities;
+using Xunit;
+using FluentAssertions;
 
 namespace Realm.Ai.Test
 {
-    [TestFixture]
     public class ExtensionTests
     {
-        [Test]
+        [Fact]
         public void GetDeadState_Returns_Valid_State()
         {
             var fakeState = new FakeAiState();
 
-            var mockEntityMgr = new Mock<IEntityManager>();
-            mockEntityMgr.Setup(x => x.Create(It.IsAny<IHelper<Type>>(), It.Is<string>(s => s == "dead"), 
-                It.IsAny<object[]>())).Returns(fakeState);
+            var entityMgr = A.Fake<IEntityManager>();
+            A.CallTo(() => entityMgr.Create(A<IHelper<Type>>.Ignored, "dead", A<object[]>.Ignored)).Returns(fakeState);
 
-            Assert.That(mockEntityMgr.Object.GetDeadState(new FakeMob()), Is.EqualTo(fakeState));
+            var result = entityMgr.GetDeadState(new FakeMob());
+            result.Should().Be(fakeState);
         }
     }
 }

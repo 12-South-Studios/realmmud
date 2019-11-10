@@ -13,20 +13,20 @@ namespace Realm.Pathing.Core
             _nodes = new List<PathNode>();
         }
 
-        public bool RemoveNode(Space Space)
+        public bool RemoveNode(Space space)
         {
-            for (int i = 0; i < _nodes.Count; i++)
+            for (var i = 0; i < _nodes.Count; i++)
             {
-                if (!Equals(_nodes[i].Destination, Space)) continue;
+                if (!Equals(_nodes[i].Destination, space)) continue;
                 _nodes.RemoveAt(i);
                 return true;
             }
             return false;
         }
 
-        public PathNode GetNode(Space Space)
+        public PathNode GetNode(Space space)
         {
-            return _nodes.FirstOrDefault(node => node.Destination == Space);
+            return _nodes.FirstOrDefault(node => node.Destination == space);
         }
 
         public IEnumerable<PathNode> PathNodes => _nodes;

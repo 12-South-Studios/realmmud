@@ -80,16 +80,16 @@ namespace Realm.Entity.Entities
                 {
                     var def = _staticDataManager.GetStaticData(Globals.SystemTypes.Zone.GetValue(),
                                                                id.ToString(CultureInfo.InvariantCulture));
-                    if (def.IsNull())
+                    if (def == null)
                         throw new InvalidDataException(string.Format(Resources.ERR_ZONE_DEF_NOT_FOUND, id));
 
                     var zoneDef = def.CastAs<ZoneDef>();
-                    if (zoneDef.IsNull())
+                    if (zoneDef == null)
                         throw new InvalidDataException(string.Format(Resources.ERR_DEF_WAS_NOT_ZONE_DEF, id));
                     Log.DebugFormat("Zone Definition {0} loaded.", zoneDef.ID);
 
                     var obj = _entityManager.Create<Zone>(id, zoneDef.Name, zoneDef);
-                    if (obj.IsNull())
+                    if (obj == null)
                         throw new InstantiationException(Resources.ERR_FAILURE_INSTANTIATE, typeof(Zone), id,
                                                          zoneDef.ID);
 

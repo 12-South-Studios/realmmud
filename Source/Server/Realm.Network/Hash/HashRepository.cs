@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Realm.Library.Patterns.Repository;
+﻿using System.Linq;
+using Realm.Standard.Patterns.Repository;
 
 namespace Realm.Network.Hash
 {
@@ -15,7 +14,7 @@ namespace Realm.Network.Hash
         /// <returns></returns>
         public Hash GetRandomValue()
         {
-            List<Hash> values = Values.ToList();
+            var values = Values.ToList();
             return values[Library.Common.Random.Between(0, Count - 1)];
         }
     }

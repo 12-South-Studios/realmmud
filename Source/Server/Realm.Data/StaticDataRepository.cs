@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Realm.Data.Definitions;
 using Realm.Data.Interfaces;
-using Realm.Library.Patterns.Repository;
+using Realm.Standard.Patterns.Repository;
 
 namespace Realm.Data
 {
@@ -44,13 +44,9 @@ namespace Realm.Data
         /// <returns></returns>
         public Definition GetSubtype(int category, string id)
         {
-            if (Contains(category))
-            {
-                Dictionary<string, Definition> categoryData = Get(category);
-                if (categoryData.ContainsKey(id))
-                    return categoryData[id];
-            }
-            return null;
+            if (!Contains(category)) return null;
+            var categoryData = Get(category);
+            return categoryData.ContainsKey(id) ? categoryData[id] : null;
         }
     }
 }

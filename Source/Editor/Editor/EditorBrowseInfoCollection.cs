@@ -5,9 +5,9 @@ using Realm.Library.Controls;
 
 namespace Realm.Edit.Editor
 {
-    public class EditorBrowseInfoCollection : KeyedCollection<Int64, IBrowseInfo>
+    public class EditorBrowseInfoCollection : KeyedCollection<long, IBrowseInfo>
     {
-        protected override Int64 GetKeyForItem(IBrowseInfo value)
+        protected override long GetKeyForItem(IBrowseInfo value)
         {
             Validation.IsNotNull(value, "value");
 

@@ -4,17 +4,16 @@ using Ninject;
 using Realm.DAL;
 using Realm.DAL.Enumerations;
 using Realm.Library.Common;
-using Realm.Library.Common.Objects;
 
 namespace Realm.Edit.Tags
 {
     public class SystemTagSet
     {
-        public string Name { get; private set; }
-        public TagCategoryTypes Category { get; private set; }
+        public string Name { get; }
+        public TagCategoryTypes Category { get; }
 
-        public Dictionary<string, SystemTag> Tags { get; private set; }
-        private Dictionary<int, SystemTag> TagsById { get; set; }
+        public Dictionary<string, SystemTag> Tags { get; }
+        private Dictionary<int, SystemTag> TagsById { get; }
 
         public SystemTagSet(string name, TagCategoryTypes category)
         {
@@ -34,9 +33,8 @@ namespace Realm.Edit.Tags
 
         public void AddTags(TagCategoryTypes category)
         {
-            IRealmDbContext dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
+            var dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
             var tagList = dbContext.Tags.Where(x => x.TagCategory == category).ToList();
-            if (tagList.IsNull()) return;
 
             tagList.ForEach(x => AddTag(x.Id, x.Name));
         }

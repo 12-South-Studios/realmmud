@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net;
-using Realm.Library.Common;
 using Realm.Library.Network.Properties;
 
 namespace Realm.Library.Network
@@ -18,7 +17,7 @@ namespace Realm.Library.Network
         /// <returns></returns>
         public static IPAddress ConvertToIpAddress(this string ipAddress)
         {
-            Validation.IsNotNullOrEmpty(ipAddress, "ipAddress");
+            if (string.IsNullOrEmpty(ipAddress)) throw new ArgumentNullException();
 
             try
             {

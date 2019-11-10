@@ -1,14 +1,15 @@
-﻿using System.Linq;
-using NUnit.Framework;
+﻿using FluentAssertions;
+using System.Linq;
+using Xunit;
 
 namespace Realm.Library.Common.Test
 {
-    [TestFixture]
     public class RandomTest
     {
         private static void AssertBetween(int actual, int min, int max)
         {
-            Assert.That(actual >= min && actual <= max, Is.True);
+            actual.Should().BeGreaterOrEqualTo(min);
+            actual.Should().BeLessOrEqualTo(max);
         }
 
         private static int RollTimes(int size, int times)
@@ -26,19 +27,20 @@ namespace Realm.Library.Common.Test
             return 0;
         }
 
-        [TestCase(100, 2)]
-        [TestCase(20, 2)]
-        [TestCase(12, 2)]
-        [TestCase(10, 2)]
-        [TestCase(8, 2)]
-        [TestCase(6, 2)]
-        [TestCase(4, 2)]
+        [Theory]
+        [InlineData(100, 2)]
+        [InlineData(20, 2)]
+        [InlineData(12, 2)]
+        [InlineData(10, 2)]
+        [InlineData(8, 2)]
+        [InlineData(6, 2)]
+        [InlineData(4, 2)]
         public void RollTimesTest(int size, int times)
         {
             AssertBetween(RollTimes(size, times), times, size * times);
         }
 
-        [Test]
+        [Fact]
         public void BetweenTest()
         {
             const int minimum = 1;
@@ -47,7 +49,7 @@ namespace Realm.Library.Common.Test
             AssertBetween(Random.Between(minimum, maximum), minimum, maximum);
         }
 
-        [Test]
+        [Fact]
         public void RollTest()
         {
             const int times = 2;
@@ -56,17 +58,17 @@ namespace Realm.Library.Common.Test
             AssertBetween(Random.Roll(size, times), times, size * times);
         }
 
-        [Test]
+        [Fact]
         public void RollSeriesCountTest()
         {
             const int times = 3;
             const int size = 5;
 
             var seriesList = Random.RollSeries(size, times);
-            Assert.That(seriesList.Count, Is.EqualTo(3));
+            seriesList.Count.Should().Be(3);
         }
 
-        [Test]
+        [Fact]
         public void RollSeriesTotalTest()
         {
             const int times = 3;

@@ -7,7 +7,7 @@
 //    [TestClass]
 //    public class AttackTest
 //    {
-//        [TestMethod]
+//        [Fact]
 //        public void Attack_Constructor_Weapon_Test()
 //        {
 //            const Globals.Globals.DamageTypes type = Globals.Globals.DamageTypes.Pierce;
@@ -36,7 +36,7 @@
 //            Assert.AreEqual(type, actual.DamageType);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void Attack_Constructor_NonWeapon_Test()
 //        {
 //            const Globals.Globals.DamageTypes type = Globals.Globals.DamageTypes.Crush;

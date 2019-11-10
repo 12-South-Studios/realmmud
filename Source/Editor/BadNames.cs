@@ -71,11 +71,9 @@ namespace Realm.Edit
             
             pbStatus.Maximum = deletedRows.Count < 2 ? 1 : deletedRows.Count - 1;
             pbStatus.Minimum = 1;
-            int count = 1;
+            var count = 1;
 
-            foreach (var id in deletedRows.Select(row => row.Tag != null
-                                                                ? (int)row.Tag
-                                                                : 0).Where(id => id != 0))
+            foreach (var id in deletedRows.Select(row => (int?) row.Tag ?? 0).Where(id => id != 0))
             {
                 var name = _realmDbContext.RestrictedNames.FirstOrDefault(x => x.Id == id);
                 if (name == null) continue;
@@ -93,16 +91,16 @@ namespace Realm.Edit
         {
             pbStatus.Maximum = gridBadNames.Rows.Count - 1;
             pbStatus.Minimum = 1;
-            int count = 1;
+            var count = 1;
 
             foreach (DataGridViewRow gridRow in gridBadNames.Rows)
             {
                 if (gridRow.IsNewRow) continue;
 
-                var id = gridRow.Tag != null ? (int)gridRow.Tag : 0;
+                var id = (int?) gridRow.Tag ?? 0;
 
                 var cellName = gridRow.Cells["value"] as DataGridViewTextBoxCell;
-                if (cellName == null || cellName.Value == null) continue;
+                if (cellName?.Value == null) continue;
 
                 var cellIsReserved = gridRow.Cells["is_reserved"] as DataGridViewCheckBoxCell;
                 if (cellIsReserved == null) continue;

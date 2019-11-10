@@ -11,7 +11,7 @@
 //            return new Channel(1, "test", Globals.Globals.ChannelTypes.System, true, true, true, string.Empty, 0);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void ChannelRepository_Add_Test()
 //        {
 //            var repository = new ChannelRepository();
@@ -23,7 +23,7 @@
 //            Assert.AreEqual(count, actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void ChannelRepository_AddNullChannel_Test()
 //        {
 //            var repository = new ChannelRepository();
@@ -35,7 +35,7 @@
 //            Assert.AreEqual(count, actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void ChannelRepository_AddDuplicateChannelTest()
 //        {
 //            var repository = new ChannelRepository();
@@ -48,7 +48,7 @@
 //            Assert.AreEqual(count, actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void ChannelRepository_Delete_Test()
 //        {
 //            var repository = new ChannelRepository();
@@ -61,7 +61,7 @@
 //            Assert.AreEqual(0, repository.Count);            
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void ChannelRepository_GetByName_Test()
 //        {
 //            var repository = new ChannelRepository();
@@ -77,7 +77,7 @@
 //            Assert.AreEqual(name, channel.Name);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void ChannelRepository_GetById_Test()
 //        {
 //            var repository = new ChannelRepository();

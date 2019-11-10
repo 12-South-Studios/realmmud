@@ -45,12 +45,12 @@ namespace Realm.Library.Lua
 
             // If they don't match, someone forgot to add some documentation to the
             // attribute, complain and go to the next method
-            if (paramDocs.IsNotNull() && (paramInfo.Length != paramDocs.Count))
-                throw new ArgumentException(String.Format(Resources.ERR_FUNC_ARG_MISMATCH, info.Name, strFName,
+            if (paramDocs != null && paramInfo.Length != paramDocs.Count)
+                throw new ArgumentException(string.Format(Resources.ERR_FUNC_ARG_MISMATCH, info.Name, strFName,
                                                             paramDocs.Count, paramInfo.Length));
 
             // Build a parameter <-> parameter doc dictionary
-            if (paramDocs.IsNotNull())
+            if (paramDocs != null)
                 Enumerable.Range(0, paramInfo.Length)
                             .ToList()
                             .ForEach(i => paramTable.Add(paramInfo[i].Name, paramDocs.ElementAt(i)));
@@ -66,14 +66,14 @@ namespace Realm.Library.Lua
         /// <returns></returns>
         public static LuaFunctionRepository Register(Type type, LuaFunctionRepository functionRepository)
         {
-            LuaFunctionRepository repository = functionRepository ?? new LuaFunctionRepository();
+            var repository = functionRepository ?? new LuaFunctionRepository();
 
-            List<MethodInfo> methods = type.GetMethods().ToList();
-            foreach (MethodInfo info in methods)
+            var methods = type.GetMethods().ToList();
+            foreach (var info in methods)
             {
-                foreach (Attribute attr in Attribute.GetCustomAttributes(info).ToList().Where(x => x is LuaFunctionAttribute))
+                foreach (var attr in Attribute.GetCustomAttributes(info).ToList().Where(x => x is LuaFunctionAttribute))
                 {
-                    LuaFunctionDescriptor luaFunc = Create(info, attr);
+                    var luaFunc = Create(info, attr);
                     repository.Add(luaFunc.Name, luaFunc);
                 }
             }
@@ -86,12 +86,12 @@ namespace Realm.Library.Lua
         /// <param name="obj"></param>
         /// <returns></returns>
         [LuaFunction("ExploreObject", "Lists the Members and Properties of an Object", "Object to Explore")]
-        public static string LuaExploreObject(Object obj)
+        public static string LuaExploreObject(object obj)
         {
             var result = new StringBuilder();
             var proxy = obj.CastAs<ProxyType>();
 
-            var type = proxy.IsNotNull() ? proxy.UnderlyingSystemType : obj.GetType();
+            var type = proxy != null ? proxy.UnderlyingSystemType : obj.GetType();
 
             result.AppendLine("Type: " + type);
 

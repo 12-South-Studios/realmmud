@@ -1,6 +1,6 @@
 ﻿using Realm.Data.Interfaces;
 using Realm.Data.Loaders;
-using Realm.Library.Patterns.Repository;
+using Realm.Standard.Patterns.Repository;
 
 namespace Realm.Data
 {

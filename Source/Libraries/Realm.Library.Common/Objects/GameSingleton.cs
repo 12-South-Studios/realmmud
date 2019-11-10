@@ -2,7 +2,7 @@
 using Realm.Library.Common.Events;
 using Realm.Library.Common.Logging;
 using Realm.Library.Common.Properties;
-using Realm.Library.Patterns.Singleton;
+using Realm.Standard.Patterns.Singleton;
 
 namespace Realm.Library.Common.Objects
 

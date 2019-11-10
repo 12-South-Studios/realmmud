@@ -1,8 +1,6 @@
 using System.Windows.Forms;
-using Realm.Library.Common.Objects;
 
 namespace Realm.Library.Controls.DataGridViewControls
-
 {
     /// <summary>
     ///
@@ -24,10 +22,8 @@ namespace Realm.Library.Controls.DataGridViewControls
 
             RowId = 1;
 
-            if (txtEdit.IsNotNull())
-                // ReSharper disable PossibleNullReferenceException
-                txtEdit.Text = Value.IsNull() ? RowId.ToString() : Value.ToString();
-            // ReSharper restore PossibleNullReferenceException
+            if (txtEdit != null)
+                txtEdit.Text = Value?.ToString() ?? RowId.ToString();
         }
 
         /// <summary>

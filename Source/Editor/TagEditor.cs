@@ -11,7 +11,7 @@ namespace Realm.Edit
 {
     public partial class TagEditorForm : Form
     {
-        private Dictionary<string, List<int>> DeletedTags { get; set; }
+        private Dictionary<string, List<int>> DeletedTags { get; }
 
         public TagEditorForm()
         {

@@ -39,12 +39,12 @@ namespace Realm.Network
 
         ~NetworkManager()
         {
-            if (Server.IsNotNull() && (Server.Status != TcpServerStatus.Shutdown
+            if (Server != null && (Server.Status != TcpServerStatus.Shutdown
                 || Server.Status != TcpServerStatus.ShuttingDown))
                 Server.Shutdown("Shutdown");
         }
 
-        public TcpServer Server { get; private set; }
+        public TcpServer Server { get; }
 
         public void OnInit(DictionaryAtom initAtom)
         {

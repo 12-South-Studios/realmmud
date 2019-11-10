@@ -15,7 +15,6 @@ using Realm.Library.Common;
 using Realm.Library.Common.Data;
 using Realm.Library.Common.Logging;
 using Realm.Library.Network;
-using Realm.Library.Patterns.Singleton;
 using Realm.Network;
 using Realm.Pathing;
 using Realm.Pathing.Interfaces;
@@ -31,6 +30,7 @@ using Realm.Library.Common.Exceptions;
 using Realm.Library.Common.Extensions;
 using Realm.Library.Common.Objects;
 using Realm.Server.Extensions;
+using Realm.Standard.Patterns.Singleton;
 using Realm.Time.Interfaces;
 
 namespace Realm.Server

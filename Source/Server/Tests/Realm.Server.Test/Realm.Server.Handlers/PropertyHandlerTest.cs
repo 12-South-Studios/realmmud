@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using Realm.Library.Common;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Realm.Library.Common.Contexts;
+using Xunit;
+using FluentAssertions;
 
 namespace Realm.Server.Test.Realm.Server.Handlers
 {
-    [TestClass]
     public class PropertyContextTest
     {
         enum EnumTest { Test }
 
-        [TestMethod]
+        [Fact]
         public void PropertyContext_SetProperty_StringKey_Test()
         {
             var target = new PropertyContext(null);
@@ -20,10 +20,10 @@ namespace Realm.Server.Test.Realm.Server.Handlers
 
             const bool expected = true;
             var actual = target.HasProperty("Test");
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyContext_SetProperty_Exists_NotVolatile_Test()
         {
             const int firstValue = 5;
@@ -31,13 +31,13 @@ namespace Realm.Server.Test.Realm.Server.Handlers
             var target = new PropertyContext(null);
 
             target.SetProperty("Test", firstValue);
-            Assert.AreEqual(firstValue, target.GetProperty<int>("Test"));
+            target.GetProperty<int>("Test").Should().Be(firstValue);
 
             target.SetProperty("Test", secondValue);
-            Assert.AreEqual(firstValue, target.GetProperty<int>("Test"));
+            target.GetProperty<int>("Test").Should().Be(firstValue);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyContext_SetProperty_Exists_Volatile_Test()
         {
             const int firstValue = 5;
@@ -45,13 +45,13 @@ namespace Realm.Server.Test.Realm.Server.Handlers
             var target = new PropertyContext(null);
 
             target.SetProperty("Test", firstValue, PropertyTypeOptions.Volatile);
-            Assert.AreEqual(firstValue, target.GetProperty<int>("Test"));
+            target.GetProperty<int>("Test").Should().Be(firstValue);
 
             target.SetProperty("Test", secondValue);
-            Assert.AreEqual(secondValue, target.GetProperty<int>("Test"));
+            target.GetProperty<int>("Test").Should().Be(secondValue);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyContext_SetProperty_EnumKey_Test()
         {
             var target = new PropertyContext(null);
@@ -60,10 +60,10 @@ namespace Realm.Server.Test.Realm.Server.Handlers
 
             const bool expected = true;
             var actual = target.HasProperty("Test");
-            Assert.AreEqual(expected, actual); 
+            actual.Should().Be(expected); 
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyContext_HasProperty_Test()
         {
             var target = new PropertyContext(null);
@@ -72,10 +72,10 @@ namespace Realm.Server.Test.Realm.Server.Handlers
 
             const bool expected = true;
             var actual = target.HasProperty("Test");
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyContext_GetProperty_Test()
         {
             var target = new PropertyContext(null);
@@ -84,10 +84,10 @@ namespace Realm.Server.Test.Realm.Server.Handlers
             target.SetProperty("Test", expected);
 
             var actual = target.GetProperty<object>("Test");
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyContext_GetBooleanProperty_Test()
         {
             var target = new PropertyContext(null);
@@ -96,10 +96,10 @@ namespace Realm.Server.Test.Realm.Server.Handlers
 
             const bool expected = true;
             var actual = target.GetProperty<bool>("Test");
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyContext_GetStringProperty_Test()
         {
             var target = new PropertyContext(null);
@@ -108,10 +108,10 @@ namespace Realm.Server.Test.Realm.Server.Handlers
 
             const string expected = "Testing";
             var actual = target.GetProperty<string>("Test");
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyContext_GetIntProperty_Test()
         {
             var target = new PropertyContext(null);
@@ -120,10 +120,10 @@ namespace Realm.Server.Test.Realm.Server.Handlers
 
             const int expected = 512;
             var actual = target.GetProperty<int>("Test");
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyContext_GetLongProperty_Test()
         {
             var target = new PropertyContext(null);
@@ -132,10 +132,10 @@ namespace Realm.Server.Test.Realm.Server.Handlers
 
             const long expected = 10000000000000;
             var actual = target.GetProperty<long>("Test");
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyContext_GetPropertyKeys_Test()
         {
             var target = new PropertyContext(null);
@@ -148,10 +148,10 @@ namespace Realm.Server.Test.Realm.Server.Handlers
             if (actual == null)
                 throw new Exception("Object list is null");
             var keyList = new List<string>(actual);
-            Assert.AreEqual(expected, keyList.Count);
+            keyList.Count.Should().Be(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyContext_GetPropertyCount_Test()
         {
             var target = new PropertyContext(null);
@@ -161,10 +161,10 @@ namespace Realm.Server.Test.Realm.Server.Handlers
 
             const int expected = 2;
             var actual = target.Count;
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyContext_IsPersistable_NotFound_Test()
         {
             var target = new PropertyContext(null);
@@ -172,10 +172,10 @@ namespace Realm.Server.Test.Realm.Server.Handlers
 
             const bool expected = false;
             var actual = target.IsPersistable("Tester");
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyContext_IsPersistable_Found_Test()
         {
             var target = new PropertyContext(null);
@@ -183,10 +183,10 @@ namespace Realm.Server.Test.Realm.Server.Handlers
 
             const bool expected = true;
             var actual = target.IsPersistable("Test");
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyContext_IsVolatile_NotFound_Test()
         {
             var target = new PropertyContext(null);
@@ -194,10 +194,10 @@ namespace Realm.Server.Test.Realm.Server.Handlers
 
             const bool expected = false;
             var actual = target.IsVolatile("Tester");
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyContext_IsVolatile_Found_Test()
         {
             var target = new PropertyContext(null);
@@ -205,10 +205,10 @@ namespace Realm.Server.Test.Realm.Server.Handlers
 
             const bool expected = true;
             var actual = target.IsVolatile("Test");
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyContext_IsVisible_NotFound_Test()
         {
             var target = new PropertyContext(null);
@@ -216,10 +216,10 @@ namespace Realm.Server.Test.Realm.Server.Handlers
 
             const bool expected = false;
             var actual = target.IsVisible("Tester");
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyContext_IsVisible_Found_Test()
         {
             var target = new PropertyContext(null);
@@ -227,10 +227,10 @@ namespace Realm.Server.Test.Realm.Server.Handlers
 
             const bool expected = true;
             var actual = target.IsVisible("Test");
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyContext_RemoveProperty_NotFound_Test()
         {
             var target = new PropertyContext(null);
@@ -238,10 +238,10 @@ namespace Realm.Server.Test.Realm.Server.Handlers
 
             const bool expected = false;
             var actual = target.RemoveProperty("Tester");
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyContext_RemoveProperty_Found_Test()
         {
             var target = new PropertyContext(null);
@@ -249,20 +249,20 @@ namespace Realm.Server.Test.Realm.Server.Handlers
 
             const bool expected = true;
             var actual = target.RemoveProperty("Test");
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyContext_GetPropertyBits_NotFound_Test()
         {
             var target = new PropertyContext(null);
             target.SetProperty("Test", 1);
 
             var actual = target.GetPropertyBits("Tester");
-            Assert.AreEqual(actual, string.Empty);
+            actual.Should().BeEmpty();
         }
 
-        [TestMethod]
+        [Fact]
         public void PropertyContext_GetPropertyBits_Found_Test()
         {
             var target = new PropertyContext(null);
@@ -270,7 +270,7 @@ namespace Realm.Server.Test.Realm.Server.Handlers
 
             const string expected = "pvi";
             var actual = target.GetPropertyBits("Test");
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
     }
 }

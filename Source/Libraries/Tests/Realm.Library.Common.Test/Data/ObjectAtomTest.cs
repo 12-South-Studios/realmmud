@@ -1,15 +1,15 @@
 ﻿using System;
-using Moq;
-using NUnit.Framework;
+using FakeItEasy;
+using FluentAssertions;
 using Realm.Library.Common.Data;
 using Realm.Library.Common.Logging;
+using Xunit;
 
 namespace Realm.Library.Common.Test.Data
 {
-    [TestFixture]
     public class ObjectAtomTest
     {
-        [Test]
+        [Fact]
         public void ObjectAtomDumpNullParameterTest()
         {
             const int value = 5;
@@ -17,27 +17,27 @@ namespace Realm.Library.Common.Test.Data
 
             const string prefix = "Test";
 
-            Assert.Throws<ArgumentNullException>(() => atom.Dump(null, prefix),
-                                                 "Unit Test expected an ArgumentNullException to be thrown");
+            Action act = () => atom.Dump(null, prefix);
+            act.Should().Throw<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void ObjectAtomDumpTest()
         {
             var callback = false;
 
-            var mockLog = new Mock<ILogWrapper>();
-            mockLog.Setup(s => s.InfoFormat(It.IsAny<string>(), It.IsAny<object>(),
-                                            It.IsAny<object>())).Callback(() => { callback = true; });
+            var logger = A.Fake<ILogWrapper>();
+            A.CallTo(() => logger.InfoFormat(A<string>.Ignored, A<object>.Ignored, A<object>.Ignored))
+                .Invokes(() => callback = true);
 
             const int value = 5;
             var atom = new ObjectAtom(value);
 
             const string prefix = "Test";
 
-            atom.Dump(mockLog.Object, prefix);
+            atom.Dump(logger, prefix);
 
-            Assert.That(callback, Is.True);
+            callback.Should().BeTrue();
         }
     }
 }

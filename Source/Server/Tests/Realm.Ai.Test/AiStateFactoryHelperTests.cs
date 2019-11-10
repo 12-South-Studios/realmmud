@@ -1,19 +1,21 @@
 ﻿using System;
-using NUnit.Framework;
+using FluentAssertions;
 using Realm.Ai.States;
+using Xunit;
 
 namespace Realm.Ai.Test
 {
-    [TestFixture]
     public class AiStateFactoryHelperTests
     {
-        [TestCase("invalid", null)]
-        [TestCase("chase", typeof(AiChaseState))]
+        [Theory]
+        [InlineData("invalid", null)]
+        [InlineData("chase", typeof(AiChaseState))]
         public void Get(string value, Type expected)
         {
             var helper = new AiStateFactoryHelper();
 
-            Assert.That(helper.Get(value), Is.EqualTo(expected));
+            var result = helper.Get(value);
+            result.Should().Be(expected);
         }
     }
 }

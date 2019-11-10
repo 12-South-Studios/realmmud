@@ -26,7 +26,7 @@ namespace Realm.Entity
         private readonly ILogWrapper _log;
         private readonly IEventManager _eventManager;
 
-        public ITimer Timer { get; private set; }
+        public ITimer Timer { get; }
 
         ///  <summary>
         /// 
@@ -59,10 +59,10 @@ namespace Realm.Entity
 
             while (entityList.Count > 0)
             {
-                IGameEntity entity = entityList[0];
+                var entity = entityList[0];
                 entityList.RemoveAt(0);
 
-                if (entity.IsNull() || !(entity is Library.Common.Objects.Entity)) continue;
+                if (!(entity is Library.Common.Objects.Entity)) continue;
 
                 entity.CastAs<Library.Common.Objects.Entity>().Dispose();
             }
@@ -106,10 +106,7 @@ namespace Realm.Entity
             {
                 tokenSource = new CancellationTokenSource();
                 task = Task.Factory.StartNew(() => SaveEntityFromRecycling(tokenSource.Token, entity), tokenSource.Token);
-                if (task.IsNull())
-                    throw new ObjectDisposedException("task");
-
-                task.Wait();
+                task.Wait(tokenSource.Token);
 
                 _log.InfoFormat(Resources.MSG_ENTITY_SAVED, entity.ID, task.Status);
             }
@@ -151,8 +148,7 @@ namespace Realm.Entity
         {
             if (disposing)
             {
-                if (Timer.IsNotNull())
-                    Timer.Dispose();
+                Timer?.Dispose();
                 if (_recycledEntities.Count > 0)
                     _recycledEntities.Values.ToList().ForEach(x => x.CastAs<GameEntity>().Dispose());
             }

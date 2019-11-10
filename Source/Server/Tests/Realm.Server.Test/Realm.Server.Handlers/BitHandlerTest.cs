@@ -1,10 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using FluentAssertions;
 using Realm.Library.Common.Attributes;
 using Realm.Library.Common.Contexts;
+using Xunit;
 
 namespace Realm.Server.Test.Realm.Server.Handlers
 {
-    [TestClass]
     public class BitContextTest
     {
         enum EnumTest
@@ -22,17 +22,17 @@ namespace Realm.Server.Test.Realm.Server.Handlers
             Biteight = 8
         }
 
-        [TestMethod]
+        [Fact]
         public void BitContext_GetBits_Test()
         {
             var target = new BitContext(null);
 
             const int expected = 0;
             var actual = target.GetBits;
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void BitContext_SetBits_Test()
         {
             var target = new BitContext(null);
@@ -40,10 +40,10 @@ namespace Realm.Server.Test.Realm.Server.Handlers
 
             const int expected = 8;
             var actual = target.GetBits;
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void BitContext_SetBitInt_Test()
         {
             var target = new BitContext(null);
@@ -52,10 +52,10 @@ namespace Realm.Server.Test.Realm.Server.Handlers
 
             const int expected = 24;
             var actual = target.GetBits;
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void BitContext_SetBitEnum_Test()
         {
             var target = new BitContext(null);
@@ -64,10 +64,10 @@ namespace Realm.Server.Test.Realm.Server.Handlers
 
             const int expected = 12;
             var actual = target.GetBits;
-            Assert.AreEqual(expected, actual);  
+            actual.Should().Be(expected);  
         }
 
-        [TestMethod]
+        [Fact]
         public void BitContext_HasBitInt_Test()
         {
             var target = new BitContext(null);
@@ -75,10 +75,10 @@ namespace Realm.Server.Test.Realm.Server.Handlers
 
             const bool expected = true;
             var actual = target.HasBit(2);
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void BitContext_HasBitEnum_Test()
         {
             var target = new BitContext(null);
@@ -86,10 +86,10 @@ namespace Realm.Server.Test.Realm.Server.Handlers
 
             const bool expected = true;
             var actual = target.HasBit(EnumTest.Bittwo);
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void BitContext_UnsetBitInt_Test()
         {
             var target = new BitContext(null);
@@ -98,10 +98,10 @@ namespace Realm.Server.Test.Realm.Server.Handlers
 
             const bool expected = false;
             var actual = target.HasBit(2);
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void BitContext_UnsetBitEnum_Test()
         {
             var target = new BitContext(null);
@@ -110,7 +110,7 @@ namespace Realm.Server.Test.Realm.Server.Handlers
 
             const bool expected = false;
             var actual = target.HasBit(EnumTest.Bittwo);
-            Assert.AreEqual(expected, actual);
+            actual.Should().Be(expected);
         }
     }
 }

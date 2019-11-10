@@ -162,7 +162,7 @@ namespace Realm.Edit.EditorControls
 
             PopulateCheckboxes(dbContext, obj);
 
-            _tagSetId = obj.TagSet == null ? 0 : obj.TagSet.Id;
+            _tagSetId = obj.TagSet?.Id ?? 0;
             if (_tagSetId > 0)
                 lstAbilityTags.Fill("AbilityTags", _tagSetId);
             else 

@@ -49,8 +49,7 @@ namespace Realm.Time
 
                 _log.DebugFormat("GameStateLoader loaded the new game state: {0}", obj.ToString());
 
-                if (_callback.IsNotNull())
-                    _callback.Invoke(new RealmEventArgs(new EventTable { { "GameState", obj } }));
+                _callback?.Invoke(new RealmEventArgs(new EventTable { { "GameState", obj } }));
             }
             catch (Exception ex)
             {
@@ -65,8 +64,7 @@ namespace Realm.Time
             try
             {
                 var monthsInOrder = _dbContext.Months.OrderBy(x => x.SortOrder).Select(month => month.Id).ToList();
-                if (_callback.IsNotNull())
-                    _callback.Invoke(new RealmEventArgs(new EventTable { { "Months", monthsInOrder } }));
+                _callback?.Invoke(new RealmEventArgs(new EventTable { { "Months", monthsInOrder } }));
             }
             catch (Exception ex)
             {

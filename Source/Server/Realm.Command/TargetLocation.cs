@@ -47,7 +47,7 @@ namespace Realm.Command
             if ((allowedLocations & Globals.EntityLocationTypes.Inventory.GetValue()) != 0)
             {
                 target = FindEntityInInventory(entity, result.FirstParameter);
-                if (target.IsNotNull())
+                if (target != null)
                     return result.Populate(target, entity, Globals.EntityLocationTypes.Inventory);
             }
 
@@ -55,7 +55,7 @@ namespace Realm.Command
             if ((allowedLocations & Globals.EntityLocationTypes.Equipment.GetValue()) != 0)
             {
                 target = FindEntityInEquipment(entity, result.FirstParameter);
-                if (target.IsNotNull())
+                if (target != null)
                     return result.Populate(target, entity, Globals.EntityLocationTypes.Equipment);
             }
 
@@ -63,7 +63,7 @@ namespace Realm.Command
             if ((allowedLocations & Globals.EntityLocationTypes.Space.GetValue()) != 0)
             {
                 target = FindEntity(entity.Location, result.FirstParameter);
-                if (target.IsNotNull())
+                if (target != null)
                     return result.Populate(target, entity.Location, Globals.EntityLocationTypes.Space);
             }
 
@@ -79,7 +79,7 @@ namespace Realm.Command
             if ((allowedLocations & Globals.EntityLocationTypes.Recipes.GetValue()) != 0)
             {
                 target = FindEntityInRecipes(entity, result.FirstParameter);
-                if (target.IsNotNull())
+                if (target != null)
                     return result.Populate(target, null, Globals.EntityLocationTypes.Recipes);
             }
             return result;
@@ -94,10 +94,10 @@ namespace Realm.Command
             if ((allowedLocations & Globals.EntityLocationTypes.Inventory.GetValue()) != 0)
             {
                 secondTarget = FindEntityInInventory(entity, result.SecondParameter);
-                if (secondTarget.IsNotNull())
+                if (secondTarget != null)
                 {
                     target = FindEntity(secondTarget, result.SecondParameter);
-                    if (target.IsNotNull())
+                    if (target != null)
                         return result.Populate(target, secondTarget, Globals.EntityLocationTypes.Container);
                 }
             }
@@ -106,10 +106,10 @@ namespace Realm.Command
             if ((allowedLocations & Globals.EntityLocationTypes.Equipment.GetValue()) != 0)
             {
                 secondTarget = FindEntityInEquipment(entity, result.SecondParameter);
-                if (secondTarget.IsNotNull())
+                if (secondTarget != null)
                 {
                     target = FindEntity(secondTarget, result.SecondParameter);
-                    if (target.IsNotNull())
+                    if (target != null)
                         return result.Populate(target, secondTarget, Globals.EntityLocationTypes.Container);
                 }
             }
@@ -118,14 +118,14 @@ namespace Realm.Command
             if ((allowedLocations & Globals.EntityLocationTypes.Space.GetValue()) == 0) return result;
             secondTarget = FindEntity(entity.Location, result.SecondParameter);
 
-            if (!secondTarget.IsNotNull()) return result;
+            if (secondTarget == null) return result;
             if (secondTarget is Mobile)
             {
                 //// NPC Inventory
                 if ((allowedLocations & Globals.EntityLocationTypes.MobileInventory.GetValue()) != 0)
                 {
                     target = FindEntityInInventory(secondTarget.CastAs<IBiota>(), result.FirstParameter);
-                    if (target.IsNotNull())
+                    if (target != null)
                         return result.Populate(target, secondTarget, Globals.EntityLocationTypes.MobileInventory);
                 }
 
@@ -133,20 +133,20 @@ namespace Realm.Command
                 if ((allowedLocations & Globals.EntityLocationTypes.MobileEquipment.GetValue()) != 0)
                 {
                     target = FindEntityInEquipment(secondTarget.CastAs<IBiota>(), result.FirstParameter);
-                    if (target.IsNotNull())
+                    if (target != null)
                         return result.Populate(target, secondTarget, Globals.EntityLocationTypes.MobileEquipment);
                 }
 
                 //// NPC Shop
                 if ((allowedLocations & Globals.EntityLocationTypes.Shop.GetValue()) == 0) return result;
                 target = FindEntityInShop(secondTarget, result.FirstParameter);
-                if (target.IsNotNull())
+                if (target != null)
                     return result.Populate(target, secondTarget, Globals.EntityLocationTypes.Shop);
             }
             else
             {
                 target = FindEntity(secondTarget, result.SecondParameter);
-                if (target.IsNotNull())
+                if (target != null)
                     return result.Populate(target, secondTarget, Globals.EntityLocationTypes.Container);
             }
 

@@ -2,7 +2,6 @@
 using System.Data;
 using System.Linq;
 using Realm.Library.Common.Data;
-using Realm.Library.Common.Objects;
 
 namespace Realm.Library.Database
 {
@@ -52,9 +51,9 @@ namespace Realm.Library.Database
         /// <returns></returns>
         public static bool TryOpen(this IDbConnection connection)
         {
-            bool returnVal = true;
+            var returnVal = true;
 
-            if (connection.IsNull()) returnVal = false;
+            if (connection == null) returnVal = false;
             else if (connection.State != ConnectionState.Closed) returnVal = false;
             else
             {
@@ -72,7 +71,7 @@ namespace Realm.Library.Database
         /// <param name="actionToTake"></param>
         public static void RollbackOrCommit(this IDbTransaction transaction, TransactionAction actionToTake)
         {
-            if (transaction.IsNull()) return;
+            if (transaction == null) return;
             using (transaction)
             {
                 if (actionToTake == TransactionAction.Rollback) transaction.Rollback();

@@ -1,29 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using NUnit.Framework;
+using FluentAssertions;
 using Realm.Library.Common.Objects;
+using Xunit;
 
 namespace Realm.Library.Common.Test.Extensions
 {
-    [TestFixture]
     public class ObjectExtensionTest
     {
-        [Test]
+        [Fact]
         public void CastAsTest()
         {
             const string value = "1";
 
-            Assert.That(value.CastAs<int>(), Is.EqualTo(1));
+            value.CastAs<int>().Should().Be(1);
         }
 
-        [TestCase("1", 1)]
-        [TestCase("one", 5)]
+        [Theory]
+        [InlineData("1", 1)]
+        [InlineData("one", 5)]
         public void TryCastAsTest(string value, int expected)
         {
-            Assert.That(value.TryCastAs(expected), Is.EqualTo(expected));
+            value.TryCastAs(expected).Should().Be(expected);
         }
 
-        [Test]
+        [Fact]
         public void ToNullableTest()
         {
             const int intValue = 5;
@@ -31,39 +32,39 @@ namespace Realm.Library.Common.Test.Extensions
 
             var actual = intValue.ToNullable<int>();
 
-            Assert.That(actual, Is.Not.Null);
-            Assert.That(actual, Is.EqualTo(nullableValue));
-            Assert.That(actual.GetValueOrDefault(1), Is.EqualTo(intValue));
+            actual.Should().NotBeNull();
+            actual.Should().Be(nullableValue);
+            actual.GetValueOrDefault(1).Should().Be(intValue);
         }
 
-        [Test]
+        [Fact]
         public void OrElseTest()
         {
             var obj = new object();
             var result = obj.OrElse(null);
 
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result, Is.EqualTo(obj));
+            result.Should().NotBeNull();
+            result.Should().Be(obj);
         }
 
-        [Test]
+        [Fact]
         public void IsNullOrDbNull_IsNull_Test()
         {
-            Assert.That(ObjectExtensions.IsNullOrDBNull<object>(null), Is.True);
+            ObjectExtensions.IsNullOrDBNull<object>(null).Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void IsNullOrDbNull_IsDbNull_Test()
         {
-            Assert.That(ObjectExtensions.IsNullOrDBNull<object>(DBNull.Value), Is.True);
+            ObjectExtensions.IsNullOrDBNull<object>(DBNull.Value).Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void IsEmptyTest()
         {
             var list = new List<int>();
 
-            Assert.That(list.IsEmpty(), Is.True);
+            list.IsEmpty().Should().BeTrue();
         }
     }
 }

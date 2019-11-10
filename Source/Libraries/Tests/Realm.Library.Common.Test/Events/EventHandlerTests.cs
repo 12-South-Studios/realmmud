@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Management.Instrumentation;
 using System.Threading;
-using Moq;
-using NUnit.Framework;
+using FakeItEasy;
+using FluentAssertions;
 using Realm.Library.Common.Events;
 using Realm.Library.Common.Logging;
-using Realm.Library.Common.Objects;
+using Xunit;
 using EventHandler = Realm.Library.Common.Events.EventHandler;
 
 namespace Realm.Library.Common.Test.Events
 {
-    [TestFixture]
     public class EventHandlerTests
     {
         private class FakeObject
@@ -25,148 +24,147 @@ namespace Realm.Library.Common.Test.Events
             public BuggyFakeEvent() { throw new Exception("Fail!"); }
         }
 
-        private Mock<ILogWrapper> _mockLogger;
+        private ILogWrapper _mockLogger;
         private EventCallback<RealmEventArgs> _eventCallback;
 
-        [SetUp]
-        public void Setup()
+        public EventHandlerTests()
         {
-            _mockLogger = new Mock<ILogWrapper>();
+            _mockLogger = A.Fake<ILogWrapper>();
             _eventCallback = args => { };
         }
 
-        [Test]
+        [Fact]
         public void RegisterListenerToObjectToType()
         {
             var objectListening = new FakeObject();
             var objectActing = new FakeObject();
 
-            var handler = new EventHandler(new CommonTimer(), _mockLogger.Object);
+            var handler = new EventHandler(new CommonTimer(), _mockLogger);
 
             handler.RegisterListener(new EventListener(objectListening, objectActing, typeof (FakeEvent), _eventCallback));
         }
 
-        [Test]
+        [Fact]
         public void RegisterListenerTwoObjectsToObjectToType()
         {
             var objectListener1 = new FakeObject();
             var objectListener2 = new FakeObject();
             var objectActing = new FakeObject();
 
-            var handler = new EventHandler(new CommonTimer(), _mockLogger.Object);
+            var handler = new EventHandler(new CommonTimer(), _mockLogger);
 
             handler.RegisterListener(new EventListener(objectListener1, objectActing, typeof(FakeEvent), _eventCallback));
             handler.RegisterListener(new EventListener(objectListener2, objectActing, typeof(FakeEvent), _eventCallback));
         }
 
-        [Test]
+        [Fact]
         public void RegisterListenerToType()
         {
             var objectListening = new FakeObject();
 
-            var handler = new EventHandler(new CommonTimer(), _mockLogger.Object);
+            var handler = new EventHandler(new CommonTimer(), _mockLogger);
 
             handler.RegisterListener(new EventListener(objectListening, null, typeof (FakeEvent), _eventCallback));
         }
 
-        [Test]
+        [Fact]
         public void RegisterListenerTwoObjectsToType()
         {
             var objectListener1 = new FakeObject();
             var objectListener2 = new FakeObject();
 
-            var handler = new EventHandler(new CommonTimer(), _mockLogger.Object);
+            var handler = new EventHandler(new CommonTimer(), _mockLogger);
 
             handler.RegisterListener(new EventListener(objectListener1, null, typeof(FakeEvent), _eventCallback));
             handler.RegisterListener(new EventListener(objectListener2, null, typeof(FakeEvent), _eventCallback));
         }
 
-        [Test]
+        [Fact]
         public void IsListeningToType()
         {
             var objectListening = new FakeObject();
 
-            var handler = new EventHandler(new CommonTimer(), _mockLogger.Object);
+            var handler = new EventHandler(new CommonTimer(), _mockLogger);
 
             handler.RegisterListener(new EventListener(objectListening, null, typeof(FakeEvent), _eventCallback));
 
             var result = handler.IsListening(objectListening, typeof(FakeEvent));
 
-            Assert.AreEqual(true, result);
+            result.Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void IsListeningToObjectToType()
         {
             var objectListening = new FakeObject();
             var objectActing = new FakeObject();
 
-            var handler = new EventHandler(new CommonTimer(), _mockLogger.Object);
+            var handler = new EventHandler(new CommonTimer(), _mockLogger);
 
             handler.RegisterListener(new EventListener(objectListening, objectActing, typeof(FakeEvent), _eventCallback));
 
             var result = handler.IsListening(objectListening, objectActing, typeof(FakeEvent));
 
-            Assert.AreEqual(true, result);
+            result.Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void StopListeningToObjectType()
         {
             var objectListening = new FakeObject();
             var objectActing = new FakeObject();
 
-            var handler = new EventHandler(new CommonTimer(), _mockLogger.Object);
+            var handler = new EventHandler(new CommonTimer(), _mockLogger);
 
             handler.RegisterListener(new EventListener(objectListening, objectActing, typeof(FakeEvent), _eventCallback));
             var result = handler.IsListening(objectListening, objectActing, typeof(FakeEvent));
-            Assert.AreEqual(true, result);
+            result.Should().BeTrue();
 
             handler.StopListeningTo(objectListening, objectActing, typeof(FakeEvent));
             result = handler.IsListening(objectListening, objectActing, typeof(FakeEvent));
-            Assert.AreEqual(false, result);
+            result.Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void StopListeningType()
         {
             var objectListening = new FakeObject();
 
-            var handler = new EventHandler(new CommonTimer(), _mockLogger.Object);
+            var handler = new EventHandler(new CommonTimer(), _mockLogger);
 
             handler.RegisterListener(new EventListener(objectListening, null, typeof(FakeEvent), _eventCallback));
             var result = handler.IsListening(objectListening, typeof(FakeEvent));
-            Assert.AreEqual(true, result);
+            result.Should().BeTrue();
 
             handler.StopListening(objectListening, typeof(FakeEvent));
             result = handler.IsListening(objectListening, typeof(FakeEvent));
-            Assert.AreEqual(false, result);
+            result.Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void StopListening()
         {
             var objectListening = new FakeObject();
 
-            var handler = new EventHandler(new CommonTimer(), _mockLogger.Object);
+            var handler = new EventHandler(new CommonTimer(), _mockLogger);
 
             handler.RegisterListener(new EventListener(objectListening, null, typeof(FakeEvent), _eventCallback));
             var result = handler.IsListening(objectListening, typeof(FakeEvent));
-            Assert.AreEqual(true, result);
+            result.Should().BeTrue();
 
             handler.StopListening(objectListening);
             result = handler.IsListening(objectListening, typeof(FakeEvent));
-            Assert.AreEqual(false, result);
+            result.Should().BeFalse();
         }
 
-        [Test, Timeout(10000)]
+        [Fact]
         public void ThrowEventWithSenderAndEvent()
         {
             var objectListening = new FakeObject();
             var objectActing = new FakeObject { Name = "Actor" };
             var resultArgs = new RealmEventArgs();
 
-            var handler = new EventHandler(new CommonTimer(), _mockLogger.Object);
+            var handler = new EventHandler(new CommonTimer(), _mockLogger);
             _eventCallback = args => { resultArgs = args; };
 
             handler.RegisterListener(new EventListener(objectListening, null, typeof(FakeEvent), _eventCallback));
@@ -174,12 +172,15 @@ namespace Realm.Library.Common.Test.Events
             handler.ThrowEvent(objectActing, new FakeEvent());
 
             Thread.Sleep(250);
-            Assert.That(resultArgs.Sender, Is.Not.Null, "Unit test expected Sender to not be null");
-            Assert.That(resultArgs.Sender.GetType(), Is.EqualTo(typeof(FakeObject)), "Unit test expected Sender to be a FakeObject");
-            Assert.That(resultArgs.Sender.CastAs<FakeObject>().Name, Is.EqualTo("Actor"), "Unit test expected Sender's Name to be 'Actor'");
+
+            resultArgs.Sender.Should().NotBeNull();
+            resultArgs.Sender.Should().BeAssignableTo<FakeObject>();
+
+            var sender = resultArgs.Sender as FakeObject;
+            sender.Name.Should().Be("Actor");
         }
 
-        [Test, Timeout(10000)]
+        [Fact]
         public void ThrowEventWithSenderAndEventAndEventArgs()
         {
             var objectListening = new FakeObject();
@@ -187,7 +188,7 @@ namespace Realm.Library.Common.Test.Events
             var parameterArgs = new RealmEventArgs("TestType");
             var resultArgs = new RealmEventArgs();
 
-            var handler = new EventHandler(new CommonTimer(), _mockLogger.Object);
+            var handler = new EventHandler(new CommonTimer(), _mockLogger);
             _eventCallback = args => { resultArgs = args; };
 
             handler.RegisterListener(new EventListener(objectListening, null, typeof(FakeEvent), _eventCallback));
@@ -195,13 +196,17 @@ namespace Realm.Library.Common.Test.Events
             handler.ThrowEvent(objectActing, new FakeEvent(), parameterArgs);
 
             Thread.Sleep(250);
-            Assert.That(resultArgs.Sender, Is.Not.Null, "Unit test expected Sender to not be null");
-            Assert.That(resultArgs.Sender.GetType(), Is.EqualTo(typeof(FakeObject)), "Unit test expected Sender to be a FakeObject");
-            Assert.That(resultArgs.Sender.CastAs<FakeObject>().Name, Is.EqualTo("Actor"), "Unit test expected Sender's Name to be 'Actor'");
-            Assert.That(resultArgs.Type, Is.EqualTo("TestType"), "Unit test expected the 'Type' to be 'TestType'");
+
+            resultArgs.Sender.Should().NotBeNull();
+            resultArgs.Sender.Should().BeAssignableTo<FakeObject>();
+            
+            var sender = resultArgs.Sender as FakeObject;
+            sender.Name.Should().Be("Actor");
+
+            resultArgs.Type.Should().Be("TestType");
         }
 
-        [Test, Timeout(10000)]
+        [Fact]
         public void ThrowEventWithSenderAndEventAndEventTable()
         {
             var objectListening = new FakeObject();
@@ -209,7 +214,7 @@ namespace Realm.Library.Common.Test.Events
             var table = new EventTable { { "Value", "TestValue" } };
             var resultArgs = new RealmEventArgs();
 
-            var handler = new EventHandler(new CommonTimer(), _mockLogger.Object);
+            var handler = new EventHandler(new CommonTimer(), _mockLogger);
             _eventCallback = args => { resultArgs = args; };
 
             handler.RegisterListener(new EventListener(objectListening, null, typeof(FakeEvent), _eventCallback));
@@ -217,13 +222,17 @@ namespace Realm.Library.Common.Test.Events
             handler.ThrowEvent(objectActing, new FakeEvent(), table);
 
             Thread.Sleep(250);
-            Assert.That(resultArgs.Sender, Is.Not.Null, "Unit test expected Sender to not be null");
-            Assert.That(resultArgs.Sender.GetType(), Is.EqualTo(typeof(FakeObject)), "Unit test expected Sender to be a FakeObject");
-            Assert.That(resultArgs.Sender.CastAs<FakeObject>().Name, Is.EqualTo("Actor"), "Unit test expected Sender's Name to be 'Actor'");
-            Assert.That(resultArgs.GetValue("Value"), Is.EqualTo("TestValue"), "Unit test expected the 'Value' to have a value of 'TestValue'");
-        }
 
-        [Test, Timeout(10000)]
+            resultArgs.Sender.Should().NotBeNull();
+            resultArgs.Sender.Should().BeAssignableTo<FakeObject>();
+
+            var sender = resultArgs.Sender as FakeObject;
+            sender.Name.Should().Be("Actor");
+
+            resultArgs.GetValue("Value").Should().Be("TestValue");
+         }
+
+        [Fact]
         public void ThrowEventOfTypeWithSenderAndEventTable()
         {
             var objectListening = new FakeObject();
@@ -231,7 +240,7 @@ namespace Realm.Library.Common.Test.Events
             var table = new EventTable { { "Value", "TestValue" } };
             var resultArgs = new RealmEventArgs();
 
-            var handler = new EventHandler(new CommonTimer(), _mockLogger.Object);
+            var handler = new EventHandler(new CommonTimer(), _mockLogger);
             _eventCallback = args => { resultArgs = args; };
 
             handler.RegisterListener(new EventListener(objectListening, null, typeof(FakeEvent), _eventCallback));
@@ -239,34 +248,39 @@ namespace Realm.Library.Common.Test.Events
             handler.ThrowEvent<FakeEvent>(objectActing, table);
 
             Thread.Sleep(250);
-            Assert.That(resultArgs.Sender, Is.Not.Null, "Unit test expected Sender to not be null");
-            Assert.That(resultArgs.Sender.GetType(), Is.EqualTo(typeof(FakeObject)), "Unit test expected Sender to be a FakeObject");
-            Assert.That(resultArgs.Sender.CastAs<FakeObject>().Name, Is.EqualTo("Actor"), "Unit test expected Sender's Name to be 'Actor'");
-            Assert.That(resultArgs.GetValue("Value"), Is.EqualTo("TestValue"), "Unit test expected the 'Value' to have a value of 'TestValue'");
+
+            resultArgs.Sender.Should().NotBeNull();
+            resultArgs.Sender.Should().BeAssignableTo<FakeObject>();
+
+            var sender = resultArgs.Sender as FakeObject;
+            sender.Name.Should().Be("Actor");
+
+            resultArgs.GetValue("Value").Should().Be("TestValue");
         }
 
-        [Test, Timeout(10000)]
+        [Fact]
         public void ThrowEvent_ThrowsException_WhenUnknownEventTypeIsSent()
         {
             var objectListening = new FakeObject();
             var objectActing = new FakeObject { Name = "Actor" };
             var table = new EventTable { { "Value", "TestValue" } };
 
-            var handler = new EventHandler(new CommonTimer(), _mockLogger.Object);
+            var handler = new EventHandler(new CommonTimer(), _mockLogger);
 
             handler.RegisterListener(new EventListener(objectListening, null, typeof(FakeEvent), _eventCallback));
 
-            Assert.Throws<InstanceNotFoundException>(() => handler.ThrowEvent<BuggyFakeEvent>(objectActing, table));
+            Action act = () => handler.ThrowEvent<BuggyFakeEvent>(objectActing, table);
+            act.Should().Throw<InstanceNotFoundException>();
         }
 
-        [Test, Timeout(10000)]
+        [Fact]
         public void ThrowEventOfTypeWithSender()
         {
             var objectListening = new FakeObject();
             var objectActing = new FakeObject { Name = "Actor" };
             var resultArgs = new RealmEventArgs();
 
-            var handler = new EventHandler(new CommonTimer(), _mockLogger.Object);
+            var handler = new EventHandler(new CommonTimer(), _mockLogger);
             _eventCallback = args => { resultArgs = args; };
 
             handler.RegisterListener(new EventListener(objectListening, null, typeof(FakeEvent), _eventCallback));
@@ -274,22 +288,26 @@ namespace Realm.Library.Common.Test.Events
             handler.ThrowEvent<FakeEvent>(objectActing);
 
             Thread.Sleep(250);
-            Assert.That(resultArgs.Sender, Is.Not.Null, "Unit test expected Sender to not be null");
-            Assert.That(resultArgs.Sender.GetType(), Is.EqualTo(typeof(FakeObject)), "Unit test expected Sender to be a FakeObject");
-            Assert.That(resultArgs.Sender.CastAs<FakeObject>().Name, Is.EqualTo("Actor"), "Unit test expected Sender's Name to be 'Actor'");
+
+            resultArgs.Sender.Should().NotBeNull();
+            resultArgs.Sender.Should().BeAssignableTo<FakeObject>();
+
+            var sender = resultArgs.Sender as FakeObject;
+            sender.Name.Should().Be("Actor");
         }
 
-        [Test, Timeout(10000)]
+        [Fact]
         public void ThrowEvent_ThrowsException_WhenUnknownEventTypeIsPassed()
         {
             var objectListening = new FakeObject();
             var objectActing = new FakeObject { Name = "Actor" };
 
-            var handler = new EventHandler(new CommonTimer(), _mockLogger.Object);
+            var handler = new EventHandler(new CommonTimer(), _mockLogger);
 
             handler.RegisterListener(new EventListener(objectListening, null, typeof(FakeEvent), _eventCallback));
 
-            Assert.Throws<InstanceNotFoundException>(() => handler.ThrowEvent<BuggyFakeEvent>(objectActing));
+            Action act = () => handler.ThrowEvent<BuggyFakeEvent>(objectActing);
+            act.Should().Throw<InstanceNotFoundException>();
         }
     }
 }

@@ -1,7 +1,8 @@
-﻿using Realm.Library.Patterns.Repository;
+﻿using Realm.Standard.Patterns.Repository;
 
 namespace Realm.Library.Network
 {
+    /// <inheritdoc />
     /// <summary>
     /// Repository class used to track TcpUsers
     /// </summary>

@@ -12,7 +12,7 @@
 //            return new Month(1, "TestMonth", 30, Globals.Globals.SeasonTypes.Summer, true);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void Month_Constructor_Test()
 //        {
 //            var target = GetTestMonth();
@@ -30,7 +30,7 @@
 //            Assert.AreEqual(expectedShrouding, target.IsShrouding);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void Month_AddEffect_Test()
 //        {
 //            var target = GetTestMonth();
@@ -43,7 +43,7 @@
 //            Assert.AreEqual(expected, actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void Month_HasEffect_Contains_Test()
 //        {
 //            var target = GetTestMonth();
@@ -56,7 +56,7 @@
 //            Assert.AreEqual(expected, actual);     
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void Month_HasEffect_DoesNotContains_Test()
 //        {
 //            var target = GetTestMonth();
@@ -68,7 +68,7 @@
 //            Assert.AreEqual(expected, actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void Month_Effects_Count_Test()
 //        {
 //            var target = GetTestMonth();

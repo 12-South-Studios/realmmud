@@ -31,7 +31,7 @@ namespace Realm.Data
 
         ~DatabaseManager()
         {
-            if (_serverContext.IsNotNull())
+            if (_serverContext != null)
                 _serverContext.Dispose();
         }
 
@@ -99,7 +99,7 @@ namespace Realm.Data
             Validation.IsNotNull(transaction, "transaction");
 
             var server = _serverContext.NextServer;
-            if (server.IsNull())
+            if (server == null)
                 throw new GeneralException(Resources.ERR_DB_SERVER_NOT_FOUND, transaction.TransactionId);
 
             server.ExecuteTransaction(transaction);

@@ -28,10 +28,10 @@ namespace Realm.Time
             Kernel = kernel;
         }
 
-        private IEventManager EventManager { get; set; }
-        private ILogWrapper Log { get; set; }
+        private IEventManager EventManager { get; }
+        private ILogWrapper Log { get; }
         public GameState CurrentGameState { get; private set; }
-        private IKernel Kernel { get; set; }
+        private IKernel Kernel { get; }
 
         public void OnInit(DictionaryAtom initAtom)
         {
@@ -60,17 +60,15 @@ namespace Realm.Time
 
         private void OnLoadGameStateComplete(RealmEventArgs args)
         {
-            CurrentGameState = args.GetValue("GameState").CastAs<GameState>();
-            if (CurrentGameState.IsNull())
-                CurrentGameState = new GameState(
-                    new MudTime
-                    {
-                        Year = _initAtom.GetInt("DefaultGameYear"),
-                        Month = _initAtom.GetInt("DefaultGameMonth"),
-                        Day = _initAtom.GetInt("DefaultGameDay"),
-                        Hour = _initAtom.GetInt("DefaultGameHour"),
-                        Minute = _initAtom.GetInt("DefaultGameMinute")
-                    });
+            CurrentGameState = args.GetValue("GameState").CastAs<GameState>() ?? new GameState(
+                                   new MudTime
+                                   {
+                                       Year = _initAtom.GetInt("DefaultGameYear"),
+                                       Month = _initAtom.GetInt("DefaultGameMonth"),
+                                       Day = _initAtom.GetInt("DefaultGameDay"),
+                                       Hour = _initAtom.GetInt("DefaultGameHour"),
+                                       Minute = _initAtom.GetInt("DefaultGameMinute")
+                                   });
 
             Log.Debug("GameStateLoad completed. Loading the Year.");
             _loader.LoadYear(OnLoadYearComplete);

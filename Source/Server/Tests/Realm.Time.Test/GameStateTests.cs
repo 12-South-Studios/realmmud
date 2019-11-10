@@ -1,31 +1,30 @@
-﻿using Moq;
-using NUnit.Framework;
+﻿using FakeItEasy;
+using FluentAssertions;
 using Realm.Data;
 using Realm.Data.Definitions;
 using Realm.Data.Interfaces;
 using Realm.Library.Common.Data;
+using Xunit;
 
 namespace Realm.Time.Test
 {
-    [TestFixture]
     public class GameStateTests
     {
-        [Test]
+        [Fact]
         public void MonthPropertyReturnsValidMonthDef()
         {
             var monthDef = new MonthDef(1, "Test", new DictionaryAtom());
 
-            var mockStaticDataManager = new Mock<IStaticDataManager>();
-            mockStaticDataManager.Setup(x => x.GetStaticData(It.IsAny<Globals.SystemTypes>(), 
-                It.IsAny<string>())).Returns(monthDef);
+            var dataManager = A.Fake<IStaticDataManager>();
+            A.CallTo(() => dataManager.GetStaticData(A<Globals.SystemTypes>.Ignored, A<string>.Ignored)).Returns(monthDef);
 
             var mudTime = new MudTime {Month = 1};
             var gameState = new GameState(mudTime)
             {
-                StaticDataManager = mockStaticDataManager.Object
+                StaticDataManager = dataManager
             };
 
-            Assert.That(gameState.Month, Is.EqualTo(monthDef));
+            gameState.Month.Should().Be(monthDef);
         }
     }
 }

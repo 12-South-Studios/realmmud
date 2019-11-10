@@ -1,9 +1,7 @@
 using System;
 using System.Windows.Forms;
-using Realm.Library.Common.Objects;
 
 namespace Realm.Library.Controls.Calendar
-
 {
     /// <summary>
     ///
@@ -26,7 +24,7 @@ namespace Realm.Library.Controls.Calendar
             get { return base.CellTemplate; }
             set
             {
-                if (value.IsNotNull() && !value.GetType().IsAssignableFrom(typeof(CalendarCell)))
+                if (value != null && !value.GetType().IsAssignableFrom(typeof(CalendarCell)))
                     throw new InvalidCastException("Must be a CalendarCell");
 
                 base.CellTemplate = value;

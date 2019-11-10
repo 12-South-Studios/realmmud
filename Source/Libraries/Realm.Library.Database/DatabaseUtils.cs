@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using Realm.Library.Common;
 using Realm.Library.Common.Objects;
 
 namespace Realm.Library.Database
@@ -51,7 +50,7 @@ namespace Realm.Library.Database
             where T : IDataParameter, new()
         {
             var paramList = new List<T>();
-            if (objects.IsNull()) return paramList;
+            if (objects == null) return paramList;
 
             paramList.AddRange(objects.Select(CreateParameter<T>));
             return paramList;
@@ -64,7 +63,7 @@ namespace Realm.Library.Database
             where T : IDataParameter, new()
         {
             var paramList = new List<T>();
-            if (parameters.IsNull()) return paramList;
+            if (parameters == null) return paramList;
 
             paramList.AddRange(parameters);
             return paramList;
@@ -76,8 +75,8 @@ namespace Realm.Library.Database
         /// </summary>
         public static T GetValueOrDefault<T>(DataRow dataRow, string columnName, T defaultValue)
         {
-            Validation.IsNotNull(dataRow, "dataRow");
-            Validation.IsNotNullOrEmpty(columnName, "columnName");
+            if (dataRow == null) throw new ArgumentNullException(nameof(dataRow));
+            if (string.IsNullOrEmpty(columnName)) throw new ArgumentNullException(nameof(columnName));
 
             if (dataRow.Table.Columns.Contains(columnName) && dataRow[columnName] != DBNull.Value)
                 return dataRow[columnName].CastAs<T>();

@@ -5,7 +5,6 @@ using Realm.Library.Common;
 using Realm.Library.Common.Data;
 using Realm.Library.Common.Entities;
 using Realm.Library.Common.Events;
-using Realm.Library.Common.Objects;
 using Realm.Library.Database.Properties;
 
 namespace Realm.Library.Database.Framework
@@ -37,7 +36,7 @@ namespace Realm.Library.Database.Framework
         /// <summary>
         /// Owner of the module
         /// </summary>
-        public IEntity Owner { get; private set; }
+        public IEntity Owner { get; }
 
         /// <summary>
         /// Starts a new transaction set
@@ -136,20 +135,23 @@ namespace Realm.Library.Database.Framework
             Validation.Validate(transaction.State == TransactionState.Processing);
 
             var commandResults = args.CommandResults;
-            var itResult = commandResults.GetEnumerator();
-            var itCommand = transaction.PendingCommands.GetEnumerator();
-
-            while (itResult.MoveNext() && itCommand.MoveNext())
+            using (var itResult = commandResults.GetEnumerator())
             {
-                var result = itResult.Current;
-                var command = itCommand.Current;
+                using (var itCommand = transaction.PendingCommands.GetEnumerator())
+                {
+                    while (itResult.MoveNext() && itCommand.MoveNext())
+                    {
+                        var result = itResult.Current;
+                        var command = itCommand.Current;
 
-                IssueCallback(command.Callback, args.Success, result, command.Data);
+                        IssueCallback(command.Callback, args.Success, result, command.Data);
+                    }
+
+                    IssueCallback(transaction.Callback, args.Success, commandResults, transaction.Data);
+
+                    _pendingTransactions.Remove(transactionId);
+                }
             }
-
-            IssueCallback(transaction.Callback, args.Success, commandResults, transaction.Data);
-
-            _pendingTransactions.Remove(transactionId);
         }
 
         /// <summary>
@@ -161,14 +163,12 @@ namespace Realm.Library.Database.Framework
         /// <param name="data"></param>
         private static void IssueCallback(EventCallback<RealmEventArgs> callback, bool success, Atom result, DictionaryAtom data)
         {
-            if (callback.IsNull()) return;
-
-            callback.Invoke(new RealmEventArgs(new EventTable
-                                                   {
-                                                       {"userData", data},
-                                                       {"commandResult", result},
-                                                       {"success", success}
-                                                   }));
+            callback?.Invoke(new RealmEventArgs(new EventTable
+            {
+                {"userData", data},
+                {"commandResult", result},
+                {"success", success}
+            }));
         }
 
         #region IDisposable
@@ -191,16 +191,11 @@ namespace Realm.Library.Database.Framework
         /// <param name="disposing"></param>
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                if (_currentTransaction.IsNotNull())
-                    _currentTransaction.PendingCommands.Clear();
-                if (_pendingTransactions.IsNotNull())
-                {
-                    _pendingTransactions.Values.ToList().ForEach(x => x.PendingCommands.Clear());
-                    _pendingTransactions.Clear();
-                }
-            }
+            if (!disposing) return;
+            _currentTransaction?.PendingCommands.Clear();
+            if (_pendingTransactions == null) return;
+            _pendingTransactions.Values.ToList().ForEach(x => x.PendingCommands.Clear());
+            _pendingTransactions.Clear();
         }
 
         #endregion IDisposable

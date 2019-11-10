@@ -8,7 +8,7 @@ namespace Realm.Edit.Tags
 {
     public static class SystemTags
     {
-        private static Dictionary<string, SystemTagSet> TagSets { get; set; }
+        private static Dictionary<string, SystemTagSet> TagSets { get; }
 
         static SystemTags()
         {
@@ -26,7 +26,7 @@ namespace Realm.Edit.Tags
                 Program.MainForm.ProgressStatus.Value = 0;
             }
 
-            foreach (TagCategoryTypes category in EnumerationFunctions.GetAllEnumValues<TagCategoryTypes>())
+            foreach (var category in EnumerationFunctions.GetAllEnumValues<TagCategoryTypes>())
             {
                 var tagSet = new SystemTagSet(category.ToString(), category);
                 tagSet.AddTags(category);
@@ -51,13 +51,13 @@ namespace Realm.Edit.Tags
         public static SystemTag GetTag(string aSetName, string aTagName)
         {
             var tagSet = GetTagSet(aSetName);
-            return tagSet == null ? null : tagSet.GetTag(aTagName);
+            return tagSet?.GetTag(aTagName);
         }
 
         public static SystemTag GetTag(string aSetName, int aTagId)
         {
             var tagSet = GetTagSet(aSetName);
-            return tagSet == null ? null : tagSet.GetTag(aTagId);
+            return tagSet?.GetTag(aTagId);
         }
 
         public static IEnumerable<SystemTagSet> TagSetValues => TagSets.Values;

@@ -49,8 +49,7 @@ namespace Realm.Library.Database
             }
             finally
             {
-                if (connection != null)
-                    connection.Dispose();
+                connection?.Dispose();
             }
 
             return result;
@@ -82,8 +81,7 @@ namespace Realm.Library.Database
             }
             finally
             {
-                if (connection != null)
-                    connection.Dispose();
+                connection?.Dispose();
             }
         }
 
@@ -118,8 +116,7 @@ namespace Realm.Library.Database
             }
             finally
             {
-                if (connection != null)
-                    connection.Dispose();
+                connection?.Dispose();
             }
 
             return table;
@@ -157,8 +154,7 @@ namespace Realm.Library.Database
             }
             finally
             {
-                if (connection != null)
-                    connection.Dispose();
+                connection?.Dispose();
             }
 
             return null;

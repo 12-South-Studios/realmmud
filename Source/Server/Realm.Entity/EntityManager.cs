@@ -93,7 +93,7 @@ namespace Realm.Entity
         private void OnStartupEntitiesLoaded(RealmEventArgs args)
         {
             var zoneList = args.Data["zones"].CastAs<List<int>>();
-            if (zoneList.IsNull())
+            if (zoneList == null)
                 throw new InvalidDataException(Resources.ERR_NO_STARTUP_ZONES);
 
             Log.DebugFormat("{0} Zones to be loaded at startup.", zoneList.Count);

@@ -1,10 +1,10 @@
-﻿using NUnit.Framework;
+﻿using FluentAssertions;
 using Realm.Library.Common.Objects;
+using Xunit;
 
-namespace Realm.Library.Common.Test
+namespace Realm.Library.Common.Fact
 {
-    [TestFixture]
-    public class EntityTest
+    public class EntityFact
     {
         private class FakeEntity : Entity
         {
@@ -14,47 +14,47 @@ namespace Realm.Library.Common.Test
             }
         }
 
-        [Test]
-        public void EntityEqualsObjectNullTest()
+        [Fact]
+        public void EntityEqualsObjectNullFact()
         {
-            var entity = new FakeEntity(1, "Test");
+            var entity = new FakeEntity(1, "Fact");
 
-            Assert.That(entity.Equals(null), Is.False);
+            entity.Equals(null).Should().BeFalse();
         }
 
-        [Test]
-        public void EntityEqualsNotSameTypeTest()
+        [Fact]
+        public void EntityEqualsNotSameTypeFact()
         {
-            var entity = new FakeEntity(1, "test");
-            var testObj = new object();
+            var entity = new FakeEntity(1, "Fact");
+            var FactObj = new object();
 
-            Assert.That(entity.Equals(testObj), Is.False);
+            entity.Equals(FactObj).Should().BeFalse();
         }
 
-        [Test]
-        public void EntityEqualsNotSameTest()
+        [Fact]
+        public void EntityEqualsNotSameFact()
         {
-            var entity1 = new FakeEntity(1, "Test");
-            var entity2 = new FakeEntity(2, "tester");
+            var entity1 = new FakeEntity(1, "Fact");
+            var entity2 = new FakeEntity(2, "Facter");
 
-            Assert.That(entity1.Equals(entity2), Is.False);
+            entity1.Equals(entity2).Should().BeFalse();
         }
 
-        [Test]
-        public void EntityEqualsSameTest()
+        [Fact]
+        public void EntityEqualsSameFact()
         {
-            var entity1 = new FakeEntity(1, "Test");
-            var entity2 = new FakeEntity(1, "Test");
+            var entity1 = new FakeEntity(1, "Fact");
+            var entity2 = new FakeEntity(1, "Fact");
 
-            Assert.That(entity1.Equals(entity2), Is.True);
+            entity1.Equals(entity2).Should().BeTrue();
         }
 
-        [Test]
-        public void EntityGetHashCodeTest()
+        [Fact]
+        public void EntityGetHashCodeFact()
         {
-            var entity = new FakeEntity(1, "test");
+            var entity = new FakeEntity(1, "Fact");
 
-            Assert.That(entity.GetHashCode(), Is.EqualTo(-354185222));
+            entity.GetHashCode().Should().Be(358537656);
         }
     }
 }

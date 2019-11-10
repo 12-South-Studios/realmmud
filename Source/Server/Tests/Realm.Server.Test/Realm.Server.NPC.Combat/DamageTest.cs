@@ -6,7 +6,7 @@
 //    [TestClass]
 //    public class DamageTest
 //    {
-//        [TestMethod]
+//        [Fact]
 //        public void Damage_Constructor_Test()
 //        {
 //            var actual = new Damage();

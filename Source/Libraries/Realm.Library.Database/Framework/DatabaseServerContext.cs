@@ -64,7 +64,7 @@ namespace Realm.Library.Database.Framework
 
                 _dbServers.TryDequeue(out server);
 
-                if (server.IsNotNull())
+                if (server != null)
                     _dbServers.Enqueue(server);
 
                 return server;

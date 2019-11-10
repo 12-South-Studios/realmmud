@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
+using FluentAssertions;
 using Realm.Library.Common.Extensions;
+using Xunit;
 
 namespace Realm.Library.Common.Test.Extensions
 {
-    [TestFixture]
     public class StringExtensionsTest
     {
         #region ToByteArray
-        [Test]
+        [Fact]
         public void ToByteArrayValidTest()
         {
             const string value = "test";
@@ -19,42 +19,42 @@ namespace Realm.Library.Common.Test.Extensions
 
             var expected = new byte[] { 116, 101, 115, 116 };
 
-            Assert.That(expected.SequenceEqual(actual), Is.True);
+            expected.SequenceEqual(actual).Should().BeTrue();
         }
         #endregion
 
         #region Contains
-        [TestCase("testing 1 2 3", "tester", false)]
-        [TestCase("testing 1 2 3", "test", true)]
-        [TestCase("testing 1 2 3", "TEST", true)]
+        [Theory]
+        [InlineData("testing 1 2 3", "tester", false)]
+        [InlineData("testing 1 2 3", "test", true)]
+        [InlineData("testing 1 2 3", "TEST", true)]
         public void ContainsTest(string source, string target, bool expected)
         {
-            Assert.That(source.Contains(target, StringComparison.OrdinalIgnoreCase), Is.EqualTo(expected));
+            var result = source.Contains(target, StringComparison.OrdinalIgnoreCase);
+            result.Should().Be(expected);
         }
 
-        [Test]
+        [Fact]
         public void ContainsNullValueTest()
         {
             const string target = "TEST";
 
-            Assert.Throws<ArgumentNullException>(
-                () => StringExtensions.Contains(string.Empty, target, StringComparison.OrdinalIgnoreCase),
-                "Unit test expected an ArgumentNullException to be thrown");
+            Action act = () => StringExtensions.Contains(string.Empty, target, StringComparison.OrdinalIgnoreCase);
+            act.Should().Throw<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void ContainsNullToCheckTest()
         {
             const string source = "TEST";
 
-            Assert.Throws<ArgumentNullException>(
-                () => source.Contains(string.Empty, StringComparison.OrdinalIgnoreCase),
-                "Unit test expected an ArgumentNullException to be thrown");
+            Action act = () => source.Contains(string.Empty, StringComparison.OrdinalIgnoreCase);
+            act.Should().Throw<ArgumentNullException>();
         }
         #endregion
 
         #region ReplaceFirst
-        [Test]
+        [Fact]
         public void ReplaceFirstTest()
         {
             const string str = "This is a test";
@@ -62,60 +62,60 @@ namespace Realm.Library.Common.Test.Extensions
             const string replace = "at";
             const string expected = "That is a test";
 
-            Assert.That(str.ReplaceFirst(search, replace), Is.EqualTo(expected));
+            str.ReplaceFirst(search, replace).Should().Be(expected);
         }
 
-        [Test]
+        [Fact]
         public void ReplaceFirstNullValueTest()
         {
             const string target = "TEST";
             const string replace = "testing";
 
-            Assert.Throws<ArgumentNullException>(() => StringExtensions.ReplaceFirst(string.Empty, target, replace),
-                                                 "Unit test expected an ArgumentNullException to be thrown");
+            Action act = () => StringExtensions.ReplaceFirst(string.Empty, target, replace);
+            act.Should().Throw<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void ReplaceFirstNullSearchTest()
         {
             const string source = "TEST";
             const string replace = "testing";
 
-            Assert.Throws<ArgumentNullException>(() => source.ReplaceFirst(string.Empty, replace),
-                                                 "Unit test expected an ArgumentNullException to be thrown");
+            Action act = () => source.ReplaceFirst(string.Empty, replace);
+            act.Should().Throw<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void ReplaceFirstNullReplaceTest()
         {
             const string source = "TEST";
             const string target = "testing 1 2 3";
 
-            Assert.Throws<ArgumentNullException>(() => source.ReplaceFirst(target, string.Empty),
-                                                 "Unit test expected an ArgumentNullException to be thrown");
+            Action act = () => source.ReplaceFirst(target, string.Empty);
+            act.Should().Throw<ArgumentNullException>();
         }
         #endregion
 
         #region CapitalizeFirst
-        [Test]
+        [Fact]
         public void CapitalizeFirstTest()
         {
             const string str = "test";
             const string expected = "Test";
 
-            Assert.That(str.CapitalizeFirst(), Is.EqualTo(expected));
+            str.CapitalizeFirst().Should().Be(expected);
         }
 
-        [Test]
+        [Fact]
         public void CapitalizeFirstNullValueTest()
         {
-            Assert.Throws<ArgumentNullException>(() => StringExtensions.CapitalizeFirst(string.Empty),
-                                                 "Unit test expected an ArgumentNullException to be thrown");
+            Action act = () => StringExtensions.CapitalizeFirst(string.Empty);
+            act.Should().Throw<ArgumentNullException>();
         }
         #endregion
 
         #region ParseWord
-        [Test]
+        [Fact]
         public void ParseWordTest()
         {
             const string str = "This is a test";
@@ -123,32 +123,32 @@ namespace Realm.Library.Common.Test.Extensions
             const string delimeter = " ";
             const string expected = "test";
 
-            Assert.That(str.ParseWord(wordNumber, delimeter), Is.EqualTo(expected));
+            str.ParseWord(wordNumber, delimeter).Should().Be(expected);
         }
 
-        [Test]
+        [Fact]
         public void ParseWordNullValueTest()
         {
             const int wordNbr = 1;
             const string delimiter = "a";
 
-            Assert.Throws<ArgumentNullException>(() => StringExtensions.ParseWord(string.Empty, wordNbr, delimiter),
-                                                 "Unit test expected an ArgumentNullException to be thrown");
+            Action act = () => StringExtensions.ParseWord(string.Empty, wordNbr, delimiter);
+            act.Should().Throw<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void ParseWordNullDelimiterTest()
         {
             const string value = "Test";
             const int wordNbr = 1;
 
-            Assert.Throws<ArgumentNullException>(() => value.ParseWord(wordNbr, string.Empty),
-                                                 "Unit test expected an ArgumentNullException to be thrown");
+            Action act = () => value.ParseWord(wordNbr, string.Empty);
+            act.Should().Throw<ArgumentNullException>();
         }
         #endregion
 
         #region PadString
-        [Test]
+        [Fact]
         public void PadStringToFrontTest()
         {
             const string str = "Test";
@@ -156,10 +156,10 @@ namespace Realm.Library.Common.Test.Extensions
             const int totalLength = 10;
             const string expected = "******Test";
 
-            Assert.That(str.PadStringToFront(padChar, totalLength), Is.EqualTo(expected));
+            str.PadStringToFront(padChar, totalLength).Should().Be(expected);
         }
 
-        [Test]
+        [Fact]
         public void PadStringToBackTest()
         {
             const string str = "Test";
@@ -167,89 +167,91 @@ namespace Realm.Library.Common.Test.Extensions
             const int totalLength = 10;
             const string expected = "Test******";
 
-            Assert.That(str.PadString(padChar, totalLength), Is.EqualTo(expected));
+            str.PadString(padChar, totalLength).Should().Be(expected);
         }
 
-        [Test]
+        [Fact]
         public void PadStringInvalidLengthTest()
         {
             const string str = "Test";
             const string padChar = "*";
             const int totalLength = 1;
 
-            Assert.That(str.PadString(padChar, totalLength), Is.EqualTo(str));
+            str.PadString(padChar, totalLength).Should().Be(str);
         }
 
-        [Test]
+        [Fact]
         public void PadStringNullValueTest()
         {
             const string padChar = "*";
             const int totalLength = 10;
 
-            Assert.Throws<ArgumentNullException>(() => StringExtensions.PadString(string.Empty, padChar, totalLength),
-                                                 "Unit test expected an ArgumentNullException to be thrown");
+            Action act = () => StringExtensions.PadString(string.Empty, padChar, totalLength);
+            act.Should().Throw<ArgumentNullException>();
         }
         #endregion
 
         #region RemoveWord
-        [TestCase("This is a test", 2, "This a test")]
-        [TestCase("Testing", 1, "")]
+        [Theory]
+        [InlineData("This is a test", 2, "This a test")]
+        [InlineData("Testing", 1, "")]
         public void RemoveWordTest(string inputString, int wordNumber, string expectedValue)
         {
-            Assert.That(inputString.RemoveWord(wordNumber), Is.EqualTo(expectedValue));
+            var result = inputString.RemoveWord(wordNumber);
+            result.Should().Be(expectedValue);
         }
 
-        [Test]
+        [Fact]
         public void RemoveWordNullValueTest()
         {
             const int wordNumber = 2;
 
-            Assert.Throws<ArgumentNullException>(() => StringExtensions.RemoveWord(string.Empty, wordNumber),
-                                                 "Unit test expected an ArgumentNullException to be thrown");
+            Action act = () => StringExtensions.RemoveWord(string.Empty, wordNumber);
+            act.Should().Throw<ArgumentNullException>();
         }
         #endregion
 
         #region Trim
-        [Test]
+        [Fact]
         public void TrimTest()
         {
             const string str = "    Test    ";
             const string delimeter = " ";
             const string expected = "Test";
 
-            Assert.That(str.Trim(delimeter), Is.EqualTo(expected));
+            str.Trim(delimeter).Should().Be(expected);
         }
 
-        [Test]
+        [Fact]
         public void TrimNullValueTest()
         {
             const string delimiter = "a";
 
-            Assert.Throws<ArgumentNullException>(() => StringExtensions.Trim(string.Empty, delimiter),
-                                                 "Unit test expected an ArgumentNullException to be thrown");
+            Action act = () => StringExtensions.Trim(string.Empty, delimiter);
+            act.Should().Throw<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void TrimNullDelimiterTest()
         {
             const string value = "test";
 
-            Assert.Throws<ArgumentNullException>(() => value.Trim(string.Empty),
-                                                 "Unit test expected an ArgumentNullException to be thrown");
+            Action act = () => value.Trim(string.Empty);
+            act.Should().Throw<ArgumentNullException>();
         }
         #endregion
 
         #region Split
-        [Test]
+        [Fact]
         public void SplitNullValueTest()
         {
             var delims = new[] { 'a', 'b', 'c' };
 
-            Assert.Throws<ArgumentNullException>(() => StringExtensions.Split(string.Empty, delims),
-                                                 "Unit test expected an ArgumentNullException to be thrown");
+            Action act = () => StringExtensions.Split(string.Empty, delims);
+            act.Should().Throw<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void SplitTest()
         {
             var delims = new[] { ',', ':', ';' };
@@ -258,39 +260,40 @@ namespace Realm.Library.Common.Test.Extensions
             var expected = new List<string> { "this", "is", "a", "test" };
             var actual = value.Split(delims);
 
-            Assert.That(expected.SequenceEqual(actual), Is.True);
+            expected.SequenceEqual(actual).Should().BeTrue();
         }
         #endregion
 
         #region ParseQuantity
-        [Test]
+        [Fact]
         public void ParseQuantityNullValueTest()
         {
-            Assert.Throws<ArgumentNullException>(() => StringExtensions.ParseQuantity(string.Empty),
-                                                 "Unit test expected an ArgumentNullException to be thrown");
+            Action act = () => StringExtensions.ParseQuantity(string.Empty);
+            act.Should().Throw<ArgumentNullException>();
         }
 
-        [TestCase("test", 0)]
-        [TestCase("a#test", 0)]
-        [TestCase("5#test", 5)]
+        [Theory]
+        [InlineData("test", 0)]
+        [InlineData("a#test", 0)]
+        [InlineData("5#test", 5)]
         public void ParseQuantityTest(string value, int expected)
         {
-            Assert.That(value.ParseQuantity(), Is.EqualTo(expected));
+            value.ParseQuantity().Should().Be(expected);
         }
         #endregion
 
         #region ReplaceAll
-        [Test]
+        [Fact]
         public void ReplaceAllNullValueTest()
         {
             var chars = new[] { 'a', 'b', 'c' };
             const char replace = 'g';
 
-            Assert.Throws<ArgumentNullException>(() => StringExtensions.ReplaceAll(string.Empty, chars, replace),
-                                                 "Unit test expected an ArgumentNullException to be thrown");
+            Action act = () => StringExtensions.ReplaceAll(string.Empty, chars, replace);
+            act.Should().Throw<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void ReplaceAllValidTest()
         {
             const string value = "A big bear clapped and clawed the ant hill.";
@@ -299,27 +302,30 @@ namespace Realm.Library.Common.Test.Extensions
 
             const string expected = "A gig gegr glgpped gnd glgwed the gnt hill.";
 
-            Assert.That(value.ReplaceAll(chars, replace), Is.EqualTo(expected));
+            value.ReplaceAll(chars, replace).Should().Be(expected);
         }
         #endregion
 
         #region RemoveAll
 
-        [TestCase("A big bear clapped and clawed the ant hill.", "A ig er lpped nd lwed the nt hill.")]
+        [Theory]
+        [InlineData("A big bear clapped and clawed the ant hill.", "A ig er lpped nd lwed the nt hill.")]
         public void RemoveAllTest(string value, string expected)
         {
-            Assert.That(value.RemoveAll(new List<char> { 'a', 'b', 'c' }), Is.EqualTo(expected));
+            var result = value.RemoveAll(new List<char> { 'a', 'b', 'c' });
+            result.Should().Be(expected);
         }
 
         #endregion
 
         #region AddArticle
-        [TestCase("the big sword", "the big sword", false, false, false)]
-        [TestCase("ancient sword", "an ancient sword", false, false, false)]
-        [TestCase("big sword", "a big sword", false, false, false)]
-        [TestCase("first test", "\r\na first test", true, false, false)]
-        [TestCase("big sword", "the big sword", false, true, false)]
-        [TestCase("big sword", "A big sword", false, false, true)]
+        [Theory]
+        [InlineData("the big sword", "the big sword", false, false, false)]
+        [InlineData("ancient sword", "an ancient sword", false, false, false)]
+        [InlineData("big sword", "a big sword", false, false, false)]
+        [InlineData("first test", "\r\na first test", true, false, false)]
+        [InlineData("big sword", "the big sword", false, true, false)]
+        [InlineData("big sword", "A big sword", false, false, true)]
         public void AddArticleTest(string value, string expected, bool appendNewLine, bool appendThe, bool capitalizeFirst)
         {
             var options = ArticleAppendOptions.None;
@@ -330,202 +336,223 @@ namespace Realm.Library.Common.Test.Extensions
             if (capitalizeFirst)
                 options |= ArticleAppendOptions.CapitalizeFirstLetter;
 
-            Assert.That(value.AddArticle(options), Is.EqualTo(expected));
+            var result = value.AddArticle(options);
+            result.Should().Be(expected);
         }
 
-        [Test]
+        [Fact]
         public void AddArticle_ThrowsException_WhenNoStringIsProvided()
         {
             var options = ArticleAppendOptions.None | ArticleAppendOptions.NewLineToEnd;
 
-            Assert.Throws<ArgumentNullException>(() => "".AddArticle(options));
+            Action act = () => "".AddArticle(options);
+            act.Should().Throw<ArgumentNullException>();
         }
 
         #endregion
 
         #region CaseCompare
-
-        [TestCase("testing", "testing", CaseCompareResult.Equal)]
-        [TestCase("testing", "TESTING", CaseCompareResult.Equal)]
-        [TestCase("test", "testing", CaseCompareResult.LessThan)]
-        [TestCase("testing", "Test", CaseCompareResult.GreaterThan)]
+        [Theory]
+        [InlineData("testing", "testing", CaseCompareResult.Equal)]
+        [InlineData("testing", "TESTING", CaseCompareResult.Equal)]
+        [InlineData("test", "testing", CaseCompareResult.LessThan)]
+        [InlineData("testing", "Test", CaseCompareResult.GreaterThan)]
         public void CaseCompareTest(string value, string compare, CaseCompareResult expected)
         {
-            Assert.That(value.CaseCompare(compare), Is.EqualTo(expected));
+            var result = value.CaseCompare(compare);
+            result.Should().Be(expected);
         }
         #endregion
 
-        [Test]
+        [Fact]
         public void FirstWordTest()
         {
             const string str = "This is a test";
-            Assert.That(str.FirstWord(), Is.EqualTo("This"));
+            str.FirstWord().Should().Be("This");
         }
 
-        [Test]
+        [Fact]
         public void SecondWordTest()
         {
             const string str = "This is a test";
-            Assert.That(str.SecondWord(), Is.EqualTo("is"));
+            str.SecondWord().Should().Be("is");
         }
 
-        [Test]
+        [Fact]
         public void ThirdWordTest()
         {
             const string str = "This is a test";
-            Assert.That(str.ThirdWord(), Is.EqualTo("a"));
+            str.ThirdWord().Should().Be("a");
         }
 
-        [TestCase("25", true)]
-        [TestCase("abc", false)]
-        [TestCase("1b", false)]
+        [Theory]
+        [InlineData("25", true)]
+        [InlineData("abc", false)]
+        [InlineData("1b", false)]
         public void IsNumber(string value, bool expected)
         {
-            Assert.That(value.IsNumber(), Is.EqualTo(expected));
+            value.IsNumber().Should().Be(expected);
         }
 
-        [TestCase("test", "a test")]
-        [TestCase("answer", "an answer")]
+        [Theory]
+        [InlineData("test", "a test")]
+        [InlineData("answer", "an answer")]
         public void AOrAn(string value, string expected)
         {
-            Assert.That(value.AOrAn(), Is.EqualTo(expected));
+            value.AOrAn().Should().Be(expected);
         }
 
-        [TestCase("abcdef", true)]
-        [TestCase("123456", true)]
-        [TestCase("abc123", true)]
-        [TestCase("abc#123", false)]
-        [TestCase("#$&", false)]
+        [Theory]
+        [InlineData("abcdef", true)]
+        [InlineData("123456", true)]
+        [InlineData("abc123", true)]
+        [InlineData("abc#123", false)]
+        [InlineData("#$&", false)]
         public void IsAlphaNum(string value, bool expected)
         {
-            Assert.That(value.IsAlphaNum(), Is.EqualTo(expected));
+            value.IsAlphaNum().Should().Be(expected);
         }
 
-        [TestCase("TESTING", "testing", true)]
-        [TestCase("TeStInG", "TESTING", true)]
-        [TestCase("1234test", "1234TEST", true)]
-        [TestCase("TESTING", "BOB", false)]
+        [Theory]
+        [InlineData("TESTING", "testing", true)]
+        [InlineData("TeStInG", "TESTING", true)]
+        [InlineData("1234test", "1234TEST", true)]
+        [InlineData("TESTING", "BOB", false)]
         public void EqualsIgnoreCase(string value, string compareTo, bool expected)
         {
-            Assert.That(value.EqualsIgnoreCase(compareTo), Is.EqualTo(expected));
+            value.EqualsIgnoreCase(compareTo).Should().Be(expected);
         }
 
-        [TestCase("TESTING", "test", true)]
-        [TestCase("1234testing", "1234", true)]
-        [TestCase("TESTING", "BOB", false)]
+        [Theory]
+        [InlineData("TESTING", "test", true)]
+        [InlineData("1234testing", "1234", true)]
+        [InlineData("TESTING", "BOB", false)]
         public void StartsWithIgnoreCase(string value, string startsWith, bool expected)
         {
-            Assert.That(value.StartsWithIgnoreCase(startsWith), Is.EqualTo(expected));
+            value.StartsWithIgnoreCase(startsWith).Should().Be(expected);
         }
 
-        [TestCase("TESTING", "test", true)]
-        [TestCase("Testing", "Bob", false)]
-        [TestCase("TESTING", "TEST", true)]
+        [Theory]
+        [InlineData("TESTING", "test", true)]
+        [InlineData("Testing", "Bob", false)]
+        [InlineData("TESTING", "TEST", true)]
         public void ContainsIgnoreCase(string value, string contains, bool expected)
         {
-            Assert.That(value.ContainsIgnoreCase(contains), Is.EqualTo(expected));
+            value.ContainsIgnoreCase(contains).Should().Be(expected);
         }
 
-        [TestCase("123", 123)]
-        [TestCase("abc", 0)]
+        [Theory]
+        [InlineData("123", 123)]
+        [InlineData("abc", 0)]
         public void ToInt32(string value, int expected)
         {
-            Assert.That(value.ToInt32(), Is.EqualTo(expected));
+            value.ToInt32().Should().Be(expected);
         }
 
-        [TestCase("1", true)]
-        [TestCase("true", true)]
-        [TestCase("0", false)]
-        [TestCase("false", false)]
-        [TestCase("whatever", false)]
+        [Theory]
+        [InlineData("1", true)]
+        [InlineData("true", true)]
+        [InlineData("0", false)]
+        [InlineData("false", false)]
+        [InlineData("whatever", false)]
         public void ToBoolean(string value, bool expected)
         {
-            Assert.That(value.ToBoolean(), Is.EqualTo(expected));
+            value.ToBoolean().Should().Be(expected);
         }
 
-        [TestCase("Bob", "Jane Bob Joe Mary", true)]
-        [TestCase("Bob", "Jane Joe Mary", false)]
-        public void IsEqualTest(string value, string wordList, bool expectedValue)
+        [Theory]
+        [InlineData("Bob", "Jane Bob Joe Mary", true)]
+        [InlineData("Bob", "Jane Joe Mary", false)]
+        public void IsEqualTest(string value, string wordList, bool expected)
         {
-            Assert.That(value.IsEqual(wordList), Is.EqualTo(expectedValue));
+            value.IsEqual(wordList).Should().Be(expected);
         }
 
-        [TestCase("Bo", "Jane Bob Joe Mary", true)]
-        [TestCase("ane", "Jane Bob Joe Mary", false)]
-        public void IsEqualPrefix(string value, string wordList, bool expectedValue)
+        [Theory]
+        [InlineData("Bo", "Jane Bob Joe Mary", true)]
+        [InlineData("ane", "Jane Bob Joe Mary", false)]
+        public void IsEqualPrefix(string value, string wordList, bool expected)
         {
-            Assert.That(value.IsEqualPrefix(wordList), Is.EqualTo(expectedValue));
+            value.IsEqualPrefix(wordList).Should().Be(expected);
         }
 
-        [TestCase("Who Bob", "Jane Bob Joe Mary", true)]
-        [TestCase("Who Is", "Jane Bob Joe Mary", false)]
-        public void IsAnyEqual(string value, string wordList, bool expectedValue)
+        [Theory]
+        [InlineData("Who Bob", "Jane Bob Joe Mary", true)]
+        [InlineData("Who Is", "Jane Bob Joe Mary", false)]
+        public void IsAnyEqual(string value, string wordList, bool expected)
         {
-            Assert.That(value.IsAnyEqual(wordList), Is.EqualTo(expectedValue));
+            value.IsAnyEqual(wordList).Should().Be(expected);
         }
 
-        [TestCase("Who Bo", "Jane Bob Joe Mary", true)]
-        [TestCase("Who ob", "Jane Bob Joe Mary", false)]
-        public void IsAnyEqualPrefix(string value, string wordList, bool expectedValue)
+        [Theory]
+        [InlineData("Who Bo", "Jane Bob Joe Mary", true)]
+        [InlineData("Who ob", "Jane Bob Joe Mary", false)]
+        public void IsAnyEqualPrefix(string value, string wordList, bool expected)
         {
-            Assert.That(value.IsAnyEqualPrefix(wordList), Is.EqualTo(expectedValue));
+            value.IsAnyEqualPrefix(wordList).Should().Be(expected);
         }
 
-        [TestCase('a', 10, "aaaaaaaaaa")]
-        [TestCase('b', 1, "b")]
+        [Theory]
+        [InlineData('a', 10, "aaaaaaaaaa")]
+        [InlineData('b', 1, "b")]
         public void RepeatCharacter(char c, int times, string expected)
         {
-            Assert.That(c.Repeat(times), Is.EqualTo(expected));
+            c.Repeat(times).Should().Be(expected);
         }
 
-        [TestCase("test", 1, "test")]
-        [TestCase("is", 5, "isisisisis")]
+        [Theory]
+        [InlineData("test", 1, "test")]
+        [InlineData("is", 5, "isisisisis")]
         public void RepeatSring(string str, int times, string expected)
         {
-            Assert.That(str.Repeat(times), Is.EqualTo(expected));
+            str.Repeat(times).Should().Be(expected);
         }
 
-        [TestCase("This is a test", false)]
-        [TestCase("", true)]
-        [TestCase(null, true)]
-        public void IsNullOrEmptyTest(string value, bool expectedValue)
+        [Theory]
+        [InlineData("This is a test", false)]
+        [InlineData("", true)]
+        [InlineData(null, true)]
+        public void IsNullOrEmptyTest(string value, bool expected)
         {
-            Assert.That(value.IsNullOrEmpty(), Is.EqualTo(expectedValue));
+            value.IsNullOrEmpty().Should().Be(expected);
         }
 
-        [TestCase("This is a test", false)]
-        [TestCase("", true)]
-        [TestCase("     ", true)]
-        [TestCase(null, true)]
-        public void IsNullOrWhitespaceTest(string value, bool expectedValue)
+        [Theory]
+        [InlineData("This is a test", false)]
+        [InlineData("", true)]
+        [InlineData("     ", true)]
+        [InlineData(null, true)]
+        public void IsNullOrWhitespaceTest(string value, bool expected)
         {
-            Assert.That(value.IsNullOrWhitespace(), Is.EqualTo(expectedValue));
+            value.IsNullOrWhitespace().Should().Be(expected);
         }
 
-        [TestCase("Testing", "Testing", false)]
-        [TestCase("Testing", "Test", true)]
-        public void NotEqualsTest(string value, string compareTo, bool expectedValue)
+        [Theory]
+        [InlineData("Testing", "Testing", false)]
+        [InlineData("Testing", "Test", true)]
+        public void NotEqualsTest(string value, string compareTo, bool expected)
         {
-            Assert.That(value.NotEquals(compareTo), Is.EqualTo(expectedValue));
+            value.NotEquals(compareTo).Should().Be(expected);
         }
 
-        [TestCase("Test", 'x', 2, "Text")]
+        [Theory]
+        [InlineData("Test", 'x', 2, "Text")]
         public void ThisTest(string value, char charToSet, int index, string expected)
         {
-            Assert.That(value.SetChar(index, charToSet), Is.EqualTo(expected));
+            value.SetChar(index, charToSet).Should().Be(expected);
         }
 
-        [Test]
+        [Fact]
         public void ToWordsTest()
         {
             const string value = "This is a test";
 
             var actual = value.ToWords();
 
-            Assert.That(actual, Is.Not.Null);
-            Assert.That(actual.Count, Is.EqualTo(4));
-            Assert.That(actual[0], Is.EqualTo("This"));
-            Assert.That(actual[3], Is.EqualTo("test"));
+            actual.Should().NotBeNull();
+            actual.Count.Should().Be(4);
+            actual[0].Should().Be("This");
+            actual[3].Should().Be("test");
         }
     }
 }

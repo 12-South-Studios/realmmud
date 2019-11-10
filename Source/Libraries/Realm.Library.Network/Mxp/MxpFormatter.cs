@@ -76,6 +76,11 @@ namespace Realm.Library.Network.Mxp
             {'"', "&quot;"}
         };
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tcpUser"></param>
+        /// <param name="clientStream"></param>
         public void Enable(ITcpUser tcpUser, NetworkStream clientStream)
         {
             Validation.IsNotNull(tcpUser, "tcpUser");

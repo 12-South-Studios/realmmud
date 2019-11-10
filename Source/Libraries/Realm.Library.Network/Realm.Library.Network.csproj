@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Realm.Library.Network</RootNamespace>
     <AssemblyName>Realm.Library.Network</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
@@ -117,6 +117,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Globalization" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
@@ -146,13 +148,13 @@
     <Compile Include="TextFormatter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Patterns\Realm.Library.Patterns.Repository\Realm.Library.Patterns.Repository.csproj">
-      <Project>{222cce38-b286-44f0-b7f1-6af8ba525fb6}</Project>
-      <Name>Realm.Library.Patterns.Repository</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Realm.Library.Common\Realm.Library.Common.csproj">
       <Project>{1fdee5bd-a724-4478-bca3-4c49daea291d}</Project>
       <Name>Realm.Library.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Realm.Standard.Patterns.Repository\Realm.Standard.Patterns.Repository.csproj">
+      <Project>{aa0867a2-ab09-4a2f-af2a-89c4da2fdf69}</Project>
+      <Name>Realm.Standard.Patterns.Repository</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

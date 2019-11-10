@@ -10,7 +10,7 @@
 //    [TestClass]
 //    public class ContentsHandlerTest
 //    {
-//        [TestMethod]
+//        [Fact]
 //        public void ContentsHandler_Constructor_Test()
 //        {
 //            var fakeEntity = new FakeGameEntity();
@@ -19,7 +19,7 @@
 //            Assert.AreEqual(fakeEntity, handler.Owner);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void ContentsHandler_GetEntityByName_NotFound_Test()
 //        {
 //            var fakeEntity = new FakeGameEntity();
@@ -29,7 +29,7 @@
 //            Assert.IsNull(actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void ContentsHandler_GetEntityByName_Found_Test()
 //        {
 //            const int id = 1;
@@ -45,7 +45,7 @@
 //            Assert.AreEqual(name, actual.Name);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void ContentsHandler_Contains_Found_Test()
 //        {
 //            const int id = 1;
@@ -60,7 +60,7 @@
 //            Assert.AreEqual(expected, actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void ContentsHandler_GetEntityByTemplate_Test()
 //        {
 //            const int id = 1;
@@ -83,7 +83,7 @@
 //            Assert.AreEqual(fakeTemplate, instance.Parent);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void ContentsHandler_GetEntities_Test()
 //        {
 //            const int id = 1;

@@ -10,7 +10,7 @@
         /// </summary>
         public PlayerChannel(long id, bool isOn, string handle)
         {
-            ID = id;
+            Id = id;
             IsOn = isOn;
             Handle = handle;
         }
@@ -18,16 +18,16 @@
         /// <summary>
         /// ID of the channel
         /// </summary>
-        public long ID { get; private set; }
+        public long Id { get; private set; }
 
         /// <summary>
         /// Alias to the channel
         /// </summary>
-        public string Handle { get; set; }
+        public string Handle { get; }
 
         /// <summary>
         /// Status of the channel
         /// </summary>
-        public bool IsOn { get; set; }
+        public bool IsOn { get; }
     }
 }

@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Realm.Edit
 {
     public class StringValueTable
     {
-        readonly IDictionary<int, String> _dictionary;
+        readonly IDictionary<int, string> _dictionary;
 
         public StringValueTable()
         {
-            _dictionary = new Dictionary<int, String>();
+            _dictionary = new Dictionary<int, string>();
         }
-        public void AddString(int key, String value)
+        public void AddString(int key, string value)
         {
             _dictionary[key] = value;
         }
-        public String GetString(int key)
+        public string GetString(int key)
         {
             return _dictionary.ContainsKey(key) ? _dictionary[key] : null;
         }

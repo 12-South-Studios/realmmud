@@ -1,27 +1,27 @@
 ﻿using System;
-using Moq;
-using NUnit.Framework;
+using FakeItEasy;
+using FluentAssertions;
 using Realm.Library.Common.Data;
 using Realm.Library.Common.Logging;
+using Xunit;
 
 namespace Realm.Library.Common.Test.Data
 {
-    [TestFixture]
     public class BoolAtomTest
     {
-        [Test]
+        [Fact]
         public void ConstructorTest()
         {
             const bool value = true;
 
             var atom = new BoolAtom(value);
 
-            Assert.That(atom, Is.Not.Null);
-            Assert.That(atom.Type, Is.EqualTo(AtomType.Boolean));
-            Assert.That(atom.Value, Is.EqualTo(value));
+            atom.Should().NotBeNull();
+            atom.Type.Should().Be(AtomType.Boolean);
+            atom.Value.Should().Be(value);
         }
 
-        [Test]
+        [Fact]
         public void BoolAtomDumpNullParameterTest()
         {
             const bool value = true;
@@ -29,26 +29,26 @@ namespace Realm.Library.Common.Test.Data
 
             const string prefix = "Test";
 
-            Assert.Throws<ArgumentNullException>(() => atom.Dump(null, prefix),
-                                                 "Unit Test expected an ArgumentNullException to be thrown");
+            Action act = () => atom.Dump(null, prefix);
+            act.Should().Throw<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void BoolAtomDumpTest()
         {
             var callback = false;
 
-            var mockLog = new Mock<ILogWrapper>();
-            mockLog.Setup(s => s.InfoFormat(It.IsAny<string>(), It.IsAny<object>(),
-                                            It.IsAny<object>())).Callback(() => { callback = true; });
+            var logger = A.Fake<ILogWrapper>();
+            A.CallTo(() => logger.InfoFormat(A<string>.Ignored, A<object>.Ignored, A<object>.Ignored))
+                .Invokes(() => callback = true);
 
             const bool value = true;
             var atom = new BoolAtom(value);
 
             const string prefix = "Test";
-            atom.Dump(mockLog.Object, prefix);
+            atom.Dump(logger, prefix);
 
-            Assert.That(callback, Is.True.After(250));
+            callback.Should().BeTrue();
         }
     }
 }

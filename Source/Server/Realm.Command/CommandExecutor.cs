@@ -22,9 +22,9 @@ namespace Realm.Command
 {
     public class CommandExecutor : ICommandExecutor
     {
-        private ICommandManager CommandManager { get; set; }
-        private IEntityManager EntityManager { get; set; }
-        private ILogWrapper Logger { get; set; }
+        private ICommandManager CommandManager { get; }
+        private IEntityManager EntityManager { get; }
+        private ILogWrapper Logger { get; }
 
         public CommandExecutor(ICommandManager commandManager, IEntityManager entityManager, ILogWrapper log)
         {
@@ -35,12 +35,13 @@ namespace Realm.Command
 
         private delegate void SendMessageScope(StringBuilder sb, ReportData data);
 
-        private readonly Dictionary<Globals.MessageScopeTypes, SendMessageScope> _messageScopeTable = new Dictionary<Globals.MessageScopeTypes, SendMessageScope>()
+        private readonly Dictionary<Globals.MessageScopeTypes, SendMessageScope> _messageScopeTable = new Dictionary
+            <Globals.MessageScopeTypes, SendMessageScope>
             {
-                { Globals.MessageScopeTypes.Character, SendMessageScopeCharacter },
-                { Globals.MessageScopeTypes.Space, SendMessageScopeSpace },
-                { Globals.MessageScopeTypes.SpaceLimited, SendMessageScopeSpaceLimited },
-                { Globals.MessageScopeTypes.Victim, SendMessageScopeVictim }
+                {Globals.MessageScopeTypes.Character, SendMessageScopeCharacter},
+                {Globals.MessageScopeTypes.Space, SendMessageScopeSpace},
+                {Globals.MessageScopeTypes.SpaceLimited, SendMessageScopeSpaceLimited},
+                {Globals.MessageScopeTypes.Victim, SendMessageScopeVictim}
             };
 
         public bool Execute(IGameEntity entity, string command)
@@ -59,13 +60,13 @@ namespace Realm.Command
             verb = verb.Replace(Environment.NewLine, string.Empty);
 
             var tuple = CommandManager.CommandRepository.Get(verb);
-            if (tuple.IsNotNull())
+            if (tuple != null)
                 return ExecuteVerb(tuple, entity, phrase);
             
             var channel =
                 CommandManager.GetParser("Channel").CastAs<PlayerChannelParser>().CheckChannelHandle(
                     entity as ICharacter, verb);
-            if (channel.IsNotNull())
+            if (channel != null)
             {
                 channel.SendText(entity as ICharacter, phrase);
                 return true;
@@ -73,7 +74,7 @@ namespace Realm.Command
 
             var social = CommandManager.GetParser("Social").CastAs<SocialCommandParser>().GetSocial(entity as IBiota,
                                                                                                     verb);
-            if (social.IsNotNull())
+            if (social != null)
             {
                 CommandManager.GetParser("Social").CastAs<SocialCommandParser>().ParseSocial(entity as IBiota, social,
                                                                                              phrase);

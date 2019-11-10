@@ -1,52 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
+using FluentAssertions;
 using Realm.Library.Common.Attributes;
+using Xunit;
 
-namespace Realm.Library.Common.Test
+namespace Realm.Library.Common.Fact
 {
-    [TestFixture]
-    public class EnumerationFunctionTests
+    public class EnumerationFunctionFacts
     {
-        private enum Test
+        private enum Fact
         {
-            [Enum("Test One")]
-            Test1 = 1,
+            [Enum("Fact One")]
+            Fact1 = 1,
 
-            [Enum("Test Two")]
-            Test2
+            [Enum("Fact Two")]
+            Fact2
         }
 
-        [TestCase("Test One", Test.Test1)]
-        [TestCase("Test Two", Test.Test2)]
-        public void GetEnumByNameTest(string name, Enum expectedVal)
+        [Theory]
+        [InlineData("Fact One", Fact.Fact1)]
+        [InlineData("Fact Two", Fact.Fact2)]
+        public void GetEnumByNameFact(string name, Enum expectedVal)
         {
-            Assert.That(EnumerationFunctions.GetEnumByName<Test>(name), Is.EqualTo(expectedVal));
+            var result = EnumerationFunctions.GetEnumByName<Fact>(name);
+            result.Should().Be(expectedVal);
         }
 
-        [Test]
-        public void GetValuesTest()
+        [Fact]
+        public void GetValuesFact()
         {
-            IEnumerable<Test> list = EnumerationFunctions.GetAllEnumValues<Test>();
+            IEnumerable<Fact> list = EnumerationFunctions.GetAllEnumValues<Fact>();
+            list.Should().NotBeNull();
 
-            Assert.That(list, Is.Not.Null);
-
-            List<Test> enumList = list.ToList();
-            Assert.That(enumList, Has.Member(Test.Test1));
-            Assert.That(enumList, Has.Member(Test.Test2));
+            List<Fact> enumList = list.ToList();
+            enumList.Should().Contain(Fact.Fact1);
+            enumList.Should().Contain(Fact.Fact2);
         }
 
-        [Test]
-        public void MaxTest()
+        [Fact]
+        public void MaxFact()
         {
-            Assert.That(EnumerationFunctions.MaximumEnumValue<Test>(), Is.EqualTo(2));
+            var result = EnumerationFunctions.MaximumEnumValue<Fact>();
+            result.Should().Be(2);
         }
 
-        [Test]
-        public void MinTest()
+        [Fact]
+        public void MinFact()
         {
-            Assert.That(EnumerationFunctions.MinimumEnumValue<Test>(), Is.EqualTo(1));
+            var result = EnumerationFunctions.MinimumEnumValue<Fact>();
+            result.Should().Be(1);
         }
     }
 }

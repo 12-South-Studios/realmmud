@@ -46,7 +46,7 @@ namespace Realm.Command
         /// </summary>
         public static bool KeywordCheckAndNotify(this ICommandManager commandManager, IEntity user, string keyword)
         {
-            bool returnVal = true;
+            var returnVal = true;
             try
             {
                 Validation.IsNotNull(commandManager, "commandManager");
@@ -68,7 +68,7 @@ namespace Realm.Command
         /// </summary>
         public static bool AdminFlagCheckAndNotify(this ICommandManager commandManager, IEntity user, IFlagContext FlagContext)
         {
-            bool returnVal = true;
+            var returnVal = true;
             try
             {
                 Validation.IsNotNull(commandManager, "commandManager");

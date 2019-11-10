@@ -8,7 +8,7 @@
 //    [TestClass]
 //    public class TagContextTest
 //    {
-//        [TestMethod]
+//        [Fact]
 //        public void HasTagTest()
 //        {
 //            var target = new TagContext(null);
@@ -20,7 +20,7 @@
 //            Assert.AreEqual(expected, actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void AddTagTest()
 //        {
 //            var dataManager = TestHelper.MockDataManager;
@@ -36,7 +36,7 @@
 //            Assert.AreEqual(expected, actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void RemoveTagTest()
 //        {
 //            var target = new TagContext(null);
@@ -49,7 +49,7 @@
 //            Assert.AreEqual(expected, actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void GetTagsTest()
 //        {
 //            var target = new TagContext(null);

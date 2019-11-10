@@ -15,7 +15,7 @@ namespace Realm.Network.Hash
     /// </summary>
     public sealed class HashLoader : DatabaseClient, IHashLoader
     {
-        private readonly ILogWrapper Log;
+        private readonly ILogWrapper _log;
         private EventCallback<RealmEventArgs> _callback;
         private readonly HashRepository _repository;
 
@@ -30,7 +30,7 @@ namespace Realm.Network.Hash
             IHashRepository repository)
             : base(owner, loadBalancer)
         {
-            Log = log;
+            _log = log;
             _repository = (HashRepository)repository;
         }
 
@@ -42,7 +42,7 @@ namespace Realm.Network.Hash
         {
             Validation.IsNotNull(callback, "callback");
 
-            Log.Debug("Executing stored procedure 'game_GetHashes'");
+            _log.Debug("Executing stored procedure 'game_GetHashes'");
             _callback = callback;
             return BuildAndExecuteTransaction(new Dictionary<string, string> { { "game_GetHashes", "" } });
         }
@@ -59,16 +59,15 @@ namespace Realm.Network.Hash
             var data = args.Data.ToDictionaryAtom();
             if (!data.GetBool("success"))
             {
-                Log.ErrorFormat("Failure to load data in {0}", GetType());
+                _log.ErrorFormat("Failure to load data in {0}", GetType());
                 return;
             }
 
             var commandResult = data.GetAtom<ListAtom>("commandResult").Get(0).CastAs<DictionaryAtom>();
             PopulateHashRepository(commandResult.GetAtom<ListAtom>("Results"));
 
-            Log.DebugFormat("{0} hashes loaded.", _repository.Count);
-            if (_callback.IsNotNull())
-                _callback.Invoke(new RealmEventArgs());
+            _log.DebugFormat("{0} hashes loaded.", _repository.Count);
+            _callback?.Invoke(new RealmEventArgs());
         }
 
         /// <summary>
@@ -79,18 +78,14 @@ namespace Realm.Network.Hash
         {
             Validation.IsNotNull(commandResults, "commandResults");
 
-            var itResult = commandResults.GetEnumerator();
-            while (itResult.MoveNext())
+            using (var itResult = commandResults.GetEnumerator())
             {
-                var result = itResult.Current.CastAs<DictionaryAtom>();
-                var newHash = new Hash(result.GetInt("HashID"), result.GetString("Value"));
-                if (newHash.IsNull())
+                while (itResult.MoveNext())
                 {
-                    Log.ErrorFormat("Unable to instantiate a new Hash {0}", result.GetInt("HashID"));
-                    continue;
+                    var result = itResult.Current.CastAs<DictionaryAtom>();
+                    var newHash = new Hash(result.GetInt("HashID"), result.GetString("Value"));
+                    _repository.Add(newHash.ID, newHash);
                 }
-
-                _repository.Add(newHash.ID, newHash);
             }
         }
 

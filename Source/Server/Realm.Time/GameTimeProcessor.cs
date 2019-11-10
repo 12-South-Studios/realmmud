@@ -31,7 +31,7 @@ namespace Realm.Time
         }
         private GameState _gameState;
 
-        void Instance_OnGameRound(RealmEventArgs e)
+        private void Instance_OnGameRound(RealmEventArgs e)
         {
             ProcessGameTimeState();
         }
@@ -86,7 +86,7 @@ namespace Realm.Time
 
         private Globals.DayStateTypes GameStateToDayState()
         {
-            Globals.DayStateTypes returnVal = Globals.DayStateTypes.Daylight;
+            var returnVal = Globals.DayStateTypes.Daylight;
             if (_gameState.IsDawn) returnVal = Globals.DayStateTypes.Dawn;
             else if (_gameState.IsSunrise) returnVal = Globals.DayStateTypes.Daylight;
             else if (_gameState.IsDusk) returnVal = Globals.DayStateTypes.Dusk;

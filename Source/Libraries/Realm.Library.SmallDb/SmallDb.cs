@@ -23,6 +23,10 @@ namespace Realm.Library.SmallDb
 
         private readonly ILogWrapper _log;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="logWrapper"></param>
         public SmallDb(ILogWrapper logWrapper)
         {
             _log = logWrapper;
@@ -43,7 +47,7 @@ namespace Realm.Library.SmallDb
             object result = null;
             try
             {
-                using (IDbCommand dbCommand = dbConnection.CreateCommand())
+                using (var dbCommand = dbConnection.CreateCommand())
                 {
                     SetupDbCommand(dbConnection, dbCommand, storedProcedureName, parameters);
                     dbCommand.Connection.Open();
@@ -78,7 +82,7 @@ namespace Realm.Library.SmallDb
 
             try
             {
-                using (IDbCommand dbCommand = dbConnection.CreateCommand())
+                using (var dbCommand = dbConnection.CreateCommand())
                 {
                     SetupDbCommand(dbConnection, dbCommand, storedProcedureName, parameters);
                     dbCommand.Connection.Open();
@@ -109,16 +113,16 @@ namespace Realm.Library.SmallDb
         {
             ValidateArguments(dbConnection, storedProcedureName);
 
-            DataTable table = new DataTable();
+            var table = new DataTable();
 
             try
             {
-                using (IDbCommand dbCommand = dbConnection.CreateCommand())
+                using (var dbCommand = dbConnection.CreateCommand())
                 {
                     SetupDbCommand(dbConnection, dbCommand, storedProcedureName, parameters);
                     dbConnection.Open();
 
-                    using (IDataReader dbReader = dbCommand.ExecuteReader())
+                    using (var dbReader = dbCommand.ExecuteReader())
                     {
                         table.Load(dbReader);
                     }
@@ -154,11 +158,11 @@ namespace Realm.Library.SmallDb
 
             try
             {
-                using (IDbCommand dbCommand = dbConnection.CreateCommand())
+                using (var dbCommand = dbConnection.CreateCommand())
                 {
                     SetupDbCommand(dbConnection, dbCommand, storedProcedureName, parameters);
                     dbConnection.Open();
-                    using (IDataReader dbReader = dbCommand.ExecuteReader())
+                    using (var dbReader = dbCommand.ExecuteReader())
                     {
                         var result = translateFunction.Invoke(dbReader);
 
@@ -213,7 +217,7 @@ namespace Realm.Library.SmallDb
         /// <returns></returns>
         internal static bool IsInternalSql(string sqlString)
         {
-            string[] words = sqlString.ToUpper().Split(' ');
+            var words = sqlString.ToUpper().Split(' ');
             return SqlCommands.Contains(words[0]) && !DisallowedCommands.Contains(words[0]);
         }
     }

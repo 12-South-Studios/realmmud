@@ -21,12 +21,12 @@ namespace Realm.Library.Database.Framework
         /// <summary>
         ///
         /// </summary>
-        public string Schema { get; private set; }
+        public string Schema { get; }
 
         /// <summary>
         ///
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; }
 
         /// <summary>
         ///

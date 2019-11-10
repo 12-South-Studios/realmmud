@@ -1,8 +1,6 @@
 using System.Windows.Forms;
-using Realm.Library.Common.Objects;
 
 namespace Realm.Library.Controls.DataGridViewControls
-
 {
     /// <summary>
     ///
@@ -23,12 +21,10 @@ namespace Realm.Library.Controls.DataGridViewControls
             base.InitializeEditingControl(rowIndex, initialFormattedValue, dataGridViewCellStyle);
 
             var txtEdit = DataGridView.EditingControl as DataGridViewTextBoxEditingControl;
-            if (txtEdit.IsNull()) return;
-
-            // ReSharper disable PossibleNullReferenceException
+            if (txtEdit == null) return;
+            
             txtEdit.KeyPress += TxtEditKeyPress;
-            // ReSharper restore PossibleNullReferenceException
-            txtEdit.Text = Value.IsNull() ? string.Empty : Value.ToString();
+            txtEdit.Text = Value?.ToString() ?? string.Empty;
         }
 
         /// <summary>

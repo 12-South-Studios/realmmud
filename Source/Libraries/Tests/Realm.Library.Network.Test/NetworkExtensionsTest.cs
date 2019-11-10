@@ -1,48 +1,50 @@
 ﻿using System;
 using System.Net;
-using NUnit.Framework;
+using FluentAssertions;
 using Realm.Library.Network.Mxp;
+using Xunit;
 
 namespace Realm.Library.Network.Test
 {
-    [TestFixture]
     public class NetworkExtensionsTest
     {
-        [Test]
+        [Fact]
         public void MxpTag_ConvertsStringProperly()
         {
             const string test = "Test";
-            Assert.That(test.MxpTag(), Is.EqualTo("\x03Test\x04"));
+
+            test.MxpTag().Should().Be("\x03Test\x04");
         }
 
-        [Test]
+        [Fact]
         public void MxpAmp_ReturnsAmpersandValue()
         {
-            Assert.That(MxpExtensions.MxpAmp(), Is.EqualTo("\x06"));
+            MxpExtensions.MxpAmp().Should().Be("\x06");
         }
 
-        [Test]
+        [Fact]
         public void MxpMode_ReturnsMxpModeValue()
         {
             const int value = 6;
-            Assert.That(value.MxpMode(), Is.EqualTo("\x1B[6z"));
+            value.MxpMode().Should().Be("\x1B[6z");
         }
 
-        [TestCase("100.101.102.103", 1734763876)]
-        [TestCase("localhost", 16777343)]
-        [TestCase("this_is_not_an_ip_address", 16777343)]
+        [Theory]
+        [InlineData("100.101.102.103", 1734763876)]
+        [InlineData("localhost", 16777343)]
+        [InlineData("this_is_not_an_ip_address", 16777343)]
         public void ConvertToIpAddress(string ipAddress, int bigEndianValue)
         {
-            Assert.That(ipAddress.ConvertToIpAddress(), Is.EqualTo(new IPAddress(bigEndianValue)));
+            ipAddress.ConvertToIpAddress().Should().Be(new IPAddress(bigEndianValue));
         }
 
-        [Test]
+        [Fact]
         public void ConvertToIpAddress_GetsNullIpAddress_ThrowsException()
         {
             const string ipAddress = null;
 
-            Assert.Throws<ArgumentNullException>(() => ipAddress.ConvertToIpAddress(), 
-                "Unit Test expected an ArgumentNullException to be thrown!");
+            Action act = () => ipAddress.ConvertToIpAddress();
+            act.Should().Throw<ArgumentNullException>();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Realm.Communication
     {
         private ChannelRepository Channels { get; set; }
 
-        private ChannelHelper Helper { get; set; }
+        private ChannelHelper Helper { get; }
 
         public ChannelManager(IChannelHelper channelHelper)
         {
@@ -65,8 +65,6 @@ namespace Realm.Communication
             base.Instance_OnGameInitialize(args);
         }
 
-        #region Channel Helper
-
         /// <summary>
         ///
         /// </summary>
@@ -112,15 +110,9 @@ namespace Realm.Communication
             return Helper.LeaveChannel(entity, channelId);
         }
 
-        #endregion Channel Helper
-
-        #region Channel Repository
-
         public Channel GetChannel(long id)
         {
             return Channels.Get(id);
         }
-
-        #endregion Channel Repository
     }
 }

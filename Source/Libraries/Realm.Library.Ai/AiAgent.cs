@@ -34,8 +34,19 @@ namespace Realm.Library.Ai
             Behavior = behavior;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public event EventHandler<EventArgs> OnAgentWake;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public event EventHandler<EventArgs> OnAgentSleep;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public event EventHandler<EventArgs> OnStateChange;
 
         /// <summary>
@@ -72,8 +83,7 @@ namespace Realm.Library.Ai
             Messages.Add(string.Format(Resources.MSG_STATE_PUSHED, Owner.ID, Owner.Name, state.ID, state.Name));
             _stateStack.Push(state);
 
-            if (OnStateChange.IsNotNull())
-                OnStateChange(this, null);
+            OnStateChange?.Invoke(this, null);
         }
 
         /// <summary>
@@ -85,8 +95,7 @@ namespace Realm.Library.Ai
             Messages.Add(string.Format(Resources.MSG_STATE_PUSHED, Owner.ID, Owner.Name, CurrentState.ID, CurrentState.Name));
             var state = _stateStack.Pop();
 
-            if (OnStateChange.IsNotNull())
-                OnStateChange(this, null);
+            OnStateChange?.Invoke(this, null);
 
             return state;
         }
@@ -146,8 +155,7 @@ namespace Realm.Library.Ai
             if (CurrentState.IsNotNull())
                 CurrentState.OnResume();
 
-            if (OnAgentWake.IsNotNull())
-                OnAgentWake(this, null);
+            OnAgentWake?.Invoke(this, null);
         }
 
         /// <summary>
@@ -162,8 +170,7 @@ namespace Realm.Library.Ai
             if (CurrentState.IsNotNull())
                 CurrentState.OnPause();
 
-            if (OnAgentSleep.IsNotNull())
-                OnAgentSleep(this, null);
+            OnAgentSleep?.Invoke(this, null);
         }
     }
 }

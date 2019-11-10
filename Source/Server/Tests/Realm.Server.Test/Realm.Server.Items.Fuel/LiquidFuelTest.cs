@@ -6,7 +6,7 @@
 //    [TestClass]
 //    public class LiquidFuelTest
 //    {
-//        [TestMethod]
+//        [Fact]
 //        public void LiquidFuel_Constructor_Test()
 //        {
 //            var liquid = new Liquid(1, "Test");

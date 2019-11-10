@@ -7,10 +7,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using Realm.Library.Common.Logging;
-using Realm.Library.Common;
 using Realm.Library.Common.Exceptions;
 using Realm.Library.Common.Extensions;
-using Realm.Library.Common.Objects;
 
 namespace Realm.Library.Network
 {
@@ -28,16 +26,11 @@ namespace Realm.Library.Network
         [ExcludeFromCodeCoverage]
         protected TcpClientWrapper(ILogWrapper log, TcpClient tcpClient, IEnumerable<IFormatter> formatters)
         {
-            Validation.IsNotNull(log, "log");
-            Validation.IsNotNull(tcpClient, "tcpClient");
-            Validation.IsNotNull(formatters, "formatters");
-
             Log = log;
             TcpClient = tcpClient;
             Formatters = formatters;
 
-            var ip = tcpClient.Client.RemoteEndPoint as IPEndPoint;
-            if (ip.IsNotNull())
+            if (tcpClient.Client.RemoteEndPoint is IPEndPoint ip)
                 IpAddress = ip.Address.ToString();
 
             ClientStream = tcpClient.GetStream();
@@ -47,17 +40,17 @@ namespace Realm.Library.Network
         /// <summary>
         /// Gets a reference to the ILog interface
         /// </summary>
-        protected ILogWrapper Log { get; private set; }
+        protected ILogWrapper Log { get; }
 
         /// <summary>
         /// Gets a reference to the TcpClient attached to this object
         /// </summary>
-        protected TcpClient TcpClient { get; private set; }
+        protected TcpClient TcpClient { get; }
 
         /// <summary>
         ///
         /// </summary>
-        protected IEnumerable<IFormatter> Formatters { get; private set; }
+        protected IEnumerable<IFormatter> Formatters { get; }
 
         /// <summary>
         /// Gets the IpAddress of the connected user
@@ -74,6 +67,7 @@ namespace Realm.Library.Network
         /// </summary>
         public NetworkStream ClientStream { get; protected set; }
 
+        /// <inheritdoc />
         /// <summary>
         /// Writes a given message to the buffer which will be queued to send to the client stream.
         /// </summary>
@@ -81,7 +75,7 @@ namespace Realm.Library.Network
         [SuppressMessage("Microsoft.Maintainability", "CA1502")]
         public void WriteToBuffer(string msg)
         {
-            Validation.IsNotNull(msg, "msg");
+            if (string.IsNullOrEmpty(msg)) return;
 
             var encoder = new ASCIIEncoding();
             var clientStream = TcpClient.GetStream();

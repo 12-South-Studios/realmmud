@@ -1,17 +1,18 @@
-﻿using NUnit.Framework;
+﻿using FluentAssertions;
 using Realm.Library.Common.Security;
+using Xunit;
 
 namespace Realm.Library.Common.Test
 {
-    [TestFixture]
     public class PasswordTest
     {
         private static string PreHash => "tqzOngQC";
         private static string PostHash => "LfbPsmik";
         private static string EncryptedPass => "SeFROWqcINCrgwcZ/zYbvKr497A=";
 
-        [TestCase("12south", true)]
-        [TestCase("tester", false)]
+        [Theory]
+        [InlineData("12south", true)]
+        [InlineData("tester", false)]
         public void ComputeHashV1Test(string password, bool expected)
         {
             var actual = Password.ComputeHashV1(new PasswordRequestv1
@@ -21,11 +22,12 @@ namespace Realm.Library.Common.Test
                                                         PostHash = PostHash
                                                     });
 
-            Assert.That(EncryptedPass.Equals(actual), Is.EqualTo(expected));
+            EncryptedPass.Equals(actual).Should().Be(expected);
         }
 
-        [TestCase("12south", true)]
-        [TestCase("tester", false)]
+        [Theory]
+        [InlineData("12south", true)]
+        [InlineData("tester", false)]
         public void ValidatePasswordHashV1Test(string password, bool expected)
         {
             var actual = Password.ValidatePasswordHashV1(new PasswordRequestv1
@@ -36,7 +38,7 @@ namespace Realm.Library.Common.Test
                                                                  PostHash = PostHash
                                                              });
 
-            Assert.That(actual, Is.EqualTo(expected));
+            actual.Should().Be(expected);
         }
     }
 }

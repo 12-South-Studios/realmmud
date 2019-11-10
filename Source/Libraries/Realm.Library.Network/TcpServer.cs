@@ -8,15 +8,14 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Realm.Library.Common;
 using Realm.Library.Common.Exceptions;
 using Realm.Library.Common.Extensions;
 using Realm.Library.Common.Logging;
-using Realm.Library.Common.Objects;
 using Realm.Library.Network.Properties;
 
 namespace Realm.Library.Network
 {
+    /// <inheritdoc />
     /// <summary>
     /// Tcp Server class handles the listening socket and management of Tcp Users
     /// </summary>
@@ -34,9 +33,6 @@ namespace Realm.Library.Network
         /// <param name="formatters"></param>
         public TcpServer(ILogWrapper log, ITcpUserRepository repository, IEnumerable<IFormatter> formatters)
         {
-            Validation.IsNotNull(log, "log");
-            Validation.IsNotNull(repository, "repository");
-
             Log = log;
             Repository = repository;
             Formatters = formatters;
@@ -44,31 +40,40 @@ namespace Realm.Library.Network
             Log.Debug("TcpServer initialized.");
         }
 
-        private IEnumerable<IFormatter> Formatters { get; set; }
+        private IEnumerable<IFormatter> Formatters { get; }
 
-        private ILogWrapper Log { get; set; }
+        private ILogWrapper Log { get; }
 
-        private ITcpUserRepository Repository { get; set; }
-
-        public IPAddress Host { get; private set; }
-
-        public int Port { get; private set; }
+        private ITcpUserRepository Repository { get; }
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
+        public IPAddress Host { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Port { get; private set; }
+
+        /// <inheritdoc />
+        ///  <summary>
+        ///  </summary>
         public TcpServerStatus Status { get; private set; }
 
+        /// <inheritdoc />
         /// <summary>
         /// Event on a TcpUser status change
         /// </summary>
         public event EventHandler<NetworkEventArgs> OnTcpUserStatusChanged;
 
+        /// <inheritdoc />
         /// <summary>
         /// Event on a TcpServer status change
         /// </summary>
         public event EventHandler<NetworkEventArgs> OnTcpServerStatusChanged;
 
+        /// <inheritdoc />
         /// <summary>
         /// Event on a TcpServer status change
         /// </summary>
@@ -81,8 +86,7 @@ namespace Realm.Library.Network
         /// <returns></returns>
         public ITcpUser GetTcpUser(string ipAddress)
         {
-            Validation.IsNotNullOrEmpty(ipAddress, "ipAddress");
-
+            if (string.IsNullOrEmpty(ipAddress)) throw new ArgumentNullException();
             return Repository.Count == 0 ? null : Repository.Get(ipAddress);
         }
 
@@ -93,16 +97,15 @@ namespace Realm.Library.Network
         /// <param name="host"></param>
         public void Startup(int port, IPAddress host)
         {
-            Validation.Validate<ArgumentOutOfRangeException>(port > 1 && port < Int32.MaxValue);
-            Validation.IsNotNull(host, "host");
+            if (port <= 1) throw new ArgumentOutOfRangeException();
+            if (host == null) throw new ArgumentNullException();
 
             try
             {
                 //// configure the listener thread on the pre-defined port
                 Log.InfoFormat(Resources.MSG_TCPSERVER_START, port);
                 Status = TcpServerStatus.Starting;
-                if (OnTcpServerStatusChanged.IsNotNull())
-                    OnTcpServerStatusChanged(this, new NetworkEventArgs { ServerStatus = Status });
+                OnTcpServerStatusChanged?.Invoke(this, new NetworkEventArgs { ServerStatus = Status });
 
                 Host = host;
                 Port = port;
@@ -128,20 +131,17 @@ namespace Realm.Library.Network
         public void Shutdown(string message)
         {
             Status = TcpServerStatus.ShuttingDown;
-            if (OnTcpServerStatusChanged.IsNotNull())
-                OnTcpServerStatusChanged(this, new NetworkEventArgs { ServerStatus = Status });
+            OnTcpServerStatusChanged?.Invoke(this, new NetworkEventArgs { ServerStatus = Status });
 
             Parallel.ForEach(Repository.Values, user =>
-                {
-                    var tcp = user.CastAs<ITcpClientWrapper>();
-                    if (tcp.IsNotNull())
-                        tcp.WriteToBuffer(message);
-                    user.Disconnect();
-                });
+            {
+                var tcp = user as ITcpClientWrapper;
+                tcp?.WriteToBuffer(message);
+                user.Disconnect();
+            });
 
-            if (_listenerThread.IsNotNull())
-                _listenerThread.Abort();
-            if (_tcpListener.IsNotNull())
+            _listenerThread?.Abort();
+            if (_tcpListener != null)
             {
                 _tcpListener.Stop();
                 _tcpListener = null;
@@ -150,8 +150,7 @@ namespace Realm.Library.Network
             Log.Info(Resources.MSG_TCPSERVER_STOP);
             Status = TcpServerStatus.Shutdown;
 
-            if (OnTcpServerStatusChanged.IsNotNull())
-                OnTcpServerStatusChanged(this, new NetworkEventArgs { ServerStatus = Status });
+            OnTcpServerStatusChanged?.Invoke(this, new NetworkEventArgs { ServerStatus = Status });
         }
 
         /// <summary>
@@ -161,11 +160,9 @@ namespace Realm.Library.Network
         /// <returns></returns>
         public bool DisconnectUser(string id)
         {
-            Validation.IsNotNullOrEmpty(id, "id");
-
+            if (string.IsNullOrEmpty(id)) return false;
             var user = GetTcpUser(id);
-            if (user.IsNull()) return false;
-
+            if (user == null) return false;
             user.Disconnect();
             return true;
         }
@@ -178,8 +175,7 @@ namespace Realm.Library.Network
                 Log.InfoFormat(Resources.MSG_TCPSERVER_LISTEN, _tcpListener.LocalEndpoint);
                 Status = TcpServerStatus.Listening;
 
-                if (OnTcpServerStatusChanged.IsNotNull())
-                    OnTcpServerStatusChanged(this, new NetworkEventArgs { ServerStatus = Status });
+                OnTcpServerStatusChanged?.Invoke(this, new NetworkEventArgs { ServerStatus = Status });
 
                 while (true)
                 {
@@ -194,8 +190,7 @@ namespace Realm.Library.Network
                     user.OnConnect();
                     Repository.Add(user.Id, user);
 
-                    if (OnTcpUserStatusChanged.IsNotNull())
-                        OnTcpUserStatusChanged(user, new NetworkEventArgs { SocketStatus = TcpSocketStatus.Connected });
+                    OnTcpUserStatusChanged?.Invoke(user, new NetworkEventArgs { SocketStatus = TcpSocketStatus.Connected });
 
                     //// create a thread to handle communication with connected client
                     var clientThread = new Thread(HandleClientCommunication);
@@ -210,12 +205,9 @@ namespace Realm.Library.Network
 
         private void HandleClientCommunication(object client)
         {
-            Validation.IsNotNull(client, "client");
-
             try
             {
-                var user = client as TcpUser;
-                if (user.IsNull())
+                if (!(client is TcpUser user))
                     throw new InstanceNotFoundException(Resources.ERR_NO_TCPUSER);
 
                 var clientStream = user.ClientStream;
@@ -251,12 +243,10 @@ namespace Realm.Library.Network
 
                     //// message has successfully been received
                     var encoder = new ASCIIEncoding();
-                    if (OnNetworkMessageReceived.IsNotNull())
-                        OnNetworkMessageReceived(user, new NetworkEventArgs { Message = encoder.GetString(message, 0, bytesRead) });
+                    OnNetworkMessageReceived?.Invoke(user, new NetworkEventArgs { Message = encoder.GetString(message, 0, bytesRead) });
                 }
 
-                if (OnTcpUserStatusChanged.IsNotNull())
-                    OnTcpUserStatusChanged(user, new NetworkEventArgs { SocketStatus = TcpSocketStatus.Disconnected });
+                OnTcpUserStatusChanged?.Invoke(user, new NetworkEventArgs { SocketStatus = TcpSocketStatus.Disconnected });
 
                 //// lost the user
                 Repository.Delete(user.Id);

@@ -39,7 +39,7 @@ namespace Realm.Edit.Extensions
             if (selectedItem == null) return 0;
 
             var tagInfo = selectedItem as TagInfo;
-            return tagInfo == null ? 0 : tagInfo.Id;
+            return tagInfo?.Id ?? 0;
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Realm.Edit.Extensions
         {
             if (value == null)
                 throw new ArgumentNullException(nameof(value), Resources.NullParameterErrorMessage);
-            if (String.IsNullOrEmpty(categoryName))
+            if (string.IsNullOrEmpty(categoryName))
                 throw new ArgumentNullException(nameof(categoryName), Resources.NullParameterErrorMessage);
             if (nullEntryName == null)
                 throw new ArgumentNullException(nameof(nullEntryName), Resources.NullParameterErrorMessage);
@@ -61,7 +61,7 @@ namespace Realm.Edit.Extensions
             if (nullEntryName.Length > 0)
             {
                 var sysTag = new SystemTag(0, nullEntryName);
-                int index = value.Items.Add(sysTag);
+                var index = value.Items.Add(sysTag);
                 if (sysTag.Id == selectTag)
                     value.SelectedIndex = index;
             }

@@ -24,11 +24,12 @@ namespace Realm.Communication
         private readonly ChannelRepository _repository;
         private readonly ILogWrapper _log;
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="initAtom"></param>
-        /// <param name="repository"></param>
+        ///  <summary>
+        /// 
+        ///  </summary>
+        ///  <param name="initAtom"></param>
+        ///  <param name="repository"></param>
+        /// <param name="logger"></param>
         public ChannelLoader(DictionaryAtom initAtom, ChannelRepository repository, ILogWrapper logger)
             : base(1, "ChannelLoader")
         {
@@ -73,23 +74,23 @@ namespace Realm.Communication
 
             var commandResults = data.GetAtom<ListAtom>("commandResult");
             var results = commandResults.GetEnumerator().Current.CastAs<DictionaryAtom>().GetAtom<ListAtom>("Results");
-            var it = results.GetEnumerator();
-
-            while (it.MoveNext())
+            using (var it = results.GetEnumerator())
             {
-                var result = it.Current.CastAs<DictionaryAtom>();
-                var channelDef = (ChannelDef)_staticDataManager.GetStaticData(Globals.SystemTypes.Channel, result.GetInt("ChannelPrimitiveID").ToString());
-                var obj = _entityManager.Create<Channel>(result.GetInt("ChannelID"), result.GetString("Name"), result, channelDef);
-                if (obj.IsNull())
-                    throw new InstantiationException("Failed to instantiate Channel {0}", result.GetInt("ChannelID"));
+                while (it.MoveNext())
+                {
+                    var result = it.Current.CastAs<DictionaryAtom>();
+                    var channelDef = (ChannelDef)_staticDataManager.GetStaticData(Globals.SystemTypes.Channel, result.GetInt("ChannelPrimitiveID").ToString());
+                    var obj = _entityManager.Create<Channel>(result.GetInt("ChannelID"), result.GetString("Name"), result, channelDef);
+                    if (obj == null)
+                        throw new InstantiationException("Failed to instantiate Channel {0}", result.GetInt("ChannelID"));
 
-                obj.OnInit(_entityManager.InitializationAtom);
-                _repository.Add(obj.ID, obj);
+                    obj.OnInit(_entityManager.InitializationAtom);
+                    _repository.Add(obj.ID, obj);
+                }
             }
 
             _log.DebugFormat("Loaded {0} channels.", _repository.Count);
-            if (_callback.IsNotNull())
-                _callback.Invoke(new RealmEventArgs());
+            _callback?.Invoke(new RealmEventArgs());
         }
     }
 }

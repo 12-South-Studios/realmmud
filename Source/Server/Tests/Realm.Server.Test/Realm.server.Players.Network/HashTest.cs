@@ -6,7 +6,7 @@
 //    [TestClass]
 //    public class HashTest
 //    {
-//        [TestMethod]
+//        [Fact]
 //        public void Hash_Constructor_Test()
 //        {
 //            const int id = 1;

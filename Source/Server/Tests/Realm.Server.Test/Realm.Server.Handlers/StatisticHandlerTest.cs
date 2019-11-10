@@ -11,7 +11,7 @@
 //    [TestClass]
 //    public class StatisticHandlerTest
 //    {
-//        [TestMethod]
+//        [Fact]
 //        public void StatisticHandler_Constructor_Test()
 //        {
 //            var fakeEntity = new FakeGameEntity();
@@ -23,7 +23,7 @@
 //            Assert.AreEqual(fakeEntity, handler.Owner);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void StatisticHandler_AddSkill_SkillNotFound_Test()
 //        {
 //            var mockData = new Mock<IDataManager>();
@@ -41,7 +41,7 @@
 //            Assert.AreEqual(expected, actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void StatisticHandler_AddSkill_Success_Test()
 //        {
 //            var skill = new Skill(1, "Test", new SkillCategory(1, "Test", Globals.Globals.Statistics.Fortitude),
@@ -65,7 +65,7 @@
 //            Assert.AreEqual(expected, actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void StatisticHandler_AddSkill_AlreadyContains_Test()
 //        {
 //            var skill = new Skill(1, "Test", new SkillCategory(1, "Test", Globals.Globals.Statistics.Fortitude),
@@ -91,7 +91,7 @@
 //            Assert.AreEqual(expected, actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void StatisticHandler_GetSkill_Success_Test()
 //        {
 //            var skill = new Skill(1, "Test", new SkillCategory(1, "Test", Globals.Globals.Statistics.Fortitude),
@@ -116,7 +116,7 @@
 //            Assert.IsNotNull(actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void StatisticHandler_GetSkill_NotFound_Test()
 //        {
 //            var mockData = TestHelper.MockDataManager;
@@ -136,7 +136,7 @@
 //            Assert.IsNull(actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void StatisticHandler_AddStat_StatNotFound_Test()
 //        {
 //            var fakeEntity = new FakeGameEntity();
@@ -147,7 +147,7 @@
 //            Assert.AreEqual(expected, actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void StatisticHandler_AddStat_Success_Test()
 //        {
 //            var mockLog = TestHelper.MockLogger;
@@ -164,7 +164,7 @@
 //            Assert.AreEqual(expected, actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void StatisticHandler_AddStat_AlreadyContains_Test()
 //        {
 //            var mockLog = TestHelper.MockLogger;
@@ -183,7 +183,7 @@
 //            Assert.AreEqual(expected, actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void StatisticHandler_GetStat_Success_Test()
 //        {
 //            var mockLog = TestHelper.MockLogger;
@@ -201,7 +201,7 @@
 //            Assert.IsNotNull(actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void StatisticHandler_GetStat_NotFound_Test()
 //        {
 //            var mockLog = TestHelper.MockLogger;
@@ -217,7 +217,7 @@
 //            Assert.IsNull(actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void StatisticHandler_CalculateCoreStat_Test()
 //        {
 //            var mockProperties = new Mock<IPropertyContext>();

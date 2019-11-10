@@ -27,18 +27,18 @@ namespace Realm.Edit.Extensions
             foreach (TreeNode node in value.Nodes)
             {
                 if (!node.IsExpanded) continue;
-                EditorBrowseInfo saveBrowseInfo = node.Tag as EditorBrowseInfo;
+                var saveBrowseInfo = node.Tag as EditorBrowseInfo;
                 if (saveBrowseInfo == null) continue;
                 saveNodes.Add(saveBrowseInfo.ClassId, node);
             }
 
-            int elementCount = 0;
+            var elementCount = 0;
             value.Nodes.Clear();
 
             var browseInfo = value.Tag as EditorBrowseInfo;
             if (browseInfo == null) return 0;
 
-            IRealmDbContext dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
+            var dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
             var classList = dbContext.SystemClasses.Where(x => x.ParentClassId == browseInfo.ClassId);
             foreach (var c in classList)
             {
@@ -52,13 +52,12 @@ namespace Realm.Edit.Extensions
                     node.Expand();
             }
 
-            if (fillContent)
-            {
-                elementCount += builder.PopulateBrowseNode(value, browseInfo.ClassId,
-                    Program.MainForm.BrowseFolder, filter);
-                if (string.IsNullOrEmpty(filter) && elementCount > 0)
-                    value.Expand();
-            }
+            if (!fillContent) return elementCount;
+
+            elementCount += builder.PopulateBrowseNode(value, browseInfo.ClassId,
+                Program.MainForm.BrowseFolder, filter);
+            if (string.IsNullOrEmpty(filter) && elementCount > 0)
+                value.Expand();
 
             return elementCount;
         }

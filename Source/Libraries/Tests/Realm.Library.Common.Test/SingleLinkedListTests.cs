@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
+using FluentAssertions;
 using Realm.Library.Common.LinkedList;
+using Xunit;
 
 namespace Realm.Library.Common.Test
 {
-    [TestFixture]
     public class SingleLinkedListTests
     {
-        [Test]
+        [Fact]
         public void PushTest()
         {
             const int value = 1;
@@ -16,10 +16,10 @@ namespace Realm.Library.Common.Test
             var list = new SingleLinkedList<int>();
             list.Push(value);
 
-            Assert.That(list.Head.Data, Is.EqualTo(value));
+            list.Head.Data.Should().Be(value);
         }
 
-        [Test]
+        [Fact]
         public void CountTest()
         {
             var list = new SingleLinkedList<int>();
@@ -27,10 +27,10 @@ namespace Realm.Library.Common.Test
             list.Push(2);
             list.Push(3);
 
-            Assert.That(list.Count, Is.EqualTo(3));
+            list.Count.Should().Be(3);
         }
 
-        [Test]
+        [Fact]
         public void FirstTest()
         {
             var list = new SingleLinkedList<int>();
@@ -39,11 +39,11 @@ namespace Realm.Library.Common.Test
 
             var firstNode = list.First;
 
-            Assert.That(firstNode, Is.Not.Null);
-            Assert.That(firstNode.Data, Is.EqualTo(1));
+            firstNode.Should().NotBeNull();
+            firstNode.Data.Should().Be(1);
         }
 
-        [Test]
+        [Fact]
         public void NextTest()
         {
             var list = new SingleLinkedList<int>();
@@ -52,11 +52,11 @@ namespace Realm.Library.Common.Test
 
             var firstNode = list.First;
 
-            Assert.That(firstNode.Next, Is.Not.Null);
-            Assert.That(firstNode.Next.Data, Is.EqualTo(2));
+            firstNode.Next.Should().NotBeNull();
+            firstNode.Next.Data.Should().Be(2);
         }
 
-        [Test]
+        [Fact]
         public void LastTest()
         {
             var list = new SingleLinkedList<int>();
@@ -65,19 +65,19 @@ namespace Realm.Library.Common.Test
 
             var lastNode = list.Last;
 
-            Assert.That(lastNode, Is.Not.Null);
-            Assert.That(lastNode.Data, Is.EqualTo(2));
+            lastNode.Should().NotBeNull();
+            lastNode.Data.Should().Be(2);
         }
 
-        [Test]
+        [Fact]
         public void IsEmptyTest()
         {
             var list = new SingleLinkedList<int>();
 
-            Assert.That(list.IsEmpty, Is.True);
+            list.IsEmpty.Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void PopTest()
         {
             var list = new SingleLinkedList<int>();
@@ -86,13 +86,14 @@ namespace Realm.Library.Common.Test
 
             var node = list.Pop();
 
-            Assert.That(node, Is.Not.Null);
-            Assert.That(node.Data, Is.EqualTo(1));
-            Assert.That(list.Count, Is.EqualTo(1));
-            Assert.That(list.First.Data, Is.EqualTo(2));
+            node.Should().NotBeNull();
+            node.Data.Should().Be(1);
+
+            list.Count.Should().Be(1);
+            list.First.Data.Should().Be(2);
         }
 
-        [Test]
+        [Fact]
         public void ReverseTest()
         {
             var list = new SingleLinkedList<int>();
@@ -102,12 +103,12 @@ namespace Realm.Library.Common.Test
 
             list.Reverse();
 
-            Assert.That(list.Count, Is.EqualTo(3));
-            Assert.That(list.Head.Data, Is.EqualTo(3));
-            Assert.That(list.Last.Data, Is.EqualTo(1));
+            list.Count.Should().Be(3);
+            list.Head.Data.Should().Be(3);
+            list.Last.Data.Should().Be(1);
         }
 
-        [Test]
+        [Fact]
         public void ToEnumerableTest()
         {
             var list = new SingleLinkedList<int>();
@@ -116,14 +117,14 @@ namespace Realm.Library.Common.Test
             list.Push(3);
 
             var enumerableList = list.ToEnumerable();
-            Assert.That(enumerableList, Is.Not.Null);
+            enumerableList.Should().NotBeNull();
 
             var actualList = enumerableList.ToList();
-            Assert.That(actualList, Is.Not.Null);
-            Assert.That(actualList.Count, Is.EqualTo(3));
+            actualList.Should().NotBeNull();
+            actualList.Count.Should().Be(3);
         }
 
-        [Test]
+        [Fact]
         public void ReverseEnumeratorWithLinqTest()
         {
             var list = new SingleLinkedList<int>();
@@ -136,12 +137,12 @@ namespace Realm.Library.Common.Test
             var newList = new SingleLinkedList<int>();
             reversedList.ToList().ForEach(newList.Push);
 
-            Assert.That(newList.Count, Is.EqualTo(3));
-            Assert.That(newList.Head.Data, Is.EqualTo(3));
-            Assert.That(newList.Last.Data, Is.EqualTo(1));
+            newList.Count.Should().Be(3);
+            newList.Head.Data.Should().Be(3);
+            newList.Last.Data.Should().Be(1);
         }
 
-        [Test]
+        [Fact]
         public void ReverseUsingHeadWithLinqTest()
         {
             var list = new SingleLinkedList<int>();
@@ -162,9 +163,9 @@ namespace Realm.Library.Common.Test
             var reversedList = new SingleLinkedList<int>();
             newList.ForEach(node => reversedList.Push(node.Data));
 
-            Assert.That(reversedList.Count, Is.EqualTo(3));
-            Assert.That(reversedList.Head.Data, Is.EqualTo(3));
-            Assert.That(reversedList.Last.Data, Is.EqualTo(1));
+            reversedList.Count.Should().Be(3);
+            reversedList.Head.Data.Should().Be(3);
+            reversedList.Last.Data.Should().Be(1);
         }
     }
 }

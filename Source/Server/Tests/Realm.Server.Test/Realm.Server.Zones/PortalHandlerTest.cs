@@ -7,7 +7,7 @@
 //    [TestClass]
 //    public class PortalHandlerTest
 //    {
-//        [TestMethod]
+//        [Fact]
 //        public void ExitHandler_Constructor_Test()
 //        {
 //            var handler = new PortalHandler();
@@ -15,7 +15,7 @@
 //            Assert.IsNotNull(handler.Portals);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void ExitHandler_AddExit_HappyPath_Test()
 //        {
 //            var handler = new PortalHandler();
@@ -30,7 +30,7 @@
 //            Assert.AreEqual(expected, actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void ExitHandler_AddExit_AlreadyExists_Test()
 //        {
 //            var handler = new PortalHandler();
@@ -47,7 +47,7 @@
 //            Assert.AreEqual(expected, actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void ExitHandler_NumberOfExits_Test()
 //        {
 //            var handler = new PortalHandler();
@@ -64,7 +64,7 @@
 //            Assert.AreEqual(expected, actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void ExitHandler_GetExitString_NoMatchingKeyword_Test()
 //        {
 //            var handler = new PortalHandler();
@@ -80,7 +80,7 @@
 //            Assert.IsNull(actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void ExitHandler_GetExitString_MatchingKeyword_Test()
 //        {
 //            var handler = new PortalHandler();
@@ -98,7 +98,7 @@
 //            Assert.AreEqual(Space, actual.Destination);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void ExitHandler_GetExitSpace_NoMatchingSpace_Test()
 //        {
 //            var handler = new PortalHandler();
@@ -115,7 +115,7 @@
 //            Assert.IsNull(actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void ExitHandler_GetExitSpace_MatchingSpace_Test()
 //        {
 //            var handler = new PortalHandler();
@@ -132,7 +132,7 @@
 //            Assert.AreEqual(Space, actual.Destination);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void ExitHandler_GetExitSpace_MatchingDirection_Test()
 //        {
 //            var handler = new PortalHandler();
@@ -149,7 +149,7 @@
 //            Assert.AreEqual(Space, actual.Destination);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void ExitHandler_GetExitSpace_NoMatchingDirection_Test()
 //        {
 //            var handler = new PortalHandler();

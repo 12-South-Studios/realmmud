@@ -6,7 +6,7 @@
 //    [TestClass]
 //    public class SolidFuelTest
 //    {
-//        [TestMethod]
+//        [Fact]
 //        public void SolidFuel_Constructor_Test()
 //        {
 //            const int time = 10;

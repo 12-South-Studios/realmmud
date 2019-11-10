@@ -2,7 +2,6 @@
 using System.Linq;
 using Realm.Entity.Interfaces;
 using Realm.Library.Common.Entities;
-using Realm.Library.Common.Objects;
 
 namespace Realm.Communication
 {
@@ -32,7 +31,7 @@ namespace Realm.Communication
         public bool AddChannel(long id, string handle)
         {
             return !(_repository.Contains(handle)
-                || _repository.Values.Any(x => x.ID == id))
+                || _repository.Values.Any(x => x.Id == id))
                 && _repository.Add(handle, new PlayerChannel(id, true, handle));
         }
 
@@ -44,7 +43,7 @@ namespace Realm.Communication
         public bool RemoveChannel(long id)
         {
             var channel = GetChannel(id);
-            return channel.IsNotNull() && RemoveChannel(channel.Handle);
+            return channel != null && RemoveChannel(channel.Handle);
         }
 
         /// <summary>
@@ -64,7 +63,7 @@ namespace Realm.Communication
         /// <returns></returns>
         public bool HasChannel(long id)
         {
-            return _repository.Values.Any(x => x.ID == id);
+            return _repository.Values.Any(x => x.Id == id);
         }
 
         /// <summary>
@@ -87,7 +86,7 @@ namespace Realm.Communication
         public PlayerChannel GetChannel(long id)
         {
             return HasChannel(id)
-                ? _repository.Values.First(x => x.ID == id)
+                ? _repository.Values.First(x => x.Id == id)
                 : null;
         }
 

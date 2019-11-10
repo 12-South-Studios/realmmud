@@ -69,20 +69,22 @@ namespace Realm.Entity
                 throw new ProcedureFailureException(Resources.ERR_LOAD_FAILURE, GetType());
 
             var commandResults = data.GetAtom<ListAtom>("commandResult");
-            var it = commandResults.GetEnumerator();
-            while (it.MoveNext())
+            using (var it = commandResults.GetEnumerator())
             {
-                var commandResult = it.Current.CastAs<DictionaryAtom>();
-                var commandName = commandResult.GetString("CommandName");
-                var results = commandResult.GetAtom<ListAtom>("Results");
-
-                if (commandName.Equals("game_GetStartupZones"))
+                while (it.MoveNext())
                 {
-                    var itResult = results.GetEnumerator();
-                    while (itResult.MoveNext())
+                    var commandResult = it.Current.CastAs<DictionaryAtom>();
+                    var commandName = commandResult.GetString("CommandName");
+                    var results = commandResult.GetAtom<ListAtom>("Results");
+
+                    if (!commandName.Equals("game_GetStartupZones")) continue;
+                    using (var itResult = results.GetEnumerator())
                     {
-                        var result = itResult.Current.CastAs<DictionaryAtom>();
-                        StartupZones.Add(result.GetString("Name"), result.GetInt("ID"));
+                        while (itResult.MoveNext())
+                        {
+                            var result = itResult.Current.CastAs<DictionaryAtom>();
+                            StartupZones.Add(result.GetString("Name"), result.GetInt("ID"));
+                        }
                     }
                 }
             }

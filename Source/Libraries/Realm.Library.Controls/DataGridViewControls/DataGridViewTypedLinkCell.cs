@@ -1,9 +1,7 @@
 using System.Drawing;
 using System.Windows.Forms;
-using Realm.Library.Common.Objects;
 
 namespace Realm.Library.Controls.DataGridViewControls
-
 {
     /// <summary>
     ///
@@ -20,7 +18,7 @@ namespace Realm.Library.Controls.DataGridViewControls
     {
         private Icon _icon;
         private short _systemType;
-        private readonly ValidateDragDelegate _dragValidateDelegate = defaultDragValidate;
+        private readonly ValidateDragDelegate _dragValidateDelegate = DefaultDragValidate;
 
         /// <summary>
         ///
@@ -48,8 +46,7 @@ namespace Realm.Library.Controls.DataGridViewControls
             {
                 _systemType = value;
 
-                if (DataGridView.IsNotNull())
-                    DataGridView.Refresh();
+                DataGridView?.Refresh();
 
                 // We changed system types, clear out any Value we might have had
                 Value = null;
@@ -62,9 +59,9 @@ namespace Realm.Library.Controls.DataGridViewControls
         /// <param name="aBrowseInfo"></param>
         /// <param name="aLinkCell"></param>
         /// <returns></returns>
-        public static bool defaultDragValidate(IBrowseInfo aBrowseInfo, DataGridViewTypedLinkCell aLinkCell)
+        public static bool DefaultDragValidate(IBrowseInfo aBrowseInfo, DataGridViewTypedLinkCell aLinkCell)
         {
-            return aBrowseInfo.IsNotNull() && aBrowseInfo.SystemType == aLinkCell.SystemType && aBrowseInfo.Id > 0;
+            return aBrowseInfo != null && aBrowseInfo.SystemType == aLinkCell.SystemType && aBrowseInfo.Id > 0;
         }
 
         /// <summary>
@@ -73,32 +70,25 @@ namespace Realm.Library.Controls.DataGridViewControls
         /// <param name="e"></param>
         /// <param name="aSetValue"></param>
         // TODO: Override in derived class and call ValidateRow
-        public virtual void handleGridDrag(DragEventArgs e, bool aSetValue)
+        public virtual void HandleGridDrag(DragEventArgs e, bool aSetValue)
         {
             var treeNode = (TreeNode)e.Data.GetData("System.Windows.Forms.TreeNode", true);
-            if (treeNode.IsNotNull())
-            {
-                var browseInfo = treeNode.Tag as IBrowseInfo;
-                if (_dragValidateDelegate(browseInfo, this))
-                {
-                    e.Effect = DragDropEffects.Link;
+            if (treeNode == null) return;
+            var browseInfo = treeNode.Tag as IBrowseInfo;
+            if (!_dragValidateDelegate(browseInfo, this)) return;
+            e.Effect = DragDropEffects.Link;
 
-                    if (aSetValue && Value != browseInfo)
-                    {
-                        var row = DataGridView.Rows[RowIndex];
-                        row.Selected = true;
-                        DataGridView.CurrentCell = this;
+            if (!aSetValue || Value == browseInfo) return;
+            var row = DataGridView.Rows[RowIndex];
+            row.Selected = true;
+            DataGridView.CurrentCell = this;
 
-                        Value = browseInfo;
-                        //DataGridView.ValidateRow(row);
+            Value = browseInfo;
 
-                        // Grrr!  This is the only way I could find (after WAY too much time) to make a drag in the NewRow
-                        // turn into a real row and have a "new" NewRow added
-                        DataGridView.NotifyCurrentCellDirty(false);
-                        DataGridView.NotifyCurrentCellDirty(true);
-                    }
-                }
-            }
+            // Grrr!  This is the only way I could find (after WAY too much time) to make a drag in the NewRow
+            // turn into a real row and have a "new" NewRow added
+            DataGridView.NotifyCurrentCellDirty(false);
+            DataGridView.NotifyCurrentCellDirty(true);
         }
 
         /// <summary>
@@ -108,13 +98,8 @@ namespace Realm.Library.Controls.DataGridViewControls
         public override object Clone()
         {
             var clone = (DataGridViewTypedLinkCell)base.Clone();
-            if (clone.IsNotNull())
-            {
-                // ReSharper disable PossibleNullReferenceException
-                clone._icon = Icon;
-                // ReSharper restore PossibleNullReferenceException
-                clone._systemType = SystemType;
-            }
+            clone._icon = Icon;
+            clone._systemType = SystemType;
             return clone;
         }
 
@@ -140,13 +125,11 @@ namespace Realm.Library.Controls.DataGridViewControls
             base.Paint(graphics, clipBounds, cellBounds, rowIndex, cellState, value, formattedValue,
                 errorText, cellStyle, advancedBorderStyle, paintParts);
 
-            if (Icon.IsNotNull())
-            {
-                const int iconDrawSize = 16;
-                graphics.DrawIcon(Icon, new Rectangle(cellBounds.Left + 2,
-                    cellBounds.Y + (cellBounds.Height - iconDrawSize) / 2,
-                    iconDrawSize, iconDrawSize));
-            }
+            if (Icon == null) return;
+            const int iconDrawSize = 16;
+            graphics.DrawIcon(Icon, new Rectangle(cellBounds.Left + 2,
+                cellBounds.Y + (cellBounds.Height - iconDrawSize) / 2,
+                iconDrawSize, iconDrawSize));
         }
 
         // TODO: Override this in derived class
@@ -157,7 +140,7 @@ namespace Realm.Library.Controls.DataGridViewControls
             if (e.ColumnIndex >= 0 && e.RowIndex >= 0)
             {
                 var browseInfo = Value as IBrowseInfo;
-                if (browseInfo.IsNotNull())
+                if (browseInfo != null)
                     Program.MainForm.openTab(browseInfo, false, false);
             }
         }*/
@@ -170,7 +153,7 @@ namespace Realm.Library.Controls.DataGridViewControls
             if (e.ColumnIndex >= 0 && e.RowIndex >= 0)
             {
                 var browseInfo = Value as EditorBrowseInfo;
-                if (browseInfo.IsNotNull())
+                if (browseInfo != null)
                     Value = null;
             }
         }*/

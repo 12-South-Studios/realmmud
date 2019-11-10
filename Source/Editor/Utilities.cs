@@ -33,7 +33,7 @@ namespace Realm.Edit
             var lineLen = 0;
             var wordWrap = string.Empty;
 
-            for (int i = 0; i < words.Length; i++)
+            for (var i = 0; i < words.Length; i++)
             {
                 wordWrap += words[i] + " ";
                 lineLen += words[i].Length + 1;

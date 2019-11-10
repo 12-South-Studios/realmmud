@@ -6,7 +6,7 @@
 //    [TestClass]
 //    public class SocialTest
 //    {
-//        [TestMethod]
+//        [Fact]
 //        public void Social_Constructor_Test()
 //        {
 //            var actual = new Social("socialName", "charNoArg", "othersNoArg", "charFound", "othersFound", "victFound",

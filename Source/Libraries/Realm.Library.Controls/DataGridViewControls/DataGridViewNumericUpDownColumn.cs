@@ -5,7 +5,6 @@ using System.Text;
 using System.Windows.Forms;
 
 namespace Realm.Library.Controls.DataGridViewControls
-
 {
     /// <summary>
     /// Custom column type dedicated to the DataGridViewNumericUpDownCell cell type.
@@ -35,7 +34,7 @@ namespace Realm.Library.Controls.DataGridViewControls
             }
             set
             {
-                DataGridViewNumericUpDownCell dataGridViewNumericUpDownCell = value as DataGridViewNumericUpDownCell;
+                var dataGridViewNumericUpDownCell = value as DataGridViewNumericUpDownCell;
                 if (value != null && dataGridViewNumericUpDownCell == null)
                 {
                     throw new InvalidCastException("Value provided for CellTemplate must be of type DataGridViewNumericUpDownElements.DataGridViewNumericUpDownCell or derive from it.");
@@ -57,40 +56,36 @@ namespace Realm.Library.Controls.DataGridViewControls
             get
             {
                 if (NumericUpDownCellTemplate == null)
-                {
-                    throw new InvalidOperationException("Operation cannot be completed because this DataGridViewColumn does not have a CellTemplate.");
-                }
+                    throw new InvalidOperationException(
+                        "Operation cannot be completed because this DataGridViewColumn does not have a CellTemplate.");
                 return NumericUpDownCellTemplate.DecimalPlaces;
             }
             set
             {
                 if (NumericUpDownCellTemplate == null)
-                {
-                    throw new InvalidOperationException("Operation cannot be completed because this DataGridViewColumn does not have a CellTemplate.");
-                }
+                    throw new InvalidOperationException(
+                        "Operation cannot be completed because this DataGridViewColumn does not have a CellTemplate.");
+
                 // Update the template cell so that subsequent cloned cells use the new value.
                 NumericUpDownCellTemplate.DecimalPlaces = value;
-                if (DataGridView != null)
+                if (DataGridView == null) return;
+
+                // Update all the existing DataGridViewNumericUpDownCell cells in the column accordingly.
+                var dataGridViewRows = DataGridView.Rows;
+                var rowCount = dataGridViewRows.Count;
+                for (var rowIndex = 0; rowIndex < rowCount; rowIndex++)
                 {
-                    // Update all the existing DataGridViewNumericUpDownCell cells in the column accordingly.
-                    DataGridViewRowCollection dataGridViewRows = DataGridView.Rows;
-                    int rowCount = dataGridViewRows.Count;
-                    for (int rowIndex = 0; rowIndex < rowCount; rowIndex++)
-                    {
-                        // Be careful not to unshare rows unnecessarily.
-                        // This could have severe performance repercussions.
-                        DataGridViewRow dataGridViewRow = dataGridViewRows.SharedRow(rowIndex);
-                        DataGridViewNumericUpDownCell dataGridViewCell = dataGridViewRow.Cells[Index] as DataGridViewNumericUpDownCell;
-                        if (dataGridViewCell != null)
-                        {
-                            // Call the internal SetDecimalPlaces method instead of the property to avoid invalidation
-                            // of each cell. The whole column is invalidated later in a single operation for better performance.
-                            dataGridViewCell.SetDecimalPlaces(rowIndex, value);
-                        }
-                    }
-                    DataGridView.InvalidateColumn(Index);
-                    // TODO: Call the grid's autosizing methods to autosize the column, rows, column headers / row headers as needed.
+                    // Be careful not to unshare rows unnecessarily.
+                    // This could have severe performance repercussions.
+                    var dataGridViewRow = dataGridViewRows.SharedRow(rowIndex);
+                    var dataGridViewCell = dataGridViewRow.Cells[Index] as DataGridViewNumericUpDownCell;
+
+                    // Call the internal SetDecimalPlaces method instead of the property to avoid invalidation
+                    // of each cell. The whole column is invalidated later in a single operation for better performance.
+                    dataGridViewCell?.SetDecimalPlaces(rowIndex, value);
                 }
+                DataGridView.InvalidateColumn(Index);
+                // TODO: Call the grid's autosizing methods to autosize the column, rows, column headers / row headers as needed.
             }
         }
 
@@ -101,36 +96,30 @@ namespace Realm.Library.Controls.DataGridViewControls
             Category("Data"),
             Description("Indicates the amount to increment or decrement on each button click.")
         ]
-        public Decimal Increment
+        public decimal Increment
         {
             get
             {
                 if (NumericUpDownCellTemplate == null)
-                {
-                    throw new InvalidOperationException("Operation cannot be completed because this DataGridViewColumn does not have a CellTemplate.");
-                }
+                    throw new InvalidOperationException(
+                        "Operation cannot be completed because this DataGridViewColumn does not have a CellTemplate.");
                 return NumericUpDownCellTemplate.Increment;
             }
             set
             {
                 if (NumericUpDownCellTemplate == null)
-                {
-                    throw new InvalidOperationException("Operation cannot be completed because this DataGridViewColumn does not have a CellTemplate.");
-                }
+                    throw new InvalidOperationException(
+                        "Operation cannot be completed because this DataGridViewColumn does not have a CellTemplate.");
                 NumericUpDownCellTemplate.Increment = value;
-                if (DataGridView != null)
+                if (DataGridView == null) return;
+
+                var dataGridViewRows = DataGridView.Rows;
+                var rowCount = dataGridViewRows.Count;
+                for (var rowIndex = 0; rowIndex < rowCount; rowIndex++)
                 {
-                    DataGridViewRowCollection dataGridViewRows = DataGridView.Rows;
-                    int rowCount = dataGridViewRows.Count;
-                    for (int rowIndex = 0; rowIndex < rowCount; rowIndex++)
-                    {
-                        DataGridViewRow dataGridViewRow = dataGridViewRows.SharedRow(rowIndex);
-                        DataGridViewNumericUpDownCell dataGridViewCell = dataGridViewRow.Cells[Index] as DataGridViewNumericUpDownCell;
-                        if (dataGridViewCell != null)
-                        {
-                            dataGridViewCell.SetIncrement(rowIndex, value);
-                        }
-                    }
+                    var dataGridViewRow = dataGridViewRows.SharedRow(rowIndex);
+                    var dataGridViewCell = dataGridViewRow.Cells[Index] as DataGridViewNumericUpDownCell;
+                    dataGridViewCell?.SetIncrement(rowIndex, value);
                 }
             }
         }
@@ -149,41 +138,34 @@ namespace Realm.Library.Controls.DataGridViewControls
             Description("Indicates the maximum value for the numeric up-down cells."),
             RefreshProperties(RefreshProperties.All)
         ]
-        public Decimal Maximum
+        public decimal Maximum
         {
             get
             {
                 if (NumericUpDownCellTemplate == null)
-                {
-                    throw new InvalidOperationException("Operation cannot be completed because this DataGridViewColumn does not have a CellTemplate.");
-                }
+                    throw new InvalidOperationException(
+                        "Operation cannot be completed because this DataGridViewColumn does not have a CellTemplate.");
                 return NumericUpDownCellTemplate.Maximum;
             }
             set
             {
                 if (NumericUpDownCellTemplate == null)
-                {
-                    throw new InvalidOperationException("Operation cannot be completed because this DataGridViewColumn does not have a CellTemplate.");
-                }
+                    throw new InvalidOperationException(
+                        "Operation cannot be completed because this DataGridViewColumn does not have a CellTemplate.");
                 NumericUpDownCellTemplate.Maximum = value;
-                if (DataGridView != null)
+                if (DataGridView == null) return;
+                var dataGridViewRows = DataGridView.Rows;
+                var rowCount = dataGridViewRows.Count;
+                for (var rowIndex = 0; rowIndex < rowCount; rowIndex++)
                 {
-                    DataGridViewRowCollection dataGridViewRows = DataGridView.Rows;
-                    int rowCount = dataGridViewRows.Count;
-                    for (int rowIndex = 0; rowIndex < rowCount; rowIndex++)
-                    {
-                        DataGridViewRow dataGridViewRow = dataGridViewRows.SharedRow(rowIndex);
-                        DataGridViewNumericUpDownCell dataGridViewCell = dataGridViewRow.Cells[Index] as DataGridViewNumericUpDownCell;
-                        if (dataGridViewCell != null)
-                        {
-                            dataGridViewCell.SetMaximum(rowIndex, value);
-                        }
-                    }
-                    DataGridView.InvalidateColumn(Index);
-                    // TODO: This column and/or grid rows may need to be autosized depending on their
-                    //       autosize settings. Call the autosizing methods to autosize the column, rows,
-                    //       column headers / row headers as needed.
+                    var dataGridViewRow = dataGridViewRows.SharedRow(rowIndex);
+                    var dataGridViewCell = dataGridViewRow.Cells[Index] as DataGridViewNumericUpDownCell;
+                    dataGridViewCell?.SetMaximum(rowIndex, value);
                 }
+                DataGridView.InvalidateColumn(Index);
+                // TODO: This column and/or grid rows may need to be autosized depending on their
+                //       autosize settings. Call the autosizing methods to autosize the column, rows,
+                //       column headers / row headers as needed.
             }
         }
 
@@ -201,41 +183,34 @@ namespace Realm.Library.Controls.DataGridViewControls
             Description("Indicates the minimum value for the numeric up-down cells."),
             RefreshProperties(RefreshProperties.All)
         ]
-        public Decimal Minimum
+        public decimal Minimum
         {
             get
             {
                 if (NumericUpDownCellTemplate == null)
-                {
-                    throw new InvalidOperationException("Operation cannot be completed because this DataGridViewColumn does not have a CellTemplate.");
-                }
+                    throw new InvalidOperationException(
+                        "Operation cannot be completed because this DataGridViewColumn does not have a CellTemplate.");
                 return NumericUpDownCellTemplate.Minimum;
             }
             set
             {
                 if (NumericUpDownCellTemplate == null)
-                {
-                    throw new InvalidOperationException("Operation cannot be completed because this DataGridViewColumn does not have a CellTemplate.");
-                }
+                    throw new InvalidOperationException(
+                        "Operation cannot be completed because this DataGridViewColumn does not have a CellTemplate.");
                 NumericUpDownCellTemplate.Minimum = value;
-                if (DataGridView != null)
+                if (DataGridView == null) return;
+                var dataGridViewRows = DataGridView.Rows;
+                var rowCount = dataGridViewRows.Count;
+                for (var rowIndex = 0; rowIndex < rowCount; rowIndex++)
                 {
-                    DataGridViewRowCollection dataGridViewRows = DataGridView.Rows;
-                    int rowCount = dataGridViewRows.Count;
-                    for (int rowIndex = 0; rowIndex < rowCount; rowIndex++)
-                    {
-                        DataGridViewRow dataGridViewRow = dataGridViewRows.SharedRow(rowIndex);
-                        DataGridViewNumericUpDownCell dataGridViewCell = dataGridViewRow.Cells[Index] as DataGridViewNumericUpDownCell;
-                        if (dataGridViewCell != null)
-                        {
-                            dataGridViewCell.SetMinimum(rowIndex, value);
-                        }
-                    }
-                    DataGridView.InvalidateColumn(Index);
-                    // TODO: This column and/or grid rows may need to be autosized depending on their
-                    //       autosize settings. Call the autosizing methods to autosize the column, rows,
-                    //       column headers / row headers as needed.
+                    var dataGridViewRow = dataGridViewRows.SharedRow(rowIndex);
+                    var dataGridViewCell = dataGridViewRow.Cells[Index] as DataGridViewNumericUpDownCell;
+                    dataGridViewCell?.SetMinimum(rowIndex, value);
                 }
+                DataGridView.InvalidateColumn(Index);
+                // TODO: This column and/or grid rows may need to be autosized depending on their
+                //       autosize settings. Call the autosizing methods to autosize the column, rows,
+                //       column headers / row headers as needed.
             }
         }
 
@@ -258,36 +233,29 @@ namespace Realm.Library.Controls.DataGridViewControls
             get
             {
                 if (NumericUpDownCellTemplate == null)
-                {
-                    throw new InvalidOperationException("Operation cannot be completed because this DataGridViewColumn does not have a CellTemplate.");
-                }
+                    throw new InvalidOperationException(
+                        "Operation cannot be completed because this DataGridViewColumn does not have a CellTemplate.");
                 return NumericUpDownCellTemplate.ThousandsSeparator;
             }
             set
             {
                 if (NumericUpDownCellTemplate == null)
-                {
-                    throw new InvalidOperationException("Operation cannot be completed because this DataGridViewColumn does not have a CellTemplate.");
-                }
+                    throw new InvalidOperationException(
+                        "Operation cannot be completed because this DataGridViewColumn does not have a CellTemplate.");
                 NumericUpDownCellTemplate.ThousandsSeparator = value;
-                if (DataGridView != null)
+                if (DataGridView == null) return;
+                var dataGridViewRows = DataGridView.Rows;
+                var rowCount = dataGridViewRows.Count;
+                for (var rowIndex = 0; rowIndex < rowCount; rowIndex++)
                 {
-                    DataGridViewRowCollection dataGridViewRows = DataGridView.Rows;
-                    int rowCount = dataGridViewRows.Count;
-                    for (int rowIndex = 0; rowIndex < rowCount; rowIndex++)
-                    {
-                        DataGridViewRow dataGridViewRow = dataGridViewRows.SharedRow(rowIndex);
-                        DataGridViewNumericUpDownCell dataGridViewCell = dataGridViewRow.Cells[Index] as DataGridViewNumericUpDownCell;
-                        if (dataGridViewCell != null)
-                        {
-                            dataGridViewCell.SetThousandsSeparator(rowIndex, value);
-                        }
-                    }
-                    DataGridView.InvalidateColumn(Index);
-                    // TODO: This column and/or grid rows may need to be autosized depending on their
-                    //       autosize settings. Call the autosizing methods to autosize the column, rows,
-                    //       column headers / row headers as needed.
+                    var dataGridViewRow = dataGridViewRows.SharedRow(rowIndex);
+                    var dataGridViewCell = dataGridViewRow.Cells[Index] as DataGridViewNumericUpDownCell;
+                    dataGridViewCell?.SetThousandsSeparator(rowIndex, value);
                 }
+                DataGridView.InvalidateColumn(Index);
+                // TODO: This column and/or grid rows may need to be autosized depending on their
+                //       autosize settings. Call the autosizing methods to autosize the column, rows,
+                //       column headers / row headers as needed.
             }
         }
 
@@ -301,7 +269,7 @@ namespace Realm.Library.Controls.DataGridViewControls
         /// </summary>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder(100);
+            var sb = new StringBuilder(100);
             sb.Append("DataGridViewNumericUpDownColumn { Name=");
             sb.Append(Name);
             sb.Append(", Index=");

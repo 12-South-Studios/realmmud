@@ -6,7 +6,7 @@
 //    [TestClass]
 //    public class AccessLevelTest
 //    {
-//        [TestMethod]
+//        [Fact]
 //        public void AccessLevel_Constructor_Test()
 //        {
 //            const string name = "Test";

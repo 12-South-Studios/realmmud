@@ -1,6 +1,4 @@
-
 namespace Realm.Library.Controls.DataGridViewControls
-
 {
     /// <summary>
     ///

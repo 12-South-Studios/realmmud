@@ -6,7 +6,7 @@
 //    [TestClass]
 //    public class LiquidTest
 //    {
-//        [TestMethod]
+//        [Fact]
 //        public void Liquid_Constructor_Test()
 //        {
 //            const int id = 1;
@@ -18,7 +18,7 @@
 //            Assert.IsNotNull(actual.Properties);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void Liquid_Color_Test()
 //        {
 //            const int id = 1;
@@ -33,7 +33,7 @@
 //            Assert.AreEqual(color, actual.Color);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void Liquid_ThirstPoints_Test()
 //        {
 //            const int id = 1;
@@ -48,7 +48,7 @@
 //            Assert.AreEqual(points, actual.ThirstPoints);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void Liquid_DrunkPoints_Test()
 //        {
 //            const int id = 1;
@@ -63,7 +63,7 @@
 //            Assert.AreEqual(points, actual.DrunkPoints);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void Liquid_CostPerCharge_Test()
 //        {
 //            const int id = 1;
@@ -78,7 +78,7 @@
 //            Assert.AreEqual(cost, actual.CostPerCharge);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void Liquid_Description_Test()
 //        {
 //            const int id = 1;
@@ -93,7 +93,7 @@
 //            Assert.AreEqual(desc, actual.Description);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void Liquid_Flammability_Test()
 //        {
 //            const int id = 1;

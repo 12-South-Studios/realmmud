@@ -1,34 +1,37 @@
-﻿using NUnit.Framework;
+﻿using FluentAssertions;
 using Realm.Library.Common.Extensions;
+using Xunit;
 
 namespace Realm.Library.Common.Test.Extensions
 {
-    [TestFixture]
     public class CharExtensionsTests
     {
-        [TestCase('a', true)]
-        [TestCase('e', true)]
-        [TestCase('i', true)]
-        [TestCase('o', true)]
-        [TestCase('u', true)]
-        [TestCase('g', false)]
+        [Theory]
+        [InlineData('a', true)]
+        [InlineData('e', true)]
+        [InlineData('i', true)]
+        [InlineData('o', true)]
+        [InlineData('u', true)]
+        [InlineData('g', false)]
         public void IsVowelTest(char letter, bool expected)
         {
-            Assert.That(letter.IsVowel(), Is.EqualTo(expected));
+            letter.IsVowel().Should().Be(expected);
         }
 
-        [TestCase('a', false)]
-        [TestCase('1', true)]
+        [Theory]
+        [InlineData('a', false)]
+        [InlineData('1', true)]
         public void IsDigitTest(char value, bool expected)
         {
-            Assert.That(value.IsDigit(), Is.EqualTo(expected));
+            value.IsDigit().Should().Be(expected);
         }
 
-        [TestCase('\0', true)]
-        [TestCase('a', false)]
+        [Theory]
+        [InlineData('\0', true)]
+        [InlineData('a', false)]
         public void IsSpaceTest(char value, bool expected)
         {
-            Assert.That(value.IsSpace(), Is.EqualTo(expected));
+            value.IsSpace().Should().Be(expected);
         }
     }
 }

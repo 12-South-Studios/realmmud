@@ -1,38 +1,33 @@
-﻿using Moq;
-using NUnit.Framework;
-using Realm.Library.Common.Data;
+﻿using Realm.Library.Common.Data;
 using Realm.Library.Common.Logging;
 using log4net;
 using Realm.Library.Common.Events;
 using Realm.Library.Common.Objects;
+using Xunit;
+using FakeItEasy;
+using FluentAssertions;
 
-namespace Realm.Library.Common.Test
+namespace Realm.Library.Common.Fact
 {
-    [TestFixture]
-    public class GameSingletonTests
+    public class GameSingletonFacts
     {
-        private static bool _callback;
+        public static bool _callback;
 
         private class FakeSingleton : GameSingleton
         {
         }
 
-        [SetUp]
-        public void OnSetup()
+        [Fact]
+        public void OnGameInitialize_Fact()
         {
             _callback = false;
-        }
 
-        [Test]
-        public void OnGameInitialize_Test()
-        {
-            var mockLogger = new Mock<LogWrapper>(new Mock<ILog>().Object, LogLevel.Info);
-            mockLogger.Setup(x => x.InfoFormat(It.IsAny<string>(), It.IsAny<object>()));
+            var logger = A.Fake<LogWrapper>();
 
             var initAtom = new DictionaryAtom();
-            initAtom.Add(new StringAtom("Logger"), new ObjectAtom(mockLogger.Object));
+            initAtom.Add(new StringAtom("Logger"), new ObjectAtom(logger));
 
-            var booleanSet = new BooleanSet("Test", Callback);
+            var booleanSet = new BooleanSet("Fact", Callback);
             booleanSet.AddItem("FakeSingleton");
 
             var args = new RealmEventArgs(new EventTable {{"BooleanSet", booleanSet}, {"InitAtom", initAtom}});
@@ -40,7 +35,8 @@ namespace Realm.Library.Common.Test
             var singleton = new FakeSingleton();
             singleton.Instance_OnGameInitialize(args);
 
-            Assert.That(_callback, Is.True.After(250));
+            _callback.Should().BeTrue();
+            //Assert.That(_callback, Is.True.After(250));
         }
 
         private static void Callback(RealmEventArgs args)

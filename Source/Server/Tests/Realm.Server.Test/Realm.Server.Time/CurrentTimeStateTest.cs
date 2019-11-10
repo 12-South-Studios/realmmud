@@ -8,7 +8,7 @@
 //    [TestClass]
 //    public class CurrentTimeStateTest
 //    {
-//        [TestMethod]
+//        [Fact]
 //        public void CurrentTimeState_Constructor_Test()
 //        {
 //            var timeManager = TestHelper.MockTimeManager;
@@ -33,7 +33,7 @@
 //            Assert.AreEqual(expectedState, target.DayState);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void CurrentTimeState_DateTime_Test()
 //        {
 //            var timeManager = TestHelper.MockTimeManager;

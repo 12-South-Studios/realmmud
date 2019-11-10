@@ -6,7 +6,7 @@
 //    [TestClass]
 //    public class PortalTest
 //    {
-//        [TestMethod]
+//        [Fact]
 //        public void Exit_Constructor_Test()
 //        {
 //            var Space = new Space(1, "test");
@@ -23,7 +23,7 @@
 //        }
 
 //        //public void SetDoor(string name, Material materialType, bool closed, bool locked, bool broken, int key)
-//        [TestMethod]
+//        [Fact]
 //        public void Exit_SetDoor_Test()
 //        {
 //            var Space = new Space(1, "test");

@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using Moq;
-using NUnit.Framework;
+using FakeItEasy;
+using FluentAssertions;
+using Realm.Library.Common.Logging;
 using Realm.Library.Database.Test.Fakes;
+using Xunit;
 
 namespace Realm.Library.Database.Test
 {
-    [TestFixture]
     public class DatabaseHelperTests
     {
         private class FakeObject
@@ -36,211 +37,216 @@ namespace Realm.Library.Database.Test
             return new FakeObject();
         }
 
-        [Test]
+        [Fact]
         public void ValidateArguments_TakesNullConnection_ThrowsException()
         {
-            Assert.Throws<ArgumentNullException>(() => DatabaseHelper.ValidateArguments(null, "TestProcedure"),
-                                                 "Unit test expected an ArgumentNullException to be thrown!");
+            Action act = () => DatabaseHelper.ValidateArguments(null, "TestProcedure");
+            act.Should().Throw<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void ValidateArguments_TakesEmptyStoredProcedureName_ThrowsException()
         {
-            var mockConnection = new Mock<IDbConnection>();
+            var connection = A.Fake<IDbConnection>();
 
-            Assert.Throws<ArgumentNullException>(
-                () => DatabaseHelper.ValidateArguments(mockConnection.Object, string.Empty),
-                "Unit test expected an ArgumentNullException to be thrown!");
+            Action act = () => DatabaseHelper.ValidateArguments(connection, string.Empty);
+            act.Should().Throw<ArgumentNullException>();
         }
 
-        [Test]
+        [Fact]
         public void ValidateArguments_TakesValidArguments_DoesNothing()
         {
-            var mockConnection = new Mock<IDbConnection>();
-            Assert.That(DatabaseHelper.ValidateArguments(mockConnection.Object, "TestProcedure"), Is.True);
+            var connection = A.Fake<IDbConnection>();
+            DatabaseHelper.ValidateArguments(connection, "TestProcedure").Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void SetupDbCommand_TakesParameters_PopulatesCommand()
         {
-            var mockConnection = new Mock<IDbConnection>();
+            var connection = A.Fake<IDbConnection>();
             var param1 = new SqlParameter("TestParam1", SqlDbType.Int);
             var param2 = new SqlParameter("TestParam2", SqlDbType.VarChar);
             var parameterList = new List<IDataParameter> { param1, param2 };
             var fakeCommand = new FakeDbCommand();
 
-            DatabaseHelper.SetupDbCommand(mockConnection.Object, fakeCommand, "TestProcedure", parameterList);
+            DatabaseHelper.SetupDbCommand(connection, fakeCommand, "TestProcedure", parameterList);
 
-            Assert.That(fakeCommand.Connection, Is.EqualTo(mockConnection.Object));
-            Assert.That(fakeCommand.CommandText, Is.EqualTo("TestProcedure"));
-            Assert.That(fakeCommand.Parameters.Count, Is.EqualTo(2));
+            fakeCommand.Connection.Should().Be(connection);
+            fakeCommand.CommandText.Should().Be("TestProcedure");
+            fakeCommand.Parameters.Count.Should().Be(2);
         }
 
-        [Test]
+        [Fact]
         public void ExecuteScalar_TakesNoParameters_ReturnsValidResult()
         {
             const string expected = "This is a test result";
 
-            var mockCommand = new Mock<IDbCommand>();
-            mockCommand.Setup(x => x.ExecuteScalar()).Returns(expected);
-            mockCommand.SetupSet(x => x.Connection = It.IsAny<IDbConnection>());
+            var command = A.Fake<IDbCommand>();
+            A.CallTo(() => command.ExecuteScalar()).Returns(expected);
+            A.CallToSet(() => command.Connection).DoesNothing();
 
-            var mockConnection = new Mock<IDbConnection>();
-            mockConnection.Setup(x => x.CreateCommand()).Returns(mockCommand.Object);
+            var connection = A.Fake<IDbConnection>();
+            A.CallTo(() => connection.CreateCommand()).Returns(command);
 
-            mockCommand.SetupGet(x => x.Connection).Returns(mockConnection.Object);
+            A.CallTo(() => command.Connection).Returns(connection);
 
-            var helper = new DatabaseHelper(new Mock<Common.Logging.ILogWrapper>().Object);
+            var helper = new DatabaseHelper(A.Fake<ILogWrapper>());
 
-            Assert.That(helper.ExecuteScalar(mockConnection.Object, "TestProcedure", null), Is.EqualTo(expected));
+            var result = helper.ExecuteScalar(connection, "TestProcedure", null);
+            result.Should().Be(expected);
         }
 
-        [Test]
+        [Fact]
         public void ExecuteScalar_TakesNoParameters_ThrowsException()
         {
             bool callback = false;
 
-            var mockLogger = new Mock<Common.Logging.ILogWrapper>();
-            mockLogger.Setup(x => x.Error(It.IsAny<string>(), It.IsAny<Exception>())).Callback(() => callback = true);
+            var logger = A.Fake<ILogWrapper>();
+            A.CallTo(() => logger.Error(A<string>.Ignored, A<Exception>.Ignored))
+                .Invokes(() => callback = true);
 
-            var mockCommand = new Mock<IDbCommand>();
-            mockCommand.Setup(x => x.ExecuteScalar()).Throws(MakeSqlException());
-            mockCommand.SetupSet(x => x.Connection = It.IsAny<IDbConnection>());
+            var command = A.Fake<IDbCommand>();
+            A.CallTo(() => command.ExecuteScalar()).Throws(MakeSqlException());
+            A.CallToSet(() => command.Connection).DoesNothing();
 
-            var mockConnection = new Mock<IDbConnection>();
-            mockConnection.Setup(x => x.CreateCommand()).Returns(mockCommand.Object);
+            var connection = A.Fake<IDbConnection>();
+            A.CallTo(() => connection.CreateCommand()).Returns(command);
 
-            mockCommand.SetupGet(x => x.Connection).Returns(mockConnection.Object);
+            A.CallTo(() => command.Connection).Returns(connection);
 
-            var helper = new DatabaseHelper(mockLogger.Object);
-            helper.ExecuteScalar(mockConnection.Object, "TestProcedure", null);
+            var helper = new DatabaseHelper(logger);
+            helper.ExecuteScalar(connection, "TestProcedure", null);
 
-            Assert.That(callback, Is.True);
+            callback.Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void ExecuteNonQuery_TakesNoParameters_Executes()
         {
-            var mockCommand = new Mock<IDbCommand>();
-            mockCommand.SetupSet(x => x.Connection = It.IsAny<IDbConnection>());
+            var command = A.Fake<IDbCommand>();
+            A.CallToSet(() => command.Connection).DoesNothing();
 
-            var mockConnection = new Mock<IDbConnection>();
-            mockConnection.Setup(x => x.CreateCommand()).Returns(mockCommand.Object);
+            var connection = A.Fake<IDbConnection>();
+            A.CallTo(() => connection.CreateCommand()).Returns(command);
 
-            mockCommand.SetupGet(x => x.Connection).Returns(mockConnection.Object);
+            A.CallTo(() => command.Connection).Returns(connection);
 
-            var helper = new DatabaseHelper(new Mock<Common.Logging.ILogWrapper>().Object);
-            helper.ExecuteNonQuery(mockConnection.Object, "TestProcedure", null);
+            var helper = new DatabaseHelper(A.Fake<ILogWrapper>());
+            helper.ExecuteNonQuery(connection, "TestProcedure", null);
         }
 
-        [Test]
+        [Fact]
         public void ExecuteNonQuery_TakesNoParameters_ThrowsException()
         {
             bool callback = false;
 
-            var mockLogger = new Mock<Common.Logging.ILogWrapper>();
-            mockLogger.Setup(x => x.Error(It.IsAny<string>(), It.IsAny<Exception>())).Callback(() => callback = true);
+            var logger = A.Fake<ILogWrapper>();
+            A.CallTo(() => logger.Error(A<string>.Ignored, A<Exception>.Ignored))
+                .Invokes(() => callback = true);
 
-            var mockCommand = new Mock<IDbCommand>();
-            mockCommand.Setup(x => x.ExecuteNonQuery()).Throws(MakeSqlException());
-            mockCommand.SetupSet(x => x.Connection = It.IsAny<IDbConnection>());
+            var command = A.Fake<IDbCommand>();
+            A.CallTo(() => command.ExecuteNonQuery()).Throws(MakeSqlException());
+            A.CallToSet(() => command.Connection).DoesNothing();
 
-            var mockConnection = new Mock<IDbConnection>();
-            mockConnection.Setup(x => x.CreateCommand()).Returns(mockCommand.Object);
+            var connection = A.Fake<IDbConnection>();
+            A.CallTo(() => connection.CreateCommand()).Returns(command);
 
-            mockCommand.SetupGet(x => x.Connection).Returns(mockConnection.Object);
+            A.CallTo(() => command.Connection).Returns(connection);
 
-            var helper = new DatabaseHelper(mockLogger.Object);
-            helper.ExecuteNonQuery(mockConnection.Object, "TestProcedure", null);
+            var helper = new DatabaseHelper(logger);
+            helper.ExecuteNonQuery(connection, "TestProcedure", null);
 
-            Assert.That(callback, Is.True);
+            callback.Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void ExecuteQuery_TakesNoParameters_ReturnsValidDataTable()
         {
-            var mockReader = new Mock<IDataReader>();
+            var reader = A.Fake<IDataReader>();
 
-            var mockCommand = new Mock<IDbCommand>();
-            mockCommand.SetupSet(x => x.Connection = It.IsAny<IDbConnection>());
-            mockCommand.Setup(x => x.ExecuteReader()).Returns(mockReader.Object);
+            var command = A.Fake<IDbCommand>();
+            A.CallToSet(() => command.Connection).DoesNothing();
+            A.CallTo(() => command.ExecuteReader()).Returns(reader);
 
-            var mockConnection = new Mock<IDbConnection>();
-            mockConnection.Setup(x => x.CreateCommand()).Returns(mockCommand.Object);
+            var connection = A.Fake<IDbConnection>();
+            A.CallTo(() => connection.CreateCommand()).Returns(command);
 
-            mockCommand.SetupGet(x => x.Connection).Returns(mockConnection.Object);
+            A.CallTo(() => command.Connection).Returns(connection);
 
-            var helper = new DatabaseHelper(new Mock<Common.Logging.ILogWrapper>().Object);
+            var helper = new DatabaseHelper(A.Fake<ILogWrapper>());
 
-            Assert.That(helper.ExecuteQuery(mockConnection.Object, "TestProcedure", null), Is.Not.Null);
+            var result = helper.ExecuteQuery(connection, "TestProcedure", null);
+            result.Should().NotBeNull();
         }
 
-        [Test]
+        [Fact]
         public void ExecuteQuery_TakesNoParameters_ThrowsException()
         {
             bool callback = false;
 
-            var mockLogger = new Mock<Common.Logging.ILogWrapper>();
-            mockLogger.Setup(x => x.Error(It.IsAny<string>(), It.IsAny<Exception>())).Callback(() => callback = true);
+            var logger = A.Fake<ILogWrapper>();
+            A.CallTo(() => logger.Error(A<string>.Ignored, A<Exception>.Ignored))
+                .Invokes(() => callback = true);
 
-            var mockCommand = new Mock<IDbCommand>();
-            mockCommand.SetupSet(x => x.Connection = It.IsAny<IDbConnection>());
-            mockCommand.Setup(x => x.ExecuteReader()).Throws(MakeSqlException());
+            var command = A.Fake<IDbCommand>();
+            A.CallToSet(() => command.Connection).DoesNothing();
+            A.CallTo(() => command.ExecuteReader()).Throws(MakeSqlException());
 
-            var mockConnection = new Mock<IDbConnection>();
-            mockConnection.Setup(x => x.CreateCommand()).Returns(mockCommand.Object);
+            var connection = A.Fake<IDbConnection>();
+            A.CallTo(() => connection.CreateCommand()).Returns(command);
 
-            mockCommand.SetupGet(x => x.Connection).Returns(mockConnection.Object);
+            A.CallTo(() => command.Connection).Returns(connection);
 
-            var helper = new DatabaseHelper(mockLogger.Object);
-            helper.ExecuteQuery(mockConnection.Object, "TestProcedure", null);
+            var helper = new DatabaseHelper(logger);
+            helper.ExecuteQuery(connection, "TestProcedure", null);
 
-            Assert.That(callback, Is.True);
+            callback.Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void ExecuteQueryWithFunc_TakesNoParameters_ReturnsValidObject()
         {
-            var mockReader = new Mock<IDataReader>();
+            var reader = A.Fake<IDataReader>();
 
-            var mockCommand = new Mock<IDbCommand>();
-            mockCommand.SetupSet(x => x.Connection = It.IsAny<IDbConnection>());
-            mockCommand.Setup(x => x.ExecuteReader()).Returns(mockReader.Object);
+            var command = A.Fake<IDbCommand>();
+            A.CallToSet(() => command.Connection).DoesNothing();
+            A.CallTo(() => command.ExecuteReader()).Throws(MakeSqlException());
 
-            var mockConnection = new Mock<IDbConnection>();
-            mockConnection.Setup(x => x.CreateCommand()).Returns(mockCommand.Object);
+            var connection = A.Fake<IDbConnection>();
+            A.CallTo(() => connection.CreateCommand()).Returns(command);
 
-            mockCommand.SetupGet(x => x.Connection).Returns(mockConnection.Object);
+            A.CallTo(() => command.Connection).Returns(connection);
 
-            var helper = new DatabaseHelper(new Mock<Common.Logging.ILogWrapper>().Object);
+            var helper = new DatabaseHelper(A.Fake<ILogWrapper>());
 
-            var result = helper.ExecuteQuery(mockConnection.Object, "TestProcedure", null, CreateFakeObject);
+            var result = helper.ExecuteQuery(connection, "TestProcedure", null, CreateFakeObject);
 
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result, Is.InstanceOf<FakeObject>());
+            result.Should().NotBeNull();
+            result.Should().BeAssignableTo<FakeObject>();
         }
 
-        [Test]
+        [Fact]
         public void ExecuteQueryWithFunc_TakesNoParameters_ThrowsException()
         {
             bool callback = false;
 
-            var mockLogger = new Mock<Common.Logging.ILogWrapper>();
-            mockLogger.Setup(x => x.Error(It.IsAny<string>(), It.IsAny<Exception>())).Callback(() => callback = true);
+            var logger = A.Fake<ILogWrapper>();
+            A.CallTo(() => logger.Error(A<string>.Ignored, A<Exception>.Ignored))
+                .Invokes(() => callback = true);
 
-            var mockCommand = new Mock<IDbCommand>();
-            mockCommand.SetupSet(x => x.Connection = It.IsAny<IDbConnection>());
-            mockCommand.Setup(x => x.ExecuteReader()).Throws(MakeSqlException());
+            var command = A.Fake<IDbCommand>();
+            A.CallToSet(() => command.Connection).DoesNothing();
+            A.CallTo(() => command.ExecuteReader()).Throws(MakeSqlException());
 
-            var mockConnection = new Mock<IDbConnection>();
-            mockConnection.Setup(x => x.CreateCommand()).Returns(mockCommand.Object);
+            var connection = A.Fake<IDbConnection>();
+            A.CallTo(() => connection.CreateCommand()).Returns(command);
 
-            mockCommand.SetupGet(x => x.Connection).Returns(mockConnection.Object);
+            A.CallTo(() => command.Connection).Returns(connection);
 
-            var helper = new DatabaseHelper(mockLogger.Object);
-            helper.ExecuteQuery(mockConnection.Object, "TestProcedure", null, CreateFakeObject);
+            var helper = new DatabaseHelper(logger);
+            helper.ExecuteQuery(connection, "TestProcedure", null, CreateFakeObject);
 
-            Assert.That(callback, Is.True);
+            callback.Should().BeTrue();
         }
     } 
 }

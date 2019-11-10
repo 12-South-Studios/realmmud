@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Linq;
-using NUnit.Framework;
+using FluentAssertions;
 using Realm.Library.Common.Extensions;
+using Xunit;
 
 namespace Realm.Library.Common.Test.Extensions
 {
-    [TestFixture]
     public class FuncExtensionsTests
     {
-        [Test]
+        [Fact]
         public void TryCatch_NoReturnValue_NoException_Test()
         {
             var callback = false;
@@ -16,11 +16,11 @@ namespace Realm.Library.Common.Test.Extensions
             Action<object[]> func = x => callback = true;
 
             func.TryCatch();
-
-            Assert.That(callback, Is.True); 
+            
+            callback.Should().BeTrue(); 
         }
 
-        [Test]
+        [Fact]
         public void TryCatch_NoReturnValue_WithException_Test()
         {
             var callback = false;
@@ -31,10 +31,10 @@ namespace Realm.Library.Common.Test.Extensions
 
             func.TryCatch(showError);
 
-            Assert.That(callback, Is.True);
+            callback.Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void TryCatch_NoException_NoFinally_Test()
         {
             var callback = false;
@@ -48,11 +48,11 @@ namespace Realm.Library.Common.Test.Extensions
 
             var result = func.TryCatch(showError);
 
-            Assert.That(result, Is.True);
-            Assert.That(callback, Is.True);
+            result.Should().BeTrue();
+            callback.Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void TryCatch_WithException_Test()
         {
             var callback = false;
@@ -67,11 +67,11 @@ namespace Realm.Library.Common.Test.Extensions
 
             var result = func.TryCatch(showError);
 
-            Assert.That(result, Is.False);
-            Assert.That(callback, Is.True);
+            result.Should().BeFalse();
+            callback.Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void TryCatch_DifferentType_Test()
         {
             var callback = false;
@@ -87,9 +87,9 @@ namespace Realm.Library.Common.Test.Extensions
 
             var result = func.TryCatch(showError, final, 2, 5, 8);
 
-            Assert.That(result, Is.EqualTo(15));
-            Assert.That(callback, Is.True);
-            Assert.That(finalCallback, Is.True);
+            result.Should().Be(15);
+            callback.Should().BeTrue();
+            finalCallback.Should().BeTrue();
         }
     }
 }

@@ -54,9 +54,8 @@ namespace Realm.Network.User
             }
 
             var commandResult = data.GetAtom<ListAtom>("commandResult").Get(0).CastAs<DictionaryAtom>();
-            if (_callback.IsNotNull())
-                _callback.Invoke(
-                    new RealmEventArgs(new EventTable {{"results", commandResult.GetAtom<ListAtom>("Results")}}));
+            _callback?.Invoke(
+                new RealmEventArgs(new EventTable {{"results", commandResult.GetAtom<ListAtom>("Results")}}));
         }
     }
 }

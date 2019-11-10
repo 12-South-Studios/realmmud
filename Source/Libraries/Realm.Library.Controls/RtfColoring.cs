@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Realm.Library.Common;
 
 namespace Realm.Library.Controls
 {
@@ -17,7 +16,8 @@ namespace Realm.Library.Controls
         /// <param name="richTextBox"></param>
         public static void ProcessRtfColoring(this SyntaxRichTextBox richTextBox)
         {
-            Validation.IsNotNull(richTextBox, "richTextBox");
+            if (richTextBox == null)
+                throw new ArgumentNullException(nameof(richTextBox));
 
             var settings = richTextBox.Settings;
             if (settings.Keywords.Count < 1)
@@ -57,7 +57,7 @@ namespace Realm.Library.Controls
                 $"{{\\colortbl ;{strCommentColor};{strStringColor};{strKeywordColor};{strIntegerColor};}}");
 
             // build the keywords regex
-            var strKeywords = settings.Keywords.Aggregate(String.Empty, (current, keyword) => current + keyword + ",");
+            var strKeywords = settings.Keywords.Aggregate(string.Empty, (current, keyword) => current + keyword + ",");
             strKeywords = strKeywords.Substring(0, strKeywords.Length - 1);
 
             var r = new Regex(@", ?");
@@ -92,7 +92,7 @@ namespace Realm.Library.Controls
         {
             return match.Groups[1].Success
                 ? $@"\cf3 {RemoveRtfColors(match.Value)}\cf0 "
-                : String.Empty;
+                : string.Empty;
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace Realm.Library.Controls
         {
             return match.Groups[1].Success
                 ? $@"\cf2 {RemoveRtfColors(match.Value)}\cf0 "
-                : String.Empty;
+                : string.Empty;
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace Realm.Library.Controls
         {
             return match.Groups[1].Success
                 ? $@"\cf1 {RemoveRtfColors(match.Value)}\cf0 "
-                : String.Empty;
+                : string.Empty;
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace Realm.Library.Controls
         {
             return match.Groups[1].Success
                 ? $@"\cf4 {RemoveRtfColors(match.Value)}\cf0 "
-                : String.Empty;
+                : string.Empty;
         }
 
         /// <summary>

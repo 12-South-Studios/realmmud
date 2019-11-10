@@ -8,7 +8,7 @@
 //    [TestClass]
 //    public class FlagContextTest
 //    {
-//        [TestMethod]
+//        [Fact]
 //        public void SetFlagTest()
 //        {
 //            var target = new FlagContext(null);
@@ -19,7 +19,7 @@
 //            Assert.AreEqual(expected, actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void HasFlagTest()
 //        {
 //            var target = new FlagContext(null);
@@ -30,7 +30,7 @@
 //            Assert.AreEqual(expected, actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void UnsetFlagTest()
 //        {
 //            var target = new FlagContext(null);
@@ -42,7 +42,7 @@
 //            Assert.AreEqual(expected, actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void SetFlagListTest()
 //        {
 //            var target = new FlagContext(null) { FlagList = new List<string> { "a", "b" } };
@@ -52,7 +52,7 @@
 //            Assert.AreEqual(expected, actual);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void GetFlagListTest()
 //        {
 //            var target = new FlagContext(null) { FlagList = new List<string> { "a", "b" } };
@@ -64,7 +64,7 @@
 //            Assert.AreEqual(expected, actual.Count);
 //        }
 
-//        [TestMethod]
+//        [Fact]
 //        public void GetFlagsTest()
 //        {
 //            var target = new FlagContext(null) { FlagList = new List<string> { "a", "b" } };

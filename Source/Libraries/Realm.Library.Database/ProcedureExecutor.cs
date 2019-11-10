@@ -7,7 +7,6 @@ using Realm.Library.Common;
 using Realm.Library.Common.Exceptions;
 using Realm.Library.Common.Extensions;
 using Realm.Library.Common.Logging;
-using Realm.Library.Common.Objects;
 
 namespace Realm.Library.Database
 {
@@ -57,7 +56,7 @@ namespace Realm.Library.Database
                     command.CommandType = _procedure.CommandType;
                     command.CommandText = _procedure.CommandText;
 
-                    if (args.IsNotNull()) command.PopulateCommandArgs(_procedure.Parameters, args);
+                    if (args != null) command.PopulateCommandArgs(_procedure.Parameters, args);
 
                     returnVal = command.ExecuteNonQuery();
                 }
@@ -94,16 +93,15 @@ namespace Realm.Library.Database
                     command.CommandType = _procedure.CommandType;
                     command.CommandText = _procedure.CommandText;
 
-                    if (args.IsNotNull()) command.PopulateCommandArgs(_procedure.Parameters, args);
+                    if (args != null) command.PopulateCommandArgs(_procedure.Parameters, args);
 
                     dataTable = new DataTable();
                     using (var dataReader = command.ExecuteReader())
                     {
-                        if (dataReader.IsNotNull()) 
-                            dataTable.Load(dataReader);
+                        dataTable.Load(dataReader);
                     }
 
-                    if (dataTable.IsNotNull() && dataTable.Rows.IsNotNull())
+                    if (dataTable.Rows != null)
                         returnVal = dataTable.Rows.Count;
                 }
             }

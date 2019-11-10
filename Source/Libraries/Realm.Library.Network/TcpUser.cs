@@ -30,7 +30,7 @@ namespace Realm.Library.Network
         /// <summary>
         /// Gets the unique identifier of this user
         /// </summary>
-        public string Id { get; private set; }
+        public string Id { get; }
 
         /// <summary>
         /// Handles the connection

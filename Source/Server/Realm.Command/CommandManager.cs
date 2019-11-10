@@ -20,18 +20,16 @@ namespace Realm.Command
     {
         private Dictionary<string, IParser> _parsers;
 
-        #region Propertie
-        public IVariableHelper VariableHelper { get; private set; }
-        public IHelper<Action> CommandHelper { get; private set; }
+        public IVariableHelper VariableHelper { get; }
+        public IHelper<Action> CommandHelper { get; }
         public CommandExecutor CommandExecutor { get; private set; }
-        public CommandRepository CommandRepository { get; private set; }
-        public CommandInitializer CommandInitializer { get; private set; }
+        public CommandRepository CommandRepository { get; }
+        public CommandInitializer CommandInitializer { get; }
         [Inject]
         public IEventManager EventManager { get; set; }
         [Inject]
         public ILogWrapper Log { get; set; }
         public DictionaryAtom InitializationAtom { get; private set; }
-        #endregion Properties
 
         public CommandManager(IVariableHelper variableHelper, [Named("CommandHelper")] IHelper<Action> commandHelper, 
             ICommandRepository commandRepository, ICommandInitializer commandInitializer)
@@ -95,7 +93,6 @@ namespace Realm.Command
             return _parsers.TryGetValue(name, out value) ? (Parser)value : null;
         }
 
-        #region Command Executor
         public bool Execute(IGameEntity entity, string command)
         {
             return Execute(entity, command.FirstWord(), command.RemoveWord(0));
@@ -120,7 +117,5 @@ namespace Realm.Command
         {
             CommandExecutor.Report(scope, message, data);
         }
-
-        #endregion Command Executor
     }
 }

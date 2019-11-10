@@ -6,7 +6,7 @@
 //    [TestClass]
 //    public class HashRepositoryTest
 //    {
-//        [TestMethod]
+//        [Fact]
 //        public void HashRepository_GetRandomHash_Test()
 //        {
 //            var repository = new HashRepository();
