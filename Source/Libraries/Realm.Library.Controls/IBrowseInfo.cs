@@ -1,4 +1,6 @@
-﻿namespace Realm.Library.Controls
+﻿using Realm.DAL.Common;
+
+namespace Realm.Library.Controls
 {
     /// <summary>
     ///
@@ -8,7 +10,7 @@
         /// <summary>
         ///
         /// </summary>
-        short SystemType { get; }
+        SystemTypes SystemType { get; }
 
         /// <summary>
         ///

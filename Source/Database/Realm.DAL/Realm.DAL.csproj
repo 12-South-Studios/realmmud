@@ -99,7 +99,6 @@
     <Compile Include="Enumerations\StringTypes.cs" />
     <Compile Include="Enumerations\TagCategoryTypes.cs" />
     <Compile Include="Enumerations\TargetClassTypes.cs" />
-    <Compile Include="Enumerations\SystemTypes.cs" />
     <Compile Include="Migrations\201506071411465_InitialSetup.cs" />
     <Compile Include="Migrations\201506071411465_InitialSetup.Designer.cs">
       <DependentUpon>201506071411465_InitialSetup.cs</DependentUpon>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Realm.Admin.DAL;
 using Realm.DAL;
+using Realm.DAL.Common;
 using Realm.DAL.Enumerations;
 using Realm.Edit.Editor;
 using Realm.Edit.EditorControls;

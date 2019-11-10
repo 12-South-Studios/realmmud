@@ -1,40 +1,24 @@
-﻿using Realm.DAL.Enumerations;
-using Realm.Library.Common.Extensions;
+﻿using Realm.DAL.Common;
 using Realm.Library.Controls;
 
 namespace Realm.Edit.Editor
 {
     public class EditorBrowseInfo : IBrowseInfo
     {
-        public short SystemType { get; private set; }
+        public SystemTypes SystemType { get; private set; }
         public string Name { get; private set; }
         public int ClassId { get; private set; }
         public int Id { get; set; }
         public int SubId { get; private set; }
 
-        public SystemTypes GetSystemType()
+        public EditorBrowseInfo(SystemTypes systemType, string name, int classId, int id)
         {
-            return EnumerationExtensions.GetEnum<SystemTypes>(SystemType);
+            Init(systemType, name, classId, id, 0);
         }
 
-        public EditorBrowseInfo(SystemTypes aType, string aName, int aClassId, int aId)
+        public EditorBrowseInfo(SystemTypes systemType, string name, int classId, int id, int subId)
         {
-            Init((short)aType, aName, aClassId, aId, 0);
-        }
-
-        public EditorBrowseInfo(short aType, string aName, int aClassId, int aId)
-        {
-            Init(aType, aName, aClassId, aId, 0);
-        }
-
-        public EditorBrowseInfo(SystemTypes aType, string aName, int aClassId, int aId, int aSubId)
-        {
-            Init((short)aType, aName, aClassId, aId, aSubId);
-        }
-
-        public EditorBrowseInfo(short aType, string aName, int aClassId, int aId, int aSubId)
-        {
-            Init(aType, aName, aClassId, aId, aSubId);
+            Init(systemType, name, classId, id, subId);
         }
 
         public override string ToString()
@@ -42,13 +26,13 @@ namespace Realm.Edit.Editor
             return Name;
         }
 
-        private void Init(short aType, string aName, int aClassId, int aId, int aSubId)
+        private void Init(SystemTypes type, string name, int classId, int id, int subId)
         {
-            SystemType = aType;
-            Name = aName;
-            ClassId = aClassId;
-            Id = aId;
-            SubId = aSubId;
+            SystemType = type;
+            Name = name;
+            ClassId = classId;
+            Id = id;
+            SubId = subId;
         }
     }
 }

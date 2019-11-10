@@ -6,10 +6,10 @@ namespace Realm.Library.Controls.DataGridViewControls
     /// <summary>
     ///
     /// </summary>
-    /// <param name="aBrowseInfo"></param>
-    /// <param name="aLinkCell"></param>
+    /// <param name="browseInfo"></param>
+    /// <param name="linkCell"></param>
     /// <returns></returns>
-    public delegate bool ValidateDragDelegate(IBrowseInfo aBrowseInfo, DataGridViewTypedLinkCell aLinkCell);
+    public delegate bool ValidateDragDelegate(IBrowseInfo browseInfo, DataGridViewTypedLinkCell linkCell);
 
     /// <summary>
     ///
@@ -39,7 +39,7 @@ namespace Realm.Library.Controls.DataGridViewControls
         /// <summary>
         ///
         /// </summary>
-        public short SystemType
+        public SystemTypes SystemType
         {
             get { return _systemType; }
             set
@@ -56,8 +56,8 @@ namespace Realm.Library.Controls.DataGridViewControls
         /// <summary>
         ///
         /// </summary>
-        /// <param name="aBrowseInfo"></param>
-        /// <param name="aLinkCell"></param>
+        /// <param name="browseInfo"></param>
+        /// <param name="linkCell"></param>
         /// <returns></returns>
         public static bool DefaultDragValidate(IBrowseInfo aBrowseInfo, DataGridViewTypedLinkCell aLinkCell)
         {
@@ -68,7 +68,7 @@ namespace Realm.Library.Controls.DataGridViewControls
         ///
         /// </summary>
         /// <param name="e"></param>
-        /// <param name="aSetValue"></param>
+        /// <param name="setValue"></param>
         // TODO: Override in derived class and call ValidateRow
         public virtual void HandleGridDrag(DragEventArgs e, bool aSetValue)
         {

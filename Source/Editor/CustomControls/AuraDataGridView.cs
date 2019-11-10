@@ -10,7 +10,7 @@ using Realm.Library.Controls.DataGridViewControls;
 
 namespace Realm.Edit.CustomControls
 {
-    public delegate string ValidateRowDelegate(DataGridViewRow aRow);
+    public delegate string ValidateRowDelegate(DataGridViewRow row);
 
     public sealed class AuraDataGridView : DataGridView
     {
@@ -43,6 +43,7 @@ namespace Realm.Edit.CustomControls
         public bool AllowRowDeletion { get; set; }
 
         public ICollection<DataGridViewRow> DeletedRows { get; }
+        #endregion
 
         public static string DefaultRowValidate(DataGridViewRow row)
         {
@@ -160,6 +161,7 @@ namespace Realm.Edit.CustomControls
                 if (rowIndex < 0) continue;
 
                 var dataRow = value[rowIndex];
+
                 dataRow?.Delete();
             }
 

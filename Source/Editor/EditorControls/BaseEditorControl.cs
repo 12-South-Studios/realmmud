@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
 using System.Windows.Forms;
+using Realm.DAL.Common;
 using Realm.DAL.Enumerations;
 using Realm.Edit.Builders;
 using Realm.Edit.CustomControls;
@@ -17,29 +18,29 @@ namespace Realm.Edit.EditorControls
 
         private bool _dirty;
 
-        private delegate void InitializeControl(BaseEditorControl aOwner, Control aControl);
+        private delegate void InitializeControl(BaseEditorControl owner, Control control);
         private static readonly IDictionary<Type, InitializeControl> ControlInitializers = SetupControlInitializers();
 
         public bool Loading { get; set; }
         public bool Copy { get; set; }
         public bool Initializing { get; set; }
-        public string ControlName { get; set; }
-        public SystemTypes SystemType { get; private set; }
-        public int ClassId { get; private set; }
+        public string ControlName { get; protected set; }
+        public SystemTypes SystemType { get; }
+        public int ClassId { get; }
         public int Id { get; protected set; }
-        public IList<Control> Changes { get; private set; }
+        public IList<Control> Changes { get; }
 
         public BaseEditorControl()
         {
             // Ctor needed for editor
         }
 
-        public BaseEditorControl(SystemTypes aSysType, int aClassId)
+        public BaseEditorControl(SystemTypes systemType, int classId)
         {
             InitializeComponent();
-            ControlName = "<New " + EditorFactory.Builders[aSysType].DisplayName + ">";
-            ClassId = aClassId;
-            SystemType = aSysType;
+            ControlName = $"<New {EditorFactory.Builders[systemType].DisplayName}>";
+            ClassId = classId;
+            SystemType = systemType;
             Id = 0;
             Dirty = false;
             Changes = new List<Control>();
@@ -55,45 +56,44 @@ namespace Realm.Edit.EditorControls
                 if (value == _dirty) return;
 
                 _dirty = value;
-                if (DirtyChanged != null)
-                    DirtyChanged(this, new EventArgs());
+                DirtyChanged?.Invoke(this, new EventArgs());
             }
         }
 
-        protected void AddChange(Control aControl)
+        protected void AddChange(Control control)
         {
-            if (!Changes.Contains(aControl))
-                Changes.Add(aControl);
+            if (!Changes.Contains(control))
+                Changes.Add(control);
         }
 
         public virtual void InitTooltipsImpl() { }
 
-        public void InitContent(int aId)
+        public void InitContent(int id)
         {
             Cursor.Current = Cursors.WaitCursor;
 
-            DateTime begin = DateTime.Now;
+            var begin = DateTime.Now;
             Application.DoEvents();
-            Program.MainForm.SetStatusMessage("Beginning to load " + ControlName + " [" + aId + "]");
+            Program.MainForm.SetStatusMessage($"Beginning to load {ControlName} [{id}]");
 
             Loading = true;
-            Id = aId;
+            Id = id;
             InitTooltipsImpl();
-            InitContentImpl(aId);
+            InitContentImpl(id);
             Invalidate();
             Loading = false;
             Dirty = false;
 
             MakeDirty();
 
-            TimeSpan span = DateTime.Now.Subtract(begin);
-            double totalSeconds = span.TotalSeconds;
-            Program.MainForm.SetStatusMessage("Completed loading " + ControlName + " [" + Id + "]: " + totalSeconds + " seconds.");
+            var span = DateTime.Now.Subtract(begin);
+            var totalSeconds = span.TotalSeconds;
+            Program.MainForm.SetStatusMessage($"Completed loading {ControlName} [{Id}]: {totalSeconds} seconds.");
 
             Cursor.Current = Cursors.Default;
         }
 
-        public virtual void InitContentImpl(int aId)
+        public virtual void InitContentImpl(int id)
         {
             throw new NotImplementedException("Unimplemented contentInitImpl()");
         }
@@ -109,7 +109,7 @@ namespace Realm.Edit.EditorControls
 
         public void MakeCopy()
         {
-            ControlName = "Copy of " + ControlName;
+            ControlName = $"Copy of {ControlName}";
             Id = 0;
             MakeDirty();
             MakeCopyImpl();
@@ -131,21 +131,21 @@ namespace Realm.Edit.EditorControls
         {
             if (!IsSaveValid(true))
                 return false;
-            Program.MainForm.SetStatusMessage("");
+            Program.MainForm.SetStatusMessage();
 
-            DateTime begin = DateTime.Now;
+            var begin = DateTime.Now;
             Application.DoEvents();
-            Program.MainForm.SetStatusMessage("Beginning save of " + ControlName + " [" + Id + "]");
+            Program.MainForm.SetStatusMessage($"Beginning save of {ControlName} [{Id}]");
 
             Cursor.Current = Cursors.WaitCursor;
             Dirty = !SaveImpl();
 
             if (!Dirty)
             {
-                TimeSpan span = DateTime.Now.Subtract(begin);
-                int totalSeconds = Convert.ToInt32(span.TotalSeconds);
-                Program.Log.InfoFormat("Saving {0} [{1}]: {2} seconds.", ControlName, Id, span.TotalSeconds);
-                Program.MainForm.SetStatusMessage("Completed save of " + ControlName + " [" + Id + "]: " + totalSeconds + " seconds.");
+                var span = DateTime.Now.Subtract(begin);
+                var totalSeconds = Convert.ToInt32(span.TotalSeconds);
+                Program.Log.InfoFormat($"Saving {ControlName} [{Id}]: {span.TotalSeconds} seconds.");
+                Program.MainForm.SetStatusMessage($"Completed save of {ControlName} [{Id}]: {totalSeconds} seconds.");
             }
 
             Copy = false;
@@ -158,7 +158,7 @@ namespace Realm.Edit.EditorControls
             throw new NotImplementedException("Unimplemented SaveImpl()");
         }
 
-        public virtual bool IsSaveValid(bool aGiveFeedback)
+        public virtual bool IsSaveValid(bool giveFeedback)
         {
             throw new NotImplementedException("Unimplemented IsSaveValid()");
         }
@@ -188,10 +188,10 @@ namespace Realm.Edit.EditorControls
             if (Initializing) return;
             
             if (IsSaveValid(true))
-                Program.MainForm.SetStatusMessage("");
+                Program.MainForm.SetStatusMessage();
             
             if (!DoesSaveHaveWarnings())
-                Program.MainForm.SetStatusMessage("");
+                Program.MainForm.SetStatusMessage();
 
             Dirty = true;
         }
@@ -231,21 +231,21 @@ namespace Realm.Edit.EditorControls
         }
 
         //=====================================================================
-        private void InitializeControlImpl(Control aControl)
+        private void InitializeControlImpl(Control control)
         {
             InitializeControl initializerFunction;
 
             // Invoked the initializer function for this type of control
-            var controlType = Type.GetTypeFromHandle(Type.GetTypeHandle(aControl));
+            var controlType = Type.GetTypeFromHandle(Type.GetTypeHandle(control));
             if (ControlInitializers.TryGetValue(controlType, out initializerFunction))
-                initializerFunction(this, aControl);
+                initializerFunction(this, control);
 
             // Initialize children
-            foreach (Control childControl in aControl.Controls)
+            foreach (Control childControl in control.Controls)
                 InitializeControlImpl(childControl);
 
             // Add the on control added event handler
-            aControl.ControlAdded += OnControlAdded;
+            control.ControlAdded += OnControlAdded;
         }
 
         //=====================================================================
@@ -270,73 +270,73 @@ namespace Realm.Edit.EditorControls
         }
 
         //=====================================================================
-        private static void InitializeLinkLabel(BaseEditorControl aOwner, Control aControl)
+        private static void InitializeLinkLabel(BaseEditorControl owner, Control control)
         {
-            aControl.TextChanged += aOwner.MakeDirty;
+            control.TextChanged += owner.MakeDirty;
         }
 
         //=====================================================================
-        private static void InitializeSequenceLinkLabel(BaseEditorControl aOwner, Control aControl)
+        private static void InitializeSequenceLinkLabel(BaseEditorControl owner, Control control)
         {
-            aControl.TextChanged += aOwner.MakeDirty;
+            control.TextChanged += owner.MakeDirty;
         }
 
         //=====================================================================
-        private static void InitializeAuraDataGridView(BaseEditorControl aOwner, Control aControl)
+        private static void InitializeAuraDataGridView(BaseEditorControl owner, Control control)
         {
-            var control = aControl as AuraDataGridView;
-            if (control == null) return;
+            var gridView = control as AuraDataGridView;
+            if (gridView == null) return;
 
-            control.CellValueChanged += aOwner.MakeDirty;
-            control.UserDeletedRow += aOwner.MakeDirty;
-            control.UserAddedRow += aOwner.MakeDirty;
-            control.RowsAdded += aOwner.MakeDirty;
-            control.RowsRemoved += aOwner.MakeDirty;
+            gridView.CellValueChanged += owner.MakeDirty;
+            gridView.UserDeletedRow += owner.MakeDirty;
+            gridView.UserAddedRow += owner.MakeDirty;
+            gridView.RowsAdded += owner.MakeDirty;
+            gridView.RowsRemoved += owner.MakeDirty;
         }
 
         //=====================================================================
-        private static void InitializeCheckBox(BaseEditorControl aOwner, Control aControl)
+        private static void InitializeCheckBox(BaseEditorControl owner, Control control)
         {
-            var control = aControl as CheckBox;
-            if (control == null) return;
+            var checkBox = control as CheckBox;
+            if (checkBox == null) return;
 
-            control.CheckedChanged += aOwner.MakeDirty;
-            control.CheckStateChanged += aOwner.MakeDirty;
+            checkBox.CheckedChanged += owner.MakeDirty;
+            checkBox.CheckStateChanged += owner.MakeDirty;
         }
 
         //=====================================================================
-        private static void InitializeCheckedListBox(BaseEditorControl aOwner, Control aControl)
+        private static void InitializeCheckedListBox(BaseEditorControl owner, Control control)
         {
-            var control = aControl as CheckedListBox;
-            if (control == null) return;
+            var listBox = control as CheckedListBox;
+            if (listBox == null) return;
 
-            control.ItemCheck += aOwner.MakeDirty;
+            listBox.ItemCheck += owner.MakeDirty;
 
             // These two events are work arounds for the lack of event after an item has
             // been checked in an item checkbox; in the validate caused by makeDirty, the
             // value of the CheckedItems member is outdated, and so the result of validation
             // is wrong.  This causes validation to occur after the item check event whenever
             // something could have changed the check state
-            control.MouseUp += aOwner.ReValidate;
-            control.KeyUp += aOwner.ReValidate;
+            listBox.MouseUp += owner.ReValidate;
+            listBox.KeyUp += owner.ReValidate;
         }
 
         //=====================================================================
-        private static void InitializeComboBox(BaseEditorControl aOwner, Control aControl)
+        private static void InitializeComboBox(BaseEditorControl owner, Control control)
         {
-            var control = aControl as ComboBox;
-            if (control == null) return;
+            var comboBox = control as ComboBox;
+            if (comboBox == null) return;
 
-            control.SelectedIndexChanged += aOwner.MakeDirty;
-            control.SelectedValueChanged += aOwner.MakeDirty;
-            control.ValueMemberChanged += aOwner.MakeDirty;
+            comboBox.SelectedIndexChanged += owner.MakeDirty;
+            comboBox.SelectedValueChanged += owner.MakeDirty;
+            comboBox.ValueMemberChanged += owner.MakeDirty;
         }
 
         //=====================================================================
-        private static void InitializeNumericUpDown(BaseEditorControl aOwner, Control aControl)
+        private static void InitializeNumericUpDown(BaseEditorControl owner, Control control)
         {
-            var control = aControl as NumericUpDown;
-            if (control == null) return;
+            var numeric = control as NumericUpDown;
+            if (numeric == null) return;
 
             // This is a hack :(
             // the NumericUpDownCell class has an actual NumericUpDown control internally that it uses
@@ -346,49 +346,49 @@ namespace Realm.Edit.EditorControls
             // parent is an DataGridView derived class
             var system = Assembly.GetAssembly(typeof(Form));
             var dataGridView = system.GetType("System.Windows.Forms.DataGridView");
-            var parentType = control.Parent.GetType();
+            var parentType = numeric.Parent.GetType();
             if (parentType.IsSubclassOf(dataGridView))
                 return;
 
             // We have filtered out numeric up down controls we don't care about
             // perform normal initialization now
-            control.ValueChanged += aOwner.MakeDirty;
+            numeric.ValueChanged += owner.MakeDirty;
         }
 
         //=====================================================================
-        private static void InitializePropertyGrid(BaseEditorControl aOwner, Control aControl)
+        private static void InitializePropertyGrid(BaseEditorControl owner, Control control)
         {
-            var control = aControl as PropertyGrid;
-            if (control == null) return;
+            var grid = control as PropertyGrid;
+            if (grid == null) return;
 
-            control.PropertyValueChanged += aOwner.MakeDirty;
+            grid.PropertyValueChanged += owner.MakeDirty;
         }
 
         //=====================================================================
-        private static void InitializeRadioButton(BaseEditorControl aOwner, Control aControl)
+        private static void InitializeRadioButton(BaseEditorControl owner, Control control)
         {
-            var control = aControl as RadioButton;
-            if (control == null) return;
+            var button = control as RadioButton;
+            if (button == null) return;
 
-            control.CheckedChanged += aOwner.MakeDirty;
+            button.CheckedChanged += owner.MakeDirty;
         }
 
         //=====================================================================
-        private static void InitializeTextBox(BaseEditorControl aOwner, Control aControl)
+        private static void InitializeTextBox(BaseEditorControl owner, Control control)
         {
-            aControl.TextChanged += aOwner.MakeDirty;
+            control.TextChanged += owner.MakeDirty;
         }
 
         //=====================================================================
-        public static int SetContentLinkId(DataRowView aRow, string aCol, LinkLabel aLinkLabel)
+        public static int SetContentLinkId(DataRowView row, string column, LinkLabel linkLabel)
         {
-            var browseInfo = aLinkLabel.Tag as EditorBrowseInfo;
+            var browseInfo = linkLabel.Tag as EditorBrowseInfo;
             if (browseInfo != null && browseInfo.Id > 0)
             {
-                aRow[aCol] = browseInfo.Id;
+                row[column] = browseInfo.Id;
                 return browseInfo.Id;
             }
-            aRow[aCol] = DBNull.Value;
+            row[column] = DBNull.Value;
             return 0;
         }
     }

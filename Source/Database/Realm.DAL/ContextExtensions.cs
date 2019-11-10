@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using Ninject.Infrastructure.Language;
+using Realm.DAL.Common;
 using Realm.DAL.Enumerations;
 
 namespace Realm.DAL

@@ -21,10 +21,10 @@ namespace Realm.Edit
             return false;
         }
 
-        public static void SetTooltip(this Control aControl, string value, bool autoWrap)
+        public static void SetTooltip(this Control control, string value, bool autoWrap)
         {
             var tt = new ToolTip();
-            tt.SetToolTip(aControl, autoWrap ? AutoWrapString(value) : value);
+            tt.SetToolTip(control, autoWrap ? AutoWrapString(value) : value);
         }
 
         private static string AutoWrapString(string msgText)

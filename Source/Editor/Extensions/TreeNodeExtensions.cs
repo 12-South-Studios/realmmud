@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Ninject;
 using Realm.DAL;
+using Realm.DAL.Common;
 using Realm.DAL.Enumerations;
 using Realm.Edit.Builders;
 using Realm.Edit.Editor;
@@ -43,7 +44,7 @@ namespace Realm.Edit.Extensions
             foreach (var c in classList)
             {
                 var node = value.Nodes.Add("class_" + c.Id, c.Name);
-                node.Tag = new EditorBrowseInfo((short)builder.SystemType, c.Name, c.Id, 0);
+                node.Tag = new EditorBrowseInfo(builder.SystemType, c.Name, c.Id, 0);
                 node.ImageKey = Resources.ClosedFolderImageKey;
                 node.ContextMenuStrip = Program.MainForm.BrowseFolder;
 
@@ -88,14 +89,14 @@ namespace Realm.Edit.Extensions
 
             var nextIndex = value.Index;
 
-            var builder = EditorFactory.Builders[(SystemTypes)browseInfo.SystemType];
+            var builder = EditorFactory.Builders[browseInfo.SystemType];
             if (builder == null) return;
             builder.Delete(browseInfo.Id);
 
             var parentNode = Program.MainForm.BrowseTree.SelectedNode.Parent;
             parentNode.SetupBrowseTree(builder, true, filter.Trim());
 
-            var page = Program.MainForm.FindTab((SystemTypes)browseInfo.SystemType, browseInfo.Id);
+            var page = Program.MainForm.FindTab(browseInfo.SystemType, browseInfo.Id);
             if (page != null)
                 Program.MainForm.CloseTab(page, false);
 

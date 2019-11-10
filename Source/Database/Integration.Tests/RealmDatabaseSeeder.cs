@@ -3,6 +3,7 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using Ninject;
 using Realm.DAL;
+using Realm.DAL.Common;
 using Realm.DAL.Enumerations;
 using Realm.DAL.Models;
 

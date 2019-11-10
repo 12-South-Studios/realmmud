@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
+using Realm.DAL.Common;
 using Realm.DAL.Enumerations;
 using Realm.Edit.Editor;
 using Realm.Library.Common;
@@ -21,7 +22,7 @@ namespace Realm.Edit.Extensions
             }
             else
             {
-                value.Tag = new EditorBrowseInfo((short)systemType, string.Empty, 0, 0);
+                value.Tag = new EditorBrowseInfo(systemType, string.Empty, 0, 0);
                 value.Text = string.Empty;
             }
         }

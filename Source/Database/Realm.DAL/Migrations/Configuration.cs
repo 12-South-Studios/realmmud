@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
+using Realm.DAL.Common;
 using Realm.DAL.Enumerations;
 using Realm.DAL.Models;
 

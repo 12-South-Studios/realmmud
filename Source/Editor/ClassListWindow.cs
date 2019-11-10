@@ -41,7 +41,7 @@ namespace Realm.Edit
 
         private void BuildSystemClassNode(TreeNode parentNode, int selectedClassId, int? parentClassId)
         {
-            IRealmDbContext dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
+            var dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
             var classList = parentClassId == null
                 ? dbContext.SystemClasses.Where(x => x.ParentClassId == null)
                 : dbContext.SystemClasses.Where(x => x.ParentClassId == parentClassId.Value);
@@ -58,7 +58,7 @@ namespace Realm.Edit
 
         private void TrvClassesNodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            IRealmDbContext dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
+            var dbContext = Program.NinjectKernel.Get<IRealmDbContext>();
             var sourceClass = dbContext.GetSystemClass(_selectedClassId);
             var destClass = dbContext.GetSystemClass((int)e.Node.Tag);
             if (sourceClass == null || destClass == null)
@@ -91,7 +91,7 @@ namespace Realm.Edit
             }
             catch (Exception)
             {
-                string msg = Resources.ERR_CLASS_MOVE_FAILURE
+                var msg = Resources.ERR_CLASS_MOVE_FAILURE
                         .Replace("{0}", sourceClass.ClassId.ToString())
                         .Replace("{1}", destClass.ClassId.ToString());
 

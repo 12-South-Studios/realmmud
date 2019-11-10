@@ -1,4 +1,4 @@
-﻿namespace Realm.DAL.Enumerations
+﻿namespace Realm.DAL.Common
 {
     public enum SystemTypes
     {
