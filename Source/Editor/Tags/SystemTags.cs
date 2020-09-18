@@ -50,14 +50,14 @@ namespace Realm.Edit.Tags
 
         public static SystemTag GetTag(string setName, string tagName)
         {
-            var tagSet = GetTagSet(aSetName);
-            return tagSet?.GetTag(aTagName);
+            var tagSet = GetTagSet(setName);
+            return tagSet?.GetTag(tagName);
         }
 
         public static SystemTag GetTag(string setName, int tagId)
         {
-            var tagSet = GetTagSet(aSetName);
-            return tagSet?.GetTag(aTagId);
+            var tagSet = GetTagSet(setName);
+            return tagSet?.GetTag(tagId);
         }
 
         public static IEnumerable<SystemTagSet> TagSetValues => TagSets.Values;

@@ -43,7 +43,6 @@ namespace Realm.Edit.CustomControls
         public bool AllowRowDeletion { get; set; }
 
         public ICollection<DataGridViewRow> DeletedRows { get; }
-        #endregion
 
         public static string DefaultRowValidate(DataGridViewRow row)
         {

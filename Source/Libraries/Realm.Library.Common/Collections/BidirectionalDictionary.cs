@@ -60,8 +60,8 @@ namespace Realm.Library.Common.Collections
                 Backward[second] = firstList;
             }
 
-            Forward[first] = secondList.Append(second);
-            Backward[second] = firstList.Append(first);
+            Forward[first] = EnumerableExtensions.Append(secondList, second);
+            Backward[second] = EnumerableExtensions.Append(firstList, first);
         }
 
         /// <summary>

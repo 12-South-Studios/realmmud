@@ -1,3 +1,5 @@
+using Realm.DAL.Common;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -41,10 +43,10 @@ namespace Realm.Library.Controls.DataGridViewControls
         /// </summary>
         public SystemTypes SystemType
         {
-            get { return _systemType; }
+            get { return (SystemTypes)Enum.Parse(typeof(SystemTypes), _systemType.ToString()); }
             set
             {
-                _systemType = value;
+                _systemType = (short)value;
 
                 DataGridView?.Refresh();
 
@@ -99,7 +101,7 @@ namespace Realm.Library.Controls.DataGridViewControls
         {
             var clone = (DataGridViewTypedLinkCell)base.Clone();
             clone._icon = Icon;
-            clone._systemType = SystemType;
+            clone._systemType = (short)SystemType;
             return clone;
         }
 

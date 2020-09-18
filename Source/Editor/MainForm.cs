@@ -15,6 +15,7 @@ using Realm.Edit.EditorControls;
 using Realm.Edit.Extensions;
 using Realm.Edit.Properties;
 using Realm.Edit.Tags;
+using Realm.Library.Common.Extensions;
 using Color = System.Drawing.Color;
 
 namespace Realm.Edit
@@ -148,12 +149,12 @@ namespace Realm.Edit
                 tabContent.SelectedTab = page;
             else
             {
-                var builder = EditorFactory.Builders[EnumerationExtensions.GetEnum<SystemTypes>(browseInfo.SystemType)];
+                var builder = EditorFactory.Builders[EnumerationExtensions.GetEnum<SystemTypes>((int)browseInfo.SystemType)];
                 if (!builder.HasEditor()) return;
 
                 // Create a new edit control based on the selected node 
                 var editControl =
-                    EditorFactory.Create(EnumerationExtensions.GetEnum<SystemTypes>(browseInfo.SystemType),
+                    EditorFactory.Create(EnumerationExtensions.GetEnum<SystemTypes>((int)browseInfo.SystemType),
                         browseInfo.ClassId);
 
                 // Initialize the new control with the content that was dclicked
