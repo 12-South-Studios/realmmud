@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Realm.Library.Common.Serializers
@@ -15,6 +16,7 @@ namespace Realm.Library.Common.Serializers
         /// <typeparam name="T"></typeparam>
         /// <param name="bytes"></param>
         /// <returns></returns>
+        [Obsolete("BinaryFormatter is removed/disabled on .NET 9+ and always throws at runtime there. Do not use for new code; existing callers should migrate to a different serializer.")]
         public static T FromBinary<T>(this byte[] bytes) where T : class
         {
             Validation.IsNotNull(bytes, "bytes");
@@ -33,6 +35,7 @@ namespace Realm.Library.Common.Serializers
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
         /// <returns></returns>
+        [Obsolete("BinaryFormatter is removed/disabled on .NET 9+ and always throws at runtime there. Do not use for new code; existing callers should migrate to a different serializer.")]
         public static byte[] ToBinary<T>(this T obj) where T : class
         {
             Validation.IsNotNull(obj, "obj");

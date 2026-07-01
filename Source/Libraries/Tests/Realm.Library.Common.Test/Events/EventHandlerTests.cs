@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Management.Instrumentation;
 using System.Threading;
 using FakeItEasy;
 using FluentAssertions;
 using Realm.Library.Common.Events;
+using Realm.Library.Common.Exceptions;
 using Realm.Library.Common.Logging;
 using Xunit;
 using EventHandler = Realm.Library.Common.Events.EventHandler;

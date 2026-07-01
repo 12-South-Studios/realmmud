@@ -2,7 +2,6 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Management.Instrumentation;
 using System.Timers;
 using Ninject;
 using Realm.Library.Common.Exceptions;

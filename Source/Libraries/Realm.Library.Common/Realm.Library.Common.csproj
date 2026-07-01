@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Realm.Library.Common</RootNamespace>
     <AssemblyName>Realm.Library.Common</AssemblyName>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -29,19 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Runtime.Caching" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.XML" />
-    <Reference Include="System.Runtime" />
-    <Reference Include="System.Globalization" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Realm.Standard.Patterns.Repository\Realm.Standard.Patterns.Repository.csproj" />
     <ProjectReference Include="..\Realm.Standard.Patterns.Singleton\Realm.Standard.Patterns.Singleton.csproj" />
   </ItemGroup>
@@ -49,6 +36,7 @@
   <ItemGroup>
     <PackageReference Include="log4net" Version="3.3.2" />
     <PackageReference Include="Ninject" Version="3.3.6" />
+    <PackageReference Include="System.Runtime.Caching" Version="10.0.9" />
   </ItemGroup>
 
 </Project>
