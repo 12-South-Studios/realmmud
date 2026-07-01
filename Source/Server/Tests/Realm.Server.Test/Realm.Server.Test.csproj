@@ -204,10 +204,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Castle.Core">
-      <Version>4.4.1</Version>
+      <Version>5.2.1</Version>
     </PackageReference>
     <PackageReference Include="FakeItEasy">
-      <Version>7.0.2</Version>
+      <Version>9.0.1</Version>
     </PackageReference>
     <PackageReference Include="FluentAssertions">
       <Version>5.10.3</Version>
@@ -225,10 +225,10 @@
       <Version>1.0.4213.34901</Version>
     </PackageReference>
     <PackageReference Include="xunit">
-      <Version>2.4.1</Version>
+      <Version>2.9.3</Version>
     </PackageReference>
     <PackageReference Include="xunit.runner.visualstudio">
-      <Version>2.4.3</Version>
+      <Version>3.1.5</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

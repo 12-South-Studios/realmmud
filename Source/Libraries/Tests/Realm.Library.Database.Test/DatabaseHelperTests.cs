@@ -210,7 +210,7 @@ namespace Realm.Library.Database.Test
 
             var command = A.Fake<IDbCommand>();
             A.CallToSet(() => command.Connection).DoesNothing();
-            A.CallTo(() => command.ExecuteReader()).Throws(MakeSqlException());
+            A.CallTo(() => command.ExecuteReader()).Returns(reader);
 
             var connection = A.Fake<IDbConnection>();
             A.CallTo(() => connection.CreateCommand()).Returns(command);

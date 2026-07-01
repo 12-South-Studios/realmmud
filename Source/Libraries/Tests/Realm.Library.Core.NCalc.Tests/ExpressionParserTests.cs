@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using FluentAssertions;
-using NCalc;
+using NCalc.Handlers;
 using Xunit;
 
 namespace Realm.Library.Core.NCalc.Tests
@@ -62,12 +62,12 @@ namespace Realm.Library.Core.NCalc.Tests
             parser.Execute(expression).Should().Be(expected);
         }
 
-        private static int RollFunction(FunctionArgs args)
+        private static int RollFunction(FunctionEventArgs args)
         {
             var t = DateTime.UtcNow - new DateTime(1970, 1, 1);
             var random = new Random(Convert.ToInt32(t.TotalSeconds));
 
-            return random.Next((int)args.Parameters[0].Evaluate(), (int)args.Parameters[1].Evaluate());
+            return random.Next((int)args.Parameters.Evaluate(0), (int)args.Parameters.Evaluate(1));
         }
 
         private static string ReplaceRollCall(Match regexMatch)
@@ -100,7 +100,7 @@ namespace Realm.Library.Core.NCalc.Tests
             result.Should().BeLessOrEqualTo(maxExpected);
         }
 
-        private static int NumberFunction(FunctionArgs args)
+        private static int NumberFunction(FunctionEventArgs args)
         {
             return 18;
         }

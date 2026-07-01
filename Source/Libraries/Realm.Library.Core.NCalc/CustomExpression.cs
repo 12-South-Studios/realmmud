@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using NCalc;
+using NCalc.Handlers;
 
 namespace Realm.Library.Core.NCalc
 {
@@ -9,7 +9,7 @@ namespace Realm.Library.Core.NCalc
         public string Name { get; set; }
         public string RegexPattern { get; set; }
         public Regex Regex => new Regex(RegexPattern);
-        public Func<FunctionArgs, int> ExpressionFunction { get; set; }
+        public Func<FunctionEventArgs, int> ExpressionFunction { get; set; }
         public Func<Match, string> ReplacementFunction { get; set; }
     }
 }

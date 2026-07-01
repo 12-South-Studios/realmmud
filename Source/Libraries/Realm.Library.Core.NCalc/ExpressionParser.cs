@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using NCalc;
+using NCalc.Handlers;
 
 namespace Realm.Library.Core.NCalc
 {
@@ -31,7 +32,7 @@ namespace Realm.Library.Core.NCalc
             return outResult;
         }
 
-        private void OnExpOnEvaluateFunction(string name, FunctionArgs args)
+        private void OnExpOnEvaluateFunction(string name, FunctionEventArgs args)
         {
             var customExpr = _expressionTable?.Get(name);
             if (customExpr?.ExpressionFunction != null)

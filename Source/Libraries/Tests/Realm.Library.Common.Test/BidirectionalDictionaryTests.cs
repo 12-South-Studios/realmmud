@@ -33,7 +33,7 @@ namespace Realm.Library.Common.Fact
         }
 
         [Theory]
-        [InlineData("SecondValue", "FirstLookupValue", true)]
+        [InlineData("FirstLookupValue", "FirstValue", true)]
         [InlineData("SecondLookupValue", "FirstLookupValue", false)]
         public void GetBySecondFact(string secondValue, string firstValue, bool expectedResult)
         {

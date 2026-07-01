@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using FluentAssertions;
-using NCalc;
+using NCalc.Handlers;
 using Xunit;
 
 namespace Realm.Library.Core.NCalc.Tests
 {
     public class ExpressionTableTests
     {
-        private static int FakeFunc(FunctionArgs args)
+        private static int FakeFunc(FunctionEventArgs args)
         {
             return 0;
         }
